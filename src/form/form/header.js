@@ -1,19 +1,99 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./css/custom.css";
 import "./css/iofrm-style.css";
 import "../form/header.css";
-import logo from "../../assets/images/logo.png";
-import { Link } from "react-router-dom";
+import logo from '../../assets/images/logo.png';
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import LoginSession from "./LoginSession";
-// const Automobile = [
-//     {
-//         path : 
-//     }
-// ]
+import { localStorage } from "../../functions/Local";
+import { VerifyOtp } from "../../functions/VerifyOtp";
+import { UpdateApi } from "../../functions/UpdateApi";
+import { GoogleLogout } from "react-google-login";
+import RemoveCookie from "../../hooks/removeCookies";
+import { useCookies } from "react-cookie";
+import { gapi } from "gapi-script";
 
+import Cookies from 'universal-cookie';
 
 const Header = () => {
+    const [LocalData, setLocalData] = useState("")
+    // const Cooky = useCookies()
+
+    const cookies = new Cookies();
+    console.log(cookies, 'new')
+    // cookies.set('myCat',  { path: '/' });
+    // console.log(cookies.get('myCat')); 
+    let cooky = document.cookie.split(";")
+    const [show, setShow] = useState('');
+    const [loginStatus, setLoginStatus] = useState(false);
+    const profileName = localStorage('token');
+    console.log(localStorage('token'))
+    const nav = useNavigate();
+    const sellLog = () => {
+        // console.log('work ')
+        if (profileName === null) {
+            // console.log('work1 ')
+            nav('/login')
+        } else {
+            // console.log('work 2')
+            nav('/sell')
+        }
+    }
+    const Logout = () => {
+        window.localStorage.removeItem('token');
+        document.cookie = "Google.com=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        RemoveCookie(cooky)
+        // setLoginStatus(false);
+        nav("/login")
+
+    };
+    console.log(cooky, 'hello')
+    const [Upstate, setUpstate] = useState(0)
+    let id;
+    const Update = async () => {
+        console.log(Upstate, 'count')
+        id = JSON.parse(profileName).token
+        await UpdateApi(id).then((res) => {
+            console.log(res);
+            // setShow()
+            console.log(res.status.data[0].profileImg);
+            if (res.status) {
+                window.localStorage.setItem(
+                    'token',
+                    JSON.stringify({
+                        'token': res.status.data[0]._id,
+                        'profileName': res.status.data[0].name,
+                        'profileImg': res.status.profileImg,
+                        'email': res.status.data[0].email,
+                        'profileImg': res.status.data[0].profileImg,
+                        'name': res.status.data[0].name,
+                    })
+                )
+                // console.log(LocalData)
+            } else {
+
+                // console.log(res)
+            }
+        })
+    }
+    // console.log(profileImg);   
+    useEffect(() => {
+        setLocalData(JSON.parse(profileName));
+        (id !== null) && Update()
+        setUpstate(Upstate + 1)
+        console.log(LocalData, 'first')
+    }, [0]);
+    useEffect(() => {
+        setTimeout(() => {
+            setLocalData(JSON.parse(profileName));
+            Update()
+            console.log('hi')
+        }, 1000)
+        console.log(LocalData, 'second')
+        console.log('sevcond')
+    }, [Upstate])
+
+
 
     return (
         <>
@@ -24,7 +104,7 @@ const Header = () => {
                         <i className="fas fa-bars"></i>
                     </button>
                     <div className="logo">
-                        <a className="navbar-brand" href="<?php echo $server_name;?>">
+                        <a className="navbar-brand" href="">
                             <img src={logo} alt="logo" /></a>
                     </div>
 
@@ -34,7 +114,7 @@ const Header = () => {
                             <div className="setmnu">
                                 <ul className="navbar-nav menu">
                                     <li className="nav-item aa">
-                                        <Link to="/home" className="nav-link active" aria-current="page">HOME</Link>
+                                        <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
                                     </li>
                                     <li className="nav-item aa">
                                         <Link to="/product" className="nav-link">PRODUCT</Link>
@@ -48,6 +128,9 @@ const Header = () => {
                                     <li className="nav-item aa">
                                         <Link to="/faq" className="nav-link">F.A.Q</Link>
                                     </li>
+                                    <li className="nav-item aa">
+                                        <Link to="" className="nav-link">SHOP</Link>
+                                    </li>
                                     <li className=" nav-item aa mob-login">
                                     </li>
                                 </ul>
@@ -58,7 +141,7 @@ const Header = () => {
                             </form>
                             <div className="row p-0 m-0 mob-cen">
                                 <div className="col-12 mainbutton">
-                                    <Link to="/sell" className="btn btn-primary"> + SELL</Link>
+                                    <button className="btn btn-primary" onClick={sellLog}> + SELL</button>
                                 </div>
                             </div>
 
@@ -92,25 +175,25 @@ const Header = () => {
                                     <div className="drop-down">
                                         Automobiles
                                         <ul className="dropdown-category dropdown-category-bikes">
-                                            <li><Link to="/bike" className="dropdown_sub-category ">Bikes</Link></li>
-                                            <li><Link to="/car" className="dropdown_sub-category ">Cars</Link></li>
-                                            <li><Link to="/scooty" className="dropdown_sub-category" >Scooty</Link></li>
-                                            <li><Link to="/heavyVehicle" className="dropdown_sub-category">Heavy Vehicle</Link></li>
-                                            <li><Link to="/spareParts" className="dropdown_sub-category">Spare Parts</Link></li>
-                                            <li><Link to="/others" className="dropdown_sub-category">Others</Link></li>
+                                            <li className="bghover"><Link to="/bike" className="dropdown_sub-category ">Bikes</Link></li>
+                                            <li className="bghover"><Link to="/car" className="dropdown_sub-category ">Cars</Link></li>
+                                            <li className="bghover"><Link to="/scooty" className="dropdown_sub-category" >Scooty</Link></li>
+                                            <li className="bghover"><Link to="/heavyVehicle" className="dropdown_sub-category">Heavy Vehicle</Link></li>
+                                            <li className="bghover"><Link to="/spareParts" className="dropdown_sub-category">Spare Parts</Link></li>
+                                            <li className="bghover"><Link to="/others" className="dropdown_sub-category">Others</Link></li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div className="disp">
                                     <div className="drop-down">
-                                        Laptop&Mobiles
+                                        Laptop&nbsp;&&nbsp;Mobiles
                                         <ul className="dropdown-category ">
-                                            <li>Mobile Phones</li>
-                                            <li>Tablets</li>
-                                            <li>Laptops</li>
-                                            <li>Computers</li>
-                                            <li>Accessories</li>
+                                            <li className="bghover">Mobile Phones</li>
+                                            <li className="bghover">Tablets</li>
+                                            <li className="bghover">Laptops</li>
+                                            <li className="bghover">Computers</li>
+                                            <li className="bghover">Accessories</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -119,24 +202,24 @@ const Header = () => {
                                     <div className="drop-down">
                                         Furniture
                                         <ul className="dropdown-category">
-                                            <li>Home Decoration</li>
-                                            <li>Sofa & Beds</li>
-                                            <li>Chairs & Tables</li>
-                                            <li>Kids Furniture</li>
-                                            <li>Others</li>
+                                            <li className="bghover">Home Decoration</li>
+                                            <li className="bghover">Sofa & Beds</li>
+                                            <li className="bghover">Chairs & Tables</li>
+                                            <li className="bghover">Kids Furniture</li>
+                                            <li className="bghover">Others</li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div className="disp">
                                     <div className="drop-down">
-                                        Fashion&Clothes
+                                        Fashion&nbsp;&&nbsp;Clothes
                                         <ul className="dropdown-category">
-                                            <li>Men</li>
-                                            <li>Women</li>
-                                            <li>Kids</li>
-                                            <li>Fashion & Beauty Products</li>
-                                            <li>Others</li>
+                                            <li className="bghover">Men</li>
+                                            <li className="bghover">Women</li>
+                                            <li className="bghover">Kids</li>
+                                            <li className="bghover">Fashion & Beauty Products</li>
+                                            <li className="bghover">Others</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -145,11 +228,11 @@ const Header = () => {
                                     <div className="drop-down">
                                         Services
                                         <ul className="dropdown-category">
-                                            <li>Educations & classes</li>
-                                            <li>Electronics & Computers</li>
-                                            <li>Accountancy Services</li>
-                                            <li>Software Services</li>
-                                            <li>Other Services</li>
+                                            <li className="bghover">Educations & classes</li>
+                                            <li className="bghover">Electronics & Computers</li>
+                                            <li className="bghover">Accountancy Services</li>
+                                            <li className="bghover">Software Services</li>
+                                            <li className="bghover">Other Services</li>
                                         </ul>
                                     </div></div>
 
@@ -157,71 +240,120 @@ const Header = () => {
                                     <div className="drop-down">
                                         Properties
                                         <ul className="dropdown-category">
-                                            <li>For Rent</li>
-                                            <li>For Sale</li>
-                                            <li>Land & Plots</li>
+                                            <li className="bghover">For Rent</li>
+                                            <li className="bghover">For Sale</li>
+                                            <li className="bghover">Land & Plots</li>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div className="disp">
                                     <div className="drop-down">
-                                        Books&Sports
+                                        Books&nbsp;&&nbsp;Sports
                                         <ul className="dropdown-category">
-                                            <li>Books</li>
-                                            <li>Gym</li>
-                                            <li>Musical Instruments</li>
-                                            <li>Sports Items</li>
-                                            <li>Others</li>
+                                            <li className="bghover">Books</li>
+                                            <li className="bghover">Gym</li>
+                                            <li className="bghover">Musical Instruments</li>
+                                            <li className="bghover">Sports Items</li>
+                                            <li className="bghover">Others</li>
                                         </ul>
                                     </div></div>
 
 
                                 <div className="col-2 disp">
                                     <div className="drop-down">
-                                        Electronics&Appliances
+                                        Electronics&nbsp;&&nbsp;Appliances
                                         <ul className="dropdown-category catagry-color">
-                                            <li><Link to="/fridge">Fridge</Link></li>
-                                            <li><Link to="/cooler">Cooler</Link></li>
-                                            <li><Link to="/ac">A/C</Link></li>
-                                            <li><Link to="/tv">Television & Led</Link></li>
-                                            <li><Link to="/washingmachine">Washing Machine</Link></li>
-                                            <li><Link to="/printer">Hard Disks, Printer & Monitor</Link></li>
-                                            <li><Link to="/games">Games</Link></li>
-                                            <li><Link to="/speakers">Speakers</Link></li>
-                                            <li><Link to="/camera">Cameras & Lens</Link></li>
-                                            <li><Link to="/kitchen">Kitchen & Others</Link></li>
-                                            <li><Link to="/computer">Computers Accessories</Link></li>
-                                            <li><Link to="/air">Air Purifiers</Link></li>
-                                            <li><Link to="/water">Water Purifiers</Link></li>
-                                            <li><Link to="/other">Other Items</Link></li>
+                                            <li className="bghover"><Link to="/fridge">Fridge</Link></li>
+                                            <li className="bghover"><Link to="/cooler">Cooler</Link></li>
+                                            <li className="bghover"><Link to="/ac">A/C</Link></li>
+                                            <li className="bghover"><Link to="/tv">Television & Led</Link></li>
+                                            <li className="bghover"><Link to="/washingmachine">Washing Machine</Link></li>
+                                            <li className="bghover"><Link to="/printer">Hard Disks, Printer & Monitor</Link></li>
+                                            <li className="bghover"><Link to="/games">Games</Link></li>
+                                            <li className="bghover"><Link to="/speakers">Speakers</Link></li>
+                                            <li className="bghover"><Link to="/camera">Cameras & Lens</Link></li>
+                                            <li className="bghover"><Link to="/kitchen">Kitchen & Others</Link></li>
+                                            <li className="bghover"><Link to="/computer">Computers Accessories</Link></li>
+                                            <li className="bghover"><Link to="/air">Air Purifiers</Link></li>
+                                            <li className="bghover"><Link to="/water">Water Purifiers</Link></li>
+                                            <li className="bghover"><Link to="/other">Other Items</Link></li>
                                         </ul>
                                     </div>
 
                                     {/* <!-- end --> */}
                                 </div>
-                                {/* <!-- <div className="disp"><a href="#"></a></div> --> */}
-                                {/* <div className="disp"><Link to="/login" className="active">Login</Link></div> */}
-                                {/* <div className="page-links"> */}
-                                <FontAwesomeIcon icon="fas-solid fa-right-from-bracket"></FontAwesomeIcon>
-                                <button class="btn btn-secondary dropdown btn-d" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Logout
-                                    <div class="text-capitalize ancor-container">
-                                        {/* <div class="profile-icon"><img src=<?php if($_SESSION['user_image']!=null){ if (file_exists("image/profile-image/".$_SESSION['user_image'])) {echo "image/profile-image/".$_SESSION['user_image'];}else{ echo $_SESSION['user_image']; }}else{echo "image/testo/1.png";}  ?>></div>
-                    <span><?php echo $_SESSION['username']; ?></span>
-                </a>
-                </div> */}
-                                    </div>
-                                </button>
-                                <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+
+                                <img src={LocalData?.profileImg} style={{ width: '3%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+
+                                {
+                                    (profileName) ?
+                                        <button class="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {(LocalData == null)
+                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
+                                            }
+
+                                        </button>
+                                        :
+
+                                        <Link to="/login" class="secondary dropdown btn-dProfile">
+                                            {(LocalData == null)
+                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
+                                            }
+                                        </Link>
+
+
+
+                                }
+
+
+
+                                <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                     <li><Link to="/profile" class="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
 
-                                    <li><a class="dropdown-item" href="membership.php"> <FontAwesomeIcon icon="fas fa-landmark"></FontAwesomeIcon>&nbsp;&nbsp;Membership</a></li>
+                                    {/* <li><a class="dropdown-item" href="membership.php"> <FontAwesomeIcon icon="fas fa-landmark"></FontAwesomeIcon>&nbsp;&nbsp;Membership</a></li> */}
 
-                                    <li><a class="dropdown-item" href="posted-items.php?user_id=<?php echo $_SESSION['user_id'];?>"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Posted Items</a></li>
+                                    <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Posted Items</Link></li>
 
-                                    <li><a class="dropdown-item" href="form/logout.php"><FontAwesomeIcon icon="fas fa-sign-out-alt"></FontAwesomeIcon>&nbsp;&nbsp;Logout</a></li>
-                                    {/* <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> --> */}
+                                    <li>
+                                    <FontAwesomeIcon icon="fas fa-sign-out-alt" />
+                                        <GoogleLogout
+                                            clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                            buttonText="Logout"
+                                            onLogoutSuccess={() => {
+                                                window.localStorage.removeItem('token');
+                                                nav("/login")
+                                            }}
+                                            icon={false}
+                                            className='setGoogleLog'
+                                        />
+                                        
+                                    </li>
+
+                                    {/* <div className=" d-flex justify-content-center align-items-center px-3 text-light fs-7">
+                                        <FontAwesomeIcon icon="fas fa-sign-out-alt" /><GoogleLogout
+                                            clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                            buttonText="Logout"
+                                            onLogoutSuccess={ButtonLogout}
+                                            icon={false}
+                                            className='setGoogleLog'
+                                        />
+                                    </div> */}
+                                    {/* {loginStatus && (
+
+                                            <GoogleLogout
+                                                clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                                buttonText="Logout"
+                                                onLogoutSuccess={Logout}
+
+
+                                            />
+
+                                    )} */}
                                 </ul>
+
+
+
                                 <div className="col-3 desk-login">
                                 </div>
 

@@ -5,6 +5,7 @@ import "../form/header.css";
 import Footer from "./Footer";
 import Header from "./header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from 'react-router-dom';
 
 const Products = () => {
     return(
@@ -19,7 +20,7 @@ const Products = () => {
         <div className="container-1">
             <div className="row">
                     <div className="col-md-4 col-6 col-lg-3">
-                        <a href="single-product.php?pdt_id=<?php echo $value['pdt_id']; ?>&main_category=<?php echo $value['main_category'] ?>" className="ancher">
+                        <Link to ='/shop'>
                             <div className="shadow p-3 mb-5 bg-white maindiv">
                                 <div className="img-wh"><img src="" className="pdt-img" /></div>
                                 <div className="pdt-details">
@@ -33,17 +34,17 @@ const Products = () => {
                                     <div className="row p-0 m-0">
                                         <div className="col p-0">
                                             <div className="buy-bt"> 
-                                            <a href="" className="buy-bttn">
+                                            <Link to="/shop" className="buy-bttn">
                                                 <FontAwesomeIcon icon="fa fa-shopping-cart">
                                             </FontAwesomeIcon>
                                             &nbsp;&nbsp;&nbsp;BUY NOW
-                                                </a></div>
+                                                </Link></div>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                     </div>
                 <input type="number" id="total_page_car" value="<?php echo $fetch_data_car['total-pages']; ?>" hidden />
                 <input type="number" id="page_car" value="<?php echo $fetch_data_car['page']; ?>" hidden />

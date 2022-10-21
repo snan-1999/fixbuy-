@@ -5,7 +5,7 @@ import "./css/iofrm-style.css";
 import logo from "../../assets/images/FB-white.png";
 import instagram from "../../assets/images/instagram.png";
 import twitter from "../../assets/images/twitter.png";
-import fb from "../../assets/images/fb.png";
+import facebook from "../../assets/images/facebook.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Divider } from "@react-md/divider";
 import { Link } from "react-router-dom";
@@ -40,7 +40,7 @@ const Footer = () => {
                         </div>
                         <div className="menuu">
                             <ul className="submenuu">
-                                <li><Link to="/home" aria-current="page">HOME</Link></li>
+                                <li><Link to="/" aria-current="page">HOME</Link></li>
                                 <li><Link to="/product">PRODUCTS</Link></li>
                                 <li><Link to="/about">ABOUT US</Link></li>
                                 <li><Link to="/contact">CONTACT US</Link></li>
@@ -68,7 +68,7 @@ const Footer = () => {
                         <div className="social">
                             <a href="https://www.instagram.com/fixebuy.official/"><img src={instagram} /></a>
                             <a href="https://twitter.com/FixebuyOfficial"><img src={twitter} /></a>
-                            <a href="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394"><img src={fb} /></a>
+                            <a href="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394"><img src={facebook} /></a>
                         </div>
                     </div>
                     {/* </div>
@@ -76,7 +76,8 @@ const Footer = () => {
                 </div>
             </div>
             {/* <span class="border border-top-1 "></span> */}
-            <div className="copyright border border-top-1 border-light">
+            
+            <div className="copyright border border-light">
                 <div className="row copyrightt p-0 m-0">
                     <div className="col-md-12 col-12 foocet">@Copyright 2022 - Fixebuy.in </div>
                     {/* <!-- <div className="col-md-6 col-12 mobcopy"> All rights reserved</div>  --> */}

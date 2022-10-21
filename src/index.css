@@ -586,25 +586,7 @@ iframe.whmap {
   padding: 10px 20px;
 }
 
-.post-pr input {
-  text-decoration: none;
-  background: #0999D5;
-  color: white;
-  padding: 10px 20px;
-  font-size: 19px;
-  border: 0 !important;
-}
 
-.post-pr {
-  margin-top: 30px;
-  text-decoration: none;
-  background: #0999D5;
-  width: fit-content;
-  color: white;
-  padding: 10px 20px;
-  font-size: 19px;
-  border-radius: 4px !important;
-}
 
 .container.tab-set {
   margin-top: 100px;
@@ -712,8 +694,8 @@ button#dropdownMenuButton1:hover {
   outline: none;
 }
 
-ul.dropdown-menu.show {
-  background: #0999D5;
+.Menu {
+  background: linear-gradient(var(--color1) , var(--color2));
 }
 /* form main page login  */
 

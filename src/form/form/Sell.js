@@ -5,8 +5,10 @@ import "./css/custom.css";
 import "./css/iofrm-style.css";
 import "../form/header.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sell = () => {
+    // console.log(ElectronicId)
     return (
         <>
             <Header />
@@ -34,122 +36,125 @@ const Sell = () => {
                                 <div className="col-6 setRightBr">
                                     <div className="dropOne">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Electronic & Appliances
+                                            <button type="button" class="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-tv" className="sell-icon"></FontAwesomeIcon> Electronic & Appliances <FontAwesomeIcon icon="fa-chervon-right"></FontAwesomeIcon>
                                             </button>
-                                            <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <Link to="/fridge"><li className="w-100">Fridge</li></Link>
-                                                <li>Cooler</li>
-                                                <li>A/C</li>
-                                                <li>Television & Led</li>
-                                                <li>Washing Machine</li>
-                                                <li>Hard Disks, Printer & Monitor</li>
-                                                <li>Games</li>
-                                                <li>Speakers</li>
-                                                <li>Camera & Lens</li>
-                                                <li>Kitchen & Others</li>
-                                                <li>Computer Accessories</li>
-                                                <li>Air Purifiers</li>
-                                                <li>Water Purifiers</li>
-                                                <li>Others</li>
-                                                
+                                            <ul className="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                <Link to="/sell/electronics/fridge" className="textLine">
+                                                    <li className="w-100">Fridge</li>
+                                                </Link>
+                                                <Link to="/sell/electronics/cooler" className="textLine"><li>Cooler</li></Link >
+                                                <Link to="/sell/electronics/ac" className="textLine"><li>A/C</li></Link>
+                                                <Link to="/sell/electronics/television_led" className="textLine"><li>Television & Led</li></Link>
+                                                <Link to="/sell/electronics/washing_machine" className="textLine"><li>Washing Machine</li></Link>
+                                                <Link to="/sell/electronics/hard_disks_printer" className="textLine"><li>Hard Disks, Printer & Monitor</li></Link>
+                                                <Link to="/sell/electronics/games" className="textLine"><li>Games</li></Link>
+                                                <Link to="/sell/electronics/speakers" className="textLine"><li>Speakers</li></Link>
+                                                <Link to="/sell/electronics/camera_lens" className="textLine"><li>Camera & Lens</li></Link>
+                                                <Link to="/sell/electronics/kitchen_others" className="textLine"><li>Kitchen & Others</li></Link>
+                                                <Link to="/sell/electronics/computer_accessories" className="textLine"><li>Computer Accessories</li></Link>
+                                                <Link to="/sell/electronics/air_purifier" className="textLine"><li>Air Purifiers</li></Link>
+                                                <Link to="/sell/electronics/water_purifier" className="textLine"><li>Water Purifiers</li></Link>
+                                                <Link to="/sell/electronics/others" className="textLine"><li>Others</li></Link>
+
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropTwo">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Laptop & Mobile
+                                            <button type="button" class="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-laptop" className="sell-icon"></FontAwesomeIcon>PC , Laptop & Mobile
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">Mobile Phones</li>
-                                                <li>Tablets</li>
-                                                <li>Laptops</li>
-                                                <li>Computers</li>
-                                                <li>Accessories</li>
+                                                <Link to='/sell/pc/mobile_phone' className="textLine"><li className="w-100">Mobile Phones</li></Link>
+                                                <Link to='/sell/pc/tablets' className="textLine"><li>Tablets</li></Link>
+                                                <Link to='/sell/pc/laptops' className="textLine"><li>Laptops</li>
+                                                </Link>
+                                                <Link to='/sell/pc/computers' className="textLine"><li>Computers</li></Link>
+                                                <Link to='/sell/pc/accessories' className="textLine"><li>Accessories</li></Link>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropThree">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Furniture
+                                            <button type="button" class="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-tv" className="sell-icon"></FontAwesomeIcon>Furniture
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">Home Decoration</li>
-                                                <li>Sofa & Beds</li>
-                                                <li>Chairs & Tables</li>
-                                                <li>Kids Furniture</li>
-                                                <li>Others</li>
+                                            <Link to='/sell/furniture/home_decoration' className="textLine"><li className="w-100">Home Decoration</li></Link>
+                                            <Link to='/sell/furniture/sofa_beds' className="textLine"><li>Sofa & Beds</li></Link>
+                                            <Link to='/sell/furniture/chairs_tables' className="textLine"><li>Chairs & Tables</li></Link>
+                                            <Link to='/sell/furniture/kids_furniture' className="textLine"><li>Kids Furniture</li></Link>
+                                            <Link to='/sell/furniture/others' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropFour">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Fashion & CLothes
+                                            <button type="button" class="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-shirt" className="sell-icon"></FontAwesomeIcon>Fashion & CLothes
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">Men</li>
-                                                <li>Women</li>
-                                                <li>Kids</li>
-                                                <li>Fashion & Beauty Products</li>
-                                                <li>Others</li>
+                                            <Link to='/sell/fashion/men' className="textLine"><li className="w-100">Men</li></Link>
+                                            <Link to='/sell/fashion/women' className="textLine"><li>Women</li></Link>
+                                            <Link to='/sell/fashion/kids' className="textLine"><li>Kids</li></Link>
+                                            <Link to='/sell/fashion/fashion_&_beauty' className="textLine"><li>Fashion & Beauty</li></Link>
+                                            <Link to='/sell/fashion/others' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropFive">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Services
+                                            <button type="button" class="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-bell-concierge" className="sell-icon"></FontAwesomeIcon>Services
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">Educations & classes</li>
-                                                <li>Electronics & Computers</li>
-                                                <li>Accountancy Services</li>
-                                                <li>Software Services</li>
-                                                <li>Other Services</li>
+                                            <Link to='/sell/sevices/educations_classes' className="textLine"><li className="w-100">Educations & classes</li></Link>
+                                            <Link to='/sell/sevices/electronics_computers' className="textLine"><li>Electronics & Computers</li></Link>
+                                            <Link to='/sell/sevices/accountancy_services' className="textLine"><li>Accountancy Services</li></Link>
+                                            <Link to='/sell/sevices/software_services' className="textLine"><li>Software Services</li></Link>
+                                            <Link to='/sell/sevices/others_services' className="textLine"><li>Other Services</li></Link>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropSix">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Books & Sports
+                                            <button type="button" class="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-medal" className="sell-icon"></FontAwesomeIcon> Books & Sports
                                             </button>
-                                            <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">Books</li>
-                                                <li>Gym</li>
-                                                <li>Musical Instruments</li>
-                                                <li>Sports Items</li>
-                                                <li>Others</li>
+                                            <ul class="UlSet1 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <Link to='/sell/Books/books' className="textLine"><li className="w-100">Books</li></Link>
+                                            <Link to='/sell/Books/gym' className="textLine"><li>Gym</li></Link>
+                                            <Link to='/sell/Books/musical_instruments' className="textLine"><li>Musical Instruments</li></Link>
+                                            <Link to='/sell/Books/sports_items' className="textLine"><li>Sports Items</li></Link>
+                                            <Link to='/sell/Books/others' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropSeven">
                                         <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Automation
+                                            <button type="button" class="setBtn_drop p-3 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-car" className="sell-icon"></FontAwesomeIcon> Automobile
                                             </button>
-                                            <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">Bikes</li>
-                                                <li>Cars</li>
-                                                <li>Scooty</li>
-                                                <li>Heavy Vehicles</li>
-                                                <li>Spare Parts</li>
-                                                <li>Others</li>
+                                            <ul class="UlSet2 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <Link to='/sell/automobile/bike' className="textLine"><li className="w-100">Bikes</li></Link>
+                                            <Link to='/sell/automobile/cars' className="textLine"><li>Cars</li></Link>
+                                            <Link to='/sell/automobile/scooty' className="textLine"><li>Scooty</li></Link>
+                                            <Link to='/sell/automobile/heavy_vehicles' className="textLine"><li>Heavy Vehicles</li></Link>
+                                            <Link to='/sell/automobile/spare-parts' className="textLine"><li>Spare Parts</li></Link>
+                                            <Link to='/sell/automobile/others' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
                                     <div className="dropEight">
-                                        <div class="btn-group dropend" style={{ width: "100%" }}>
-                                            <button type="button" class="setBtn_drop p-2 m-0 w-100  dropdown-toggle set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Properties
+                                        <div class="btn-group dropend MyDrop" style={{ width: "100%" }}>
+                                            <button type="button" class="setBtn_drop p-3 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <FontAwesomeIcon icon="fa-tv" className="sell-icon"></FontAwesomeIcon> Properties
                                             </button>
-                                            <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <li className="w-100">For Rent</li>
-                                                <li>For Sales</li>
-                                                <li>Land & Plots</li>
+                                            <ul class="UlSet3 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                            <Link to='/sell/properties/for_rent' className="textLine"><li className="w-100">For Rent</li></Link>
+                                            <Link to='/sell/properties/for_sales' className="textLine"><li>For Sales</li></Link>
+                                            <Link to='/sell/properties/land_plots' className="textLine"><li>Land & Plots</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -161,11 +166,11 @@ const Sell = () => {
 
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
         </>
     )
 }

@@ -1,95 +1,228 @@
-import React from "react";
-// import "./css/boostrap.min.css";
+import React, { useEffect, useRef, useState } from "react";
 import "./css/custom.css";
-// import "./css/fontawesome-all.min.css";
 import "./css/iofrm-style.css";
-// import "./css/iofrm-theme12.css";
 import google from "../../assets/images/google.png";
 import facebook from "../../assets/images/facebook.png";
-// import Facebook from "../../Facebook";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     BrowserRouter as Router,
     Switch,
     Route,
     Link,
-    navigate
+    // navigate
 } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import FacebookLogin from 'react-facebook-login';
+import { generateOtp } from "../../functions/generateOtp";
+import { VerifyOtp } from "../../functions/VerifyOtp";
+import { facebookAuth, googleAuth } from '../../functions/LoginAuth';
 
 function Login() {
 
-    const navigate = useNavigate();
+    const nav = useNavigate();
+    const [phone, setPhone] = useState('');
+    const [error, setError] = useState('');
+    const [show, setShow] = useState(false);
+    const [otp, setOtp] = useState('');
+    const [profileName, setProfileName] = useState()
+    const [profileImg, setProfileImg] = useState()
+    const [LocalData, setLocalData] = useState("")
+    const [email, setEmail] = useState("");
+    const [picture, setPicture] = useState("");
+    const [loginStatus, setLoginStatus] = useState(false);
+    const [name, setName] = useState("");
+    // const [email, setEmail] = useState("");
+    const [url, setUrl] = useState("");
 
-    // const OnLogInClickHandler  = ()=>{
-    //     navigate('/home/dashboard');
-    //  }
 
-    const responseGoogle = (response) => {
-        console.log(response);
-        console.log(response.profileObj, "response ");
+
+
+    const handlePhone = async () => {
+        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+        // console.log("function started");
+        if (phone.trim().length > 0 && phone.trim().match(mobRegex)) {
+            let status = await generateOtp(phone, "login").then((res) => {
+                setShow(res.status)
+                console.log(res.status, "response");
+            });
+        } else {
+
+            setError('Invalid Phone Number');
+            // phoneRef.current.setNativeProps({borderColor: 'red'});
+        }
+        // }
+
     }
 
+
+
+    const verify = async () => {
+
+        let response = await VerifyOtp(otp, phone).then((res) => {
+            console.log(res.status.data[0].name);
+
+            if (res.status) {
+                setProfileName(res.status.data[0].name)
+
+                // console.log('hello')
+                nav("/");
+                window.localStorage.setItem('token',
+                    JSON.stringify({
+                        'token': res.status.data[0]._id,
+                        'profileName': res.status.data[0].name,
+
+                    })
+                )
+            }
+            else {
+                setError(res.message);
+                // console.log(Error);
+            }
+        });
+    }
+
+    const google = async (respon) => {
+        await googleAuth(JSON.stringify(respon)).then((res) => {
+            console.log(respon, 'this is res');
+            console.log(res);
+            if (res.data.status) {
+                // RemoveCookie('usrin');
+                setEmail(res.data.data.email);
+                setName(res.data.data[0].name);
+                setProfileImg(res.data.data[0].profileImg);
+                setError();
+                nav('/')
+                setLoginStatus(true);
+                window.localStorage.setItem('token',
+                    JSON.stringify({
+                        'token' : res.data.data[0]._id,
+                        'email': res.data.data.email,
+                        'profileImg': res.data.data.profileImg,
+                        'profileName': res.data.data.name,
+                    })
+                )
+            }
+            else {
+                setError(res.message)
+                console.log(error.res.data);
+            }
+
+
+        })
+    }
+
+    const facebook = async (respon) => {
+     await facebookAuth (JSON.stringify(respon)).then((res) => {
+        console.log(respon , 'facebook response');
+        console.log(res);
+        if(res.data.status){
+            setEmail(res.data.data[0].email);
+                setName(res.data.data[0].name);
+                setProfileImg(res.data.data[0].profileImg);
+                setError();
+                nav('/')
+                setLoginStatus(true);
+                window.localStorage.setItem('token',
+                    JSON.stringify({
+                        'email': res.data.data[0].email,
+                        'profileImg': res.data.data[0].profileImg,
+                        'profileName': res.data.data[0].name,
+                    })
+                )
+    }
+        else{
+            setError(res.message);
+            console.log(error.res.data);
+        }
+     })
+    } 
+
     const responseFacebook = (response) => {
+         facebook()
         console.log(response);
-      }
+    }
+
+    const componentClicked = (data) => {
+        console.log(data);
+    }
+
+
 
     return (
         <div className="form-body">
-            {/* <Facebook /> */}
             <div className="row">
                 <div className="form-holder">
                     <div className="form-content">
                         <div className="form-items">
                             <div className="website-logo-inside">
-                                <a href="../seller/">
+                                <Link to="/">
                                     <div className="logo">
                                         <img className="logo-size" src="images/logo-light.svg" alt="" />
                                         <h1 className="fw-bold text-white">Welcome to FixeBuy</h1>
                                     </div>
-                                </a>
+                                </Link>
                             </div>
                             <h3 className="text-center">Login </h3>
-                            {/* <p>Access to the most powerfull tool in the entire design and web industry.</p> */}
                             <div className="page-links">
                                 {/* <Link to="/login" className="active">Login</Link> */}
                                 {/* <Link to='/signup'>Register</Link> */}
 
                             </div>
                             <form method="post">
-                                <input className="form-control text-dark shadow-none" type="text" name="user_email" placeholder="E-mail Address / Phone Number" required />
-                                <input className="form-control text-dark shadow-none" type="password" name="password" placeholder="Enter Code" required />
+                                <input className="form-control text-dark shadow-none" type="text" name="phone_number" placeholder="Phone Number"
+                                    onChange={(e) => {
+                                        console.log(e.target.value)
+                                        setPhone(e.target.value);
+                                        setError("")
+                                    }}
+                                    required />
+
+                                {
+                                    show && <input className="form-control text-dark shadow-none" type="text" name="password" placeholder="Enter Code" required
+                                        onChange={(e) => {
+                                            setOtp(e.target.value);
+                                            console.log(e.target.value);
+                                            setError("")
+                                        }}
+                                    />
+                                }
+                                <div className="text" style={{ color: "red" }}>{error}</div>
+
                                 <input type="hidden" name="role" value="0" />
                                 <div className="form-button">
-                                    <button id="submit" type="submit" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={() => navigate("/Home")}>Login</button>
+                                    {
+                                        (!show) ?
+                                            <button id="submit" type="button" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={handlePhone} >Get OTP</button>
+                                            :
+                                            <button id="submit" type="button" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={verify} >Login</button>
+                                    }
+
+
+
                                 </div>
                             </form>
                             <div className="other-links">
-                                {/* <img src={google}/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */}
-                                <GoogleLogin
-                                    clientId="324948735477-4b5krtnmgmebukda5taosq0tik52hptb.apps.googleusercontent.com"
-                                    // buttonText=""
-                                    onSuccess={(response)=>{
-                                        console.log("on success");
-                                        console.log(response)
-                                    }}
-                                    onFailure={(response)=>{
-                                        console.log("on failure");
-                                        console.log(response)
-                                    }}
-                                    cookiePolicy={"single_host_origin"}
-                                />
+                            
+                                    <GoogleLogin
+                                        clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                        onSuccess={(response) => google(response)}
+                                        onFailure={(response) => {
+                                            console.log("on failure");
+                                            console.log(response)
+                                        }}
+
+                                        cookiePolicy={"single_host_origin"}
+                                        isSignedIn={true}
+                                    />
+
                                 {/* <FacebookLogin
-                                    appId='1065038731035070'
+                                    appId='817702366092567'
                                     autoLoad={true}
                                     fields="name,email,picture"
-                                    // onClick={componentClicked}
-                                    callback={responseFacebook} /> */}
-                            </div>
-
-                            <div className="forgot">
-                                <p>forgot password?</p>
+                                     onClick={componentClicked}
+                                    callback={responseFacebook}
+                                     /> */}
                             </div>
 
                         </div>

@@ -17,9 +17,11 @@
 :root{
     --primary-color : #2F2358;
     --secondary-color: #e7cc0b;
+    --color1 : #487792;
+    --color2 : #37577A;
 }
 .form-body {
-    background-color:var(--primary-color);
+    background: linear-gradient(var(--color1) , var(--color2)) !important;
 }
 
 .website-logo {
