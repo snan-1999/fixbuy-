@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Footer from "./Footer";
 import Header from "./header";
 import "./css/custom.css";
@@ -8,22 +8,26 @@ import { ProfileData, updateProfile } from "../../functions/ProfileData";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../functions/constant";
 import axios from "axios";
+import { GlobalVariables } from "../../Context/StateProvider";
 
 
 const Profile = () => {
+    // const {type} = useContext(GlobalVariables);
+    // console.log(type , 'check')
     const IdData = localStorage.getItem('token');
+    const Type = JSON.parse(IdData).type;
+    console.log(JSON.parse(IdData).type);
     let ProfleId = JSON.parse(IdData).token;
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
     // const data = ProfileStore(state => state);
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(null);
     const [phone, setPhone] = useState('');
     const [profileImg2, setProfileImg2] = useState(null);
     const [profileImg, setProfileImg] = useState('');
     const [id, setId] = useState('');
     const [city, setcity] = useState('')
-    const [adhaar, setAdhaar] = useState('');
     const [address, setAddress] = useState('');
     const [gender, setGender] = useState('');
     const [dob, setDOB] = useState('');
@@ -47,7 +51,7 @@ const Profile = () => {
             current.file = file;
             reader.onload = e => {
                 current.src = e.target.result;
-                console.log(file, "bruno")
+                // console.log(file, "bruno")
             };
             reader.readAsDataURL(file);
         }
@@ -74,6 +78,8 @@ const Profile = () => {
             setPhone(response.data.data[0].phone);
             setProfileImg(response.data.profileImg);
             setcity(response.data.data[0].city);
+            setGstNumber(response.data.data[0].gst_no);
+            setAddress(response.data.data[0].shop_address);
             // console.log(new ,"date");
             setDOB(date);
             console.log(dob)
@@ -222,6 +228,7 @@ const Profile = () => {
 
                                         </div>
                                     </div>
+                                    
                                     <div class="row mb-3">
                                         <div class="col-sm-3 ">
                                             <h6 class="mb-0">Full Name</h6>
@@ -262,20 +269,24 @@ const Profile = () => {
                                             <input type="text" class="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => setGender(e.target.value)} />
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    {/* <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">City</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
                                             <input type="text" class="form-control shadow-none" placeholder="City Name" contenteditable="true" name="city" value={city} onChange={(e) => setcity(e.target.value)} />
                                         </div>
-                                    </div>
-                                    <div class="row mb-3">
+                                    </div> */}
+                                 {
+                                    (Type !== 'user') &&
+                                     
+                                    <>
+                                        <div class="row mb-3">
                                         <div class="col-sm-3">
                                             <h6 class="mb-0">Shop Address</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Full address" contenteditable="true" name="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                                            <input type="text" class="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={address} onChange={(e) => setAddress(e.target.value)} />
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -283,19 +294,13 @@ const Profile = () => {
                                             <h6 class="mb-0">Gst Number</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst" value={gstnumber} onChange={(e) => setGstNumber(e.target.value)} />
+                                            <input type="text" class="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gstnumber} onChange={(e) => setGstNumber(e.target.value)} />
                                         </div>
                                     </div>
-
-                                    {/* <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0" >Adhaar Number </h6>
-                                        </div>
-
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control" name="adhaar_no" placeholder="Number" />
-                                        </div>
-                                    </div> */}
+                                    
+                                    </>
+}
+                                       
                                     <div class="row">
                                         <div class="col-sm-3"></div>
                                         <div class="col-sm-9 text-secondary">

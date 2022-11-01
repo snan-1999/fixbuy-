@@ -36,25 +36,18 @@ const Home = () => {
 
     }
 
-    // const getSingleProduct =  async(id) => {
-    //     const api = `${baseUrl}/automobile/getSingle/${id}`;
-    //     await axios.get(api).then((res) => {
-    //         console.log(res.data , 'single data ');
-    //         console.log(res.data.data.title , 'single data ');
-    //         if(res.data){
-    //             setTitle(res.data.data.title);
-    //             setPrice(res.data.data.price);
-    //             setDescription(res.data.data.description);
-
-    //         }
-    //     })
-    // }
-
     useEffect(() => {
 
         getAllProduct();
 
     }, [0])
+
+    // const pagination = async () => {
+    //     const api = `${baseUrl}/admin/boost/allproduct/1`
+    //     await axios.get(api).then((res) =>{
+    //         if()
+    //     })
+    // }
 
 
     return (

@@ -14,6 +14,7 @@ const Cars = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
+    let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
     // console.log(ProfleId);
@@ -21,7 +22,7 @@ const Cars = () => {
     const [img, setImg] = useState('');
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
-    const [userphone, setUserPhone] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -51,12 +52,13 @@ const Cars = () => {
     const fuelRef = useRef();
     const pincodeRef = useRef();
     const ownerRef = useRef();
+    const sellerphoneRef = useRef();
 
 
     console.log(category2)
 
     const maxNumber = 20;
- 
+
     let newcategory = category2.replace(/_/g, ' ')
     console.log(newcategory);
 
@@ -95,63 +97,71 @@ const Cars = () => {
                                                 if (years.trim().length > 0) {
                                                     if (transmission.trim().length > 0) {
                                                         if (fuel.trim().length > 0) {
-                                                            if(pincode.trim().length > 0){
-                                                            setError(true)
+                                                            if (pincode.trim().length > 0) {
+                                                                if (sellerphone.trim().length > 0) {
+                                                                    setError(true)
 
-                                                            formData.append('sellername', sellername)
-                                                            formData.append('brand', brand)
-                                                            formData.append('title', title)
-                                                            formData.append('userphone', userphone)
-                                                            formData.append('categories', category2)
-                                                            formData.append('description', description)
-                                                            formData.append('price', price)
-                                                            let imageStatus = true
-                                                            console.log(img);
-                                                            img.forEach(imgs => {
-                                                                // console.log(imgs.file.type)
-                                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                                    console.log(imgs.file.type)
-                                                                    alert("File does not support .webp extension ");
-                                                                    imageStatus = false
-                                                                    return false;
+                                                                    formData.append('sellername', sellername)
+                                                                    formData.append('brand', brand)
+                                                                    formData.append('title', title)
+                                                                    formData.append('categories', category2)
+                                                                    formData.append('description', description)
+                                                                    formData.append('price', price)
+                                                                    let imageStatus = true
+                                                                    console.log(img);
+                                                                    img.forEach(imgs => {
+                                                                        // console.log(imgs.file.type)
+                                                                        if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                                            console.log(imgs.file.type)
+                                                                            alert("File does not support .webp extension ");
+                                                                            imageStatus = false
+                                                                            return false;
 
 
-                                                                }
-                                                                formData.append("images", imgs.file)
-                                                            });
-                                                            // formData.append('images', img)
-                                                            // if()
-                                                            if (imageStatus) {
+                                                                        }
+                                                                        formData.append("images", imgs.file)
+                                                                    });
+                                                                    // formData.append('images', img)
+                                                                    // if()
+                                                                    if (imageStatus) {
 
-                                                                formData.append('state', state)
-                                                                formData.append('city', city)
-                                                                formData.append('neighbourhood', neighbourhood)
-                                                                formData.append('user_id', user_id)
-                                                                formData.append('kmDriven', kmDriven)
-                                                                formData.append('years', years)
-                                                                formData.append('No_of_owner', owner)
-                                                                formData.append('transmission', transmission)
-                                                                formData.append('fuel', fuel)
-                                                                formData.append('pincode' , pincode)
-                                                                const api = `${baseUrl}/automobile/form`;
-                                                                await axios.post(api, formData, config).then((response) => {
-                                                                    if (response.data.status) {
-                                                                        console.log(response.data.status);
-                                                                        seterrors(true)
-                                                                        console.log(errors)
-                                                                        setMessage('Posted !');
-                                                                    } else {
-                                                                        console.log(false);
-                                                                        // seterrors(false)
-                                                                        setMessage('Please fill the details')
+                                                                        formData.append('state', state)
+                                                                        formData.append('city', city)
+                                                                        formData.append('neighbourhood', neighbourhood)
+                                                                        formData.append('user_id', user_id)
+                                                                        formData.append('kmDriven', kmDriven)
+                                                                        formData.append('years', years)
+                                                                        formData.append('No_of_owner', owner)
+                                                                        formData.append('transmission', transmission)
+                                                                        formData.append('fuel', fuel)
+                                                                        formData.append('pincode', pincode)
+                                                                        formData.append('sellerphone', sellerphone)
+                                                                        formData.append('longitude', "28.663996")
+                                                                        formData.append('latitude', "77.306843")
+                                                                        const api = `${baseUrl}/product/automobile/form/create`;
+                                                                        await axios.post(api, formData, config).then((response) => {
+                                                                            if (response.data.status) {
+                                                                                console.log(response.data.status);
+                                                                                seterrors(true)
+                                                                                console.log(errors)
+                                                                                setMessage('Posted !');
+                                                                            } else {
+                                                                                console.log(false);
+                                                                                // seterrors(false)
+                                                                                setMessage('Please fill the details')
+                                                                            }
+                                                                        })
                                                                     }
-                                                                })
+                                                                } else {
+                                                                    setError(false);
+                                                                    console.log("sellerphone error")
+                                                                    sellerphoneRef.current.style.borderColor = 'red';
+                                                                }
+                                                            } else {
+                                                                setError(false);
+                                                                console.log("pincode error")
+                                                                pincodeRef.current.style.borderColor = 'red';
                                                             }
-                                                        } else {
-                                                            setError(false);
-                                                            console.log("pincode error")
-                                                            pincodeRef.current.style.borderColor = 'red';
-                                                        }
                                                         } else {
                                                             setError(false);
                                                             console.log("fuel error")
@@ -259,9 +269,9 @@ const Cars = () => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }} value={title} 
+                        }} value={title}
                         ref={titleRef}
-                        /><br />
+                    /><br />
 
                     <label for="brand">YEAR*</label>
                     <input type="text" name="year" class="form-control set-pd-input-post" required
@@ -269,19 +279,19 @@ const Cars = () => {
                             setYear(e.target.value)
                             yearsRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }} value={years} 
+                        }} value={years}
                         ref={yearsRef}
-                        /><br />
+                    /><br />
 
                     <label for="brand">FUEL*</label>
-                    <input type="text" name="fuel" class="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setFuel(e.target.value)
-                        fuelRef.current.style.borderColor = "#ced4da";
+                    <input type="text" name="fuel" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setFuel(e.target.value)
+                            fuelRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }} value={fuel} 
+                        }} value={fuel}
                         ref={fuelRef}
-                        /><br />
+                    /><br />
 
                     <label for="brand">TRANSMISSION*</label>
                     <div class="radio-button1">
@@ -314,47 +324,47 @@ const Cars = () => {
                     <br />
 
                     <label for="brand">KILOMETER DRIVEN*</label>
-                    <input type="text" name="kilometer" class="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setKmDriven(e.target.value)
-                        kmDrivenRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }} 
-                    value={kmDriven} 
-                    ref={kmDrivenRef}
+                    <input type="text" name="kilometer" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setKmDriven(e.target.value)
+                            kmDrivenRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={kmDriven}
+                        ref={kmDrivenRef}
                     /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%" 
-                    onChange={(e) => {
-                        setDescription(e.target.value)
-                        descriptionRef.current.style.borderColor = "#ced4da";
+                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%"
+                        onChange={(e) => {
+                            setDescription(e.target.value)
+                            descriptionRef.current.style.borderColor = "#ced4da";
                             setError("")
                         }} value={description}
                         ref={descriptionRef}
-                        ></textarea>
+                    ></textarea>
                     <br />
 
                     <label for="brand">NUMBER OF OWNERS*</label>
-                    <input type="text" name="owners" class="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setOwner(e.target.value)
-                        ownerRef.current.style.borderColor = "#ced4da";
+                    <input type="text" name="owners" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setOwner(e.target.value)
+                            ownerRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }} value={owner} 
+                        }} value={owner}
                         ref={ownerRef}
-                        /><br />
+                    /><br />
 
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setPrice(e.target.value)
-                        priceRef.current.style.borderColor = "#ced4da";
+                    <input type="text" name="set_price" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setPrice(e.target.value)
+                            priceRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }} value={price} 
+                        }} value={price}
                         ref={priceRef}
-                        />
+                    />
 
 
 
@@ -430,14 +440,14 @@ const Cars = () => {
                     </div><br />
                     <div class="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" class="form-control set-pd-input-post" required 
-                        value={state} 
-                        ref={stateRef}
-                        onChange={(e) =>{
-                            setState(e.target.value)
-                            stateRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}>
+                        <select id="State" name="location" class="form-control set-pd-input-post" required
+                            value={state}
+                            ref={stateRef}
+                            onChange={(e) => {
+                                setState(e.target.value)
+                                stateRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                            }}>
                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -479,32 +489,32 @@ const Cars = () => {
                         <br />
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required 
-                        value={city}
-                        ref={cityRef}
-                        onChange={(e) => {
-                            setCity(e.target.value)
-                            cityRef.current.style.borderColor = "#ced4da";
-                            setError("")
+                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                            value={city}
+                            ref={cityRef}
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                                cityRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} /><br />
 
                         <label for="city">PINCODE*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required 
-                        value={pincode}
-                        ref={pincodeRef}
-                        onChange={(e) => {
-                            setPincode(e.target.value)
-                            pincodeRef.current.style.borderColor = "#ced4da";
-                            setError("")
+                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                            value={pincode}
+                            ref={pincodeRef}
+                            onChange={(e) => {
+                                setPincode(e.target.value)
+                                pincodeRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required value={neighbourhood} 
-                        ref={neighbourhoodRef}
-                        onChange={(e) => {
-                            setNeighbourhood(e.target.value)
-                            neighbourhoodRef.current.style.borderColor = "#ced4da";
-                            setError("")
+                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required value={neighbourhood}
+                            ref={neighbourhoodRef}
+                            onChange={(e) => {
+                                setNeighbourhood(e.target.value)
+                                neighbourhoodRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} />
                     </div>
                 </div>
@@ -552,11 +562,11 @@ const Cars = () => {
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
                                 <input type="text" name="name" class="form-control set-pd-input-post nameField" required value={sellername}
-                                ref={sellernameRef} 
-                                onChange={(e) => {
-                                    setSellerName(e.target.value)
-                                    sellernameRef.current.style.borderColor = "#ced4da";
-                            setError("")
+                                    ref={sellernameRef}
+                                    onChange={(e) => {
+                                        setSellerName(e.target.value)
+                                        sellernameRef.current.style.borderColor = "#ced4da";
+                                        setError("")
                                     }} />
                             </div>
 
@@ -568,7 +578,15 @@ const Cars = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" class="form-control set-pd-input-post" required /><br />
+                    <input type="text" name="number" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setSellerPhone(e.target.value)
+                            sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={sellerphone}
+                        ref={sellerphoneRef}
+                    /><br />
 
                     <div class="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />

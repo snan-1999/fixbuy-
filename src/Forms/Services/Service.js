@@ -14,6 +14,7 @@ const Service = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
+    let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
     console.log(ProfleId);
@@ -21,7 +22,7 @@ const Service = () => {
     const [img, setImg] = useState('');
     const [pincode, setPincode] = useState('');
     const [title, setTitle] = useState('');
-    const [userphone, setUserPhone] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -42,6 +43,7 @@ const Service = () => {
     const stateRef = useRef();
     const sellernameRef = useRef();
     const pincodeRef = useRef();
+    const sellerphoneRef = useRef();
     const maxNumber = 20;
 
  
@@ -75,12 +77,13 @@ const Service = () => {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
                                         if (neighbourhood.trim().length > 0) {
+                                        if (sellerphone.trim().length > 0) {
                                             setError(true)
                                             setposted('success')
                                             formData.append('sellername', sellername)
                                             // formData.append('brand', brand)
                                             formData.append('title', title)
-                                            formData.append('userphone', userphone)
+                                            formData.append('sellerphone', sellerphone)
                                             formData.append('categories', category2)
                                             formData.append('description', description)
                                             formData.append('price', price)
@@ -105,7 +108,9 @@ const Service = () => {
                                                 formData.append('pincode', pincode)
                                                 formData.append('neighbourhood', neighbourhood)
                                                 formData.append('user_id', user_id)
-                                                const api = `${baseUrl}/booksAndSports/form/create`;
+                                                formData.append('longitude', "28.663996")
+                                                formData.append('latitude', "77.306843")
+                                                const api = `${baseUrl}/product/services/form/create`;
                                                 await axios.post(api, formData, config).then((response) => {
                                                     if (response.data.status) {
                                                         console.log(response.data.status);
@@ -121,6 +126,12 @@ const Service = () => {
                                                 })
 
                                             }
+                                        } else {
+                                            setposted('fail')
+                                            setError(false);
+                                            console.log("landmark error")
+                                            sellerphoneRef.current.style.borderColor = 'red';
+                                        }
                                         } else {
                                             setposted('fail')
                                             setError(false);
@@ -181,8 +192,7 @@ const Service = () => {
             <Header />
             <div class="container post border p-0">
                 <div class="heading-post-product">
-                    {/* <input type="text" name='category' value={category2} /> */}
-                    {/* <h3>hello</h3> */}
+                    
                     POST YOUR ITEMS
                     <h6 className="sub-Categories-Heading">{newcategory}</h6>
                 </div>
@@ -191,15 +201,13 @@ const Service = () => {
                     <div class="sub-heading-post">
                         Put Some Details
                     </div>
-                    {/* <br /> */}
-                    {/* <form action="<?php echo $server_name; ?>/api-call/car-product-api-call.php" method="post" enctype="multipart/form-data"> */}
+                    
 
                     <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
                     <input type="hidden" name='category' value={category2} hidden />
 
 
-                    {/* <label for="brand">BRAND*</label>
-                    <input type="text" name="brand" class="form-control set-pd-input-post" required onChange={(e) => setBrand(e.target.value)} value={brand} /><br /> */}
+                    
 
                     <label for="title">TITLE*</label>
                     <input type="text" name="title" class="form-control set-pd-input-post" required
@@ -221,8 +229,7 @@ const Service = () => {
                         }} value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    {/* <br />
-                    <br /> */}
+                    
                     <br />
                     <label for="price">SET PRICE*</label>
                     <br />
@@ -236,15 +243,9 @@ const Service = () => {
                     />
 
                 </div>
-                {/* </input> */}
-                {/* <hr /> */}
-                {/* <div class="container set-pd-post">
-                <label for="description">SET PRICE</label>
-                    <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" placeholder="PRICE*" required />
-                </div> */}
+                
                 <hr />
-                {/* <br /> */}
+                
                 <div class="container set-pd-post">
                     <div class="sub-heading-post">
                         UPLOAD SOME PHOTOS
@@ -265,7 +266,7 @@ const Service = () => {
                                 onImageRemove,
                                 onImageUpdate,
                             }) => (
-                                // write your building UI
+                                
                                 <div className="upload__image-wrapper">
 
                                     &nbsp;
@@ -276,7 +277,7 @@ const Service = () => {
                                                 <div key={index} className="image-item mt-4 ms-4 col-2">
                                                     <img src={image['data_url']} alt="" width="100" />
                                                     <div className="image-item__btn-wrapper">
-                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
+                                                        
                                                         <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
                                                     </div>
                                                 </div>
@@ -405,7 +406,7 @@ const Service = () => {
                                             overflow: 'hidden'
 
                                         }}
-                                    // onClick={() => imageUploader.current.click()}
+                                    
 
                                     >
                                         <img
@@ -439,7 +440,15 @@ const Service = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" class="form-control set-pd-input-post" required /><br />
+                    <input type="text" name="number" class="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        setSellerPhone(e.target.value)
+                        sellerphoneRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }}
+                        value={sellerphone}
+                        ref={sellerphoneRef}
+                    /><br />
 
                     <div class="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('hello')} />

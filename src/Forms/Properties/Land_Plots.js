@@ -14,6 +14,7 @@ const Land_Plot = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
+    let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
     console.log(ProfleId);
@@ -21,7 +22,7 @@ const Land_Plot = () => {
     const [img, setImg] = useState('');
     const [pincode, setPincode] = useState('');
     const [title, setTitle] = useState('');
-    const [userphone, setUserPhone] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -51,6 +52,7 @@ const Land_Plot = () => {
     const lengthRef = useRef();
     const areaRef = useRef();
     const pincodeRef = useRef();
+    const sellerphoneRef = useRef();
 
 
     console.log(category2)
@@ -99,16 +101,19 @@ const Land_Plot = () => {
                                                 if (city.trim().length > 0) {
                                                 if (pincode.trim().length > 0) {
                                                     if (neighbourhood.trim().length > 0) {
+                                                    if (sellerphone.trim().length > 0) {
                                                         // if (bachelors.trim().length > 0) {
                                                         setError(true)
 
                                                         formData.append('sellername', sellername)
                                                         // formData.append('brand', brand)
                                                         formData.append('title', title)
-                                                        formData.append('userphone', userphone)
+                                                        formData.append('sellerphone', sellerphone)
                                                         formData.append('categories', category2)
                                                         formData.append('description', description)
                                                         formData.append('price', price)
+                                                        formData.append('longitude', "28.663996")
+                                                        formData.append('latitude', "77.306843")
                                                         let imageStatus = true
                                                         console.log(img);
                                                         img.forEach(imgs => {
@@ -139,7 +144,7 @@ const Land_Plot = () => {
                                                             formData.append('project_name', project_name)
                                                     
 
-                                                            const api = `${baseUrl}/properties/create`;
+                                                            const api = `${baseUrl}/product/properties/form/create`;
                                                             await axios.post(api, formData, config).then((response) => {
                                                                 if (response.data.status) {
                                                                     console.log(response.data.status);
@@ -153,6 +158,11 @@ const Land_Plot = () => {
                                                                 }
                                                             })
                                                         
+                                                    } else {
+                                                        setError(false);
+                                                        console.log("landmark error")
+                                                        sellerphoneRef.current.style.borderColor = 'red';
+                                                    }
                                                     } else {
                                                         setError(false);
                                                         console.log("landmark error")
@@ -575,7 +585,15 @@ return (
                 </div>
                 <p>We will send you OTP on your number</p><br />
                 <label for="phone">Phone Number*</label>
-                <input type="text" name="number" class="form-control set-pd-input-post" required /><br />
+                <input type="text" name="number" class="form-control set-pd-input-post" required 
+                onChange={(e) => {
+                    setSellerPhone(e.target.value)
+                    sellerphoneRef.current.style.borderColor = "#ced4da";
+                    setError("")
+                }}
+                    value={sellerphone}
+                    ref={sellerphoneRef}
+                /><br />
 
                 <div class="post-pr">
                     <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />

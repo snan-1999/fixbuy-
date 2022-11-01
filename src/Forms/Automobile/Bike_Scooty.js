@@ -16,15 +16,17 @@ const Bike = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
+    let PhoneNumber = JSON.parse(IdData).phone;
+    // console.log(JSON.parse(IdData).phone);
     let ProfileImage = JSON.parse(IdData).profileImg;
     // console.log(JSON.parse(IdData).profileImg);
     let ProfleId = JSON.parse(IdData).token;
-    // console.log(ProfleId);
+    console.log(IdData);
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
-    const [userphone, setUserPhone] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -51,7 +53,8 @@ const Bike = () => {
     const yearRef = useRef();
     const pincodeRef = useRef();
     const ownerRef = useRef();
- 
+    const sellerphoneRef = useRef();
+
 
 
 
@@ -79,7 +82,7 @@ const Bike = () => {
             },
         };
 
-        if (title.trim().length > 0) {
+        if (title.trim().length > 0 && title.trim().length < 60 ) {
             if (sellername.trim().length >= 0) {
                 if (description.trim().length > 0) {
                     if (year.trim().length > 0) {
@@ -91,51 +94,62 @@ const Bike = () => {
                                             if (city.trim().length > 0) {
                                                 if (pincode.trim().length > 0) {
                                                     if (neighbourhood.trim().length > 0) {
-                                                        setError(true)
-                                                        formData.append('sellername', sellername)
-                                                        formData.append('brand', brand)
-                                                        formData.append('title', title)
-                                                        formData.append('userphone', userphone)
-                                                        formData.append('categories', category2)
-                                                        formData.append('description', description)
-                                                        formData.append('price', price)
-                                                        let imageStatus = true
-                                                        console.log(img);
-                                                        img.forEach(imgs => {
-                                                            // console.log(imgs.file.type)
-                                                            if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                                console.log(imgs.file.type)
-                                                                alert("File does not support .webp extension ");
-                                                                imageStatus = false
-                                                                return false;                                                            }
-                                                            formData.append("images", imgs.file)
-                                                        });
-                                                        // formData.append('images', img)
-                                                        // if()
-                                                        if (imageStatus) {
-                                                            formData.append('state', state)
-                                                            formData.append('city', city)
-                                                            formData.append('neighbourhood', neighbourhood)
-                                                            formData.append('user_id', user_id)
-                                                            formData.append('kilometer', kilometer)
-                                                            formData.append('year', year)
-                                                            formData.append('owner', owner)
-                                                            formData.append('pincode', pincode)
-                                                            const api = `${baseUrl}/automobile/form`;
-                                                            await axios.post(api, formData, config).then((response) => {
-                                                                console.log(response.data.status);
-                                                                if (response.data.status) {
-                                                                    console.log(response.data.status);
-                                                                    seterrors(true)
-                                                                    console.log(errors)
-                                                                    setMessage('Posted !');
-                                                                } else {
-                                                                    console.log(false);
+                                                        if (sellerphone.trim().length > 0) {
+                                                            console.log(sellerphone);
+                                                            setError(true)
+                                                            formData.append('sellername', sellername)
+                                                            formData.append('brand', brand)
+                                                            formData.append('title', title)
+                                                            formData.append('categories', category2)
+                                                            formData.append('description', description)
+                                                            formData.append('price', price)
+                                                            let imageStatus = true
+                                                            console.log(img);
+                                                            img.forEach(imgs => {
+                                                                // console.log(imgs.file.type)
+                                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                                    console.log(imgs.file.type)
+                                                                    alert("File does not support .webp extension ");
+                                                                    imageStatus = false
+                                                                    return false;
                                                                 }
-                                                            })
-                                                                .catch(err => {
-                                                                    console.log(err)
+                                                                formData.append("images", imgs.file)
+                                                            });
+                                                            // formData.append('images', img)
+                                                            // if()
+                                                            if (imageStatus) {
+                                                                formData.append('state', state)
+                                                                formData.append('city', city)
+                                                                formData.append('neighbourhood', neighbourhood)
+                                                                formData.append('longitude', "28.663996")
+                                                                formData.append('latitude', "77.306843")
+                                                                formData.append('user_id', user_id)
+                                                                formData.append('kilometer', kilometer)
+                                                                formData.append('year', year)
+                                                                formData.append('owner', owner)
+                                                                formData.append('pincode', pincode)
+                                                                formData.append('sellerphone', sellerphone)
+                                                                // console.log(sellerphone)
+                                                                const api = `${baseUrl}/product/automobile/form/create`;
+                                                                await axios.post(api, formData, config).then((response) => {
+                                                                    console.log(response.data.status);
+                                                                    if (response.data.status) {
+                                                                        console.log(response.data.status);
+                                                                        seterrors(true)
+                                                                        console.log(errors)
+                                                                        setMessage('Posted !');
+                                                                    } else {
+                                                                        console.log(false);
+                                                                    }
                                                                 })
+                                                                    .catch(err => {
+                                                                        console.log(err)
+                                                                    })
+                                                            }
+                                                        } else {
+                                                            setError(false);
+                                                            console.log("sellerphone error")
+                                                            sellerphoneRef.current.style.borderColor = 'red';
                                                         }
                                                     } else {
                                                         setError(false);
@@ -207,7 +221,7 @@ const Bike = () => {
         <>
             <Header />
             {
-                (category2 == "Bike" || category2 == "Scooty") ?
+                (category2 == "bike" || category2 == "scooty") ?
                     <>
                         {/* <h1>Bike</h1> */}
                         <div class="container post border p-0">
@@ -485,7 +499,13 @@ const Bike = () => {
                                 </div>
                                 <p>We will send you OTP on your number</p><br />
                                 <label for="phone">Phone Number*</label>
-                                <input type="text" name="number" class="form-control set-pd-input-post" required /><br />
+                                <input type="text" name="number" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    setSellerPhone(e.target.value)
+                                    sellerphoneRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                }}
+                                    value={sellerphone}
+                                    ref={sellerphoneRef} /><br />
 
                                 <div class="post-pr">
                                     <input type="submit" name="submit" value="POST NOW" onClick={sumbit} />
@@ -495,8 +515,8 @@ const Bike = () => {
                         </div>
 
                     </>
-                    : (category2 == "Cars" || category2 == "HeavyVehicles") ? <Cars /> :
-                        (category2 == "Spare-Parts" || category2 == "Others") ? <SpareParts /> : ""
+                    : (category2 == "cars" || category2 == "heavy_vehicles") ? <Cars /> :
+                        (category2 == "spare_parts" || category2 == "others") ? <SpareParts /> : ""
             }
 
             <Footer />

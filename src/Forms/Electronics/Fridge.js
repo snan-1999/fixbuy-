@@ -14,8 +14,9 @@ import { ProfileData } from "../../functions/ProfileData";
 const Fridge = () => {
     const { category } = useParams();
     const IdData = localStorage.getItem('token');
-    let ProfileNameForm = JSON.parse(IdData).profileName
-    let ProfileImage = JSON.parse(IdData).profileImg
+    let ProfileNameForm = JSON.parse(IdData).profileName;
+    let PhoneNumber = JSON.parse(IdData).phone;
+    let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
     console.log(ProfleId);
     // const profileName = localStorage('token');
@@ -23,7 +24,7 @@ const Fridge = () => {
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
     const [title, setTitle] = useState('');
-    const [userphone, setUserPhone] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -45,6 +46,7 @@ const Fridge = () => {
     const descriptionRef = useRef();
     const stateRef = useRef();
     const pincodeRef = useRef();
+    const sellerphoneRef = useRef();
 
     let newcategory = category.replace(/_/g, ' ')
     console.log(newcategory);
@@ -79,11 +81,11 @@ const Fridge = () => {
                             if (city.trim().length > 0) {
                             if (pincode.trim().length > 0) {
                                 if (neighbourhood.trim().length > 0) {
+                                if (sellerphone.trim().length > 0) {
                                     setError(true)
 
-
                                     formData.append('title', title)
-                                    formData.append('userphone', userphone)
+                                    formData.append('sellerphone', sellerphone)
                                     formData.append('categories', category)
                                     formData.append('description', description)
                                     formData.append('price', price)
@@ -111,9 +113,11 @@ const Fridge = () => {
                                         formData.append('pincode', pincode)
                                         formData.append('neighbourhood', neighbourhood)
                                         formData.append('user_id', user_id)
+                                        formData.append('longitude' , "28.663996")
+                                    formData.append('latitude' , "77.306843")
 
 
-                                        const api = `${baseUrl}/electronics/form/create`;
+                                        const api = `${baseUrl}/product/electronics/form/create`;
                                         await axios.post(api, formData, config).then((response) => {
                                             if (response.data.status) {
                                                 console.log(response.data.status);
@@ -129,6 +133,11 @@ const Fridge = () => {
                                             })
                                     }
 
+                                } else {
+                                    setError(false);
+                                    console.log("sellername error")
+                                    sellerphoneRef.current.style.borderColor = 'red';
+                                }
                                 } else {
                                     setError(false);
                                     console.log("landmark error")
@@ -461,7 +470,15 @@ const Fridge = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" class="form-control set-pd-input-post" required /><br />
+                    <input type="text" name="number" class="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        setSellerPhone(e.target.value)
+                        sellerphoneRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }}
+                    value={sellerphone}
+                    ref={sellerphoneRef}
+                    /><br />
 
                     <div class="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />

@@ -44,18 +44,19 @@ const Sell = () => {
                                                     <li className="w-100">Fridge</li>
                                                 </Link>
                                                 <Link to="/sell/electronics/cooler" className="textLine"><li>Cooler</li></Link >
+                                                <Link to="/sell/electronics/fan" className="textLine"><li>Cooler</li></Link >
                                                 <Link to="/sell/electronics/ac" className="textLine"><li>A/C</li></Link>
-                                                <Link to="/sell/electronics/television_led" className="textLine"><li>Television & Led</li></Link>
+                                                <Link to="/sell/electronics/television_&_led" className="textLine"><li>Television & Led</li></Link>
                                                 <Link to="/sell/electronics/washing_machine" className="textLine"><li>Washing Machine</li></Link>
                                                 <Link to="/sell/electronics/hard_disks_printer" className="textLine"><li>Hard Disks, Printer & Monitor</li></Link>
                                                 <Link to="/sell/electronics/games" className="textLine"><li>Games</li></Link>
                                                 <Link to="/sell/electronics/speakers" className="textLine"><li>Speakers</li></Link>
-                                                <Link to="/sell/electronics/camera_lens" className="textLine"><li>Camera & Lens</li></Link>
-                                                <Link to="/sell/electronics/kitchen_others" className="textLine"><li>Kitchen & Others</li></Link>
+                                                <Link to="/sell/electronics/camera_&_lens" className="textLine"><li>Camera & Lens</li></Link>
+                                                <Link to="/sell/electronics/kitchen_&_others" className="textLine"><li>Kitchen & Others</li></Link>
                                                 <Link to="/sell/electronics/computer_accessories" className="textLine"><li>Computer Accessories</li></Link>
                                                 <Link to="/sell/electronics/air_purifier" className="textLine"><li>Air Purifiers</li></Link>
                                                 <Link to="/sell/electronics/water_purifier" className="textLine"><li>Water Purifiers</li></Link>
-                                                <Link to="/sell/electronics/others" className="textLine"><li>Others</li></Link>
+                                                <Link to="/sell/electronics/other_items" className="textLine"><li>Others</li></Link>
 
                                             </ul>
                                         </div>
@@ -66,7 +67,7 @@ const Sell = () => {
                                                 <FontAwesomeIcon icon="fa-laptop" className="sell-icon"></FontAwesomeIcon>PC , Laptop & Mobile
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                                <Link to='/sell/pc/mobile_phone' className="textLine"><li className="w-100">Mobile Phones</li></Link>
+                                                <Link to='/sell/pc/mobile_phones' className="textLine"><li className="w-100">Mobile Phones</li></Link>
                                                 <Link to='/sell/pc/tablets' className="textLine"><li>Tablets</li></Link>
                                                 <Link to='/sell/pc/laptops' className="textLine"><li>Laptops</li>
                                                 </Link>
@@ -82,10 +83,10 @@ const Sell = () => {
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <Link to='/sell/furniture/home_decoration' className="textLine"><li className="w-100">Home Decoration</li></Link>
-                                            <Link to='/sell/furniture/sofa_beds' className="textLine"><li>Sofa & Beds</li></Link>
-                                            <Link to='/sell/furniture/chairs_tables' className="textLine"><li>Chairs & Tables</li></Link>
+                                            <Link to='/sell/furniture/sofa_&_beds' className="textLine"><li>Sofa & Beds</li></Link>
+                                            <Link to='/sell/furniture/chairs_&_tables' className="textLine"><li>Chairs & Tables</li></Link>
                                             <Link to='/sell/furniture/kids_furniture' className="textLine"><li>Kids Furniture</li></Link>
-                                            <Link to='/sell/furniture/others' className="textLine"><li>Others</li></Link>
+                                            <Link to='/sell/furniture/other_items' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -99,7 +100,7 @@ const Sell = () => {
                                             <Link to='/sell/fashion/women' className="textLine"><li>Women</li></Link>
                                             <Link to='/sell/fashion/kids' className="textLine"><li>Kids</li></Link>
                                             <Link to='/sell/fashion/fashion_&_beauty' className="textLine"><li>Fashion & Beauty</li></Link>
-                                            <Link to='/sell/fashion/others' className="textLine"><li>Others</li></Link>
+                                            <Link to='/sell/fashion/other_items' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -109,11 +110,11 @@ const Sell = () => {
                                                 <FontAwesomeIcon icon="fa-bell-concierge" className="sell-icon"></FontAwesomeIcon>Services
                                             </button>
                                             <ul class="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <Link to='/sell/sevices/educations_classes' className="textLine"><li className="w-100">Educations & classes</li></Link>
-                                            <Link to='/sell/sevices/electronics_computers' className="textLine"><li>Electronics & Computers</li></Link>
-                                            <Link to='/sell/sevices/accountancy_services' className="textLine"><li>Accountancy Services</li></Link>
+                                            <Link to='/sell/services/educations_&_classes' className="textLine"><li className="w-100">Educations & classes</li></Link>
+                                            <Link to='/sell/services/electronics_&_computers' className="textLine"><li>Electronics & Computers</li></Link>
+                                            <Link to='/sell/services/accountancy_services' className="textLine"><li>Accountancy Services</li></Link>
                                             <Link to='/sell/sevices/software_services' className="textLine"><li>Software Services</li></Link>
-                                            <Link to='/sell/sevices/others_services' className="textLine"><li>Other Services</li></Link>
+                                            <Link to='/sell/services/others_services' className="textLine"><li>Other Services</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -127,7 +128,7 @@ const Sell = () => {
                                             <Link to='/sell/Books/gym' className="textLine"><li>Gym</li></Link>
                                             <Link to='/sell/Books/musical_instruments' className="textLine"><li>Musical Instruments</li></Link>
                                             <Link to='/sell/Books/sports_items' className="textLine"><li>Sports Items</li></Link>
-                                            <Link to='/sell/Books/others' className="textLine"><li>Others</li></Link>
+                                            <Link to='/sell/Books/other_items' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -137,12 +138,12 @@ const Sell = () => {
                                                 <FontAwesomeIcon icon="fa-car" className="sell-icon"></FontAwesomeIcon> Automobile
                                             </button>
                                             <ul class="UlSet2 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                            <Link to='/sell/automobile/bike' className="textLine"><li className="w-100">Bikes</li></Link>
-                                            <Link to='/sell/automobile/cars' className="textLine"><li>Cars</li></Link>
+                                            <Link to='/sell/automobile/bikes' className="textLine"><li className="w-100">Bikes</li></Link>
+                                            <Link to='/sell/automobile/car' className="textLine"><li>Cars</li></Link>
                                             <Link to='/sell/automobile/scooty' className="textLine"><li>Scooty</li></Link>
-                                            <Link to='/sell/automobile/heavy_vehicles' className="textLine"><li>Heavy Vehicles</li></Link>
-                                            <Link to='/sell/automobile/spare-parts' className="textLine"><li>Spare Parts</li></Link>
-                                            <Link to='/sell/automobile/others' className="textLine"><li>Others</li></Link>
+                                            <Link to='/sell/automobile/heavy_vehicle' className="textLine"><li>Heavy Vehicles</li></Link>
+                                            <Link to='/sell/automobile/spare_parts' className="textLine"><li>Spare Parts</li></Link>
+                                            <Link to='/sell/automobile/other_items' className="textLine"><li>Others</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -154,7 +155,7 @@ const Sell = () => {
                                             <ul class="UlSet3 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
                                             <Link to='/sell/properties/for_rent' className="textLine"><li className="w-100">For Rent</li></Link>
                                             <Link to='/sell/properties/for_sales' className="textLine"><li>For Sales</li></Link>
-                                            <Link to='/sell/properties/land_plots' className="textLine"><li>Land & Plots</li></Link>
+                                            <Link to='/sell/properties/land_&_plots' className="textLine"><li>Land & Plots</li></Link>
                                             </ul>
                                         </div>
                                     </div>

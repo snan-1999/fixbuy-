@@ -9,23 +9,45 @@ import { localStorage } from "../../functions/Local";
 import { VerifyOtp } from "../../functions/VerifyOtp";
 import { UpdateApi } from "../../functions/UpdateApi";
 import { GoogleLogout } from "react-google-login";
-import RemoveCookie from "../../hooks/removeCookies";
-import { useCookies } from "react-cookie";
-import { gapi } from "gapi-script";
-
+import { baseUrl } from "../../functions/constant";
+import axios from "axios";
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
+    Label,
+    useColorMode,
+} from "@chakra-ui/react";
 import Cookies from 'universal-cookie';
+
 
 const Header = () => {
     const [LocalData, setLocalData] = useState("")
-    // const Cooky = useCookies()
-
     const cookies = new Cookies();
+    const IdData = window.localStorage.getItem('token')
+    let ProfleId = JSON.parse(IdData).token;
+    // const IdData = localStorage.getItem('token');
     console.log(cookies, 'new')
-    // cookies.set('myCat',  { path: '/' });
-    // console.log(cookies.get('myCat')); 
-    let cooky = document.cookie.split(";")
+    const Type = JSON.parse(IdData).type;
+    console.log(JSON.parse(IdData).type, 'localData');
+    const [message, setMessage] = useState('');
+    const [gstnumber, setGstNumber] = useState('');
+    console.log(gstnumber);
+    const [address, setAddress] = useState('');
     const [show, setShow] = useState('');
+    const [errors, seterrors] = useState(false);
     const [loginStatus, setLoginStatus] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { toggleColorMode, colorMode } = useColorMode();
     const profileName = localStorage('token');
     console.log(localStorage('token'))
     const nav = useNavigate();
@@ -39,15 +61,7 @@ const Header = () => {
             nav('/sell')
         }
     }
-    const Logout = () => {
-        window.localStorage.removeItem('token');
-        document.cookie = "Google.com=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        RemoveCookie(cooky)
-        // setLoginStatus(false);
-        nav("/login")
 
-    };
-    console.log(cooky, 'hello')
     const [Upstate, setUpstate] = useState(0)
     let id;
     const Update = async () => {
@@ -67,6 +81,8 @@ const Header = () => {
                         'email': res.status.data[0].email,
                         'profileImg': res.status.data[0].profileImg,
                         'name': res.status.data[0].name,
+                        'type': res.status.data[0].type,
+                        'phone': res.status.data[0].phone
                     })
                 )
                 // console.log(LocalData)
@@ -94,9 +110,29 @@ const Header = () => {
     }, [Upstate])
 
 
+    const UpdateShop = async () => {
+        console.log(gstnumber, address, 'checkihn')
+        // let data = {}
+        const api = (`${baseUrl}/users/updateUser/toShop/${ProfleId}`);
+        await axios.put(api, {
+            gst_no: gstnumber,
+            shop_address: address
+        }).then((response) => {
+            console.log(response, "shop user");
+            if (response.status) {
+                onClose(true)
+                setMessage('Upgraded!');
+                seterrors(true);
+            }
+        }, error => {
+            // console.log(error.response);
+        },)
+    }
+
 
     return (
         <>
+            {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
             <nav className="navbar navbar-expand-lg headerr">
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,7 +153,7 @@ const Header = () => {
                                         <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
                                     </li>
                                     <li className="nav-item aa">
-                                        <Link to="/product" className="nav-link">PRODUCT</Link>
+                                        <Link to="/shop" className="nav-link">SHOP</Link>
                                     </li>
                                     <li className="nav-item aa">
                                         <Link to="/about" className="nav-link">ABOUT US</Link>
@@ -129,7 +165,7 @@ const Header = () => {
                                         <Link to="/faq" className="nav-link">F.A.Q</Link>
                                     </li>
                                     <li className="nav-item aa">
-                                        <Link to="" className="nav-link">SHOP</Link>
+                                        <Link to="/blogs" className="nav-link">BLOGS</Link>
                                     </li>
                                     <li className=" nav-item aa mob-login">
                                     </li>
@@ -311,12 +347,50 @@ const Header = () => {
                                 <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                     <li><Link to="/profile" class="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
 
-                                    {/* <li><a class="dropdown-item" href="membership.php"> <FontAwesomeIcon icon="fas fa-landmark"></FontAwesomeIcon>&nbsp;&nbsp;Membership</a></li> */}
+                                    <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
 
-                                    <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Posted Items</Link></li>
+                                    {
+                                        (Type == 'user' || Type == 'shop') &&
+                                        <>
 
-                                    <li>
-                                    <FontAwesomeIcon icon="fas fa-sign-out-alt" />
+                                            <FontAwesomeIcon icon="fa-solid fa-list" className="dropdown-item" />
+                                            <Button onClick={onOpen} className="dropdown-item">Shop</Button>
+
+                                            <Modal isOpen={isOpen} onClose={onClose}>
+                                                <ModalOverlay />
+                                                <ModalContent style={{ background: "blue", width: '15%', borderRadius: "10%" }}>
+
+                                                    <ModalBody >
+                                                        <FormControl>
+                                                            <FormLabel>GST Number</FormLabel>
+                                                            <Input placeholder='enter number' onChange={(e) => setGstNumber(e.target.value)} value={gstnumber} name='gst_no' />
+                                                        </FormControl>
+
+                                                        <FormControl>
+                                                            <FormLabel>Address Number</FormLabel>
+                                                            <Input placeholder='enter address' name='shop_address' value={address} onChange={(e) => setAddress(e.target.value)} />
+                                                        </FormControl>
+                                                    </ModalBody>
+
+                                                    <ModalFooter>
+                                                        <Button colorScheme='blue' mr={3} onClick={UpdateShop}>
+                                                            Upgrade
+                                                        </Button>
+                                                        <Button colorScheme='white' mr={3} onClick={onClose}>
+                                                            Close
+                                                        </Button>
+
+                                                    </ModalFooter>
+                                                </ModalContent>
+                                            </Modal>
+
+                                        </>
+                                    }
+
+                                    <li><Link to='/packages' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
+
+                                    <li className="dropdown-item">
+                                        <FontAwesomeIcon icon="fas fa-sign-out-alt" />
                                         <GoogleLogout
                                             clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
                                             buttonText="Logout"
@@ -327,29 +401,10 @@ const Header = () => {
                                             icon={false}
                                             className='setGoogleLog'
                                         />
-                                        
+
                                     </li>
 
-                                    {/* <div className=" d-flex justify-content-center align-items-center px-3 text-light fs-7">
-                                        <FontAwesomeIcon icon="fas fa-sign-out-alt" /><GoogleLogout
-                                            clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                            buttonText="Logout"
-                                            onLogoutSuccess={ButtonLogout}
-                                            icon={false}
-                                            className='setGoogleLog'
-                                        />
-                                    </div> */}
-                                    {/* {loginStatus && (
 
-                                            <GoogleLogout
-                                                clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                                buttonText="Logout"
-                                                onLogoutSuccess={Logout}
-
-
-                                            />
-
-                                    )} */}
                                 </ul>
 
 

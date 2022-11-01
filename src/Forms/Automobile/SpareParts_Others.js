@@ -14,6 +14,7 @@ const SpareParts = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
+    let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
     // console.log(ProfleId);
@@ -21,7 +22,7 @@ const SpareParts = () => {
     const [img, setImg] = useState('');
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
-    const [userphone, setUserPhone] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -43,6 +44,7 @@ const SpareParts = () => {
     const stateRef = useRef();
     const sellernameRef = useRef();
     const pincodeRef = useRef();
+    const sellerphoneRef = useRef();
     const maxNumber = 20;
 
     let newcategory = category2.replace(/_/g, ' ')
@@ -74,15 +76,17 @@ const SpareParts = () => {
                             if (city.trim().length > 0) {
                                 if(pincode.trim().length > 0){
                                 if (neighbourhood.trim().length > 0) {
+                                if (sellerphone.trim().length > 0) {
                                     setError(true)
                                     setposted('success')
                                     formData.append('sellername', sellername)
                                     // formData.append('brand', brand)
                                     formData.append('title', title)
-                                    formData.append('userphone', userphone)
                                     formData.append('categories', category2)
                                     formData.append('description', description)
                                     formData.append('price', price)
+                                    formData.append('longitude' , "28.663996")
+                                    formData.append('latitude' , "77.306843")
                                     let imageStatus = true
                                     console.log(img);
                                     img.forEach(imgs => {
@@ -106,7 +110,8 @@ const SpareParts = () => {
                                         formData.append('pincode', pincode)
                                         formData.append('neighbourhood', neighbourhood)
                                         formData.append('user_id', user_id)
-                                        const api = `${baseUrl}/automobile/form`;
+                                        formData.append('sellerphone', sellerphone)
+                                        const api = `${baseUrl}/product/automobile/form/create`;
                                         await axios.post(api, formData, config).then((response) => {
                                             if (response.data.status) {
                                                 console.log(response.data.status);
@@ -125,6 +130,12 @@ const SpareParts = () => {
                                         // })
 
                                     }
+                                } else {
+                                    setposted('fail')
+                                    setError(false);
+                                    console.log("sellerphone error")
+                                    sellerphoneRef.current.style.borderColor = 'red';
+                                }
                                 } else {
                                     setposted('fail')
                                     setError(false);
@@ -450,7 +461,15 @@ const SpareParts = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" class="form-control set-pd-input-post" required /><br />
+                    <input type="text" name="number" class="form-control set-pd-input-post" required
+                    onChange={(e) => {
+                        setSellerPhone(e.target.value)
+                        sellerphoneRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }}
+                        value={sellerphone}
+                        ref={sellerphoneRef}
+                    /><br />
 
                     <div class="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('hello')} />

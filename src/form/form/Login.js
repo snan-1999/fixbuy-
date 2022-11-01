@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState , useContext} from "react";
 import "./css/custom.css";
 import "./css/iofrm-style.css";
 import google from "../../assets/images/google.png";
@@ -13,14 +13,19 @@ import {
 } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
+import { gapi } from 'gapi-script';
 import FacebookLogin from 'react-facebook-login';
 import { generateOtp } from "../../functions/generateOtp";
 import { VerifyOtp } from "../../functions/VerifyOtp";
 import { facebookAuth, googleAuth } from '../../functions/LoginAuth';
+import { GlobalVariables } from "../../Context/StateProvider";
+
 
 function Login() {
 
     const nav = useNavigate();
+        const {type , setType} = useContext(GlobalVariables)
+        // console.log(type);
     const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
     const [show, setShow] = useState(false);
@@ -60,25 +65,28 @@ function Login() {
     const verify = async () => {
 
         let response = await VerifyOtp(otp, phone).then((res) => {
-            console.log(res.status.data[0].name);
-
+            
+            console.log(res)
+            setType(res.status.data[0].type)
             if (res.status) {
                 setProfileName(res.status.data[0].name)
-
-                // console.log('hello')
+                
                 nav("/");
                 window.localStorage.setItem('token',
-                    JSON.stringify({
-                        'token': res.status.data[0]._id,
-                        'profileName': res.status.data[0].name,
-
-                    })
+                JSON.stringify({
+                    'token': res.status.data[0]._id,
+                    'profileName': res.status.data[0].name,
+                    'type' : res.status.data[0].type,
+                    'phone' : res.status.data[0].phone
+                    
+                })
                 )
             }
             else {
                 setError(res.message);
                 // console.log(Error);
             }
+            console.log(type , 'type');
         });
     }
 
@@ -100,6 +108,7 @@ function Login() {
                         'email': res.data.data.email,
                         'profileImg': res.data.data.profileImg,
                         'profileName': res.data.data.name,
+                        // 'type' : res.data.data.type  
                     })
                 )
             }
@@ -146,6 +155,15 @@ function Login() {
     const componentClicked = (data) => {
         console.log(data);
     }
+    useEffect(() => {
+        const initClient = () => {
+              gapi.client.init({
+              clientId: '1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com',
+              scope: ''
+            });
+         };
+         gapi.load('client:auth2', initClient);
+     });
 
 
 

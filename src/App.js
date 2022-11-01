@@ -24,6 +24,10 @@ import ForRent from './Forms/Properties/For_Rent';
 import Books from './Forms/Books_Sports/Books';
 import Service from './Forms/Services/Service';
 import PostedItems from './form/form/PostedItems';
+import Shop from './form/form/Shop';
+import Blogs from './form/form/Blogs';
+import Packages from './form/form/Packages';
+// import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
 
@@ -45,6 +49,8 @@ function App() {
           <Route  path='/faq' element={<FAQ/>} />
           <Route path='/singleproductpage' element={<SingleProductPage />} />
           <Route path='/posteditems' element={<PostedItems/>} />
+          <Route path='/packages' element={<Packages/>} />
+          <Route path='/blogs' element={<Blogs/>} />
           {/* <Route  path='/singlePage' element={<SinglePost />} /> */}
           {/* <Route  path='/loginseesion' element={<LoginSession/>} /> */}
           <Route path='/terms' element={<Terms />} />
@@ -58,7 +64,8 @@ function App() {
           <Route path='/sell/Automobile/:category2' element={<Bike />} />
           <Route path='/sell/Properties/:category2' element={<ForRent />} />
           <Route path='/sell/Books/:category2' element={<Books />} />
-          <Route path='/sell/Services/:category2' element={<Service />} />
+          <Route exact path='/sell/services/:category2' element={<Service />} />
+          <Route path='/shop' element={<Shop />} />
 
 
           {/* <Route exact path='/' element={</>/> */}

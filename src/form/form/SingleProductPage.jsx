@@ -109,14 +109,18 @@ export default function SingleProductPage(props) {
                                     {/* <Heading size='md' color='gray.700' mt='2'>Price :- {Data?.price}</Heading> */}
                                 </div>
                             </div>
-                            {/* <Stack direction='row' spacing={4} align='center' mt='4'>
-                                <Button colorScheme='green' variant='solid' onClick={() => PostAdsStatus('approved')}>
-                                    Accept
-                                </Button>
-                                <Button colorScheme='red' variant='outline' onClick={() => PostAdsStatus('reject')}>
-                                    Reject
-                                </Button>
-                            </Stack> */}
+                            <div className="status">
+                            {
+                              (location.state.status == 'pending') ?
+                              <span className="sts" style={{backgroundColor: 'grey'}}>{location.state.status}</span>
+                              : (location.state.status == 'reject') ?
+                              <span className="sts" style={{backgroundColor: 'red'}}>{location.state.status}</span>
+                              : (location.state.status == 'approved') ?
+                              <span className="sts" style={{backgroundColor: 'green'}}>{location.state.status}</span>
+                              : 
+                              ""
+                            }
+                          </div>
                         </DetailsData>
                     </div>
                 </div>
