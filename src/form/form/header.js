@@ -27,16 +27,16 @@ import {
     Label,
     useColorMode,
 } from "@chakra-ui/react";
-import Cookies from 'universal-cookie';
+
 
 
 const Header = () => {
     const [LocalData, setLocalData] = useState("")
-    const cookies = new Cookies();
+
     const IdData = window.localStorage.getItem('token')
     let ProfleId = JSON.parse(IdData).token;
     // const IdData = localStorage.getItem('token');
-    console.log(cookies, 'new')
+
     const Type = JSON.parse(IdData).type;
     console.log(JSON.parse(IdData).type, 'localData');
     const [message, setMessage] = useState('');
@@ -49,7 +49,7 @@ const Header = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { toggleColorMode, colorMode } = useColorMode();
     const profileName = localStorage('token');
-    console.log(localStorage('token'))
+    // console.log(localStorage('token'))
     const nav = useNavigate();
     const sellLog = () => {
         // console.log('work ')
@@ -128,6 +128,8 @@ const Header = () => {
             // console.log(error.response);
         },)
     }
+
+
 
 
     return (
@@ -320,7 +322,7 @@ const Header = () => {
                                     {/* <!-- end --> */}
                                 </div>
 
-                                <img src={LocalData?.profileImg} style={{ width: '3%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+                                <img src={`${baseUrl}/users/profile/image/${LocalData?.profileImg}`} style={{ width: '3%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
 
                                 {
                                     (profileName) ?
