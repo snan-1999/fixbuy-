@@ -118,7 +118,7 @@ const PostedItems = () => {
                                 </div>
                               </div>
                               <div>
-                                {/* <span className="date">{automobileProduct.createdAt}</span> */}
+                                <span className="date">{new Date(automobileProduct.createdAt).toDateString()}</span>
                               </div>
                             </div>
                           </div>

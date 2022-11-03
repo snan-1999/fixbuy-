@@ -17,6 +17,7 @@ const PC = () => {
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg
     let ProfleId = JSON.parse(IdData).token;
+    const Type = JSON.parse(IdData).type;   
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
@@ -28,6 +29,7 @@ const PC = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);
+    const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
@@ -109,6 +111,7 @@ const PC = () => {
                                                 formData.append('pincode', pincode)
                                                 formData.append('neighbourhood', neighbourhood)
                                                 formData.append('user_id', user_id)
+                                                formData.append('sellerType', sellerType)
                                                 formData.append('longitude' , "28.663996")
                                     formData.append('latitude' , "77.306843")
                                                 const api = `${baseUrl}/product/mobiles/form/create`;
@@ -203,6 +206,7 @@ const PC = () => {
 
                     <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
                     <input type="hidden" name='category' value={category2} hidden />
+                    <input type="hidden" name='sellerType' value={sellerType} hidden />
 
                     <label for="brand">TITLE*</label>
                     <input type="text" name="title" class="form-control set-pd-input-post" required 

@@ -18,6 +18,7 @@ const Fridge = () => {
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
+    const Type = JSON.parse(IdData).type;   
     console.log(ProfleId);
     // const profileName = localStorage('token');
     // console.log(profileName);
@@ -29,6 +30,7 @@ const Fridge = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);
+    const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
     const [pincode, setPincode] = useState('');
     const [city, setCity] = useState('');
@@ -89,6 +91,7 @@ const Fridge = () => {
                                     formData.append('categories', category)
                                     formData.append('description', description)
                                     formData.append('price', price)
+                                    formData.append('sellerType', sellerType)
                                     formData.append('longitude' , "28.663996")
                                     formData.append('latitude' , "77.306843")
                                     let imageStatus = true
@@ -207,6 +210,7 @@ const Fridge = () => {
 
                     <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
                     <input type="hidden" name='category' value={category} hidden />
+                    <input type="hidden" name='sellerType' value={sellerType} hidden />
 
 
                     <label for="title">ADD TITLE*</label>

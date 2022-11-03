@@ -25,8 +25,9 @@ import Books from './Forms/Books_Sports/Books';
 import Service from './Forms/Services/Service';
 import PostedItems from './form/form/PostedItems';
 import Shop from './form/form/Shop';
-import Blogs from './form/form/Blogs';
+import Blogs from './form/form/Blog/Blogs';
 import Packages from './form/form/Packages';
+import SingleBlog from './form/form/Blog/SingleBlog';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -51,6 +52,7 @@ function App() {
           <Route path='/posteditems' element={<PostedItems/>} />
           <Route path='/packages' element={<Packages/>} />
           <Route path='/blogs' element={<Blogs/>} />
+          <Route path='/blogs/:SingleBlog/:id' element={<SingleBlog/>} />
           {/* <Route  path='/singlePage' element={<SinglePost />} /> */}
           {/* <Route  path='/loginseesion' element={<LoginSession/>} /> */}
           <Route path='/terms' element={<Terms />} />

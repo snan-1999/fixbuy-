@@ -16,6 +16,7 @@ const Cars = () => {
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
+    const Type = JSON.parse(IdData).type;   
     let ProfleId = JSON.parse(IdData).token;
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
@@ -23,6 +24,7 @@ const Cars = () => {
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
+    const [sellerType , setSellerType] = useState(Type);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -138,6 +140,7 @@ const Cars = () => {
                                                                         formData.append('sellerphone', sellerphone)
                                                                         formData.append('longitude', "28.663996")
                                                                         formData.append('latitude', "77.306843")
+                                                                        formData.append('sellerType', sellerType)
                                                                         const api = `${baseUrl}/product/automobile/form/create`;
                                                                         await axios.post(api, formData, config).then((response) => {
                                                                             if (response.data.status) {
@@ -254,6 +257,7 @@ const Cars = () => {
 
                     <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
                     <input type="hidden" name='category' value={category2} hidden />
+                    <input type="hidden" name='sellerType' value={Type} hidden />
 
                     {/* <label for="brand">BRAND*</label>
                     <input type="text" name="brand" class="form-control set-pd-input-post" required

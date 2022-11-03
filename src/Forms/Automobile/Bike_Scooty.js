@@ -20,6 +20,7 @@ const Bike = () => {
     // console.log(JSON.parse(IdData).phone);
     let ProfileImage = JSON.parse(IdData).profileImg;
     // console.log(JSON.parse(IdData).profileImg);
+    const Type = JSON.parse(IdData).type;   
     let ProfleId = JSON.parse(IdData).token;
     console.log(IdData);
     const [user_id, setUser_id] = useState(ProfleId)
@@ -31,6 +32,7 @@ const Bike = () => {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);
+    const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
@@ -94,7 +96,7 @@ const Bike = () => {
                                             if (city.trim().length > 0) {
                                                 if (pincode.trim().length > 0) {
                                                     if (neighbourhood.trim().length > 0) {
-                                                        if (sellerphone.trim().length > 0) {
+                                                        if (sellerphone > 0) {
                                                             console.log(sellerphone);
                                                             setError(true)
                                                             formData.append('sellername', sellername)
@@ -129,6 +131,7 @@ const Bike = () => {
                                                                 formData.append('owner', owner)
                                                                 formData.append('pincode', pincode)
                                                                 formData.append('sellerphone', sellerphone)
+                                                                formData.append('sellerType', sellerType)
                                                                 // console.log(sellerphone)
                                                                 const api = `${baseUrl}/product/automobile/form/create`;
                                                                 await axios.post(api, formData, config).then((response) => {
@@ -221,7 +224,7 @@ const Bike = () => {
         <>
             <Header />
             {
-                (category2 == "bike" || category2 == "scooty") ?
+                (category2 == "bikes" || category2 == "scooty") ?
                     <>
                         {/* <h1>Bike</h1> */}
                         <div class="container post border p-0">
@@ -237,6 +240,8 @@ const Bike = () => {
 
                                 <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
                                 <input type="hidden" name='category' value={category2} hidden />
+
+                                <input type="hidden" name='sellerType' value={Type} hidden />
 
                                 {/* <label for="brand">BRAND*</label>
                                 <input type="text" name="brand" class="form-control set-pd-input-post" required onChange={(e) => setBrand(e.target.value)} value={brand} /><br /> */}

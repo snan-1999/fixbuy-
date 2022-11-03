@@ -28,11 +28,11 @@ const Profile = () => {
     const [profileImg, setProfileImg] = useState('');
     const [id, setId] = useState('');
     const [city, setcity] = useState('')
-    const [address, setAddress] = useState('');
+    const [shop_address, setAddress] = useState('');
     const [gender, setGender] = useState('');
     const [dob, setDOB] = useState('');
     const [about_us, setAbout_us] = useState('');
-    const [gstnumber, setGstNumber] = useState('');
+    const [gst_no, setGstNumber] = useState('');
     const [message, setMessage] = useState('');
     const [errors, seterrors] = useState(false);
 
@@ -116,17 +116,17 @@ const Profile = () => {
         if (city != null){
             formData.append('city', city)
         }
-        if (address != null){
-            formData.append('address', address)
-        }
         if (dob != null){
             formData.append('date_of_birth', dob)
         }
         if (gender != null){
             formData.append('gender', gender)
         }
-        if(about_us != null){
-            formData.append('about_us', about_us)
+        if(gst_no != null){
+            formData.append('gst_no', gst_no)
+        }
+        if(shop_address != null){
+            formData.append('shop_address' , shop_address)
         }
         const api = `${baseUrl}/users/update/profile/${ProfleId}`;
         await axios.put(api, formData, config).then((response) => {
@@ -286,7 +286,7 @@ const Profile = () => {
                                             <h6 class="mb-0">Shop Address</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={address} onChange={(e) => setAddress(e.target.value)} />
+                                            <input type="text" class="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -294,7 +294,7 @@ const Profile = () => {
                                             <h6 class="mb-0">Gst Number</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gstnumber} onChange={(e) => setGstNumber(e.target.value)} />
+                                            <input type="text" class="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
                                         </div>
                                     </div>
                                     
