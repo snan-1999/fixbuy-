@@ -7,8 +7,9 @@ import "../form/header.css";
 import { ProfileData, updateProfile } from "../../functions/ProfileData";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../functions/constant";
-import axios from "axios";
+// import axios from "axios";
 import { GlobalVariables } from "../../Context/StateProvider";
+import axios from "axios";
 
 
 const Profile = () => {
@@ -104,12 +105,14 @@ const Profile = () => {
         if (profileImg2 != null) {
             formData.append("profileImg", profileImg2);
         }
-        if (name != null) {
+        // if (name != null) {
             formData.append('name', name);
-        }
+            console.log('run')
+            console.log({formData})
+        // }
         if (email != null){
             formData.append('email', email)
-        }
+        }   
         if (phone != null){
             formData.append('phone', phone)
         }
@@ -129,7 +132,10 @@ const Profile = () => {
             formData.append('shop_address' , shop_address)
         }
         const api = `${baseUrl}/users/update/profile/${ProfleId}`;
-        await axios.put(api, formData, config).then((response) => {
+        console.log(formData.entries() , "profile")
+        // console.log(formData , "profile")
+        console.log(name , "profile")
+        await axios.put(api, formData).then((response) => {
             console.log(response.data);
             if(response.data.status){
                 setMessage('Profile Updated!');

@@ -4,13 +4,23 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import StateProvider from './Context/StateProvider';
+import { ThemeProvider } from 'styled-components';
+const theme = {
+  colors: {
+    primary: '#487792',
+    secondary: ' #37577A',
+
+  }
+}
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     {/* <CookiesProvider> */}
     <StateProvider >
+      <ThemeProvider theme={theme}>
 
-      <App />
+        <App />
+      </ThemeProvider>
     </StateProvider>
     {/* </CookiesProvider> */}
   </React.StrictMode>

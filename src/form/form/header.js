@@ -11,34 +11,28 @@ import { UpdateApi } from "../../functions/UpdateApi";
 import { GoogleLogout } from "react-google-login";
 import { baseUrl } from "../../functions/constant";
 import axios from "axios";
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Label,
-    useColorMode,
-} from "@chakra-ui/react";
+import ShopModal from "./Modals/ShopModal";
+import { AnimatePresence } from "framer-motion";
+import { Button } from "@chakra-ui/react";
+import { FcShop } from 'react-icons/fc'
 
 
 
 const Header = () => {
     const [LocalData, setLocalData] = useState("")
 
-    const IdData = window.localStorage.getItem('token')
-    let ProfleId = JSON.parse(IdData).token;
+    let ProfleId;
+    let IdData;
+    let  Type;
+    if(IdData){
+        IdData = window.localStorage.getItem('token');
+
+        ProfleId = JSON.parse(IdData).token;
+         Type = JSON.parse(IdData).type;
+    }
     // const IdData = localStorage.getItem('token');
 
-    const Type = JSON.parse(IdData).type;
-    console.log(JSON.parse(IdData).type, 'localData');
+    // console.log(JSON.parse(IdData).type, 'localData');
     const [message, setMessage] = useState('');
     const [gstnumber, setGstNumber] = useState('');
     console.log(gstnumber);
@@ -46,8 +40,10 @@ const Header = () => {
     const [show, setShow] = useState('');
     const [errors, seterrors] = useState(false);
     const [loginStatus, setLoginStatus] = useState(false);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const { toggleColorMode, colorMode } = useColorMode();
+    const [isOpen, setisOpen] = useState(false)
+    const Onclose = () => setisOpen(false)
+    const OnOpen = () => setisOpen(true)
+    // if(profileName){}
     const profileName = localStorage('token');
     // console.log(localStorage('token'))
     const nav = useNavigate();
@@ -120,7 +116,7 @@ const Header = () => {
         }).then((response) => {
             console.log(response, "shop user");
             if (response.status) {
-                onClose(true)
+
                 setMessage('Upgraded!');
                 seterrors(true);
             }
@@ -351,65 +347,41 @@ const Header = () => {
 
                                     <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
 
-                                    {
-                                        (Type == 'user' || Type == 'shop') &&
-                                        <>
-
-                                            <FontAwesomeIcon icon="fa-solid fa-list" className="dropdown-item" />
-                                            <Button onClick={onOpen} className="dropdown-item">Shop</Button>
-
-                                            <Modal isOpen={isOpen} onClose={onClose}>
-                                                <ModalOverlay />
-                                                <ModalContent style={{ background: "blue", width: '15%', borderRadius: "10%" }}>
-
-                                                    <ModalBody >
-                                                        <FormControl>
-                                                            <FormLabel>GST Number</FormLabel>
-                                                            <Input placeholder='enter number' onChange={(e) => setGstNumber(e.target.value)} value={gstnumber} name='gst_no' />
-                                                        </FormControl>
-
-                                                        <FormControl>
-                                                            <FormLabel>Address Number</FormLabel>
-                                                            <Input placeholder='enter address' name='shop_address' value={address} onChange={(e) => setAddress(e.target.value)} />
-                                                        </FormControl>
-                                                    </ModalBody>
-
-                                                    <ModalFooter>
-                                                        <Button colorScheme='blue' mr={3} onClick={UpdateShop}>
-                                                            Upgrade
-                                                        </Button>
-                                                        <Button colorScheme='white' mr={3} onClick={onClose}>
-                                                            Close
-                                                        </Button>
-
-                                                    </ModalFooter>
-                                                </ModalContent>
-                                            </Modal>
-
-                                        </>
-                                    }
 
                                     <li><Link to='/packages' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
 
-                                    <li className="dropdown-item">
-                                        <FontAwesomeIcon icon="fas fa-sign-out-alt" />
-                                        <GoogleLogout
-                                            clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                            buttonText="Logout"
-                                            onLogoutSuccess={() => {
-                                                window.localStorage.removeItem('token');
-                                                nav("/login")
-                                            }}
-                                            icon={false}
-                                            className='setGoogleLog'
-                                        />
+                                    {
+                                        (Type == "user" || Type == "shop") &&
 
-                                    </li>
+                                        <li onClick={OnOpen}>
+                                            <Link to="" className="dropdown-item">
+                                                <FcShop />
+                                                <span className=" ms-2 ">Shop</span>
+                                            </Link>
+                                        </li>
+                                    }
+                                    <Link to="" className="dropdown-item" id="Hov">
+                                        <li >
+                                            <FontAwesomeIcon icon="fas fa-sign-out-alt" />
+                                            <GoogleLogout
+                                                clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                                buttonText="Logout"
+                                                onLogoutSuccess={() => {
+                                                    window.localStorage.removeItem('token');
+                                                    nav("/login")
+                                                }}
+                                                icon={false}
+                                                className='setGoogleLog'
+                                            />
 
+                                        </li>
+                                    </Link>
 
                                 </ul>
 
 
+
+                                <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
 
                                 <div className="col-3 desk-login">
                                 </div>

@@ -20,55 +20,68 @@ import { HomeAllData } from "../../functions/HomeFun";
 import styled from "styled-components";
 import shopIcon from '../../assets/images/shopIcon.png'
 import { BiRefresh } from 'react-icons/bi'
+import { Button, Spinner } from "@chakra-ui/react";
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 
 const Home = () => {
 
-    const [automobile, setAutomobile] = useState([]);
+    const [automobile, setAutomobile] = useState([]); 
+    const [MoreData, setMoreData] = useState([]);
+    const [TotalPagess, setTotalPagess] = useState('');
+    const [Loading, setLoading] = useState(false)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude } = useContext(GlobalVariables)
 
-
-    // const getAllProduct = async () => {
-
-    //     const api = `${baseUrl}/automobile/getProducts/all`;
-    //     axios.get(api).then((res) => {
-    //         console.log(res.data.data, '1');
-    //         if (res.data) {
-    //             setAutomobile(res.data.data);
-    //             console.log(automobile, 'autoData')
-
-    //         }
-    //     })
-
-    // }
-    const homeDataAll = async () => {
-        const { data } = await HomeAllData()
+    const homeDataAll = async () => {  
+        const { data } = await HomeAllData(Longitude, latitude, Lmore) 
         console.log(data)
-        console.log(data.data[4].boostPlan.plan, "homeData")
-        if (data.status) {
-            setAutomobile(data.data);
 
+        console.log(Loading)
+        if (data.status) {
+            setAutomobile([...automobile, ...data.data]);
+            setLoading(false)
+            console.log(Loading)
+            setMoreData(data.data);
+            setTotalPagess(data.totalPages);
+            console.log(MoreData, 'moreDaat')
+            console.log(TotalPagess)
+            console.log(Lmore)
+        }
+    }
+    const LoadMOre = () => {
+        // homeDataAll()
+        setLmore(Lmore + 1)
+        setLoading(true)
+        // console.log(Lmore)
+        // console.log('run')
+        // setAutomobile(automobile => [...automobile, ...MoreData]);
+        // console.log(automobile, 'Autodata')
+    }
+    window.onscroll = function () {
+        // LoadMOre()
+        // homeDataAll()
+        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
         }
     }
 
     useEffect(() => {
         homeDataAll()
+    }, [Lmore])
+    // const RefTog = async() => {
+    //     setLmore(1)  
+    //     const { data } = await HomeAllData(1)
+    //     console.log(data)
 
+    //     if (data.status) {
+    //         setAutomobile(data.data);
 
-    }, [0])
+    //     }
 
-    // const pagination = async () => {
-    //     const api = `${baseUrl}/admin/boost/allproduct/1`
-    //     await axios.get(api).then((res) =>{
-    //         if()
-    //     })
     // }
-
-    const RefTog = () => {
-        homeDataAll()
-    }
     return (
         <>
-
             <Header />
+
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -115,9 +128,9 @@ const Home = () => {
                     </div>
                     <div className="col-md-6 d-flex justify-content-center align-items-center">
                         <div className=" pt-4">
-                            <RefreshBtn>
+                            {/* <RefreshBtn>
                                 <abbr title="Refresh Data"><BiRefresh className='ref' onClick={() => { RefTog() }} /></abbr>
-                            </RefreshBtn>
+                            </RefreshBtn> */}
                         </div>
                     </div>
                 </div>
@@ -174,6 +187,18 @@ const Home = () => {
 
                         })
                     }
+                    {/* <div className="d-grid place-items-center"> */}
+                    {
+
+                    }
+
+                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
+                        {Loading && <div class="spinner-border spinner-border-sm me-2" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>}
+                        Load More
+                    </ButtonCraete>
+                    {/* </div> */}
                 </div>
 
 
@@ -184,6 +209,23 @@ const Home = () => {
 }
 
 export default Home;
+const ButtonCraete = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* all: unset; */  
+    font-size: 15px; 
+    font-weight: 600;
+    color: grey;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 0.3rem 1.2rem;
+    margin: 1rem;
+    /* display: grid;
+    place-items: center;
+    justify-content: center; */
+`
 const CardHeight = styled.div`
 position: relative;
 top: 0;

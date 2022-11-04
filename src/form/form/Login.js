@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState , useContext} from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import "./css/custom.css";
 import "./css/iofrm-style.css";
 import google from "../../assets/images/google.png";
@@ -14,18 +14,17 @@ import {
 import { useNavigate } from "react-router-dom";
 import GoogleLogin from "react-google-login";
 import { gapi } from 'gapi-script';
-import FacebookLogin from 'react-facebook-login';
 import { generateOtp } from "../../functions/generateOtp";
 import { VerifyOtp } from "../../functions/VerifyOtp";
 import { facebookAuth, googleAuth } from '../../functions/LoginAuth';
 import { GlobalVariables } from "../../Context/StateProvider";
-
+import FacebookLogin from 'react-facebook-login';
 
 function Login() {
 
     const nav = useNavigate();
-        const {type , setType} = useContext(GlobalVariables)
-        // console.log(type);
+    const { type, setType } = useContext(GlobalVariables)
+    // console.log(type);
     const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
     const [show, setShow] = useState(false);
@@ -65,28 +64,28 @@ function Login() {
     const verify = async () => {
 
         let response = await VerifyOtp(otp, phone).then((res) => {
-            
+
             console.log(res)
             setType(res.status.data[0].type)
             if (res.status) {
                 setProfileName(res.status.data[0].name)
-                
+
                 nav("/");
                 window.localStorage.setItem('token',
-                JSON.stringify({
-                    'token': res.status.data[0]._id,
-                    'profileName': res.status.data[0].name,
-                    'type' : res.status.data[0].type,
-                    'phone' : res.status.data[0].phone
-                    
-                })
+                    JSON.stringify({
+                        'token': res.status.data[0]._id,
+                        'profileName': res.status.data[0].name,
+                        'type': res.status.data[0].type,
+                        'phone': res.status.data[0].phone
+
+                    })
                 )
             }
             else {
                 setError(res.message);
                 // console.log(Error);
             }
-            console.log(type , 'type');
+            console.log(type, 'type');
         });
     }
 
@@ -104,7 +103,7 @@ function Login() {
                 setLoginStatus(true);
                 window.localStorage.setItem('token',
                     JSON.stringify({
-                        'token' : res.data.data[0]._id,
+                        'token': res.data.data[0]._id,
                         'email': res.data.data.email,
                         'profileImg': res.data.data.profileImg,
                         'profileName': res.data.data.name,
@@ -122,11 +121,11 @@ function Login() {
     }
 
     const facebook = async (respon) => {
-     await facebookAuth (JSON.stringify(respon)).then((res) => {
-        console.log(respon , 'facebook response');
-        console.log(res);
-        if(res.data.status){
-            setEmail(res.data.data[0].email);
+        await facebookAuth(JSON.stringify(respon)).then((res) => {
+            console.log(respon, 'facebook response');
+            console.log(res);
+            if (res.data.status) {
+                setEmail(res.data.data[0].email);
                 setName(res.data.data[0].name);
                 setProfileImg(res.data.data[0].profileImg);
                 setError();
@@ -139,36 +138,47 @@ function Login() {
                         'profileName': res.data.data[0].name,
                     })
                 )
+            }
+            else {
+                setError(res.message);
+                console.log(error.res.data);
+            }
+        })
     }
-        else{
-            setError(res.message);
-            console.log(error.res.data);
-        }
-     })
-    } 
+
+    // const responseFacebook = (response) => {
+    //     facebook()
+    //     console.log(response);
+    // }
+
+ 
+    useEffect(() => {
+        const initClient = () => {
+            gapi.client.init({
+                clientId: '1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com',
+                scope: ''
+            });
+        };
+        gapi.load('client:auth2', initClient);
+    });
+
 
     const responseFacebook = (response) => {
-         facebook()
         console.log(response);
+        nav('/')
     }
-
     const componentClicked = (data) => {
         console.log(data);
     }
-    useEffect(() => {
-        const initClient = () => {
-              gapi.client.init({
-              clientId: '1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com',
-              scope: ''
-            });
-         };
-         gapi.load('client:auth2', initClient);
-     });
-
-
-
     return (
+
         <div className="form-body">
+            <FacebookLogin
+                appId="5079064385539704"
+                autoLoad={true}
+                fields="name,email,picture"
+                onClick={componentClicked}
+                callback={responseFacebook} />
             <div className="row">
                 <div className="form-holder">
                     <div className="form-content">
@@ -221,18 +231,18 @@ function Login() {
                                 </div>
                             </form>
                             <div className="other-links">
-                            
-                                    <GoogleLogin
-                                        clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                        onSuccess={(response) => google(response)}
-                                        onFailure={(response) => {
-                                            console.log("on failure");
-                                            console.log(response)
-                                        }}
 
-                                        cookiePolicy={"single_host_origin"}
-                                        isSignedIn={true}
-                                    />
+                                <GoogleLogin
+                                    clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                    onSuccess={(response) => google(response)}
+                                    onFailure={(response) => {
+                                        console.log("on failure");
+                                        console.log(response)
+                                    }}
+
+                                    cookiePolicy={"single_host_origin"}
+                                    isSignedIn={true}
+                                />
 
                                 {/* <FacebookLogin
                                     appId='817702366092567'
