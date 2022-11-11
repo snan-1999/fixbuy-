@@ -20,7 +20,7 @@ const Bike = () => {
     // console.log(JSON.parse(IdData).phone);
     let ProfileImage = JSON.parse(IdData).profileImg;
     // console.log(JSON.parse(IdData).profileImg);
-    const Type = JSON.parse(IdData).type;   
+    const Type = JSON.parse(IdData).type;
     let ProfleId = JSON.parse(IdData).token;
     console.log(IdData);
     const [user_id, setUser_id] = useState(ProfleId)
@@ -75,6 +75,7 @@ const Bike = () => {
         setError("");
     };
     console.log(img)
+    const [check, usecheck] = useState(false)
     const sumbit = async () => {
         const formData = new FormData();
         const config = {
@@ -84,7 +85,7 @@ const Bike = () => {
             },
         };
 
-        if (title.trim().length > 0 && title.trim().length < 60 ) {
+        if (title.trim().length > 0 && title.trim().length <= 5) {
             if (sellername.trim().length >= 0) {
                 if (description.trim().length > 0) {
                     if (year.trim().length > 0) {
@@ -105,6 +106,7 @@ const Bike = () => {
                                                             formData.append('categories', category2)
                                                             formData.append('description', description)
                                                             formData.append('price', price)
+                                                            // formData.append('sellerType', sellerType)
                                                             let imageStatus = true
                                                             console.log(img);
                                                             img.forEach(imgs => {
@@ -134,10 +136,14 @@ const Bike = () => {
                                                                 formData.append('sellerType', sellerType)
                                                                 // console.log(sellerphone)
                                                                 const api = `${baseUrl}/product/automobile/form/create`;
-                                                                await axios.post(api, formData, config).then((response) => {
+                                                                await axios.post(api, formData, {
+                                                                    headers: {
+                                                                        'Content-Type': 'multipart/form-data'
+                                                                    }
+                                                                }).then((response) => {
                                                                     console.log(response.data.status);
                                                                     if (response.data.status) {
-                                                                        console.log(response.data.status);
+                                                                        console.log(response.data, "postItem");
                                                                         seterrors(true)
                                                                         console.log(errors)
                                                                         setMessage('Posted !');
@@ -211,6 +217,7 @@ const Bike = () => {
             }
         } else {
             setError(false);
+            usecheck(true);
             console.log("title error")
             titleRef.current.style.borderColor = 'red';
         }
@@ -514,14 +521,17 @@ const Bike = () => {
 
                                 <div class="post-pr">
                                     <input type="submit" name="submit" value="POST NOW" onClick={sumbit} />
+                                    {/* {
+                                        check && <>hello</>
+                                    } */}
                                 </div>
                             </div>
 
                         </div>
 
                     </>
-                    : (category2 == "cars" || category2 == "heavy_vehicles") ? <Cars /> :
-                        (category2 == "spare_parts" || category2 == "others") ? <SpareParts /> : ""
+                    : (category2 == "car" || category2 == "heavy_vehicle") ? <Cars /> :
+                        (category2 == "spare_parts" || category2 == "other_items") ? <SpareParts /> : ""
             }
 
             <Footer />

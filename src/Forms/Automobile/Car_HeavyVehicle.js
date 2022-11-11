@@ -34,6 +34,7 @@ const Cars = () => {
     const [city, setCity] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
     const [kmDriven, setKmDriven] = useState('');
+    const [xo, setxo] = useState(false);
     const [years, setYear] = useState('');
     const [owner, setOwner] = useState('');
     const [transmission, setTransmission] = useState('');
@@ -138,13 +139,17 @@ const Cars = () => {
                                                                         formData.append('fuel', fuel)
                                                                         formData.append('pincode', pincode)
                                                                         formData.append('sellerphone', sellerphone)
-                                                                        formData.append('longitude', "28.663996")
-                                                                        formData.append('latitude', "77.306843")
+                                                                        formData.append('latitude', "28.663996")
+                                                                        formData.append('longitude', "77.306843")
                                                                         formData.append('sellerType', sellerType)
                                                                         const api = `${baseUrl}/product/automobile/form/create`;
-                                                                        await axios.post(api, formData, config).then((response) => {
+                                                                        await axios.post(api, formData,  {
+                                                                            headers: {
+                                                                                'Content-Type': 'multipart/form-data'
+                                                                            }
+                                                                        }).then((response) => {
                                                                             if (response.data.status) {
-                                                                                console.log(response.data.status);
+                                                                                console.log(response.data , "postItem");
                                                                                 seterrors(true)
                                                                                 console.log(errors)
                                                                                 setMessage('Posted !');
@@ -177,6 +182,7 @@ const Cars = () => {
                                                     }
                                                 } else {
                                                     setError(false);
+                                                    
                                                     console.log("years error")
                                                     yearsRef.current.style.borderColor = 'red';
                                                 }
@@ -227,6 +233,7 @@ const Cars = () => {
             }
         } else {
             setError(false);
+            setxo(true)
             console.log("title error")
             titleRef.current.style.borderColor = 'red';
         }
@@ -553,7 +560,7 @@ const Cars = () => {
 
                                     >
                                         <img
-                                            src={ProfileImage}
+                                            src={`${baseUrl}/users/profile/image/${ProfileImage}`}
                                             style={{
                                                 width: "100%",
                                                 height: "100%",
@@ -595,6 +602,9 @@ const Cars = () => {
                     <div class="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />
                     </div>
+                    {
+                        xo && <h1>hello</h1>
+                    }
                     {
                         (errors) ?
                             <div class="msgerror" role="alert" style={{ color: "green" }}>

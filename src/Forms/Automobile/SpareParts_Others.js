@@ -115,9 +115,13 @@ const SpareParts = () => {
                                         formData.append('user_id', user_id)
                                         formData.append('sellerphone', sellerphone)
                                         const api = `${baseUrl}/product/automobile/form/create`;
-                                        await axios.post(api, formData, config).then((response) => {
+                                        await axios.post(api, formData, {
+                                            headers: {
+                                                'Content-Type': 'multipart/form-data'
+                                            }
+                                        }).then((response) => {
                                             if (response.data.status) {
-                                                console.log(response.data.status);
+                                                console.log(response.data , "postItem");
                                                 setposted('success')
                                                 // console.log(posted)
                                                 setMessage('Posted !');
@@ -390,7 +394,7 @@ const SpareParts = () => {
                         <input type="text" name="pincode" class="form-control set-pd-input-post" required value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
-                                setCity(e.target.value)
+                                setPincode(e.target.value)
                                 pincodeRef.current.style.borderColor = "#ced4da";
                                 setError("")
                             }} /><br />

@@ -115,9 +115,13 @@ const Books = () => {
                                         formData.append('longitude' , "28.663996")
                                     formData.append('latitude' , "77.306843")
                                         const api = `${baseUrl}/product/booksAndSports/form/create`;
-                                        await axios.post(api, formData, config).then((response) => {
+                                        await axios.post(api, formData, {
+                                            headers: {
+                                                'Content-Type': 'multipart/form-data'
+                                            }
+                                        }).then((response) => {
                                             if (response.data.status) {
-                                                console.log(response.data.status);
+                                                console.log(response.data);
                                                 setposted('success')
                                                 // console.log(posted)
                                                 setMessage('Posted !');

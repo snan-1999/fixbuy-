@@ -77,7 +77,7 @@ const PostedItems = () => {
             {
               automobile.map((automobileProduct, key) => {
                 return (
-                  <div class="col-md-4 col-8 col-lg-3">
+                  <div class="col-md-4 col-6 col-lg-3">
                     <Link to='' state={automobileProduct} className="text-decor">
                       <div class="shadow p-3 mb-4 bg-white maindiv">
                         <div class="img-wh"><img src={`${baseUrl}/allcategories/get/productImage/${automobileProduct.images[0]}`} class="pdt-img" /></div>

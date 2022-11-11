@@ -65,7 +65,7 @@ function Login() {
 
         let response = await VerifyOtp(otp, phone).then((res) => {
 
-            console.log(res)
+            console.log(res ,"login")
             setType(res.status.data[0].type)
             if (res.status) {
                 setProfileName(res.status.data[0].name)
@@ -76,8 +76,9 @@ function Login() {
                         'token': res.status.data[0]._id,
                         'profileName': res.status.data[0].name,
                         'type': res.status.data[0].type,
-                        'phone': res.status.data[0].phone
-
+                        'phone': res.status.data[0].phone,
+                        'profileImg': res.status.data[0].profileImg,
+                        'status': "logIn"
                     })
                 )
             }
@@ -92,7 +93,7 @@ function Login() {
     const google = async (respon) => {
         await googleAuth(JSON.stringify(respon)).then((res) => {
             console.log(respon, 'this is res');
-            console.log(res);
+            console.log(res, 'this is res');
             if (res.data.status) {
                 // RemoveCookie('usrin');
                 setEmail(res.data.data.email);
@@ -104,9 +105,12 @@ function Login() {
                 window.localStorage.setItem('token',
                     JSON.stringify({
                         'token': res.data.data[0]._id,
-                        'email': res.data.data.email,
-                        'profileImg': res.data.data.profileImg,
-                        'profileName': res.data.data.name,
+                        'email': res.data.data[0].email,
+                        'profileImg': res.data.data[0].profileImg,
+                        // 'profileImg': profileObj.imageUrl,
+                        'profileName': res.data.data[0].name,
+                        'status': "logIn",
+
                         // 'type' : res.data.data.type  
                     })
                 )
@@ -151,7 +155,7 @@ function Login() {
     //     console.log(response);
     // }
 
- 
+
     useEffect(() => {
         const initClient = () => {
             gapi.client.init({
@@ -165,17 +169,35 @@ function Login() {
 
     const responseFacebook = (response) => {
         console.log(response);
-        nav('/')
+        // nav('/')
+        console.log(window)
     }
     const componentClicked = (data) => {
         console.log(data);
+        console.log(window)
     }
+
+    // window.FB.getLoginStatus(function (response) {
+    //     // statusChangeCallback(response);
+    //     console.log(response)
+    // });
+    // function checkLoginState() {
+    //     window.FB.getLoginStatus(function (response) {
+    //         // statusChangeCallback(response);
+    //         console.log(response)
+    //     });
+    // }
+
     return (
 
         <div className="form-body">
+            {/* <fb:login-button
+                scope="public_profile,email"
+                onlogin={checkLoginState}>
+            </fb:login-button> */}
             <FacebookLogin
-                appId="5079064385539704"
-                autoLoad={true}
+                appId="479993497262547"
+                autoLoad={false}
                 fields="name,email,picture"
                 onClick={componentClicked}
                 callback={responseFacebook} />

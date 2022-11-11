@@ -30,12 +30,6 @@ export default function ShopModal({Onclose ,OnOpen , setisOpen, isOpen, Type, Up
                     isOpen &&
                     (Type == 'user' || Type == 'shop') &&
                     <>
-
-
-
-
-
-
                         <Containermodel isOpen={isOpen}  >
                             <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                                 <Modalheader>
@@ -82,14 +76,14 @@ font-family: 'Lato', sans-serif;
 
     `
 const Modelcontent = styled(motion.div)`
-background: linear-gradient( ${props => props.theme.colors.primary}  ,  ${props => props.theme.colors.secondary} ) ;
+    background: linear-gradient( ${props => props.theme.colors.primary}  ,  ${props => props.theme.colors.secondary} ) ;
     /* width: 32rem;
     height: 28rem; */
     border-radius: 1rem;
     z-index: 25;
     -webkit-transition: all 150ms ease;
-transition: all 150ms ease;
-padding: 1rem 2rem;
+    transition: all 150ms ease;
+    padding: 1rem 2rem;
 
 `
 const Modalheader = styled.div`
@@ -158,8 +152,8 @@ const ModelFooter = styled.div`
 `
 const ApplyBtn = styled.button`
     all: unset;
-    background: linear-gradient( ${props => props.theme.colors.primary} ,${props => props.theme.colors.secondary} ) ;
-    color: white;
+    background: white ;
+    color: ${props => props.theme.colors.secondary};
     padding: 10px 20px;
     border-radius: 50rem;
     width: 20%;
@@ -167,8 +161,8 @@ const ApplyBtn = styled.button`
     cursor: pointer;
     
     &:hover{
-        background-color: red;
-        transition: all 500ms ease ;
+        background-color: #c0c0c0;
+        transition: all 100ms ease ;
         transform:scale(0.9);
         /* box-shadow: 0px 1px 10px #ffffff2b; */
         

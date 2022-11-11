@@ -175,7 +175,11 @@ const ForRent = () => {
                                                                                         formData.append('sellerType', sellerType)
 
                                                                                         const api = `${baseUrl}/product/properties/form/create`;
-                                                                                        await axios.post(api, formData, config).then((response) => {
+                                                                                        await axios.post(api, formData,  {
+                                                                                            headers: {
+                                                                                                'Content-Type': 'multipart/form-data'
+                                                                                            }
+                                                                                        }).then((response) => {
                                                                                             if (response.data.status) {
                                                                                                 console.log(response.data.status);
                                                                                                 seterrors(true)
@@ -774,7 +778,7 @@ const ForRent = () => {
                             </div>
                         </>
                         :
-                        (category2 == 'land_plots') ? <Land_Plot /> : ""
+                        (category2 == 'land_&_plots') ? <Land_Plot /> : ""
                 }
                 <Footer />
             </>

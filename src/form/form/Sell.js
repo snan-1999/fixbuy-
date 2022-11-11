@@ -44,7 +44,7 @@ const Sell = () => {
                                                     <li className="w-100">Fridge</li>
                                                 </Link>
                                                 <Link to="/sell/electronics/cooler" className="textLine"><li>Cooler</li></Link >
-                                                <Link to="/sell/electronics/fan" className="textLine"><li>Cooler</li></Link >
+                                                <Link to="/sell/electronics/fan" className="textLine"><li>Fan</li></Link >
                                                 <Link to="/sell/electronics/ac" className="textLine"><li>A/C</li></Link>
                                                 <Link to="/sell/electronics/television_&_led" className="textLine"><li>Television & Led</li></Link>
                                                 <Link to="/sell/electronics/washing_machine" className="textLine"><li>Washing Machine</li></Link>

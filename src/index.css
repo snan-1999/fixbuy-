@@ -5,6 +5,10 @@
   font-family: 'Poppins', sans-serif;
   /* btn #007bff */
 }
+:root {
+  --color1: #487792;
+  --color2: #37577A;
+}
 /* swiper in header index page */
 
 .swiper-wrapper {
@@ -47,8 +51,8 @@ div.logo {
 
 .btn-outline-success {
   color: #ffffff !important;
-  border-color: #0999D5 !important;
-  background: #0999D5 !important;
+  border-color: linear-gradient(var(--color1), var(--color2)) !important;
+  background: linear-gradient(var(--color1), var(--color2)) !important;
 }
 /* .btn-outline-success:active {
   color: #fff !important;
@@ -70,7 +74,26 @@ div.logo {
   border-radius: 0.25rem;
   border: 1px solid rgba(0, 0, 0, .15);
 }
-
+.dropdown-category {
+  position: absolute;
+  color: white;
+  background: linear-gradient( var(--color2) ,var(--color1)) !important;
+  min-width: 200px !important;
+  display: none;
+  /* font-size: 1rem; */
+  text-decoration: none !important;
+  list-style: none;
+  z-index: 1;
+  padding: 0.5rem 8px !important;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border:none ;
+  margin-top: 0.3rem;
+}
+button.navbar-toggler {
+  border-top: 5px solid #395B7D;
+  border-bottom: 5px solid #395B7D;
+}
 .dropdown-category-bikes {
   min-width: 100px !important;
 }

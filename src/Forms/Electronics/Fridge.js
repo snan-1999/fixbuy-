@@ -78,7 +78,7 @@ const Fridge = () => {
             if (sellername.trim().length >= 0) {
             if (description.trim().length > 0) {
                 if (price.trim().length > 0) {
-                    if ((img.length <= 20) && (img.length > 0)) {
+                    // if ((img.length <= 20) && (img.length > 0)) {
                         if (state.trim().length > 0) {
                             if (city.trim().length > 0) {
                             if (pincode.trim().length > 0) {
@@ -88,12 +88,13 @@ const Fridge = () => {
 
                                     formData.append('title', title)
                                     formData.append('sellerphone', sellerphone)
+                                    formData.append('sellername', sellername)
                                     formData.append('categories', category)
                                     formData.append('description', description)
                                     formData.append('price', price)
                                     formData.append('sellerType', sellerType)
-                                    formData.append('longitude' , "28.663996")
-                                    formData.append('latitude' , "77.306843")
+                                    formData.append('latitude' , "28.663996")
+                                    formData.append('longitude' , "77.306843")
                                     let imageStatus = true
                                     console.log(img);
                                     img.forEach(imgs => {
@@ -116,16 +117,23 @@ const Fridge = () => {
                                         formData.append('pincode', pincode)
                                         formData.append('neighbourhood', neighbourhood)
                                         formData.append('user_id', user_id)
-                                        formData.append('longitude' , "28.663996")
-                                    formData.append('latitude' , "77.306843")
+                                    //     formData.append('longitude' , "28.663996")
+                                    // formData.append('latitude' , "77.306843") 
 
 
                                         const api = `${baseUrl}/product/electronics/form/create`;
-                                        await axios.post(api, formData, config).then((response) => {
+                                        await axios.post(api, formData, 
+                                            {
+                                                headers: {
+                                                  'Content-Type': 'multipart/form-data'
+                                                }
+                                            }
+                                            ).then((response) => {
                                             if (response.data.status) {
-                                                console.log(response.data.status);
+                                                console.log(response.data );
                                                 seterrors(true)
                                                 console.log(errors)
+                                                console.log(response)
                                                 setMessage('Posted !');
                                             } else {
                                                 console.log(false);
@@ -161,11 +169,11 @@ const Fridge = () => {
                             console.log("state error")
                             stateRef.current.style.borderColor = 'red';
                         }
-                    } else {
-                        setError("Please provide atleast 1 image");
-                        console.log("image error")
-                        // descriptionRef.current.style.borderColor = 'red';
-                    }
+                    // } else {
+                    //     setError("Please provide atleast 1 image");
+                    //     console.log("image error")
+                    //     descriptionRef.current.style.borderColor = 'red';
+                    // }
                 } else {
                     setError(false);
                     console.log("price error")

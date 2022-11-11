@@ -113,7 +113,11 @@ const HomeDecoration = () => {
                                                 formData.append('user_id', user_id)
                                                 formData.append('sellerType', sellerType)
                                                 const api = `${baseUrl}/product/furnitures/form/create`;
-                                                await axios.post(api, formData, config).then((response) => {
+                                                await axios.post(api, formData, {
+                                                    headers: {
+                                                        'Content-Type': 'multipart/form-data'
+                                                    }
+                                                }).then((response) => {
                                                     if (response.data.status) {
                                                         console.log(response.data.status);
                                                         setposted('success')

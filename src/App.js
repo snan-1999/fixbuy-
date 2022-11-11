@@ -28,6 +28,8 @@ import Shop from './form/form/Shop';
 import Blogs from './form/form/Blog/Blogs';
 import Packages from './form/form/Packages';
 import SingleBlog from './form/form/Blog/SingleBlog';
+import SearchPage from './form/form/SearchPage';
+import SubProduct from './Forms/SubcategoryProduct/SubProduct';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -42,17 +44,19 @@ function App() {
           {/* <Route exact path='/' element={<Login />} /> */}
           {/* <Route exact path='/signup' element={<Register />} /> */}
           <Route path='/login' element={<Login />} />
-          <Route path='/automobile/:name' element={<Login />} />
+          {/* <Route path='/automobile/:name' element={<Login />} /> */}
           <Route path='/about' element={<About />} />
           <Route exact path='/' element={<Home />} />
+          <Route exact path='/search-home-result' element={<SearchPage />} />
           <Route path='/product' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
-          <Route  path='/faq' element={<FAQ/>} />
+          <Route path='/faq' element={<FAQ />} />
           <Route path='/singleproductpage' element={<SingleProductPage />} />
-          <Route path='/posteditems' element={<PostedItems/>} />
-          <Route path='/packages' element={<Packages/>} />
-          <Route path='/blogs' element={<Blogs/>} />
-          <Route path='/blogs/:SingleBlog/:id' element={<SingleBlog/>} />
+          <Route path='/posteditems' element={<PostedItems />} />
+          <Route path='/packages' element={<Packages />} />
+          <Route path='/blogs' element={<Blogs />} />
+          <Route path='/blogs/:SingleBlog/:id' element={<SingleBlog />} />
+          <Route path='/:maincategory/:subcategory' element={<SubProduct />} />
           {/* <Route  path='/singlePage' element={<SinglePost />} /> */}
           {/* <Route  path='/loginseesion' element={<LoginSession/>} /> */}
           <Route path='/terms' element={<Terms />} />

@@ -15,20 +15,24 @@ import ShopModal from "./Modals/ShopModal";
 import { AnimatePresence } from "framer-motion";
 import { Button } from "@chakra-ui/react";
 import { FcShop } from 'react-icons/fc'
+import { GlobalVariables } from "../../Context/StateProvider";
+import { useContext } from "react";
+import { SearchHome } from "../../functions/HomeFun";
 
 
 
 const Header = () => {
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
 
     let ProfleId;
     let IdData;
-    let  Type;
-    if(IdData){
-        IdData = window.localStorage.getItem('token');
+    let Type;
+    IdData = window.localStorage.getItem('token');
+    if (IdData) {
 
         ProfleId = JSON.parse(IdData).token;
-         Type = JSON.parse(IdData).type;
+        Type = JSON.parse(IdData).type;
     }
     // const IdData = localStorage.getItem('token');
 
@@ -59,12 +63,13 @@ const Header = () => {
     }
 
     const [Upstate, setUpstate] = useState(0)
+
     let id;
     const Update = async () => {
-        console.log(Upstate, 'count')
+        // console.log(setSearch, 'count')
         id = JSON.parse(profileName).token
         await UpdateApi(id).then((res) => {
-            console.log(res);
+            console.log(res, 'iupdate');
             // setShow()
             console.log(res.status.data[0].profileImg);
             if (res.status) {
@@ -78,7 +83,8 @@ const Header = () => {
                         'profileImg': res.status.data[0].profileImg,
                         'name': res.status.data[0].name,
                         'type': res.status.data[0].type,
-                        'phone': res.status.data[0].phone
+                        'phone': res.status.data[0].phone,
+                        'status': 'login'
                     })
                 )
                 // console.log(LocalData)
@@ -88,9 +94,20 @@ const Header = () => {
             }
         })
     }
+    const [search, setSearch] = useState("")
+    const [SearchData, setSearchData] = useState([])
+    //search 
+    console.log(search)
+    // const SearchBar = async () => {
+    //     const { data } = await SearchHome(Longitude, latitude, search, Lmore)
+    //     setSearchData(data.data)
+    //     console.log(data, 'searchResult')
+    //     console.log(search, 'search')
+
+    // }
     // console.log(profileImg);   
     useEffect(() => {
-        setLocalData(JSON.parse(profileName));
+        // setLocalData(JSON.parse(profileName));
         (id !== null) && Update()
         setUpstate(Upstate + 1)
         console.log(LocalData, 'first')
@@ -105,6 +122,7 @@ const Header = () => {
         console.log('sevcond')
     }, [Upstate])
 
+    const SearchBar = () => { }
 
     const UpdateShop = async () => {
         console.log(gstnumber, address, 'checkihn')
@@ -169,10 +187,10 @@ const Header = () => {
                                     </li>
                                 </ul>
                             </div>
-                            <form className="form-inline my-2 my-lg-0 desk-version" action="search-result.php" method="get">
-                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" aria-label="Search" />
-                                <button className="btn btn-outline-success my-2 my-sm-0" id="Search" type="submit" name="submit" value="true">Search</button>
-                            </form>
+                            <div className="form-inline my-2 my-lg-0 desk-version">
+                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onChange={(e) => setSearch(e.target.value)} />
+                                <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0" id="Search" onClick={SearchBar}>Search</button></Link>
+                            </div>
                             <div className="row p-0 m-0 mob-cen">
                                 <div className="col-12 mainbutton">
                                     <button className="btn btn-primary" onClick={sellLog}> + SELL</button>
@@ -187,6 +205,67 @@ const Header = () => {
                 </div>
 
             </nav>
+            {/* mobile  nav*/}
+            <nav>
+                <div className="inline-menu1">
+                    <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+
+
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+                            <div className="inline-menu1">
+                                <div className="setmnu">
+                                    <ul className="navbar-nav menu">
+                                        <li className="nav-item aa">
+                                            <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                        </li>
+                                        <li className="nav-item aa">
+                                            <Link to="/shop" className="nav-link">SHOP</Link>
+                                        </li>
+                                        <li className="nav-item aa">
+                                            <Link to="/about" className="nav-link">ABOUT US</Link>
+                                        </li>
+                                        <li className="nav-item aa">
+                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                        </li>
+                                        <li className="nav-item aa">
+                                            <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                        </li>
+                                        <li className="nav-item aa">
+                                            <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                        </li>
+                                        <li className="nav-item aa mob-login">
+                                            <Link to="/profile" className="nav-link">PROFILE</Link>
+                                        </li>
+                                        {
+                                            (Type == "user" || Type == "shop") &&
+
+                                            <li onClick={OnOpen}>
+                                                <li className="nav-item aa mob-login">
+                                                    <Link to="/shop" className="nav-link">SHOP</Link>
+                                                </li>
+                                            </li>
+                                        }
+                                        <li className="nav-item aa mob-login">
+                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                        </li>
+                                        <li className="nav-item aa mob-login">
+                                            <Link to="/packages" className="nav-link">PACKAGES</Link>
+                                        </li>
+                                        <li className="nav-item aa mob-login">
+                                            <Link to='/login' className='nav-link'>LOGOUT</Link>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            {/* mobile  nav end*/}
             <div className="mob-version search-box col-12">
                 <form className="form-inline my-2 my-lg-0" action="search-result.php" method="get">
                     <div className="mob-search">
@@ -204,17 +283,17 @@ const Header = () => {
 
                             {/* <div className="row catagry-color p-0 m-0"> */}
                             <div className="category-section">
-                                <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div>
+                                {/* <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div> */}
                                 <div className=" disp">
                                     <div className="drop-down">
                                         Automobiles
                                         <ul className="dropdown-category dropdown-category-bikes">
-                                            <li className="bghover"><Link to="/bike" className="dropdown_sub-category ">Bikes</Link></li>
-                                            <li className="bghover"><Link to="/car" className="dropdown_sub-category ">Cars</Link></li>
-                                            <li className="bghover"><Link to="/scooty" className="dropdown_sub-category" >Scooty</Link></li>
-                                            <li className="bghover"><Link to="/heavyVehicle" className="dropdown_sub-category">Heavy Vehicle</Link></li>
-                                            <li className="bghover"><Link to="/spareParts" className="dropdown_sub-category">Spare Parts</Link></li>
-                                            <li className="bghover"><Link to="/others" className="dropdown_sub-category">Others</Link></li>
+                                            <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
+                                            <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
+                                            <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
+                                            <Link to="/automobile/heavy vehicle" className="dropdown_sub-category" ><li className="bghover">Heavy Vehicle</li></Link>
+                                            <Link to="/automobile/spare parts" className="dropdown_sub-category" ><li className="bghover">Spare Parts</li></Link>
+                                            <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Others</li></Link>
                                         </ul>
                                     </div>
                                 </div>
@@ -223,11 +302,11 @@ const Header = () => {
                                     <div className="drop-down">
                                         Laptop&nbsp;&&nbsp;Mobiles
                                         <ul className="dropdown-category ">
-                                            <li className="bghover">Mobile Phones</li>
-                                            <li className="bghover">Tablets</li>
-                                            <li className="bghover">Laptops</li>
-                                            <li className="bghover">Computers</li>
-                                            <li className="bghover">Accessories</li>
+                                            <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
+                                            <Link to="/mobiles/tablets" className="dropdown_sub-category "><li className="bghover">Tablets</li></Link>
+                                            <Link to="/mobiles/laptops" className="dropdown_sub-category "><li className="bghover">Laptops</li></Link>
+                                            <Link to="/mobiles/computers" className="dropdown_sub-category "><li className="bghover">Computers</li></Link>
+                                            <Link to="/mobiles/accessories" className="dropdown_sub-category "><li className="bghover">Accessories</li></Link>
                                         </ul>
                                     </div>
                                 </div>
@@ -235,25 +314,26 @@ const Header = () => {
                                 <div className="disp">
                                     <div className="drop-down">
                                         Furniture
+
                                         <ul className="dropdown-category">
-                                            <li className="bghover">Home Decoration</li>
-                                            <li className="bghover">Sofa & Beds</li>
-                                            <li className="bghover">Chairs & Tables</li>
-                                            <li className="bghover">Kids Furniture</li>
-                                            <li className="bghover">Others</li>
+                                            <Link to="/furnitures/home decoration" className="dropdown_sub-category "><li className="bghover">Home Decoration</li></Link>
+                                            <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
+                                            <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
+                                            <Link to="/furnitures/kids furniture" className="dropdown_sub-category "><li className="bghover">Kids Furniture</li></Link>
+                                            <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
                                         </ul>
                                     </div>
                                 </div>
 
                                 <div className="disp">
                                     <div className="drop-down">
-                                        Fashion&nbsp;&&nbsp;Clothes
+                                        Fashions
                                         <ul className="dropdown-category">
-                                            <li className="bghover">Men</li>
-                                            <li className="bghover">Women</li>
-                                            <li className="bghover">Kids</li>
-                                            <li className="bghover">Fashion & Beauty Products</li>
-                                            <li className="bghover">Others</li>
+                                            <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>
+                                            <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
+                                            <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
+                                            <Link to="/Fashions/fashion & beauty" className="dropdown_sub-category "><li className="bghover">Fashion & Beauty Products</li></Link>
+                                            <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
                                         </ul>
                                     </div>
                                 </div>
@@ -262,11 +342,11 @@ const Header = () => {
                                     <div className="drop-down">
                                         Services
                                         <ul className="dropdown-category">
-                                            <li className="bghover">Educations & classes</li>
-                                            <li className="bghover">Electronics & Computers</li>
-                                            <li className="bghover">Accountancy Services</li>
-                                            <li className="bghover">Software Services</li>
-                                            <li className="bghover">Other Services</li>
+                                            <Link to="/Services/education & classes" className="dropdown_sub-category "><li className="bghover">Educations & classes</li></Link>
+                                            <Link to="/Services/electronics & computers" className="dropdown_sub-category "><li className="bghover">Electronics & Computers</li></Link>
+                                            <Link to="/Services/accountancy services" className="dropdown_sub-category "><li className="bghover">Accountancy Services</li></Link>
+                                            <Link to="/Services/software services" className="dropdown_sub-category "><li className="bghover">Software Services</li></Link>
+                                            <Link to="/Services/other services" className="dropdown_sub-category "><li className="bghover">Other Services</li></Link>
                                         </ul>
                                     </div></div>
 
@@ -274,9 +354,9 @@ const Header = () => {
                                     <div className="drop-down">
                                         Properties
                                         <ul className="dropdown-category">
-                                            <li className="bghover">For Rent</li>
-                                            <li className="bghover">For Sale</li>
-                                            <li className="bghover">Land & Plots</li>
+                                            <Link to="/properties/for rent" className="dropdown_sub-category "><li className="bghover">For Rent</li></Link>
+                                            <Link to="/properties/for sale" className="dropdown_sub-category "><li className="bghover">For Sale</li></Link>
+                                            <Link to="/properties/land & plots" className="dropdown_sub-category "><li className="bghover">Land & Plots</li></Link>
                                         </ul>
                                     </div>
                                 </div>
@@ -285,11 +365,11 @@ const Header = () => {
                                     <div className="drop-down">
                                         Books&nbsp;&&nbsp;Sports
                                         <ul className="dropdown-category">
-                                            <li className="bghover">Books</li>
-                                            <li className="bghover">Gym</li>
-                                            <li className="bghover">Musical Instruments</li>
-                                            <li className="bghover">Sports Items</li>
-                                            <li className="bghover">Others</li>
+                                            <Link to="/booksAndSports/books" className="dropdown_sub-category "><li className="bghover">Books</li></Link>
+                                            <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
+                                            <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
+                                            <Link to="/booksAndSports/sports items" className="dropdown_sub-category "><li className="bghover">Sports Items</li></Link>
+                                            <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
                                         </ul>
                                     </div></div>
 
@@ -298,87 +378,93 @@ const Header = () => {
                                     <div className="drop-down">
                                         Electronics&nbsp;&&nbsp;Appliances
                                         <ul className="dropdown-category catagry-color">
-                                            <li className="bghover"><Link to="/fridge">Fridge</Link></li>
-                                            <li className="bghover"><Link to="/cooler">Cooler</Link></li>
-                                            <li className="bghover"><Link to="/ac">A/C</Link></li>
-                                            <li className="bghover"><Link to="/tv">Television & Led</Link></li>
-                                            <li className="bghover"><Link to="/washingmachine">Washing Machine</Link></li>
-                                            <li className="bghover"><Link to="/printer">Hard Disks, Printer & Monitor</Link></li>
-                                            <li className="bghover"><Link to="/games">Games</Link></li>
-                                            <li className="bghover"><Link to="/speakers">Speakers</Link></li>
-                                            <li className="bghover"><Link to="/camera">Cameras & Lens</Link></li>
-                                            <li className="bghover"><Link to="/kitchen">Kitchen & Others</Link></li>
-                                            <li className="bghover"><Link to="/computer">Computers Accessories</Link></li>
-                                            <li className="bghover"><Link to="/air">Air Purifiers</Link></li>
-                                            <li className="bghover"><Link to="/water">Water Purifiers</Link></li>
-                                            <li className="bghover"><Link to="/other">Other Items</Link></li>
+                                            <li className="bghover"><Link to="/electronics/fridge">Fridge</Link></li>
+                                            <li className="bghover"><Link to="/electronics/cooler">Cooler</Link></li>
+                                            <li className="bghover"><Link to="/electronics/fan">Cooler</Link></li>
+                                            <li className="bghover"><Link to="/electronics/ac">A/C</Link></li>
+                                            <li className="bghover"><Link to="/electronics/television & led">Television & Led</Link></li>
+                                            <li className="bghover"><Link to="/electronics/washing machine">Washing Machine</Link></li>
+                                            <li className="bghover"><Link to="/electronics/hard disks printer">Hard Disks, Printer & Monitor</Link></li>
+                                            <li className="bghover"><Link to="/electronics/games">Games</Link></li>
+                                            <li className="bghover"><Link to="/electronics/speakers">Speakers</Link></li>
+                                            <li className="bghover"><Link to="/electronics/cameras & lens">Cameras & Lens</Link></li>
+                                            <li className="bghover"><Link to="/electronics/kitchen & others">Kitchen & Others</Link></li>
+                                            <li className="bghover"><Link to="/electronics/computer accessories">Computers Accessories</Link></li>
+                                            <li className="bghover"><Link to="/electronics/air purifiers">Air Purifiers</Link></li>
+                                            <li className="bghover"><Link to="/electronics/water purifiers">Water Purifiers</Link></li>
+                                            <li className="bghover"><Link to="/electronics/other items">Other Items</Link></li>
                                         </ul>
                                     </div>
 
                                     {/* <!-- end --> */}
                                 </div>
-
-                                <img src={`${baseUrl}/users/profile/image/${LocalData?.profileImg}`} style={{ width: '3%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
-
-                                {
-                                    (profileName) ?
-                                        <button class="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            {(LocalData == null)
-                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
-                                            }
-
-                                        </button>
-                                        :
-
-                                        <Link to="/login" class="secondary dropdown btn-dProfile">
-                                            {(LocalData == null)
-                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
-                                            }
-                                        </Link>
+                                <div className="profiles d-flex align-items-center justify-content-start">
 
 
-
-                                }
-
-
-
-                                <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    <li><Link to="/profile" class="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
-
-                                    <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
-
-
-                                    <li><Link to='/packages' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
 
                                     {
-                                        (Type == "user" || Type == "shop") &&
+                                        (profileName) ?
+                                            <>
+                                                <button class="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <img src={`${baseUrl}/users/profile/image/${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+                                                    {(LocalData == null)
+                                                        ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
+                                                    }
 
-                                        <li onClick={OnOpen}>
-                                            <Link to="" className="dropdown-item">
-                                                <FcShop />
-                                                <span className=" ms-2 ">Shop</span>
+                                                </button>
+                                            </>
+                                            :
+
+                                            <Link to="/login" class="secondary dropdown btn-dProfile">
+                                                {(LocalData == null)
+                                                    ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
+                                                }
                                             </Link>
-                                        </li>
+
+
+
                                     }
-                                    <Link to="" className="dropdown-item" id="Hov">
-                                        <li >
-                                            <FontAwesomeIcon icon="fas fa-sign-out-alt" />
-                                            <GoogleLogout
-                                                clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                                buttonText="Logout"
-                                                onLogoutSuccess={() => {
-                                                    window.localStorage.removeItem('token');
-                                                    nav("/login")
-                                                }}
-                                                icon={false}
-                                                className='setGoogleLog'
-                                            />
 
-                                        </li>
-                                    </Link>
 
-                                </ul>
 
+                                    <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                        <li><Link to="/profile" class="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
+
+                                        <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
+
+
+                                        <li><Link to='/packages' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
+
+                                        {
+                                            (Type == "user") &&
+
+                                            <li onClick={OnOpen}>
+                                                <Link to="" className="dropdown-item">
+                                                    <FcShop />
+                                                    <span className=" ms-2 ">Shop</span>
+                                                </Link>
+                                            </li>
+                                        }
+                                        <Link to="" className="dropdown-item" id="Hov">
+                                            <li >
+                                                <FontAwesomeIcon icon="fas fa-sign-out-alt" />
+                                                <GoogleLogout
+                                                    clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                                    buttonText="Logout"
+                                                    onLogoutSuccess={() => {
+                                                        window.localStorage.removeItem('token');
+                                                        nav("/login")
+                                                    }}
+                                                    icon={false}
+                                                    className='setGoogleLog'
+                                                />
+
+                                            </li>
+                                        </Link>
+
+                                    </ul>
+
+                                </div>
 
 
                                 <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />

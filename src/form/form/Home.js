@@ -16,30 +16,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { HomeAllData } from "../../functions/HomeFun";
+import { HomeAllData, SearchHome } from "../../functions/HomeFun";
 import styled from "styled-components";
 import shopIcon from '../../assets/images/shopIcon.png'
 import { BiRefresh } from 'react-icons/bi'
 import { Button, Spinner } from "@chakra-ui/react";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
+import { FiHeart } from 'react-icons/fi'
+import { FaHeart } from 'react-icons/fa'
+// import CategorySlider from "./corousel/CategorySlider";
 
 const Home = () => {
 
-    const [automobile, setAutomobile] = useState([]); 
+    const [automobile, setAutomobile] = useState([]);
     const [MoreData, setMoreData] = useState([]);
     const [TotalPagess, setTotalPagess] = useState('');
     const [Loading, setLoading] = useState(false)
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData } = useContext(GlobalVariables)
 
-    const homeDataAll = async () => {  
-        const { data } = await HomeAllData(Longitude, latitude, Lmore) 
-        console.log(data)
-
+    const homeDataAll = async () => {
+        const { data } = await HomeAllData(Longitude, latitude, Lmore)
+        console.log(data, 'homeData')
+        setLoading(true)
         console.log(Loading)
         if (data.status) {
             setAutomobile([...automobile, ...data.data]);
             setLoading(false)
+            setHomeData(data.data)
             console.log(Loading)
             setMoreData(data.data);
             setTotalPagess(data.totalPages);
@@ -49,39 +53,25 @@ const Home = () => {
         }
     }
     const LoadMOre = () => {
-        // homeDataAll()
         setLmore(Lmore + 1)
         setLoading(true)
-        // console.log(Lmore)
-        // console.log('run')
-        // setAutomobile(automobile => [...automobile, ...MoreData]);
-        // console.log(automobile, 'Autodata')
     }
-    window.onscroll = function () {
-        // LoadMOre()
-        // homeDataAll()
-        if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-        }
-    }
+    // window.onscroll = function () {
+    //     LoadMOre()
+    //     homeDataAll()
+    //     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+    //     }
+    // }
 
+    let Max_length = 27;
     useEffect(() => {
         homeDataAll()
     }, [Lmore])
-    // const RefTog = async() => {
-    //     setLmore(1)  
-    //     const { data } = await HomeAllData(1)
-    //     console.log(data)
-
-    //     if (data.status) {
-    //         setAutomobile(data.data);
-
-    //     }
-
-    // }
     return (
         <>
+            {/* <div className="row p-0 m-0"> */}
             <Header />
-
+               
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -98,41 +88,38 @@ const Home = () => {
                 // effect={'fade'}
                 // slidesPerView={1}
                 loop
-                modules={[Autoplay, Pagination, Navigation]}
+                modules={[Pagination, Navigation]}
+                // modules={[Autoplay, Pagination, Navigation]}
                 className="mySwiper"
             >
                 {/* <div className="swiper-wrapper"> */}
-                <SwiperSlide className="swiper-slide">
+                <SwiperSlide className="swiper-slide" id="poster1">
                     <img src={poster1} />
                 </SwiperSlide>
-                <SwiperSlide className="swiper-slide">
+                <SwiperSlide className="swiper-slide" id="poster2">
                     <img src={poster2} />
                 </SwiperSlide>
-                <SwiperSlide className="swiper-slide">
+                <SwiperSlide className="swiper-slide" id="poster3">
                     <img src={poster3} />
                 </SwiperSlide>
                 <div className="swiper-pagination"></div>
                 {/* </div> */}
             </Swiper>
-
+                <div className="mobile-Categoryslider">
+                {/* <CategorySlider /> */}
+                </div>
 
             {/* <!-- products section */}
 
             <div className="row m-0 p-0">
                 <div className="for-center flex-row justify-content-center align-items-center">
 
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                         <div class="container-heading">
                             <span>ALL PRODUCTS</span>
                         </div>
                     </div>
-                    <div className="col-md-6 d-flex justify-content-center align-items-center">
-                        <div className=" pt-4">
-                            {/* <RefreshBtn>
-                                <abbr title="Refresh Data"><BiRefresh className='ref' onClick={() => { RefTog() }} /></abbr>
-                            </RefreshBtn> */}
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -140,33 +127,42 @@ const Home = () => {
 
             <div class="container" id="card_box">
 
-                {/* <!-- Mobile products --> */}
-
-                {/* <!-- <div class="for-center-car">
-        <div class="container-heading-car">
-            <span>CAR ITEMS</span>
-        </div>
-    </div> --> */}
-
-                {/* <!-- car products --> */}
-                <div class="row">
+                <div class="row p-0 m-0">
                     {
                         automobile?.map((automobileProduct, key) => {
                             return (
-                                <div class="col-md-4 col-8 col-lg-3">
+                                <div class="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>
 
-                                        <Link to='/singleproductpage' state={automobileProduct} className="text-decor">
+                                        <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
                                             <div class="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                <div class="img-wh overflow-hidden"><img src={`${baseUrl}/allcategories/get/productImage/${automobileProduct.images[0]}`} class="pdt-img" /></div>
+                                                <div class="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} class="pdt-img" /></div>
                                                 <div class="pdt-details">
-                                                    <div class="price">{automobileProduct.price}</div>
-                                                    <div class="font-weight-light desc">{automobileProduct.description}</div>
-                                                    <div class="prd-name">{automobileProduct.title}</div>
+                                                    <div className="row">
+                                                        <div className="col-md-6">
+                                                            <div class="price">₹ {automobileProduct.price}</div>
+                                                        </div>
+                                                        <div className="col-md-6 setHeart">
+                                                            {
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger" /> : <FiHeart />
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                    {/* <div class="font-weight-light desc">{automobileProduct.description}</div> */}
+
+                                                    {
+                                                        (automobileProduct.title).length > Max_length ?
+                                                            <div class="prd-name">
+                                                                {`${automobileProduct.title.substring(0, Max_length)}...`}
+                                                            </div>
+                                                            :
+                                                            <div class="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                    }
                                                     <div class="contain-adrs">
-                                                        <span class="adrs">{automobileProduct.location.state}</span>
+                                                        <span class="adrs text-capitalize">{automobileProduct.location.state}</span>
                                                         <span class="year"></span>
                                                     </div>
                                                     <div class="row p-0 m-0">
@@ -191,19 +187,22 @@ const Home = () => {
                     {
 
                     }
+                    <div className="row m-0 p-0">
 
-                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
-                        {Loading && <div class="spinner-border spinner-border-sm me-2" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                        </div>}
-                        Load More
-                    </ButtonCraete>
-                    {/* </div> */}
+                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
+                            {Loading && <div class="spinner-border spinner-border-sm me-2" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>}
+                            Load More
+                        </ButtonCraete>
+                        {/* </div> */}
+                    </div>
                 </div>
 
 
             </div >
             <Footer />
+            {/* </div> */}
         </>
     )
 }
@@ -222,34 +221,34 @@ const ButtonCraete = styled.button`
     border-radius: 4px;
     padding: 0.3rem 1.2rem;
     margin: 1rem;
-    /* display: grid;
-    place-items: center;
-    justify-content: center; */
 `
 const CardHeight = styled.div`
 position: relative;
 top: 0;
-
+/* @media (max-width: 768px) {
+    display: none;
+  } */
     height: 70vh ;
     .ShopLogo{
-        height: 7vh;
+        height: 5vh;
         position: absolute;
         top: 2%;
         right: 7%;
     }
 `
 const Ribbon = styled.div`
-  
+    /* margin-left: -10px; */
     font:  10px sans-serif;
     color: #3D6182;
+    text-transform: uppercase;
     text-align: center;
     -webkit-transform: rotate(-45deg);
     -moz-transform:    rotate(-45deg);
     -ms-transform:     rotate(-45deg);
     -o-transform:      rotate(-45deg);
     position: relative;
-    padding: 7px 0;
-    top: -5px;
+    padding: 4px 0;
+    top: 10px;
     left: -40px;
     width: 120px;
     background-color: #3D6182;

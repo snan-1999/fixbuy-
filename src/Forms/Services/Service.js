@@ -70,7 +70,7 @@ const Service = () => {
         };
 
 
-        if (title.trim().length > 0) {
+        if (title.trim().length > 0  &&  title.trim().length <= 5) {
             if (sellername.trim().length >= 0) {
                 if (description.trim().length > 0) {
                     if (price.trim().length > 0) {
@@ -114,7 +114,11 @@ const Service = () => {
                                                 formData.append('longitude', "28.663996")
                                                 formData.append('latitude', "77.306843")
                                                 const api = `${baseUrl}/product/services/form/create`;
-                                                await axios.post(api, formData, config).then((response) => {
+                                                await axios.post(api, formData,  {
+                                                    headers: {
+                                                        'Content-Type': 'multipart/form-data'
+                                                    }
+                                                }).then((response) => {
                                                     if (response.data.status) {
                                                         console.log(response.data.status);
                                                         setposted('success')

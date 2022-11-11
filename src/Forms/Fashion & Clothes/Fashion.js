@@ -17,7 +17,7 @@ const Fashion = () => {
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;   
+    const Type = JSON.parse(IdData).type;
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
@@ -66,9 +66,9 @@ const Fashion = () => {
         const formData = new FormData();
         const config = {
             headers: {
-                Accept: 'application/json , text/plain, /',
-                'Content-type': 'multipart/form-data',
-            },
+                // 'Accept': 'application/json , text/plain',
+                'Content-type': 'multipart/form-data'
+            }
         };
 
         if (title.trim().length > 0) {
@@ -80,60 +80,64 @@ const Fashion = () => {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
                                         if (neighbourhood.trim().length > 0) {
-                                        if (sellerphone.trim().length > 0) {
-                                            setError(true)
-                                            formData.append('sellername', sellername)
-                                            // formData.append('brand', brand)
-                                            formData.append('title', title)
-                                            formData.append('sellerphone', sellerphone)
-                                            formData.append('categories', category2)
-                                            formData.append('description', description)
-                                            formData.append('price', price)
-                                            let imageStatus = true
-                                            console.log(img);
-                                            img.forEach(imgs => {
-                                                // console.log(imgs.file.type)
-                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                    console.log(imgs.file.type)
-                                                    alert("File does not support .webp extension ");
-                                                    imageStatus = false
-                                                    return false;
+                                            if (sellerphone.trim().length > 0) {
+                                                setError(true)
+                                                formData.append('sellername', sellername)
+                                                // formData.append('brand', brand)
+                                                formData.append('title', title)
+                                                formData.append('sellerphone', sellerphone)
+                                                formData.append('categories', category2)
+                                                formData.append('description', description)
+                                                formData.append('price', price)
+                                                let imageStatus = true
+                                                console.log(img);
+                                                img.forEach(imgs => {
+                                                    // console.log(imgs.file.type)
+                                                    if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                        console.log(imgs.file.type)
+                                                        alert("File does not support .webp extension ");
+                                                        imageStatus = false
+                                                        return false;
 
 
-                                                }
-                                                formData.append("images", imgs.file)
-                                            });
-                                            // formData.append('images', img)
-                                            // if()
-                                            if (imageStatus) {
-                                                formData.append('state', state)
-                                                formData.append('city', city)
-                                                formData.append('pincode', pincode)
-                                                formData.append('neighbourhood', neighbourhood)
-                                                formData.append('user_id', user_id)
-                                                formData.append('sellerType', sellerType)
-                                                formData.append('longitude' , "28.663996")
-                                    formData.append('latitude' , "77.306843")
-                                                const api = `${baseUrl}/product/fashions/form/create`;
-                                                await axios.post(api, formData, config).then((response) => {
-                                                    if (response.data.status) {
-                                                        console.log(response.data.status);
-                                                        setposted('success')
-                                                        // console.log(posted)
-                                                        setMessage('Posted !');
-                                                    } else {
-                                                        setposted('fail')
-                                                        console.log(false);
-                                                        // seterrors(false)
-                                                        setMessage('Please fill the details')
                                                     }
-                                                })
+                                                    formData.append("images", imgs.file)
+                                                });
+                                                // formData.append('images', img)
+                                                // if()
+                                                if (imageStatus) {
+                                                    formData.append('state', state)
+                                                    formData.append('city', city)
+                                                    formData.append('pincode', pincode)
+                                                    formData.append('neighbourhood', neighbourhood)
+                                                    formData.append('user_id', user_id)
+                                                    formData.append('sellerType', sellerType)
+                                                    formData.append('longitude', "28.663996")
+                                                    formData.append('latitude', "77.306843")
+                                                    const api = `${baseUrl}/product/fashions/form/create`;
+                                                    await axios.post(api, formData, {
+                                                        headers: {
+                                                            'Content-Type': 'multipart/form-data'
+                                                        }
+                                                    }).then((response) => {
+                                                        if (response.data.status) {
+                                                            console.log(response.data.status);
+                                                            setposted('success')
+                                                            // console.log(posted)
+                                                            setMessage('Posted !');
+                                                        } else {
+                                                            setposted('fail')
+                                                            console.log(false);
+                                                            // seterrors(false)
+                                                            setMessage('Please fill the details')
+                                                        }
+                                                    })
+                                                }
+                                            } else {
+                                                setError(false);
+                                                console.log("sellerphone error")
+                                                sellerphoneRef.current.style.borderColor = 'red';
                                             }
-                                        } else {
-                                            setError(false);
-                                            console.log("sellerphone error")
-                                            sellerphoneRef.current.style.borderColor = 'red';
-                                        }
                                         } else {
                                             setError(false);
                                             console.log("landmark error")
@@ -209,25 +213,25 @@ const Fashion = () => {
                     <input type="hidden" name='sellerType' value={sellerType} hidden />
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" class="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setTitle(e.target.value)
-                        titleRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                     value={title} 
-                     ref={titleRef}
-                     /><br />
+                    <input type="text" name="title" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setTitle(e.target.value)
+                            titleRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={title}
+                        ref={titleRef}
+                    /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%" 
-                    onChange={(e) => {
-                        setDescription(e.target.value)
-                        descriptionRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }} 
-                    value={description}
-                    ref={descriptionRef}
+                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%"
+                        onChange={(e) => {
+                            setDescription(e.target.value)
+                            descriptionRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={description}
+                        ref={descriptionRef}
                     ></textarea>
                     {/* <br />
                     <br /> */}
@@ -235,14 +239,14 @@ const Fashion = () => {
 
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setPrice(e.target.value)
-                        priceRef.current.style.borderColor = "#ced4da";
-                        setError("")                   
-                    }} 
-                    value={price} 
-                    ref={priceRef}
+                    <input type="text" name="set_price" class="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setPrice(e.target.value)
+                            priceRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={price}
+                        ref={priceRef}
                     />
 
                 </div>
@@ -317,13 +321,13 @@ const Fashion = () => {
                     </div><br />
                     <div class="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" class="form-control set-pd-input-post" required 
-                        value={state} 
-                        ref={stateRef}
-                        onChange={(e) => {
-                            setState(e.target.value)
-                            stateRef.current.style.borderColor = "#ced4da";
-                        setError("") 
+                        <select id="State" name="location" class="form-control set-pd-input-post" required
+                            value={state}
+                            ref={stateRef}
+                            onChange={(e) => {
+                                setState(e.target.value)
+                                stateRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }}>
                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -366,34 +370,34 @@ const Fashion = () => {
                         <br />
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required 
-                        value={city} 
-                        ref={cityRef}
-                        onChange={(e) => {
-                            setCity(e.target.value)
-                            cityRef.current.style.borderColor = "#ced4da";
-                        setError("") 
+                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                            value={city}
+                            ref={cityRef}
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                                cityRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} /><br />
 
 
                         <label for="pincode">PINCODE*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required 
-                        value={pincode} 
-                        ref={pincodeRef}
-                        onChange={(e) => {
-                            setPincode(e.target.value)
-                            pincodeRef.current.style.borderColor = "#ced4da";
-                        setError("") 
+                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                            value={pincode}
+                            ref={pincodeRef}
+                            onChange={(e) => {
+                                setPincode(e.target.value)
+                                pincodeRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required 
-                        value={neighbourhood} 
-                        ref={neighbourhoodRef}
-                        onChange={(e) => {
-                            setNeighbourhood(e.target.value)
-                            neighbourhoodRef.current.style.borderColor = "#ced4da";
-                        setError("") 
+                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required
+                            value={neighbourhood}
+                            ref={neighbourhoodRef}
+                            onChange={(e) => {
+                                setNeighbourhood(e.target.value)
+                                neighbourhoodRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} />
                     </div>
                 </div>
@@ -440,13 +444,13 @@ const Fashion = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" class="form-control set-pd-input-post nameField" required 
-                                value={sellername} 
-                                ref={sellernameRef}
-                                onChange={(e) => {
-                                    setSellerName(e.target.value)
-                                    sellernameRef.current.style.borderColor = "#ced4da";
-                        setError("") 
+                                <input type="text" name="name" class="form-control set-pd-input-post nameField" required
+                                    value={sellername}
+                                    ref={sellernameRef}
+                                    onChange={(e) => {
+                                        setSellerName(e.target.value)
+                                        sellernameRef.current.style.borderColor = "#ced4da";
+                                        setError("")
                                     }} />
                             </div>
 
@@ -459,13 +463,13 @@ const Fashion = () => {
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
                     <input type="text" name="number" class="form-control set-pd-input-post" required
-                    onChange={(e) => {
-                        setSellerPhone(e.target.value)
-                        sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                    value={sellerphone}
-                    ref={sellerphoneRef}
+                        onChange={(e) => {
+                            setSellerPhone(e.target.value)
+                            sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={sellerphone}
+                        ref={sellerphoneRef}
                     /><br />
 
                     <div class="post-pr">
