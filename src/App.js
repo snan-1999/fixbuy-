@@ -30,6 +30,8 @@ import Packages from './form/form/Packages';
 import SingleBlog from './form/form/Blog/SingleBlog';
 import SearchPage from './form/form/SearchPage';
 import SubProduct from './Forms/SubcategoryProduct/SubProduct';
+import SavedItems from './form/form/SavedItems';
+import Demo from './form/form/ImageUpload';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -63,6 +65,8 @@ function App() {
           <Route path='/privacy' element={<Privacy />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/sell' element={<Sell />} />
+          <Route path='/demo' element={<Demo />} />
+          <Route path='/saved-items' element={<SavedItems />} />
           <Route path='/sell/Electronics/:category' element={<Fridge />} />
           <Route path='/sell/PC/:category2' element={<PC />} />
           <Route path='/sell/Furniture/:category2' element={<HomeDecoration />} />

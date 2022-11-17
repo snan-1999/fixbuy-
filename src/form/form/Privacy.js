@@ -10,11 +10,11 @@ const Privacy = () => {
 
  <> 
 <div id="wbars_all" style={{ marginTop: 50 , marginRight: 50 , marginBottom: 50 , marginLeft: 50}}>
-   <div class="iub_container iub_base_container">
+   <div className="iub_container iub_base_container">
     <div id="wbars">
-       <div class="iub_content legal_pp">
+       <div className="iub_content legal_pp">
 
-<div class="iub_header">
+<div className="iub_header">
 
     <h1>The Terms and Conditions of fixebuy.in</h1>
 
@@ -24,7 +24,7 @@ const Privacy = () => {
 
 
         
-<div class="one_line_col">
+<div className="one_line_col">
   <h2 id="owner_of_the_data">
     Owner and Data Controller
   </h2>
@@ -33,7 +33,7 @@ const Privacy = () => {
 </div>
 
 
-<div class="one_line_col">
+<div className="one_line_col">
   <h2 id="rights_subjects">The rights of Users</h2>
   <p>Users may exercise certain rights regarding their Data processed by the Owner.</p>
   <p>In particular, Users have the right to do the following:</p>
@@ -64,7 +64,7 @@ const Privacy = () => {
     
 
 
-<div class="one_line_col">
+<div className="one_line_col">
   <h2 id="further_data_processing_info">Additional information about Data collection and processing</h2>
   <h3>Legal action</h3>
   <p>The User's Personal Data may be used for legal purposes by the Owner in Court or in the stages leading to possible legal action arising from improper use of this Application or the related Services.<br />The User declares to be aware that the Owner may be required to reveal personal data upon request of public authorities.</p>
@@ -87,12 +87,12 @@ Should the changes affect processing activities performed on the basis of the Us
 
 
 
-<div class="one_line_col">
-  <div class="box_primary box_10 definitions expand">
-    <h3 id="definitions_and_legal_references" class="expand-click w_icon_24 icon_ribbon">
+<div className="one_line_col">
+  <div className="box_primary box_10 definitions expand">
+    <h3 id="definitions_and_legal_references" className="expand-click w_icon_24 icon_ribbon">
       Definitions and legal references
     </h3>
-    <div class="expand-content">
+    <div className="expand-content">
       <h4>Personal Data (or Data)</h4>
       <p>Any information that directly, indirectly, or in connection with other information — including a personal identification number — allows for the identification or identifiability of a natural person.</p>
 
@@ -133,7 +133,7 @@ Should the changes affect processing activities performed on the basis of the Us
 {/* </div> */}
 
         
-<div class="iub_footer">
+<div className="iub_footer">
 
   <p>
     Latest update: May 07, 2022

@@ -304,16 +304,16 @@ const ForRent = () => {
                 {
                     (category2 == 'for_rent' || category2 == 'for_sales') ?
                         <>
-                            <div class="container post border p-0">
-                                <div class="heading-post-product">
+                            <div className="container post border p-0">
+                                <div className="heading-post-product">
                                     {/* <input type="text" name='category' value={category2} /> */}
                                     {/* <h3>hello</h3> */}
                                     POST YOUR ITEMS
                                     <h6 className="sub-Categories-Heading">{newcategory}</h6>
                                 </div>
                                 <hr />
-                                <div class="container set-pd-post">
-                                    <div class="sub-heading-post">
+                                <div className="container set-pd-post">
+                                    <div className="sub-heading-post">
                                         Put Some Details
                                     </div>
                                     {/* <br /> */}
@@ -324,7 +324,7 @@ const ForRent = () => {
                                     <input type="hidden" name='sellerType' value={sellerType} hidden />
 
                                     <label for="brand">TITLE*</label>
-                                    <input type="text" name="title" class="form-control set-pd-input-post" required
+                                    <input type="text" name="title" className="form-control set-pd-input-post" required
                                         onChange={(e) => {
                                             setTitle(e.target.value)
                                             titleRef.current.style.borderColor = "#ced4da";
@@ -334,9 +334,9 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">TYPE*</label><br />
-                                    <div class="radio-button">
-                                        <div class="borderClass border ">
-                                            <input class="radio" type="radio" name="type" id="inlineRadio1"
+                                    <div className="radio-button">
+                                        <div className="borderClass border ">
+                                            <input className="radio" type="radio" name="type" id="inlineRadio1"
                                                 value="Appartments"
                                                 checked={type === 'Appartments'}
                                                 onChange={(e) => {
@@ -345,10 +345,10 @@ const ForRent = () => {
                                                     setError("")
                                                 }}
                                             />
-                                            <label class="form-check-label" for="inlineRadio1">Appartments</label>
+                                            <label className="form-check-label" for="inlineRadio1">Appartments</label>
                                         </div>
-                                        <div class="borderClass border ">
-                                            <input class="radio" type="radio" name="type" id="inlineRadio2"
+                                        <div className="borderClass border ">
+                                            <input className="radio" type="radio" name="type" id="inlineRadio2"
                                                 value="Houses & Villas"
                                                 checked={type === 'Houses & Villas'}
                                                 onChange={(e) => {
@@ -357,10 +357,10 @@ const ForRent = () => {
                                                     setError("")
                                                 }}
                                             />
-                                            <label class="form-check-label" for="inlineRadio2">Houses & Villas</label>
+                                            <label className="form-check-label" for="inlineRadio2">Houses & Villas</label>
                                         </div>
-                                        <div class="borderClass border">
-                                            <input class="radio" type="radio" name="type" id="inlineRadio3"
+                                        <div className="borderClass border">
+                                            <input className="radio" type="radio" name="type" id="inlineRadio3"
                                                 value="Farm Houses"
                                                 checked={type === 'Farm Houses'}
                                                 onChange={(e) => {
@@ -369,16 +369,16 @@ const ForRent = () => {
                                                     setError("")
                                                 }}
                                             />
-                                            <label class="form-check-label" for="inlineRadio3">Farm Houses</label>
+                                            <label className="form-check-label" for="inlineRadio3">Farm Houses</label>
                                         </div>
                                     </div>
                                     <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                                     <br />
 
                                     <label for="brand">FURNISHING*</label>
-                                    <div class="radio-button">
-                                        <div class="borderClass border ">
-                                            <input class="radio" type="radio" name="furnishing" id="inlineRadio4"
+                                    <div className="radio-button">
+                                        <div className="borderClass border ">
+                                            <input className="radio" type="radio" name="furnishing" id="inlineRadio4"
                                                 onChange={(e) => {
                                                     // setFurnishing(e.target.value)
                                                     handleFurnish(e)
@@ -388,10 +388,10 @@ const ForRent = () => {
                                                 }} value='well furnished'
                                                 checked={furnishing === 'well furnished'}
                                             />
-                                            <label class="form-check-label" for="inlineRadio4">Well Furnished</label>
+                                            <label className="form-check-label" for="inlineRadio4">Well Furnished</label>
                                         </div>
-                                        <div class="borderClass border ">
-                                            <input class="radio" type="radio" name="furnishing" id="inlineRadio5"
+                                        <div className="borderClass border ">
+                                            <input className="radio" type="radio" name="furnishing" id="inlineRadio5"
                                                 onChange={(e) => {
                                                     // setFurnishing(e.target.value)
                                                     handleFurnish(e)
@@ -401,10 +401,10 @@ const ForRent = () => {
                                                 }} value='semi furnished'
                                                 checked={furnishing === 'semi furnished'}
                                             />
-                                            <label class="form-check-label" for="inlineRadio5">Semi Furnished</label>
+                                            <label className="form-check-label" for="inlineRadio5">Semi Furnished</label>
                                         </div>
-                                        <div class="borderClass border">
-                                            <input class="radio" type="radio" name="furnishing" id="inlineRadio6"
+                                        <div className="borderClass border">
+                                            <input className="radio" type="radio" name="furnishing" id="inlineRadio6"
                                                 onChange={(e) => {
                                                     // setFurnishing(e.target.value)
                                                     handleFurnish(e)
@@ -414,14 +414,14 @@ const ForRent = () => {
                                                 }} value='Unfurnished'
                                                 checked={furnishing === 'Unfurnished'}
                                             />
-                                            <label class="form-check-label" for="inlineRadio6">Unfurnished</label>
+                                            <label className="form-check-label" for="inlineRadio6">Unfurnished</label>
                                         </div>
                                     </div>
                                     <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                                     <br />
 
                                     <label for="brand">BEDROOMS*</label>
-                                    <input type="text" name="bedrooms" class="form-control set-pd-input-post" required
+                                    <input type="text" name="bedrooms" className="form-control set-pd-input-post" required
                                         onChange={(e) => {
                                             setBedrooms(e.target.value)
                                             bedroomsRef.current.style.borderColor = "#ced4da";
@@ -431,7 +431,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">BATHROOMS*</label>
-                                    <input type="text" name="bathrooms" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    <input type="text" name="bathrooms" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setBathrooms(e.target.value)
                                         bathroomsRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -440,7 +440,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">BUILT UP AREA*</label>
-                                    <input type="text" name="area" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    <input type="text" name="area" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setArea(e.target.value)
                                         areaRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -449,7 +449,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">TOTAL FLOORS*</label>
-                                    <input type="text" name="floors" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    <input type="text" name="floors" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setFloors(e.target.value)
                                         floorsRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -458,7 +458,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">MAINTENANCE*</label>
-                                    <input type="text" name="maintenance" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    <input type="text" name="maintenance" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setMaintenance(e.target.value)
                                         maintenanceRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -467,7 +467,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">PARKING*</label>
-                                    <input type="text" name="parking" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    <input type="text" name="parking" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setParking(e.target.value)
                                         parkingRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -476,7 +476,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">PROJECT NAME*</label>
-                                    <input type="text" name="project_name" class="form-control set-pd-input-post" required onChange={(e) => {
+                                    <input type="text" name="project_name" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setProject_Name(e.target.value)
                                         project_nameRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -485,7 +485,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="description">ADD DESCRIPTION*</label>
-                                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%"
+                                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
                                         onChange={(e) => {
                                             setDescription(e.target.value)
                                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -497,7 +497,7 @@ const ForRent = () => {
 
                                     <label for="price">SET PRICE*</label>
                                     <br />
-                                    <input type="text" name="set_price" class="form-control set-pd-input-post" required
+                                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
                                         onChange={(e) => {
                                             setPrice(e.target.value)
                                             priceRef.current.style.borderColor = "#ced4da";
@@ -509,9 +509,9 @@ const ForRent = () => {
                                     <br />
 
                                     <label for="bachelor">BACHELOR'S ALLOWED</label>
-                                    <div class="radio-button1">
-                                        <div class="borderClass border ">
-                                            <input class="radio" type="radio" name="bachelor" id="inlineRadio7"
+                                    <div className="radio-button1">
+                                        <div className="borderClass border ">
+                                            <input className="radio" type="radio" name="bachelor" id="inlineRadio7"
                                                 onChange={(e) => {
                                                     handleBachelor(e)
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
@@ -519,10 +519,10 @@ const ForRent = () => {
                                                 }} value='Allowed'
                                                 checked={bachelors === 'Allowed'}
                                             />
-                                            <label class="form-check-label" for="inlineRadio7">Allowed</label>
+                                            <label className="form-check-label" for="inlineRadio7">Allowed</label>
                                         </div>
-                                        <div class="borderClass border ">
-                                            <input class="radio" type="radio" name="bachelor" id="inlineRadio8"
+                                        <div className="borderClass border ">
+                                            <input className="radio" type="radio" name="bachelor" id="inlineRadio8"
                                                 onChange={(e) => {
                                                     handleBachelor(e)
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
@@ -530,7 +530,7 @@ const ForRent = () => {
                                                 }} value='Not Allowed'
                                                 checked={bachelors === 'Not Allowed'}
                                             />
-                                            <label class="form-check-label" for="inlineRadio8">Not Allowed</label>
+                                            <label className="form-check-label" for="inlineRadio8">Not Allowed</label>
                                         </div>
                                     </div>
 
@@ -539,19 +539,19 @@ const ForRent = () => {
                                 </div>
                                 {/* </input> */}
                                 {/* <hr /> */}
-                                {/* <div class="container set-pd-post">
+                                {/* <div className="container set-pd-post">
                 <label for="description">SET PRICE</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" placeholder="PRICE*" required />
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" placeholder="PRICE*" required />
                 </div> */}
                                 <hr />
                                 {/* <br /> */}
-                                <div class="container set-pd-post">
-                                    <div class="sub-heading-post">
+                                <div className="container set-pd-post">
+                                    <div className="sub-heading-post">
                                         UPLOAD SOME PHOTOS
                                     </div>
-                                    <div class="container mt-3 w-100">
-                                        <div class="imageAlert">Note:- only 20 images will be uploaded</div>
+                                    <div className="container mt-3 w-100">
+                                        <div className="imageAlert">Note:- only 20 images will be uploaded</div>
                                         <ImageUploading
                                             multiple
                                             value={img}
@@ -585,7 +585,7 @@ const ForRent = () => {
                                                     </div>
                                                     <div className="setFloat">
 
-                                                        <button class=" btn btn-sm buttonChoose"
+                                                        <button className=" btn btn-sm buttonChoose"
                                                             onClick={onImageUpload}
                                                         //   {...dragProps}
                                                         >
@@ -602,13 +602,13 @@ const ForRent = () => {
 
 
                                 <hr />
-                                <div class="container set-pd-post">
-                                    <div class="sub-heading-post">
+                                <div className="container set-pd-post">
+                                    <div className="sub-heading-post">
                                         YOUR LOCATION
                                     </div><br />
-                                    <div class="select-loaction">
+                                    <div className="select-loaction">
                                         <label for="state">STATE*</label>
-                                        <select id="State" name="location" class="form-control set-pd-input-post" required
+                                        <select id="State" name="location" className="form-control set-pd-input-post" required
                                             value={state}
                                             ref={stateRef}
                                             onChange={(e) => {
@@ -657,7 +657,7 @@ const ForRent = () => {
                                         <br />
 
                                         <label for="city">CITY*</label>
-                                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                                        <input type="text" name="city" className="form-control set-pd-input-post" required
                                             value={city}
                                             ref={cityRef}
                                             onChange={(e) => {
@@ -668,7 +668,7 @@ const ForRent = () => {
 
 
                                         <label for="pincode">PINCODE*</label>
-                                        <input type="text" name="pincode" class="form-control set-pd-input-post" required
+                                        <input type="text" name="pincode" className="form-control set-pd-input-post" required
                                             value={pincode}
                                             ref={pincodeRef}
                                             onChange={(e) => {
@@ -679,7 +679,7 @@ const ForRent = () => {
 
 
                                         <label for="neighbour">LANDMARK*</label>
-                                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required
+                                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required
                                             value={neighbourhood}
                                             ref={neighbourhoodRef}
                                             onChange={(e) => {
@@ -690,15 +690,15 @@ const ForRent = () => {
                                     </div>
                                 </div>
                                 <hr />
-                                <div class="container set-pd-post">
-                                    <div class="sub-heading-post">
+                                <div className="container set-pd-post">
+                                    <div className="sub-heading-post">
                                         PUT YOUR DETAILS
                                     </div><br />
-                                    <div class="myi">
-                                        <div class=" nameTextClass">
-                                            <div class=" d-flex text-align-left m-2 p-1">
-                                                <div class="preview-container shadow shadowclass">
-                                                    <span class="fileName d-block my-2"></span>
+                                    <div className="myi">
+                                        <div className=" nameTextClass">
+                                            <div className=" d-flex text-align-left m-2 p-1">
+                                                <div className="preview-container shadow shadowclass">
+                                                    <span className="fileName d-block my-2"></span>
                                                     {/* <input
                                         type="file"
                                         accept="image/*"
@@ -732,7 +732,7 @@ const ForRent = () => {
                                             </div>
                                             <div className="nameControl">
                                                 <label for="name" >NAME*</label>
-                                                <input type="text" name="name" class="form-control set-pd-input-post nameField" required
+                                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                                     value={sellername}
                                                     ref={sellernameRef}
                                                     onChange={(e) => {
@@ -745,12 +745,12 @@ const ForRent = () => {
                                         </div>
                                     </div>
                                     <br />
-                                    <div class="sub-heading-post">
+                                    <div className="sub-heading-post">
                                         VERIFICATION
                                     </div>
                                     <p>We will send you OTP on your number</p><br />
                                     <label for="phone">Phone Number*</label>
-                                    <input type="text" name="number" class="form-control set-pd-input-post" required
+                                    <input type="text" name="number" className="form-control set-pd-input-post" required
                                     onChange={(e) => {
                                         setSellerPhone(e.target.value)
                                         sellerphoneRef.current.style.borderColor = "#ced4da";
@@ -760,16 +760,16 @@ const ForRent = () => {
                                         ref={sellerphoneRef}
                                     /><br />
 
-                                    <div class="post-pr">
+                                    <div className="post-pr">
                                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />
                                     </div>
                                     {
                                         (errors) ?
-                                            <div class="msgerror" role="alert" style={{ color: "green" }}>
+                                            <div className="msgerror" role="alert" style={{ color: "green" }}>
                                                 {message}
                                             </div>
                                             :
-                                            <div class="msgerror" role="alert" style={{ color: "red" }}>
+                                            <div className="msgerror" role="alert" style={{ color: "red" }}>
                                                 {message}
                                             </div>
                                     }

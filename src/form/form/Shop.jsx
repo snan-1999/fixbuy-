@@ -57,7 +57,7 @@ export default function Shop() {
                     <div className="for-center flex-row justify-content-center align-items-center">
 
                         <div className="col-md-6 border-1">
-                            <div class="container-heading-shop">
+                            <div className="container-heading-shop">
                                 <span>SHOP PRODUCTS</span>
                             </div>
                         </div>
@@ -83,32 +83,32 @@ export default function Shop() {
                 </div>
 
                 <br />
-                <div class="container" id="card_box">
+                <div className="container" id="card_box">
 
-                    <div class="row">
+                    <div className="row">
                         {
                             AllData?.map((automobileProduct, key) => {
                                 return (
-                                    <div class="col-md-4 col-8 col-lg-3">
+                                    <div className="col-md-4 col-8 col-lg-3">
                                         <CardHeight>
 
                                             <Link to='/singleproductpage' state={automobileProduct} className="text-decor">
-                                                <div class="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
+                                                <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                     {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                     {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                    <div class="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} class="pdt-img" /></div>
-                                                    <div class="pdt-details">
-                                                        <div class="price">{automobileProduct.price}</div>
-                                                        <div class="font-weight-light desc">{automobileProduct.description}</div>
-                                                        <div class="prd-name">{automobileProduct.title}</div>
-                                                        <div class="contain-adrs">
-                                                            <span class="adrs">{automobileProduct.location.state}</span>
-                                                            <span class="year"></span>
+                                                    <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                    <div className="pdt-details">
+                                                        <div className="price">{automobileProduct.price}</div>
+                                                        <div className="font-weight-light desc">{automobileProduct.description}</div>
+                                                        <div className="prd-name">{automobileProduct.title}</div>
+                                                        <div className="contain-adrs">
+                                                            <span className="adrs">{automobileProduct.location.state}</span>
+                                                            <span className="year"></span>
                                                         </div>
-                                                        <div class="row p-0 m-0">
-                                                            <div class="col p-0">
-                                                                <div class="buy-bt">
-                                                                    <Link to="/singleproductpage" class="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
+                                                        <div className="row p-0 m-0">
+                                                            <div className="col p-0">
+                                                                <div className="buy-bt">
+                                                                    <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
                                                                 </div>
                                                             </div>
 

@@ -6,7 +6,7 @@ import sunset from '../../assets/images/sunset.jpg';
 import instagram from '../../assets/images/instagram.png';
 import Header from "../../form/form/header";
 import Footer from "../../form/form/Footer";
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 import { baseUrl } from '../../functions/constant';
 import Home from './Home';
@@ -40,7 +40,7 @@ export default function SingleProductPage(props) {
     console.log(location.state, 'homeData')
     console.log(HomeData, 'homeData')
     // const { data, isFetching } = SingleProduct(productid)
-    const [TokenID, setTokenID] = useState(JSON.parse(Token).token)
+    const [TokenID, setTokenID] = useState(JSON.parse(Token)?.token)
     const [Data, setData] = useState(location.state.automobileProduct)
     const [UseData, setUseData] = useState(location.state)
     const [HEart, setHEart] = useState(location.state.automobileProduct.saved)
@@ -48,7 +48,7 @@ export default function SingleProductPage(props) {
     const [imgChange, setimgChange] = useState('')
     console.log(typeof [Data], Data, "allDataSIngle");
     console.log(UseData, 'homeData')
-
+    const nav = useNavigate()
     const getImgSrc = (source) => {
         setImages(source)
         // console.log(imgChange)
@@ -73,11 +73,16 @@ export default function SingleProductPage(props) {
     }
     let heartColor;
     const SavedItem = async () => {
-        console.log(HomeData, 'homeData')
-        setHomeData(!HEart)
-        setHEart(!HEart)
-        console.log(HomeData , 'homeData')
-        Run()
+        if (Token === null) {
+            nav('/login')
+        } else {
+
+            console.log(HomeData, 'homeData')
+            setHomeData(!HEart)
+            setHEart(!HEart)
+            console.log(HomeData, 'homeData')
+            Run()
+        }
     }
     const Run = async () => {
         const api = `${baseUrl}/users/savedItems/${TokenID}`
@@ -103,7 +108,7 @@ export default function SingleProductPage(props) {
                     <div className="for-center flex-row justify-content-center align-items-center">
 
                         <div className="col-md-6">
-                            <div class="container-heading-pr">
+                            <div className="container-heading-pr">
                                 <span>PRODUCTS DETAILS :-</span>
                             </div>
                         </div>
@@ -160,7 +165,7 @@ export default function SingleProductPage(props) {
                                 }
                                 {/* <FaHeart className={heartColor} id='heart' onClick={SavedItem} /> */}
                             </div>
-                            <table class="table table-striped table-hover"  >
+                            <table className="table table-striped table-hover"  >
                                 <thead>
                                     <tr>
                                         <th scope="col">  Category - </th>
@@ -196,9 +201,9 @@ export default function SingleProductPage(props) {
 
                                 {/* <br/> */}
                                 <div className='description'>
-                                    <label for="description"></label>
+                                    {/* <label for="description"></label> */}
                                     {/* <br /> */}
-                                    : -{UseData.automobileProduct.description}
+                                    {/* : -{UseData.automobileProduct.description} */}
                                     {/* <Heading size='md' color='gray.700' mt='2'>Price :- {Data?.price}</Heading> */}
                                 </div>
                             </div>

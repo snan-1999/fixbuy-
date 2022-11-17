@@ -18,11 +18,12 @@ import { FcShop } from 'react-icons/fc'
 import { GlobalVariables } from "../../Context/StateProvider";
 import { useContext } from "react";
 import { SearchHome } from "../../functions/HomeFun";
+import { FaHeart } from "react-icons/fa";
 
 
 
 const Header = () => {
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude , UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
 
     let ProfleId;
@@ -86,7 +87,8 @@ const Header = () => {
                         'phone': res.status.data[0].phone,
                         'status': 'login'
                     })
-                )
+                ) 
+                setUserId(res.status.data[0]._id)
                 // console.log(LocalData)
             } else {
 
@@ -288,6 +290,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Automobiles
                                         <ul className="dropdown-category dropdown-category-bikes">
+                                            <Link to="/automobile/all" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
                                             <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
                                             <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
@@ -405,7 +408,7 @@ const Header = () => {
                                     {
                                         (profileName) ?
                                             <>
-                                                <button class="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <img src={`${baseUrl}/users/profile/image/${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
                                                     {(LocalData == null)
                                                         ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
@@ -415,7 +418,7 @@ const Header = () => {
                                             </>
                                             :
 
-                                            <Link to="/login" class="secondary dropdown btn-dProfile">
+                                            <Link to="/login" className="secondary dropdown btn-dProfile">
                                                 {(LocalData == null)
                                                     ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
                                                 }
@@ -428,12 +431,14 @@ const Header = () => {
 
 
                                     <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                        <li><Link to="/profile" class="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
+                                        <li><Link to="/profile" className="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
 
-                                        <li><Link to='/posteditems' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
+                                        <li><Link to='/posteditems' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
+                                        <li><Link to='/demo' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;demo</Link></li>
+                                        <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
 
 
-                                        <li><Link to='/packages' class="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
+                                        <li><Link to='/packages' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
 
                                         {
                                             (Type == "user") &&

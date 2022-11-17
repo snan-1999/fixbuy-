@@ -247,16 +247,16 @@ const Cars = () => {
         <>
             {/* <Header /> */}
             {/* <h1>car/heavy</h1> */}
-            <div class="container post border p-0">
-                <div class="heading-post-product">
+            <div className="container post border p-0">
+                <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
                     {/* <h3>hello</h3> */}
                     POST YOUR ITEMS
                     <h6 className="sub-Categories-Heading">{newcategory}</h6>
                 </div>
                 <hr />
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         Put Some Details
                     </div>
                     {/* <br /> */}
@@ -267,7 +267,7 @@ const Cars = () => {
                     <input type="hidden" name='sellerType' value={Type} hidden />
 
                     {/* <label for="brand">BRAND*</label>
-                    <input type="text" name="brand" class="form-control set-pd-input-post" required
+                    <input type="text" name="brand" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setBrand(e.target.value)
                             // brandRef.current.style.borderColor = "#ced4da";
@@ -275,7 +275,7 @@ const Cars = () => {
                         }} value={brand} /><br /> */}
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" class="form-control set-pd-input-post" required
+                    <input type="text" name="title" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
@@ -285,7 +285,7 @@ const Cars = () => {
                     /><br />
 
                     <label for="brand">YEAR*</label>
-                    <input type="text" name="year" class="form-control set-pd-input-post" required
+                    <input type="text" name="year" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setYear(e.target.value)
                             yearsRef.current.style.borderColor = "#ced4da";
@@ -295,7 +295,7 @@ const Cars = () => {
                     /><br />
 
                     <label for="brand">FUEL*</label>
-                    <input type="text" name="fuel" class="form-control set-pd-input-post" required
+                    <input type="text" name="fuel" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setFuel(e.target.value)
                             fuelRef.current.style.borderColor = "#ced4da";
@@ -305,9 +305,9 @@ const Cars = () => {
                     /><br />
 
                     <label for="brand">TRANSMISSION*</label>
-                    <div class="radio-button1">
-                        <div class="borderClass border ">
-                            <input class="radio" type="radio" name="type" id="inlineRadio1"
+                    <div className="radio-button1">
+                        <div className="borderClass border ">
+                            <input className="radio" type="radio" name="type" id="inlineRadio1"
                                 value="Automatic"
                                 checked={transmission === 'Automatic'}
                                 onChange={(e) => {
@@ -316,10 +316,10 @@ const Cars = () => {
                                     setError("")
                                 }}
                             />
-                            <label class="form-check-label" for="inlineRadio1">Automatic</label>
+                            <label className="form-check-label" for="inlineRadio1">Automatic</label>
                         </div>
-                        <div class="borderClass border ">
-                            <input class="radio" type="radio" name="type" id="inlineRadio2"
+                        <div className="borderClass border ">
+                            <input className="radio" type="radio" name="type" id="inlineRadio2"
                                 value="Manual"
                                 checked={transmission === 'Manual'}
                                 onChange={(e) => {
@@ -328,14 +328,14 @@ const Cars = () => {
                                     setError("")
                                 }}
                             />
-                            <label class="form-check-label" for="inlineRadio2">Manual</label>
+                            <label className="form-check-label" for="inlineRadio2">Manual</label>
                         </div>
                     </div>
                     <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                     <br />
 
                     <label for="brand">KILOMETER DRIVEN*</label>
-                    <input type="text" name="kilometer" class="form-control set-pd-input-post" required
+                    <input type="text" name="kilometer" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setKmDriven(e.target.value)
                             kmDrivenRef.current.style.borderColor = "#ced4da";
@@ -346,7 +346,7 @@ const Cars = () => {
                     /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -357,7 +357,7 @@ const Cars = () => {
                     <br />
 
                     <label for="brand">NUMBER OF OWNERS*</label>
-                    <input type="text" name="owners" class="form-control set-pd-input-post" required
+                    <input type="text" name="owners" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setOwner(e.target.value)
                             ownerRef.current.style.borderColor = "#ced4da";
@@ -368,7 +368,7 @@ const Cars = () => {
 
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" required
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
@@ -382,19 +382,19 @@ const Cars = () => {
                 </div>
                 {/* </input> */}
                 {/* <hr /> */}
-                {/* <div class="container set-pd-post">
+                {/* <div className="container set-pd-post">
                 <label for="description">SET PRICE</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" placeholder="PRICE*" required />
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" placeholder="PRICE*" required />
                 </div> */}
                 <hr />
                 {/* <br /> */}
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         UPLOAD SOME PHOTOS
                     </div>
-                    <div class="container mt-3 w-100">
-                        <div class="imageAlert">Note:- only 20 images will be uploaded</div>
+                    <div className="container mt-3 w-100">
+                        <div className="imageAlert">Note:- only 20 images will be uploaded</div>
                         <ImageUploading
                             multiple
                             value={img}
@@ -428,7 +428,7 @@ const Cars = () => {
                                     </div>
                                     <div className="setFloat">
 
-                                        <button class=" btn btn-sm buttonChoose"
+                                        <button className=" btn btn-sm buttonChoose"
                                             onClick={onImageUpload}
                                         //   {...dragProps}
                                         >
@@ -445,13 +445,13 @@ const Cars = () => {
 
 
                 <hr />
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         YOUR LOCATION
                     </div><br />
-                    <div class="select-loaction">
+                    <div className="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" class="form-control set-pd-input-post" required
+                        <select id="State" name="location" className="form-control set-pd-input-post" required
                             value={state}
                             ref={stateRef}
                             onChange={(e) => {
@@ -500,7 +500,7 @@ const Cars = () => {
                         <br />
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                        <input type="text" name="city" className="form-control set-pd-input-post" required
                             value={city}
                             ref={cityRef}
                             onChange={(e) => {
@@ -510,7 +510,7 @@ const Cars = () => {
                             }} /><br />
 
                         <label for="city">PINCODE*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required
+                        <input type="text" name="city" className="form-control set-pd-input-post" required
                             value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
@@ -520,7 +520,7 @@ const Cars = () => {
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required value={neighbourhood}
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood}
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
@@ -530,15 +530,15 @@ const Cars = () => {
                     </div>
                 </div>
                 <hr />
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         PUT YOUR DETAILS
                     </div><br />
-                    <div class="myi">
-                        <div class=" nameTextClass">
-                            <div class=" d-flex text-align-left m-2 p-1">
-                                <div class="preview-container shadow shadowclass">
-                                    <span class="fileName d-block my-2"></span>
+                    <div className="myi">
+                        <div className=" nameTextClass">
+                            <div className=" d-flex text-align-left m-2 p-1">
+                                <div className="preview-container shadow shadowclass">
+                                    <span className="fileName d-block my-2"></span>
                                     {/* <input
                                         type="file"
                                         accept="image/*"
@@ -572,7 +572,7 @@ const Cars = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" class="form-control set-pd-input-post nameField" required value={sellername}
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
                                     ref={sellernameRef}
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
@@ -584,12 +584,12 @@ const Cars = () => {
                         </div>
                     </div>
                     <br />
-                    <div class="sub-heading-post">
+                    <div className="sub-heading-post">
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" class="form-control set-pd-input-post" required
+                    <input type="text" name="number" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setSellerPhone(e.target.value)
                             sellerphoneRef.current.style.borderColor = "#ced4da";
@@ -599,7 +599,7 @@ const Cars = () => {
                         ref={sellerphoneRef}
                     /><br />
 
-                    <div class="post-pr">
+                    <div className="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />
                     </div>
                     {
@@ -607,11 +607,11 @@ const Cars = () => {
                     }
                     {
                         (errors) ?
-                            <div class="msgerror" role="alert" style={{ color: "green" }}>
+                            <div className="msgerror" role="alert" style={{ color: "green" }}>
                                 {message}
                             </div>
                             :
-                            <div class="msgerror" role="alert" style={{ color: "red" }}>
+                            <div className="msgerror" role="alert" style={{ color: "red" }}>
                                 {message}
                             </div>
                     }

@@ -163,17 +163,17 @@ const Profile = () => {
     return (
         <>
             <Header />
-            <div class="container">
+            <div className="container">
 
-                <div class="page-wrapper">
+                <div className="page-wrapper">
 
-                    <div class="page-content ">
+                    <div className="page-content ">
                         <br />
                         {/* <?php
             if(isset($_GET['status']))
             {
             ?>
-            <div class="alert alert-success">
+            <div className="alert alert-success">
                     <strong>Update Success!</strong>
             </div>
             <?php
@@ -181,20 +181,20 @@ const Profile = () => {
             ?> */}
 
 
-                        <h5 class="my-2">User Profile</h5>
+                        <h5 className="my-2">User Profile</h5>
 
 
 
-                        <div class="card">
+                        <div className="card">
 
                             <form method="post" enctype="multipart/form-data">
-                                <div class="card-body">
+                                <div className="card-body">
 
-                                    <div class="myi">
-                                        <div class="row">
-                                            <div class="col d-flex align-items-center justify-content-center m-4 p-2">
-                                                <div class="preview-container shadow shadowclass">
-                                                    <span class="fileName d-block my-2"></span>
+                                    <div className="myi">
+                                        <div className="row">
+                                            <div className="col d-flex align-items-center justify-content-center m-4 p-2">
+                                                <div className="preview-container shadow shadowclass">
+                                                    <span className="fileName d-block my-2"></span>
                                                     <input
                                                         type="file"
                                                         accept="image/*"
@@ -235,85 +235,85 @@ const Profile = () => {
                                         </div>
                                     </div>
                                     
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3 ">
-                                            <h6 class="mb-0">Full Name</h6>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3 ">
+                                            <h6 className="mb-0">Full Name</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none text-capitalize" placeholder="Full Name" contenteditable="true" name="username" value={name} onChange={(e) => setName(e.target.value)} />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">Email</h6>
-                                        </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Email" contenteditable="true" name="user_email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none text-capitalize" placeholder="Full Name" contenteditable="true" name="username" value={name} onChange={(e) => setName(e.target.value)} />
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">Phone</h6>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Email</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Phone" contenteditable="true" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">D.O.B</h6>
-                                        </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="date" class="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none" placeholder="Email" contenteditable="true" name="user_email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">Gender</h6>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Phone</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => setGender(e.target.value)} />
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none" placeholder="Phone" contenteditable="true" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
                                         </div>
                                     </div>
-                                    {/* <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">City</h6>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">D.O.B</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="City Name" contenteditable="true" name="city" value={city} onChange={(e) => setcity(e.target.value)} />
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="date" className="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
+                                        </div>
+                                    </div>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Gender</h6>
+                                        </div>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => setGender(e.target.value)} />
+                                        </div>
+                                    </div>
+                                    {/* <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">City</h6>
+                                        </div>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none" placeholder="City Name" contenteditable="true" name="city" value={city} onChange={(e) => setcity(e.target.value)} />
                                         </div>
                                     </div> */}
                                  {
-                                    (Type !== 'user') &&
+                                    (Type == 'shop') &&
                                      
                                     <>
-                                        <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">Shop Address</h6>
+                                        <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Shop Address</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-sm-3">
-                                            <h6 class="mb-0">Gst Number</h6>
+                                    <div className="row mb-3">
+                                        <div className="col-sm-3">
+                                            <h6 className="mb-0">Gst Number</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="text" class="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="text" className="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
                                         </div>
                                     </div>
                                     
                                     </>
 }
                                        
-                                    <div class="row">
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9 text-secondary">
-                                            <input type="button" name="update" class="btn btn-color  px-4 submitBtn text-uppercase" value="Update" onClick={UpadateUser} /><br/>
+                                    <div className="row">
+                                        <div className="col-sm-3"></div>
+                                        <div className="col-sm-9 text-secondary">
+                                            <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update" onClick={UpadateUser} /><br/>
                                            
                                             {errors &&
-                        <div class="messageClass" role="alert" style={{color : 'green'}}>
+                        <div className="messageClass" role="alert" style={{color : 'green'}}>
                             {message}
                         </div>
                     }

@@ -196,16 +196,16 @@ const Books = () => {
     return (
         <>
             <Header />
-            <div class="container post border p-0">
-                <div class="heading-post-product">
+            <div className="container post border p-0">
+                <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
                     {/* <h3>hello</h3> */}
                     POST YOUR ITEMS
                     <h6 className="sub-Categories-Heading">{newcategory}</h6>
                 </div>
                 <hr />
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         Put Some Details
                     </div>
                     {/* <br /> */}
@@ -217,10 +217,10 @@ const Books = () => {
 
 
                     {/* <label for="brand">BRAND*</label>
-                    <input type="text" name="brand" class="form-control set-pd-input-post" required onChange={(e) => setBrand(e.target.value)} value={brand} /><br /> */}
+                    <input type="text" name="brand" className="form-control set-pd-input-post" required onChange={(e) => setBrand(e.target.value)} value={brand} /><br /> */}
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" class="form-control set-pd-input-post" required
+                    <input type="text" name="title" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
@@ -231,7 +231,7 @@ const Books = () => {
                     /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -244,7 +244,7 @@ const Books = () => {
                     <br />
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" required
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
@@ -256,19 +256,19 @@ const Books = () => {
                 </div>
                 {/* </input> */}
                 {/* <hr /> */}
-                {/* <div class="container set-pd-post">
+                {/* <div className="container set-pd-post">
                 <label for="description">SET PRICE</label>
                     <br />
-                    <input type="text" name="set_price" class="form-control set-pd-input-post" placeholder="PRICE*" required />
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" placeholder="PRICE*" required />
                 </div> */}
                 <hr />
                 {/* <br /> */}
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         UPLOAD SOME PHOTOS
                     </div>
-                    <div class="container mt-3 w-100">
-                        <div class="imageAlert">Note:- only 20 images will be uploaded</div>
+                    <div className="container mt-3 w-100">
+                        <div className="imageAlert">Note:- only 20 images will be uploaded</div>
                         <ImageUploading
                             multiple
                             value={img}
@@ -303,7 +303,7 @@ const Books = () => {
                                     </div>
                                     <div className="setFloat">
 
-                                        <button class=" btn btn-sm buttonChoose"
+                                        <button className=" btn btn-sm buttonChoose"
                                             onClick={onImageUpload}
                                         //   {...dragProps}
                                         >
@@ -320,13 +320,13 @@ const Books = () => {
 
 
                 <hr />
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         YOUR LOCATION
                     </div><br />
-                    <div class="select-loaction">
+                    <div className="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" class="form-control set-pd-input-post" required value={state}
+                        <select id="State" name="location" className="form-control set-pd-input-post" required value={state}
                             ref={stateRef}
                             onChange={(e) => {
                                 setState(e.target.value)
@@ -375,7 +375,7 @@ const Books = () => {
 
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required value={city}
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city}
                             ref={cityRef}
                             onChange={(e) => {
                                 setCity(e.target.value)
@@ -384,7 +384,7 @@ const Books = () => {
                             }} /><br />
 
                         <label for="pincode">PINCODE*</label>
-                        <input type="text" name="city" class="form-control set-pd-input-post" required value={pincode}
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
                                 setPincode(e.target.value)
@@ -394,7 +394,7 @@ const Books = () => {
 
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required value={neighbourhood}
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood}
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
@@ -404,15 +404,15 @@ const Books = () => {
                     </div>
                 </div>
                 <hr />
-                <div class="container set-pd-post">
-                    <div class="sub-heading-post">
+                <div className="container set-pd-post">
+                    <div className="sub-heading-post">
                         PUT YOUR DETAILS
                     </div><br />
-                    <div class="myi">
-                        <div class=" nameTextClass">
-                            <div class=" d-flex text-align-left m-2 p-1">
-                                <div class="preview-container shadow shadowclass">
-                                    <span class="fileName d-block my-2"></span>
+                    <div className="myi">
+                        <div className=" nameTextClass">
+                            <div className=" d-flex text-align-left m-2 p-1">
+                                <div className="preview-container shadow shadowclass">
+                                    <span className="fileName d-block my-2"></span>
                                     {/* <input
                                         type="file"
                                         accept="image/*"
@@ -446,7 +446,7 @@ const Books = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" class="form-control set-pd-input-post nameField" required value={sellername}
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
                                 ref={sellernameRef} 
                                 onChange={(e) => {
                                     setSellerName(e.target.value)
@@ -458,12 +458,12 @@ const Books = () => {
                         </div>
                     </div>
                     <br />
-                    <div class="sub-heading-post">
+                    <div className="sub-heading-post">
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" class="form-control set-pd-input-post" required
+                    <input type="text" name="number" className="form-control set-pd-input-post" required
                     onChange={(e) => {
                         setSellerPhone(e.target.value)
                         sellerphoneRef.current.style.borderColor = "#ced4da";
@@ -473,19 +473,19 @@ const Books = () => {
                     ref={sellerphoneRef}
                     /><br />
 
-                    <div class="post-pr">
+                    <div className="post-pr">
                         <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('hello')} />
                     </div>
                     {
                         (posted == '') ?
                             <></> :
                             (posted == 'success') ?
-                                <div class="msgerror" role="alert" style={{ color: "green" }}>
+                                <div className="msgerror" role="alert" style={{ color: "green" }}>
                                     {message}
 
                                 </div>
                                 : (posted == 'fail') ?
-                                    <div class="msgerror" role="alert" style={{ color: "red" }}>
+                                    <div className="msgerror" role="alert" style={{ color: "red" }}>
                                         please fill all field
 
                                     </div>

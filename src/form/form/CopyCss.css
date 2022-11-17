@@ -1,0 +1,142 @@
+/*my ads start*/
+.container-heading.service-form{
+position: absolute;
+    width: 265px;
+    height: 58px;
+    border-bottom: 3px solid #37577A;
+    line-height: 50px;
+    /* background: gray; */
+    overflow: hidden !important;
+    /* /* margin-top: -15%; */
+}
+
+.container.my-cont {
+    margin-bottom: 100px;
+    margin-top: 100px;
+    padding: 50px 30px 50px 30px;
+}
+
+.img-wh {
+    height: 100%;
+    /* width: 100%; */
+    width: auto !important;
+    overflow: hidden;
+}
+
+.price {
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+.status {
+    text-align: right;
+    margin-top: 5%;
+}
+
+.prd-name {
+    margin-top: 3px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.adrs {
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.521);
+}
+
+a.buy-bttn {
+    background: linear-gradient(var(--color1), var(--color2)) !important;
+    color: white;
+    padding: 9px 21px;
+    border-radius: 3px;
+    /* font-size: 16px; */
+    font-family: 'Poppins';
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-decoration: none !important;
+}
+
+.delete {
+    margin-top: 3%;
+}
+
+.dl {
+    margin-left: -100%;
+    width: 50%;
+}
+
+.date {
+    font-size: 12px;
+    margin-left: 2%;
+}
+
+/*my ads end*/
+
+@media screen and (max-width: 600px){
+
+/*my ads start*/
+.container-heading.service-form {
+    position: absolute;
+    width: 170px;
+    height: 48px;
+    border-bottom: 3px solid #37577A;
+    line-height: 50px;
+    /* background: gray; */
+    overflow: hidden !important;
+    /* /* margin-top: -15%; */
+}
+.container.my-cont {
+    margin-bottom: 100px;
+    margin-top: 35px;
+    padding: 50px 9px 50px 20px !important;
+    width: 100%;
+}
+
+.dl {
+    margin-left: -30%;
+}
+.delete {
+    margin-top: 8%;
+}
+
+.date {
+    font-size: 10px;
+    margin-left: -2%;
+}
+
+.prd-name {
+    margin-top: 3px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+a.buy-bttn {
+    background: #0999D5;
+    color: white;
+    padding: 9px 7px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-family: 'Poppins';
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-left: -3%;
+}
+
+.img-wh {
+    height: 100%;
+    /* width: 100%; */
+    width: auto !important;
+    overflow: hidden;
+}
+
+.price {
+    margin-left: -3%;
+}
+
+.status {
+    text-align: right;
+    margin-top: 8%;
+}
+/*my ads end*/
+
+}

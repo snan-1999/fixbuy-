@@ -45,26 +45,26 @@ const SingleBlog = () => {
     return(
         <>
         <Header/>
-        <div class="blog-container">
-            {/* <!-- <div class="blog-title">
+        <div className="blog-container">
+            {/* <!-- <div className="blog-title">
                 <div><?php echo $value['title'] ?></div>
             </div> --> */}
-            <div class="full-blog-content row">
+            <div className="full-blog-content row">
 
-                <div class="blog-preview-image col-md-6 col-12">
+                <div className="blog-preview-image col-md-6 col-12">
                     <img src={`${baseUrl}/blogs/getimage/${image}`} />
                 </div>
-                <div class="blog-preview-image col-md-6 col-12">
+                <div className="blog-preview-image col-md-6 col-12">
                     {/* <div className="id" hidden>{id}</div> */}
-                    <div class="blog-title">{title}</div>
-                    <div class="blog-content-description"><b>Description: {text}</b>
+                    <div className="blog-title">{title}</div>
+                    <div className="blog-content-description"><b>Description: {text}</b>
                         
                     </div>
-                    <div class="blog-preview-date">
+                    <div className="blog-preview-date">
                         <div><FontAwesomeIcon icon="fas fa-calendar-days"></FontAwesomeIcon>&nbsp;&nbsp;{new Date(date).toDateString()}</div>
                     </div>
                 </div>
-                <p class="blog-preview-content-text">{text}</p>
+                <p className="blog-preview-content-text">{text}</p>
             </div>
         </div>
         <Footer/>

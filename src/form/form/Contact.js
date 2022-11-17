@@ -57,18 +57,18 @@ import axios from "axios";
     return (
         <>
             <Header />
-            <div class="container">
-                <div class="for-center-contact">
-                    <div class="container-heading-contact">
+            <div className="container">
+                <div className="for-center-contact">
+                    <div className="container-heading-contact">
                         <span> LET'S CONVERSATION!</span>
                     </div>
                 </div>
             </div>
             {/* <form action="<?php echo $server_name; ?>/api-call/contact-us-api-call.php" method="post"> */}
-                <div class="form-set">
-                    <div class="row p-0 m-0 form-group">
-                        <div class="col-md-6 col-12">
-                            <input type="text" name="first_name" placeholder="First Name" class="form-control imput-paddin" required
+                <div className="form-set">
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-6 col-12">
+                            <input type="text" name="first_name" placeholder="First Name" className="form-control imput-paddin" required
                             value={firstName} 
                             onChange={(e) => {
                             setFirstName(e.target.value)
@@ -78,8 +78,8 @@ import axios from "axios";
                         ref={firstNameRef}
                         />
                         </div>
-                        <div class="col-md-6 col-12 form-group">
-                            <input type="text" name="last_name" placeholder="Last Name" class="form-control imput-paddin" required 
+                        <div className="col-md-6 col-12 form-group">
+                            <input type="text" name="last_name" placeholder="Last Name" className="form-control imput-paddin" required 
                             value={lastName} 
                             onChange={(e) => {
                             setLastName(e.target.value)
@@ -90,9 +90,9 @@ import axios from "axios";
                             />
                         </div>
                     </div>
-                    <div class="row p-0 m-0 form-group">
-                        <div class="col-md-12 col-12">
-                            <input type="email" name="email" placeholder="Your Email" class="form-control imput-paddin" required 
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-12 col-12">
+                            <input type="email" name="email" placeholder="Your Email" className="form-control imput-paddin" required 
                             value={email} 
                             onChange={(e) => {
                             setEmail(e.target.value)
@@ -103,9 +103,9 @@ import axios from "axios";
                             />
                         </div>
                     </div><br />
-                    <div class="row p-0 m-0 form-group">
-                        <div class="col-md-12 col-12">
-                            <input type="text" name="mobile_no" placeholder="Mobile Number" class="form-control imput-padding" required 
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-12 col-12">
+                            <input type="text" name="mobile_no" placeholder="Mobile Number" className="form-control imput-padding" required 
                             value={mobile} 
                             onChange={(e) => {
                             setMobile(e.target.value)
@@ -116,9 +116,9 @@ import axios from "axios";
                             />
                         </div>
                     </div><br />
-                    <div class="row p-0 m-0 form-group">
-                        <div class="col-md-12 col-12">
-                            <textarea name="message" id="" class="textareaa form-control" required 
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-12 col-12">
+                            <textarea name="message" id="" className="textareaa form-control" required 
                             value={message} 
                             onChange={(e) => {
                             setMessage(e.target.value)
@@ -131,10 +131,10 @@ import axios from "axios";
                         </div>
                     </div>
                     <div className="d-flex">
-                    <input type="submit" name="submit" value="submit" class="btn contact-btnn text-uppercase" onClick={contactApi} />
+                    <input type="submit" name="submit" value="submit" className="btn contact-btnn text-uppercase" onClick={contactApi} />
                 
                 {errors &&
-                        <div class="contactMessage" role="alert" style={{color : 'green'}}>
+                        <div className="contactMessage" role="alert" style={{color : 'green'}}>
                             {messages}
                         </div>
                     }
@@ -145,14 +145,14 @@ import axios from "axios";
 
 
             {/* <!-- map --> */}
-            <section class="mapp">
-                <div class="map-container">
-                    <div class="row p-0 m-0">
-                        <div class="col-md-4 col-12 mapss">
+            <section className="mapp">
+                <div className="map-container">
+                    <div className="row p-0 m-0">
+                        <div className="col-md-4 col-12 mapss">
 
 
-                            <div class="get-in-touch">
-                                <h3 class="get-in"> GET IN TOUCH</h3>
+                            <div className="get-in-touch">
+                                <h3 className="get-in"> GET IN TOUCH</h3>
                                 <p><FontAwesomeIcon icon="fa-address-card" />&nbsp;&nbsp;&nbsp;&nbsp; Ghookna, Ghaziabad,<br />
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Uttar Pradesh, 201003</p>
                                 <p><FontAwesomeIcon icon="fas fa-phone-volume" />&nbsp;&nbsp;&nbsp;&nbsp; 8527720760
@@ -161,8 +161,8 @@ import axios from "axios";
                             </div>
 
                         </div>
-                        <div class="col-md-8 col-12 maapss">
-                            <div class="mapembed">
+                        <div className="col-md-8 col-12 maapss">
+                            <div className="mapembed">
                             <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=fixebuy&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.whatismyip-address.com">
                                 </a><br />
                                 </div></div>

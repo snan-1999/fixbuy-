@@ -19,29 +19,33 @@ import axios from 'axios';
 import { HomeAllData, SearchHome } from "../../functions/HomeFun";
 import styled from "styled-components";
 import shopIcon from '../../assets/images/shopIcon.png'
-import { BiRefresh } from 'react-icons/bi'
+import { MdLocationOn } from 'react-icons/md'
 import { Button, Spinner } from "@chakra-ui/react";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
-// import CategorySlider from "./corousel/CategorySlider";
+import CategorySlider from "./corousel/CategorySlider";
 
 const Home = () => {
-
+    const Token = localStorage.getItem('token');
+    const TokenData = JSON.parse(Token)
     const [automobile, setAutomobile] = useState([]);
     const [MoreData, setMoreData] = useState([]);
     const [TotalPagess, setTotalPagess] = useState('');
-    const [Loading, setLoading] = useState(false)
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData } = useContext(GlobalVariables)
-
+    const [Loading, setLoading] = useState(false) 
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId , setUserId } = useContext(GlobalVariables)
+     console.log(TokenData , 'UserId')
+    setUserId((TokenData)?TokenData.token : null) 
     const homeDataAll = async () => {
-        const { data } = await HomeAllData(Longitude, latitude, Lmore)
+        console.log(UserId, 'UserId') 
+        const { data } = await HomeAllData(Longitude, latitude, Lmore, UserId)
         console.log(data, 'homeData')
         setLoading(true)
         console.log(Loading)
         if (data.status) {
             setAutomobile([...automobile, ...data.data]);
+            // setAutomobile(data.data);
             setLoading(false)
             setHomeData(data.data)
             console.log(Loading)
@@ -62,16 +66,16 @@ const Home = () => {
     //     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
     //     }
     // }
-
-    let Max_length = 27;
+    
+        let Max_length = 27;
     useEffect(() => {
         homeDataAll()
-    }, [Lmore])
+    }, [Lmore ,UserId])
     return (
         <>
             {/* <div className="row p-0 m-0"> */}
             <Header />
-               
+
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -105,9 +109,9 @@ const Home = () => {
                 <div className="swiper-pagination"></div>
                 {/* </div> */}
             </Swiper>
-                <div className="mobile-Categoryslider">
-                {/* <CategorySlider /> */}
-                </div>
+            <div className="mobile-Categoryslider">
+                <CategorySlider />
+            </div>
 
             {/* <!-- products section */}
 
@@ -115,7 +119,7 @@ const Home = () => {
                 <div className="for-center flex-row justify-content-center align-items-center">
 
                     <div className="col-md-12">
-                        <div class="container-heading">
+                        <div className="container-heading">
                             <span>ALL PRODUCTS</span>
                         </div>
                     </div>
@@ -125,51 +129,52 @@ const Home = () => {
 
 
 
-            <div class="container" id="card_box">
+            <div className="container" id="card_box">
 
-                <div class="row p-0 m-0">
+                <div className="row p-0 m-0">
                     {
                         automobile?.map((automobileProduct, key) => {
                             return (
-                                <div class="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
+                                <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>
 
                                         <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
-                                            <div class="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
+                                            <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                <div class="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} class="pdt-img" /></div>
-                                                <div class="pdt-details">
-                                                    <div className="row">
-                                                        <div className="col-md-6">
-                                                            <div class="price">₹ {automobileProduct.price}</div>
+                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="pdt-details">
+                                                    <div className="row d-flex align-items-center">
+                                                        <div className="col-md-6 col-8 ">
+                                                            <div className="price">₹ {automobileProduct.price}</div>
                                                         </div>
-                                                        <div className="col-md-6 setHeart">
+                                                        <div className="col-md-6 col-4 setHeart">
                                                             {
-                                                                (automobileProduct.saved) ? <FaHeart className="text-danger" /> : <FiHeart />
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
                                                             }
                                                         </div>
                                                     </div>
 
-                                                    {/* <div class="font-weight-light desc">{automobileProduct.description}</div> */}
+                                                    {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
 
                                                     {
                                                         (automobileProduct.title).length > Max_length ?
-                                                            <div class="prd-name">
+                                                            <div className="prd-name">
                                                                 {`${automobileProduct.title.substring(0, Max_length)}...`}
                                                             </div>
                                                             :
-                                                            <div class="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                            <div className="prd-name text-capitalize">{automobileProduct.title}</div>
                                                     }
-                                                    <div class="contain-adrs">
-                                                        <span class="adrs text-capitalize">{automobileProduct.location.state}</span>
-                                                        <span class="year"></span>
+                                                    <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
+                                                        <span className="adrs text-capitalize fs-6">   <MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                        <span className="year"></span>
                                                     </div>
-                                                    <div class="row p-0 m-0">
-                                                        <div class="col p-0">
-                                                            <div class="buy-bt">
-                                                                <Link to="/singleproductpage" class="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
-                                                            </div>
+                                                    <div className="row p-0 m-0">
+                                                        <div className="col p-0">
+
+                                                            {/* <div className="buy-bt">
+                                                                <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
+                                                            </div> */}
                                                         </div>
 
                                                     </div>
@@ -190,8 +195,8 @@ const Home = () => {
                     <div className="row m-0 p-0">
 
                         <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
-                            {Loading && <div class="spinner-border spinner-border-sm me-2" role="status">
-                                <span class="visually-hidden">Loading...</span>
+                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                <span className="visually-hidden">Loading...</span>
                             </div>}
                             Load More
                         </ButtonCraete>
@@ -225,10 +230,10 @@ const ButtonCraete = styled.button`
 const CardHeight = styled.div`
 position: relative;
 top: 0;
-/* @media (max-width: 768px) {
-    display: none;
-  } */
-    height: 70vh ;
+@media (max-width: 768px) {
+    height: 55vh ;
+  }
+    height: 60vh ;
     .ShopLogo{
         height: 5vh;
         position: absolute;

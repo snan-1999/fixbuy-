@@ -262,16 +262,16 @@ return (
     <>
         {/* <Header /> */}
         {/* <h1>car/heavy</h1> */}
-        <div class="container post border p-0">
-            <div class="heading-post-product">
+        <div className="container post border p-0">
+            <div className="heading-post-product">
                 {/* <input type="text" name='category' value={category2} /> */}
                 {/* <h3>hello</h3> */}
                 POST YOUR ITEMS
                 <h6 className="sub-Categories-Heading">{newcategory}</h6>
             </div>
             <hr />
-            <div class="container set-pd-post">
-                <div class="sub-heading-post">
+            <div className="container set-pd-post">
+                <div className="sub-heading-post">
                     Put Some Details
                 </div>
                 {/* <br /> */}
@@ -282,7 +282,7 @@ return (
                 <input type="hidden" name='sellerType' value={Type} hidden />
 
                 <label for="brand">TITLE*</label>
-                <input type="text" name="title" class="form-control set-pd-input-post" required
+                <input type="text" name="title" className="form-control set-pd-input-post" required
                     onChange={(e) => {
                         setTitle(e.target.value)
                         titleRef.current.style.borderColor = "#ced4da";
@@ -292,9 +292,9 @@ return (
                     /><br />
 
                 <label for="brand">TYPE*</label><br />
-                <div class="radio-button1">
-                    <div class="borderClass border ">
-                        <input class="radio" type="radio" name="type" id="inlineRadio1"
+                <div className="radio-button1">
+                    <div className="borderClass border ">
+                        <input className="radio" type="radio" name="type" id="inlineRadio1"
                             value="For Rent"
                             checked={type === 'For Rent'}
                             onChange={(e) => {
@@ -303,10 +303,10 @@ return (
                                 setError("")
                             }}
                         />
-                        <label class="form-check-label" for="inlineRadio1">For Rent</label>
+                        <label className="form-check-label" for="inlineRadio1">For Rent</label>
                     </div>
-                    <div class="borderClass border ">
-                        <input class="radio" type="radio" name="type" id="inlineRadio2"
+                    <div className="borderClass border ">
+                        <input className="radio" type="radio" name="type" id="inlineRadio2"
                             value="For Sale"
                             checked={type === 'For Sale'}
                             onChange={(e) => {
@@ -315,14 +315,14 @@ return (
                                 setError("")
                             }}
                         />
-                        <label class="form-check-label" for="inlineRadio2">For Sale</label>
+                        <label className="form-check-label" for="inlineRadio2">For Sale</label>
                     </div>
                 </div>
                 <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                 <br />
 
                 <label for="area">PLOT AREA*</label>
-                <input type="text" name="area" class="form-control set-pd-input-post" required
+                <input type="text" name="area" className="form-control set-pd-input-post" required
                     onChange={(e) => {
                         setArea(e.target.value)
                         areaRef.current.style.borderColor = "#ced4da";
@@ -332,7 +332,7 @@ return (
                     /><br />
 
                 <label for="length">LENGTH*</label>
-                <input type="text" name="length" class="form-control set-pd-input-post" required onChange={(e) => {
+                <input type="text" name="length" className="form-control set-pd-input-post" required onChange={(e) => {
                     setLength(e.target.value)
                     lengthRef.current.style.borderColor = "#ced4da";
                     setError("")
@@ -341,7 +341,7 @@ return (
                 /><br />
 
                 <label for="breadth">BREADTH*</label>
-                <input type="text" name="breadth" class="form-control set-pd-input-post" required onChange={(e) => {
+                <input type="text" name="breadth" className="form-control set-pd-input-post" required onChange={(e) => {
                     setBreath(e.target.value)
                     breathRef.current.style.borderColor = "#ced4da";
                     setError("")
@@ -350,7 +350,7 @@ return (
                 /><br />
 
                 <label for="project_name">PROJECT NAME*</label>
-                <input type="text" name="projec_name" class="form-control set-pd-input-post" required onChange={(e) => {
+                <input type="text" name="projec_name" className="form-control set-pd-input-post" required onChange={(e) => {
                     setProject_Name(e.target.value)
                     project_nameRef.current.style.borderColor = "#ced4da";
                     setError("")
@@ -359,7 +359,7 @@ return (
                 /><br />
 
                 <label for="description">ADD DESCRIPTION*</label>
-                <textarea name="description" id="" class="form-control" cols="30" rows="10" width="100%" 
+                <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" 
                 onChange={(e) => {
                     setDescription(e.target.value)
                     descriptionRef.current.style.borderColor = "#ced4da";
@@ -372,7 +372,7 @@ return (
 
                 <label for="price">SET PRICE*</label>
                 <br />
-                <input type="text" name="set_price" class="form-control set-pd-input-post" required 
+                <input type="text" name="set_price" className="form-control set-pd-input-post" required 
                 onChange={(e) => {
                     setPrice(e.target.value)
                     priceRef.current.style.borderColor = "#ced4da";
@@ -388,12 +388,12 @@ return (
             </div>
             <hr />
             {/* <br /> */}
-            <div class="container set-pd-post">
-                <div class="sub-heading-post">
+            <div className="container set-pd-post">
+                <div className="sub-heading-post">
                     UPLOAD SOME PHOTOS
                 </div>
-                <div class="container mt-3 w-100">
-                    <div class="imageAlert">Note:- only 20 images will be uploaded</div>
+                <div className="container mt-3 w-100">
+                    <div className="imageAlert">Note:- only 20 images will be uploaded</div>
                     <ImageUploading
                         multiple
                         value={img}
@@ -427,7 +427,7 @@ return (
                                 </div>
                                 <div className="setFloat">
 
-                                    <button class=" btn btn-sm buttonChoose"
+                                    <button className=" btn btn-sm buttonChoose"
                                         onClick={onImageUpload}
                                     //   {...dragProps}
                                     >
@@ -444,13 +444,13 @@ return (
 
 
             <hr />
-            <div class="container set-pd-post">
-                <div class="sub-heading-post">
+            <div className="container set-pd-post">
+                <div className="sub-heading-post">
                     YOUR LOCATION
                 </div><br />
-                <div class="select-loaction">
+                <div className="select-loaction">
                     <label for="state">STATE*</label>
-                    <select id="State" name="location" class="form-control set-pd-input-post" required 
+                    <select id="State" name="location" className="form-control set-pd-input-post" required 
                     value={state} 
                     ref={stateRef}
                     onChange={(e) => {
@@ -500,7 +500,7 @@ return (
 
 
                     <label for="city">CITY*</label>
-                    <input type="text" name="city" class="form-control set-pd-input-post" required 
+                    <input type="text" name="city" className="form-control set-pd-input-post" required 
                     value={city}
                     ref={cityRef}
                     onChange={(e) => {
@@ -511,7 +511,7 @@ return (
 
 
                     <label for="pincode">PINCODE*</label>
-                    <input type="text" name="pincode" class="form-control set-pd-input-post" required 
+                    <input type="text" name="pincode" className="form-control set-pd-input-post" required 
                     value={pincode}
                     ref={pincodeRef}
                     onChange={(e) => {
@@ -522,7 +522,7 @@ return (
 
 
                     <label for="neighbour">LANDMARK*</label>
-                    <input type="text" name="neighbourhood" class="form-control set-pd-input-post" required 
+                    <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required 
                     value={neighbourhood} 
                     ref={neighbourhoodRef}
                     onChange={(e) => {
@@ -533,15 +533,15 @@ return (
                 </div>
             </div>
             <hr />
-            <div class="container set-pd-post">
-                <div class="sub-heading-post">
+            <div className="container set-pd-post">
+                <div className="sub-heading-post">
                     PUT YOUR DETAILS
                 </div><br />
-                <div class="myi">
-                    <div class=" nameTextClass">
-                        <div class=" d-flex text-align-left m-2 p-1">
-                            <div class="preview-container shadow shadowclass">
-                                <span class="fileName d-block my-2"></span>
+                <div className="myi">
+                    <div className=" nameTextClass">
+                        <div className=" d-flex text-align-left m-2 p-1">
+                            <div className="preview-container shadow shadowclass">
+                                <span className="fileName d-block my-2"></span>
                                 {/* <input
                                         type="file"
                                         accept="image/*"
@@ -575,7 +575,7 @@ return (
                         </div>
                         <div className="nameControl">
                             <label for="name" >NAME*</label>
-                            <input type="text" name="name" class="form-control set-pd-input-post nameField" required 
+                            <input type="text" name="name" className="form-control set-pd-input-post nameField" required 
                             value={sellername} 
                             ref={sellernameRef}
                             onChange={(e) => {
@@ -588,12 +588,12 @@ return (
                     </div>
                 </div>
                 <br />
-                <div class="sub-heading-post">
+                <div className="sub-heading-post">
                     VERIFICATION
                 </div>
                 <p>We will send you OTP on your number</p><br />
                 <label for="phone">Phone Number*</label>
-                <input type="text" name="number" class="form-control set-pd-input-post" required 
+                <input type="text" name="number" className="form-control set-pd-input-post" required 
                 onChange={(e) => {
                     setSellerPhone(e.target.value)
                     sellerphoneRef.current.style.borderColor = "#ced4da";
@@ -603,16 +603,16 @@ return (
                     ref={sellerphoneRef}
                 /><br />
 
-                <div class="post-pr">
+                <div className="post-pr">
                     <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />
                 </div>
                 {
                     (errors) ?
-                        <div class="msgerror" role="alert" style={{ color: "green" }}>
+                        <div className="msgerror" role="alert" style={{ color: "green" }}>
                             {message}
                         </div>
                         :
-                        <div class="msgerror" role="alert" style={{ color: "red" }}>
+                        <div className="msgerror" role="alert" style={{ color: "red" }}>
                             {message}
                         </div>
                 }

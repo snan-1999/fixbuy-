@@ -15,20 +15,20 @@ export default function About() {
   return (
     <>
       <Header />
-      <div class="container faq-container">
-        {/* <!-- <div class="for-center-faq">
-            <div class="container-heading-about">
+      <div className="container faq-container">
+        {/* <!-- <div className="for-center-faq">
+            <div className="container-heading-about">
                 <span> ABOUT US </span>
             </div>
         </div> --> */}
-        <div class="about-text">
-          <div class="about-main-text">
-            <div class="accordian-img-about-us">
+        <div className="about-text">
+          <div className="about-main-text">
+            <div className="accordian-img-about-us">
               <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_rla70rwp.json"  background="transparent"  speed="1" loop autoplay></lottie-player>
             </div>
 
-        <div class="about-main-text-block">
-          <div class="about-heading">
+        <div className="about-main-text-block">
+          <div className="about-heading">
             <div>ABOUT US</div>
           </div>
           <ul>
@@ -45,26 +45,26 @@ export default function About() {
           </div>
         </div>
 
-        <div class="service">
-          <div class="row m-0 p-0">
-            <div class="col-md-4 about-tabs">
-              <div class="card-service">
-                <div class="about-heading">
+        <div className="service">
+          <div className="row m-0 p-0">
+            <div className="col-md-4 about-tabs">
+              <div className="card-service">
+                <div className="about-heading">
                   <img src={mountain} alt="img" />
                   {/* <!-- <div>Our Mission</div> --> */}
                 </div>
-                <div class="des-service">
+                <div className="des-service">
                   With Fixebuy, we aspire to make customer journeys easy. They can find all types of automobiles on our website. We not only provide brand new products but also use them. So budget would never be an issue with us. The Fixebuy ecosystem is specially designed to easily access all the products, either used or newly available to you.
                 </div>
               </div>
             </div>
-            <div class="col-md-4 about-tabs">
-              <div class="card-service ">
-                <div class="about-heading">
+            <div className="col-md-4 about-tabs">
+              <div className="card-service ">
+                <div className="about-heading">
                   <img src={service} alt="img" />
                   {/* <!-- <div>Our Service</div> --> */}
                 </div>
-                <div class="des-service">
+                <div className="des-service">
                   Our services range from selling old and used automobiles, phones, and various gadgets. <br />
                   Customers can upload their used automobiles, gadgets, and phones. And you can get good deals on them
                   <br />
@@ -80,13 +80,13 @@ export default function About() {
                 </div>
               </div>
             </div>
-            <div class="col-md-4 about-tabs">
-              <div class="card-service">
-                <div class="about-heading">
+            <div className="col-md-4 about-tabs">
+              <div className="card-service">
+                <div className="about-heading">
                   <img src={fairytale} alt="img" />
                   {/* <!-- <div>Our Story</div> --> */}
                 </div>
-                <div class="des-service">
+                <div className="des-service">
                   Fixebuy exists for people who think twice before buying their favorite gadget or automobile. We bring you a plethora of options under your budget—so there is no need to check your bank account before making a purchase. Fixebuy endeavors to make selling automobiles, phones, and gadgets readily available to its customers at prices that would want you to have everything at once.
                   <br />
                   {/* <br> */}
@@ -97,7 +97,7 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div class="last-text-about-us">Fixebuy brings you everything that you’re looking for under one umbrella. And you don’t have only to trust our words, get fixebuy and see the magic unfold in front of your own eyes.</div>
+      <div className="last-text-about-us">Fixebuy brings you everything that you’re looking for under one umbrella. And you don’t have only to trust our words, get fixebuy and see the magic unfold in front of your own eyes.</div>
       </div>
       <Footer />
 

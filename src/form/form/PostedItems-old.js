@@ -14,7 +14,6 @@ import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 
 const PostedItems = () => {
-  const MAX_LENGTH = 25;
   const IdData = window.localStorage.getItem('token')
   let ProfleId = JSON.parse(IdData).token;
   const [automobile, setAutomobile] = useState([]);
@@ -80,13 +79,12 @@ const PostedItems = () => {
               automobile.map((automobileProduct, key) => {
                 return (
                   <div className="col-md-4 col-6 col-lg-3">
-                      {/* <div className="mob-cardWidth"> */}
                     <Link to='' state={automobileProduct} className="text-decor">
-                      <div className="shadow p-2 mb-4 bg-white maindiv-ads">
-                        <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                      <div className="shadow p-3 mb-4 bg-white maindiv">
+                        <div className="img-wh"><img src={`${baseUrl}/allcategories/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
                         <div className="pdt-details">
                           <div className="d-flex" style={{ justifyContent: 'space-between' }}>
-                            <div className="price">₹{(automobileProduct.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                            <div className="price">₹{automobileProduct.price}</div>
                             <div className="status">
                               {
                                 (automobileProduct.status == 'pending') ?
@@ -100,32 +98,24 @@ const PostedItems = () => {
                               }
                             </div>
                           </div>
-                          {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
-                          {
-                                          (automobileProduct.title).length > MAX_LENGTH ?
-                          <div className="prd-name">
-                          {`${automobileProduct.title.substring(0 , MAX_LENGTH)}...`}
-                          </div>
-                          :
+                          <div className="font-weight-light desc">{automobileProduct.description}</div>
                           <div className="prd-name">{automobileProduct.title}</div>
-                                            
-                        }
                           <div className="contain-adrs">
                             <span className="adrs">{automobileProduct.location.state}</span>
                             <span className="year"></span>
                           </div>
                           <div className="row p-0 m-0">
                             <div className="col p-0">
-                              <div className="d-flex" style={{justifyContent : "space-between"}}>
+                              <div className="d-flex" style={{ justifyContent: 'space-between' }}>
                                 <div className="buy-bt">
-                                  <Link to="" className="buy-bttn">Boost Now</Link>
+                                  <Link to="" className="buy-bttn">&nbsp;&nbsp;Boost Now</Link>
                                 </div>
-                                {/* <div className="edit" style={{ marginTop: '5%' }} >
+                                <div className="edit" style={{ marginTop: '5%' }} >
                                   <span className="ed"><FontAwesomeIcon icon="fas fa-pen"></FontAwesomeIcon></span>
-                                </div> */}
+                                </div>
 
-                                <div className="delete"  onClick={() => deleteUser(automobileProduct._id)}>
-                                  <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can" className="iconSize"></FontAwesomeIcon></span>
+                                <div className="delete" style={{ marginTop: '5%' }} onClick={() => deleteUser(automobileProduct._id)}>
+                                  <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can"></FontAwesomeIcon></span>
                                 </div>
                               </div>
                               <div>
@@ -136,7 +126,6 @@ const PostedItems = () => {
                         </div>
                       </div>
                     </Link>
-                      {/* </div> */}
                   </div>
                 )
 

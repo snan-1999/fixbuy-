@@ -41,33 +41,33 @@ const Blogs = () => {
       <>
       <Header/>
 
-       <div class="container faq-container">
-        <div class="about-text" style={{marginBottom : '-5%'}}>
+       <div className="container faq-container">
+        <div className="about-text" style={{marginBottom : '-5%'}}>
 
 
-            <div class="blog-heading">
+            <div className="blog-heading">
                 {/* <img src={facebook} alt="img" /> */}
                 <div>BLOGS</div>
             </div>
                    </div>
-            <div class="service">
-                <div class="row m-2 p-0">
+            <div className="service">
+                <div className="row m-2 p-0">
                    {
                        
                        blog?.map((data , key) => {
                            return(
-                               <div class="col-md-4 about-tabs" style={{marginTop :'2%'}}>
+                               <div className="col-md-4 about-tabs" style={{marginTop :'2%'}}>
                    
 
-                        <div class="main-blog-container">
-                            <div class="blog-image">
+                        <div className="main-blog-container">
+                            <div className="blog-image">
                                 <img src={`${baseUrl}/blogs/getimage/${data.contentImage}`} alt="img" />
                             </div>
-                            <div class="blog-card-headings">
+                            <div className="blog-card-headings">
                             <div>{data.title}</div>
                             </div>
-                            <div class="blog-card-date"><FontAwesomeIcon icon="fas fa-calendar-days"></FontAwesomeIcon>&nbsp;&nbsp;{new Date(data.createdAt).toDateString()}</div>
-                            <div class="blog-content-text">
+                            <div className="blog-card-date"><FontAwesomeIcon icon="fas fa-calendar-days"></FontAwesomeIcon>&nbsp;&nbsp;{new Date(data.createdAt).toDateString()}</div>
+                            <div className="blog-content-text">
                                 {data.contentText}
                                 <Link to={`/blogs/SingleBlog/${data._id}`} onClick={() => getBlog(data._id)}>Read more</Link>
                             </div>

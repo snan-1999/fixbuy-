@@ -13,61 +13,61 @@ const Packages = () => {
     return(
         <>
         <Header/>
-        <div class="container my-cont border">
-        <div class="for-center package-form">
-      <div class="container-heading package-form">
+        <div className="container my-cont border">
+        <div className="for-center package-form">
+      <div className="container-heading package-form">
         <span>Packages</span>
       </div>
     </div>
 
-<div class="Package-Heading">
+<div className="Package-Heading">
         <span>1. Car ,Properties , Heavy Vehicle </span>
       </div>
-    <section class="pricing py-2">
-          <div class="container-price">
-            <div class="row">
+    <section className="pricing py-2">
+          <div className="container-price">
+            <div className="row">
             {/* //   <!-- Free Tier --> */}
-              <div class="col-lg-6 ">
-                <div class="card mb-5 mb-lg-0" id='setMargin1'>
-                  <div class="card-body">
-                    {/* <h5 class="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                    <h6 class="card-price text-center">₹299<span className="period">+GST</span><span class="period">/5days</span></h6>
+              <div className="col-lg-6 ">
+                <div className="card mb-5 mb-lg-0" id='setMargin1'>
+                  <div className="card-body">
+                    {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
+                    <h6 className="card-price text-center">₹299<span className="period">+GST</span><span className="period">/5days</span></h6>
                     <hr/>
-                    <ul class="fa-ul">
-                    {/* //   <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
-                      {/* <li><span class="fa-li"><i class="fas fa-check"></i></span>All
+                    <ul className="fa-ul">
+                    {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
+                      {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boost</li> */}
-                {/* //       <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated
+                {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
                     </ul>
-                    <div class="d-grid">
-                      <a href="api/boost-product-api.php?price=49" class="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
+                    <div className="d-grid">
+                      <a href="api/boost-product-api.php?price=49" className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
                     </div>
                   </div>
                 </div>
               </div>
             {/* //   <!-- Plus Tier --> */}
-              <div class="col-lg-6">
-                <div class="card mb-5 mb-lg-0" id='setMargin2'>
-                  <div class="card-body">
-                    {/* <h5 class="card-title text-muted text-uppercase text-center">GOLD</h5> */}
-                    <h6 class="card-price text-center">₹499<span className="period">+GST</span><span class="period">/12days</span></h6>
+              <div className="col-lg-6">
+                <div className="card mb-5 mb-lg-0" id='setMargin2'>
+                  <div className="card-body">
+                    {/* <h5 className="card-title text-muted text-uppercase text-center">GOLD</h5> */}
+                    <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/12days</span></h6>
                     <hr />
-                    <ul class="fa-ul">
-                    {/* //   <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 5 days</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagement</li>
-                      {/* <li><span class="fa-li"><i class="fas fa-check"></i></span>All
+                    <ul className="fa-ul">
+                    {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 5 days</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagement</li>
+                      {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boosts</li> */}
-                {/* //       <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated
+                {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
                     </ul>
-                    <div class="d-grid">
-                      <a href="api/boost-product-api.php?price=99" class="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
+                    <div className="d-grid">
+                      <a href="api/boost-product-api.php?price=99" className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
                     </div>
                   </div>
                 </div>
@@ -78,54 +78,54 @@ const Packages = () => {
         <br/>
         <br/>
 
-        <div class="Package-Heading">
+        <div className="Package-Heading">
         <span>2. All Other Items </span>
       </div>
-    <section class="pricing py-2">
-          <div class="container-price">
-            <div class="row">
+    <section className="pricing py-2">
+          <div className="container-price">
+            <div className="row">
             {/* //   <!-- Free Tier --> */}
-              <div class="col-lg-6 ">
-                <div class="card mb-5 mb-lg-0" id='setMargin1'>
-                  <div class="card-body">
-                    {/* <h5 class="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                    <h6 class="card-price text-center">₹49<span className="period">+GST</span><span class="period">/5days</span></h6>
+              <div className="col-lg-6 ">
+                <div className="card mb-5 mb-lg-0" id='setMargin1'>
+                  <div className="card-body">
+                    {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
+                    <h6 className="card-price text-center">₹49<span className="period">+GST</span><span className="period">/5days</span></h6>
                     <hr/>
-                    <ul class="fa-ul">
-                    {/* //   <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
-                      {/* <li><span class="fa-li"><i class="fas fa-check"></i></span>All
+                    <ul className="fa-ul">
+                    {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
+                      {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boost</li> */}
-                {/* //       <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated
+                {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
                     </ul>
-                    <div class="d-grid">
-                      <a href="api/boost-product-api.php?price=49" class="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
+                    <div className="d-grid">
+                      <a href="api/boost-product-api.php?price=49" className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
                     </div>
                   </div>
                 </div>
               </div>
             {/* //   <!-- Plus Tier --> */}
-              <div class="col-lg-6">
-                <div class="card mb-5 mb-lg-0" id='setMargin2'>
-                  <div class="card-body">
-                    {/* <h5 class="card-title text-muted text-uppercase text-center">GOLD</h5> */}
-                    <h6 class="card-price text-center">₹99<span className="period">+GST</span><span class="period">/12days</span></h6>
+              <div className="col-lg-6">
+                <div className="card mb-5 mb-lg-0" id='setMargin2'>
+                  <div className="card-body">
+                    {/* <h5 className="card-title text-muted text-uppercase text-center">GOLD</h5> */}
+                    <h6 className="card-price text-center">₹99<span className="period">+GST</span><span className="period">/12days</span></h6>
                     <hr />
-                    <ul class="fa-ul">
-                    {/* //   <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 5 days</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagement</li>
-                      {/* <li><span class="fa-li"><i class="fas fa-check"></i></span>All
+                    <ul className="fa-ul">
+                    {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 5 days</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagement</li>
+                      {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boosts</li> */}
-                {/* //       <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated
+                {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
                     </ul>
-                    <div class="d-grid">
-                      <a href="api/boost-product-api.php?price=99" class="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
+                    <div className="d-grid">
+                      <a href="api/boost-product-api.php?price=99" className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
                     </div>
                   </div>
                 </div>
@@ -136,31 +136,31 @@ const Packages = () => {
         <br/>
         <br/>
 
-        <div class="Package-Heading">
+        <div className="Package-Heading">
         <span>3. For Shop </span>
       </div>
-    <section class="pricing py-2">
-          <div class="container-price">
-            <div class="row">
+    <section className="pricing py-2">
+          <div className="container-price">
+            <div className="row">
             {/* //   <!-- Free Tier --> */}
-              <div class="col-lg-6 ">
-                <div class="card mb-5 mb-lg-0" id='setMargin1'>
-                  <div class="card-body">
-                    {/* <h5 class="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                    <h6 class="card-price text-center">₹499<span className="period">+GST</span><span class="period">/5days</span></h6>
+              <div className="col-lg-6 ">
+                <div className="card mb-5 mb-lg-0" id='setMargin1'>
+                  <div className="card-body">
+                    {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
+                    <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/5days</span></h6>
                     <hr/>
-                    <ul class="fa-ul">
-                    {/* //   <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                      <li><span class="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
-                      {/* <li><span class="fa-li"><i class="fas fa-check"></i></span>All
+                    <ul className="fa-ul">
+                    {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                      <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
+                      {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boost</li> */}
-                {/* //       <!-- <li><span class="fa-li"><i class="fas fa-check"></i></span>Dedicated
+                {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
                     </ul>
-                    <div class="d-grid">
-                      <a href="api/boost-product-api.php?price=49" class="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
+                    <div className="d-grid">
+                      <a href="api/boost-product-api.php?price=49" className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</a>
                     </div>
                   </div>
                 </div>
