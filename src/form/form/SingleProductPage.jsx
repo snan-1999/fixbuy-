@@ -6,7 +6,7 @@ import sunset from '../../assets/images/sunset.jpg';
 import instagram from '../../assets/images/instagram.png';
 import Header from "../../form/form/header";
 import Footer from "../../form/form/Footer";
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
 import { baseUrl } from '../../functions/constant';
 import Home from './Home';
@@ -20,12 +20,18 @@ import {
     Td,
     TableCaption,
     TableContainer,
+    useToast,
+    Button,
+
 } from '@chakra-ui/react'
 
 import { FaHeart } from 'react-icons/fa'
 import { useContext } from 'react';
 import { GlobalVariables } from '../../Context/StateProvider';
 import { FiHeart } from 'react-icons/fi';
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 export default function SingleProductPage(props) {
     // const { id } = useParams()
     const [BntStatus, setBntStatus] = useState(null)
@@ -48,10 +54,11 @@ export default function SingleProductPage(props) {
     const [imgChange, setimgChange] = useState('')
     console.log(typeof [Data], Data, "allDataSIngle");
     console.log(UseData, 'homeData')
+    // const toast = useToast()
     const nav = useNavigate()
     const getImgSrc = (source) => {
         setImages(source)
-        // console.log(imgChange)
+        // console.log(imgChange) 
     }
     const UpdateData = () => {
         // console.log(productid)
@@ -73,6 +80,7 @@ export default function SingleProductPage(props) {
     }
     let heartColor;
     const SavedItem = async () => {
+
         if (Token === null) {
             nav('/login')
         } else {
@@ -88,41 +96,42 @@ export default function SingleProductPage(props) {
         const api = `${baseUrl}/users/savedItems/${TokenID}`
         const { data } = await axios.post(api, SendData);
         console.log(SendData.saveStatus, 'homeData')
+        if (data.status) {
+            toast(data.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                // transition: 'zoom',
+                theme: "colored",
+                type: 'success'
+            });
+        }
         console.log(data, 'homeData')
-        const HeartIcon = document.getElementById('heart');
-        // if (location.state.automobileProduct.saved) {
-        //     heartColor = HeartIcon.style.color = "red"
-        // } else {
-        //     heartColor = HeartIcon.style.color = "transparent";
-        //     heartColor = HeartIcon.style.border = "1px solid black";
-        // }
     }
+    let Max_length = 60;
     useEffect(() => {
         setUseData(location.state)
     }, [SavedItem])
     return (
         <>
             <Header />
-            <div className="main overflow-hidden">
+            <ToastContainer />
+            <div className="main ">
                 <div className="row m-0 p-0">
                     <div className="for-center flex-row justify-content-center align-items-center">
-
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <div className="container-heading-pr">
                                 <span>PRODUCTS DETAILS :-</span>
                             </div>
                         </div>
-                        <div className="col-md-6 d-flex justify-content-center align-items-center">
-                            <div className=" pt-4">
-                                {/* <RefreshBtn>
-                                <abbr title="Refresh Data"><BiRefresh className='ref' onClick={() => { RefTog() }} /></abbr>
-                            </RefreshBtn> */}
-                            </div>
-                        </div>
+
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row m-0 p-0">
                     <div className="col-md-6 ">
                         <ImageSetion>
 
@@ -136,35 +145,18 @@ export default function SingleProductPage(props) {
                                     {
                                         location.state.automobileProduct.images?.map((img, key) => {
                                             return (
-                                                <img src={`${baseUrl}/product/get/productImage/${img}`} className="border " onClick={() => getImgSrc(`${baseUrl}/allcategories/get/productImage/${img}`)} />
+                                                <img src={`${baseUrl}/product/get/productImage/${img}`} className="border " onClick={() => getImgSrc(`${baseUrl}/product/get/productImage/${img}`)} />
                                             )
                                         })
                                     }
-                                    {/* {
-                                        for(getData in Data){
-                                        <div>{getData}</div>
-                                    } */}
-
-                                    {/* {
-                                        location.state.automobileProduct.map((dataa) => {
-                                            return (
-                                                <div>{dataa.title}</div>
-                                            )
-                                        })
-                                    } */}
                                 </ScrollDiv>
                             </SmallImg>
                         </ImageSetion>
 
                     </div>
-                    <div className="col-md-3 d-flex flex-column justify-content-center align-items-center ContentClass">
+                    <div className="col-md-6 d-flex flex-column justify-content-center align-items-center ContentClass ">
                         <DetailsData className=''>
-                            <div>
-                                {
-                                    (HomeData) ? <FaHeart className="text-danger" onClick={SavedItem} /> : <FiHeart onClick={SavedItem} />
-                                }
-                                {/* <FaHeart className={heartColor} id='heart' onClick={SavedItem} /> */}
-                            </div>
+
                             <table className="table table-striped table-hover"  >
                                 <thead>
                                     <tr>
@@ -174,57 +166,65 @@ export default function SingleProductPage(props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-
-
+                                    <tr>
+                                        <th scope="col">   Title  - </th>
+                                        <th className='text-capitalize'>  {UseData.automobileProduct.title} </th>
+                                    </tr>
                                     <tr>
                                         <th scope="col">   Price  - </th>
                                         <th>  ₹ {UseData.automobileProduct.price} </th>
                                     </tr>
                                     <tr>
-                                        <th scope="col">   DESCRIPTION  - </th>
-                                        <th>  {UseData.automobileProduct.description} </th>
+                                        <th scope="col">Short Description - </th>
+
+                                        {
+                                            (UseData.automobileProduct.description.length > Max_length ?
+                                                <th className='text-capitalize'>{`${UseData.automobileProduct.description.substring(0, Max_length)}...`}</th>
+                                                :
+                                                <th className='text-capitalize'> {UseData.automobileProduct.description}</th>
+                                            )
+                                        }
+
                                     </tr>
-                                    {/* <tr>
+                                    <tr className=''>
                                         <th scope="col">   Status  - </th>
-                                        <th>  {UseData.automobileProduct.description} </th>
-                                    </tr> */}
+                                        <th>   <div className='heartBtn'>
+                                            {
+                                                (HomeData) ? <>
+                                                    <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
+                                                        Saved
+                                                    </Button>
+                                                </>
+                                                    :
+                                                    <>
+                                                        <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
+                                                            UnSaved
+                                                        </Button></>
+                                            }
+                                        </div> </th>
+                                    </tr>
 
                                 </tbody>
                             </table>
-                            <div className="brand">
+                            {/* <div className="brand">
 
-                            </div>
-
-
-
-                            <div>
-
-                                {/* <br/> */}
-                                <div className='description'>
-                                    {/* <label for="description"></label> */}
-                                    {/* <br /> */}
-                                    {/* : -{UseData.automobileProduct.description} */}
-                                    {/* <Heading size='md' color='gray.700' mt='2'>Price :- {Data?.price}</Heading> */}
-                                </div>
-                            </div>
-                            {/* <div className="status">
-                                {
-                                    (location.state.status == 'pending') ?
-                                        <span className="sts" style={{ backgroundColor: 'grey' }}>{location.state.status}</span>
-                                        : (location.state.status == 'reject') ?
-                                            <span className="sts" style={{ backgroundColor: 'red' }}>{location.state.status}</span>
-                                            : (location.state.status == 'approved') ?
-                                                <span className="sts" style={{ backgroundColor: 'green' }}>{location.state.status}</span>
-                                                :
-                                                ""
-                                }
                             </div> */}
+
+
+
+                            <div className="Btns d-flex justify-content-between">
+                                <Link to='/sellerProfile' state={UseData.automobileProduct.user_id}><button className='sellerButton '>User Profile</button></Link>
+                                <Link to='/sellerProfile' state={UseData.automobileProduct.user_id}><button className='sellerButton '>Report Ads</button></Link>
+
+                            </div>
                         </DetailsData>
                     </div>
 
                 </div>
+                <br />
+                <br />
+                <Footer className="mt-4 position-relative top-0" />
             </div>
-            <Footer className="mt-4 position-relative top-0" />
         </>
     )
 }
@@ -238,10 +238,23 @@ const DetailsData = styled.div`
         border-radius: 4px;
         margin-bottom: 2%;
         width: 50%;
-        text-align: center;
+        text-align: center;     
+        }
+        .heartBtn{
+            font-size: 1.3rem;
+            animation-name: heartss;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            :hover{
+                margin: 0;
+                padding: 0;
+                font-size: 1.3rem;
+                /* transform: scale(1); */
+                transition: transform 500ms ease;
 
-    
-}
+            }
+        }
+      
 `
 const MainSlide = styled.div`
         width: 100%;
@@ -249,6 +262,9 @@ const MainSlide = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    img{
+        border-radius: 10px;
+    }
 `
 const SmallImg = styled.div`
 margin-top: 4%
@@ -267,5 +283,6 @@ cursor: pointer;
         width: 100px;
         height: 80px;
         margin: 10px;
+        border-radius: 10px;
     }
 `

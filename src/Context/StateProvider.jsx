@@ -9,8 +9,10 @@ function StateProvider({ children }) {
     const [Lmore, setLmore] = useState(1)
     const [TotalPagess, setTotalPagess] = useState('');
     const [HomeData, setHomeData] = useState();
-    const [latitude, setlatitude] = useState(28.663996);
-    const [Longitude, setLongitude] = useState(77.306843);
+    const [Longitude , setLongitude] = useState("");
+    const [latitude , setlatitude] = useState("");
+    // const [latitude, setlatitude] = useState(28.663996);
+    // const [Longitude, setLongitude] = useState(77.306843);
     const [UserId, setUserId] = useState(TokenData?.token);
     return (
         <>

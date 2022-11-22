@@ -26,20 +26,23 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
 import CategorySlider from "./corousel/CategorySlider";
+import useGeoLocation from "../../hooks/useGeoLoaction";
 
-const Home = () => {
+const Home = () => { 
+    const location = useGeoLocation();
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
     const [automobile, setAutomobile] = useState([]);
     const [MoreData, setMoreData] = useState([]);
     const [TotalPagess, setTotalPagess] = useState('');
-    const [Loading, setLoading] = useState(false) 
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId , setUserId } = useContext(GlobalVariables)
-     console.log(TokenData , 'UserId')
-    setUserId((TokenData)?TokenData.token : null) 
+    const [PageNo, setPageNo] = useState(1);
+    const [Loading, setLoading] = useState(false)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
+    console.log(latitude, Longitude ,  'Location')
+    setUserId((TokenData) ? TokenData.token : null)
     const homeDataAll = async () => {
-        console.log(UserId, 'UserId') 
-        const { data } = await HomeAllData(Longitude, latitude, Lmore, UserId)
+        console.log(UserId, 'UserId')
+        const { data } = await HomeAllData(Longitude, latitude, PageNo, UserId)
         console.log(data, 'homeData')
         setLoading(true)
         console.log(Loading)
@@ -57,8 +60,9 @@ const Home = () => {
         }
     }
     const LoadMOre = () => {
-        setLmore(Lmore + 1)
-        setLoading(true)
+        setPageNo(PageNo + 1)
+        console.log(PageNo, "HomeData")
+        setLoading(true) 
     }
     // window.onscroll = function () {
     //     LoadMOre()
@@ -66,11 +70,11 @@ const Home = () => {
     //     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
     //     }
     // }
-    
-        let Max_length = 27;
+
+    let Max_length = 27;
     useEffect(() => {
-        homeDataAll()
-    }, [Lmore ,UserId])
+        latitude &&  homeDataAll()
+    }, [PageNo, UserId ,latitude])
     return (
         <>
             {/* <div className="row p-0 m-0"> */}
@@ -112,7 +116,15 @@ const Home = () => {
             <div className="mobile-Categoryslider">
                 <CategorySlider />
             </div>
-
+            {/* GeoLocation start */}
+            <div className="inline-block mr-auto pt-1">
+                {
+                    location.loaded &&
+                        JSON.stringify(location)
+            
+                }
+            </div>
+            {/* Geolocation end */}
             {/* <!-- products section */}
 
             <div className="row m-0 p-0">

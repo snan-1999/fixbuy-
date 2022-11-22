@@ -32,6 +32,9 @@ import SearchPage from './form/form/SearchPage';
 import SubProduct from './Forms/SubcategoryProduct/SubProduct';
 import SavedItems from './form/form/SavedItems';
 import Demo from './form/form/ImageUpload';
+import SellerProfile from './form/form/SellerProfile';
+import MainProducts from './Forms/SubcategoryProduct/MainProducts';
+import SellCategory from './form/form/SellCategory';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -59,12 +62,14 @@ function App() {
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/blogs/:SingleBlog/:id' element={<SingleBlog />} />
           <Route path='/:maincategory/:subcategory' element={<SubProduct />} />
+          <Route path='/:maincategory/:subcategory/all-product' element={<MainProducts />} />
           {/* <Route  path='/singlePage' element={<SinglePost />} /> */}
           {/* <Route  path='/loginseesion' element={<LoginSession/>} /> */}
           <Route path='/terms' element={<Terms />} />
           <Route path='/privacy' element={<Privacy />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/sell' element={<Sell />} />
+          <Route path='/sellerProfile' element={<SellerProfile />} />
           <Route path='/demo' element={<Demo />} />
           <Route path='/saved-items' element={<SavedItems />} />
           <Route path='/sell/Electronics/:category' element={<Fridge />} />
@@ -76,6 +81,8 @@ function App() {
           <Route path='/sell/Books/:category2' element={<Books />} />
           <Route exact path='/sell/services/:category2' element={<Service />} />
           <Route path='/shop' element={<Shop />} />
+          {/* mobile */}
+          <Route path='/sell/automobile/SellCategory' element={<SellCategory />} />
 
 
           {/* <Route exact path='/' element={</>/> */}

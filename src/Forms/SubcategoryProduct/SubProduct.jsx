@@ -16,49 +16,102 @@ import Footer from '../../form/form/Footer'
 import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
 import { MdLocationOn } from 'react-icons/md'
-import { AllDataCategory } from '../../functions/MainCategoryFun'
+import { AllDataCategory, FilterSubCategoryData, SubDataCategoryFun } from '../../functions/MainCategoryFun'
+import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
+import useGeoLocation from '../../hooks/useGeoLoaction'
 export default function SubProduct() {
-    const { Lmore, setLmore, TotalPagess, setTotalPagess } = useContext(GlobalVariables)
+    const Token = localStorage.getItem('token');
+    const TokenData = JSON.parse(Token)
+    const Loacation = useGeoLocation()
+    const { Lmore, setLmore, TotalPagess, setTotalPagess, latitude, Longitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
     const [AllData, setAllData] = useState([]);
-    const [Loading, setLoading] = useState(false)
-    const [NOData, setNOData] = useState(false)
+    const [Loading, setLoading] = useState(false);
+    const [PageNO, setPageNO] = useState(1);
+    const [filters, setfilters] = useState(null)
+    const [NOData, setNOData] = useState(false);
+    // const [UserID, setUserID] = useState(null);
     const { maincategory, subcategory } = useParams();
-    const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase() 
+    const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase()
     const GetSubCatogery = subcategory.replace(/ /g, "_").toLowerCase()
 
     console.log(GetMainCatogery, GetSubCatogery, 'hy')
-    let MaiName = 'automobile';
+    // setid_user((TokenData) ? TokenData.token : null)
     const [Name, setName] = useState('Category');
+    console.log(latitude, 'location')
+    const MainCategoryDataFIlter = async () => {
+        setAllData([])
+        console.log(filters, 'filter')
+        try {
+            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, PageNO, filters)
+            console.log(data, 'location')
+            setAllData(data.data)
+            // if(Diffrence == maincategory) {
+            //     console.log(true , 'run')
+            // }else{
+            //     setAllData(data.data)
+            //     console.log(false ,'run')
+            // }
+        } catch (error) {
 
-    const MainData = async () => {
-        const { data } = await AllDataCategory(MaiName)
-        console.log(data, 'main')
-        setLoading(true)
+        }
+    }
+    // filter Load More
+    const MainCategoryDataFIlterLoad = async () => {
+        // setAllData([])
+        console.log(filters, 'filter')
+        try {
+            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, PageNO, filters)
+            console.log(data, 'shopData')
+            setAllData([...AllData, ...data.data])
+            // if(Diffrence == maincategory) {
+            //     console.log(true , 'run')
+            // }else{
+            //     setAllData(data.data)
+            //     console.log(false ,'run')
+            // }
+        } catch (error) {
+
+        }
+    }
+    const LoadSubData = async () => {
+        try { 
+            setLoading(true)
+            const { data } = await SubDataCategoryFun(maincategory, GetSubCatogery,latitude, Longitude, PageNO ,UserId)
+            console.log(data, 'load')
             if (data.status) {
                 setLoading(false)
+                // if (data.totalPages > 1) {
                 setAllData([...AllData, ...data.data])
-                setTotalPagess(data.totalPages)
-                setNOData(false)
-                // setName(AllData[0].categories)
-               
-
-            } else {
-                setLoading(false)
-                setNOData(true)
-                setAllData([])
-
-                // alert('There is no Data')
+                // }
             }
+        } catch (error) {
+            // alert(error.message)
+        }
     }
-    console.log(subcategory)
     const SubDataCategory = async () => {
-        try {
-            const api = `${baseUrl}/product/fetch/${maincategory}/${GetSubCatogery}/28.6126687/77.37787/${Lmore}`
+        // setAllData([])
+        let api;
+        // try {
+            if (UserId == undefined || UserId == null) {
+                api = `${baseUrl}/product/fetch/${maincategory}/${GetSubCatogery}/${latitude}/${Longitude}/${PageNO}`
+            } else {
+                api = `${baseUrl}/product/fetch/${maincategory}/${GetSubCatogery}/${latitude}/${Longitude}/${PageNO}?user_id=${UserId}`
+            }
+
             const { data } = await axios.get(api);
             setLoading(true)
+            console.log(data, 'load')
+            console.log(api, 'location')
             if (data.status) {
                 setLoading(false)
-                setAllData([...AllData, ...data.data])
+                if (data.totalPages > 1) {
+                    setAllData(data.data)
+                    // alert('load') 
+                    console.log(AllData, 'che')
+                } else {
+                    setAllData(data.data)
+                    // alert('no dta')
+                }
                 setTotalPagess(data.totalPages)
                 setNOData(false)
                 console.log(api, 'check')
@@ -73,24 +126,73 @@ export default function SubProduct() {
 
                 // alert('There is no Data')
             }
-        } catch (error) {
-            alert(error.message)
-        }
+        // } catch (error) {
+        //     alert(error.message, 'hy')
+        // }
     }
     const LoadMOre = () => {
+        setPageNO(PageNO + 1)
         setLmore(Lmore + 1)
+        if (setLmore) {
+            console.log(Lmore, 'load')
+        }
+        // console.log(PageNO, 'load')
+
+        // const Condition = `${maincategory}/${subcategory}` == `${maincategory}/all`;
+        // console.log(Condition,"co");
+        // if (Condition) {
+        // MainData()
+        //     console.log('main')
+        // } else {
+        //     SubDataCategory()
+        //     console.log('Sub')
+        // }
         setLoading(true)
     }
-    const Max_length = 26;
     useEffect(() => {
-        if (subcategory == "all") {
-            MainData()
-        } else {
+        setPageNO(1)
+        MainCategoryDataFIlter()
+    }, [filters])
+    useEffect(() => {
+        MainCategoryDataFIlterLoad()
+    }, [PageNO])
+    useEffect(() => {
+        LoadSubData()
+    }, [PageNO])
+    const Max_length = 26;
+    // useEffect(() => {
+    //     SubDataCategory()
+    //     setAllData()
+    //     // setTimeout(() => {
+    //     //     SubDataCategory()
+    //     // }, 2000)
+    // }, [subcategory ])
+    // useEffect(() => {
+    //     console.log('run2')
+    //     const Condition = `${maincategory}/${subcategory}` == `${maincategory}/all`
+    //     if (Condition) {
+    //         MainData()
+    //         console.log('main')
+    //     } else {
+    //         SubDataCategory()
+    //         console.log('Sub')
+    //     }
 
-            SubDataCategory()
-        }
-    }, [0, GetSubCatogery, Lmore])
-
+    // }, [0, Lmore, maincategory])
+    useEffect(() => {
+        // setAllData([])
+        setPageNO(1)
+        SubDataCategory()
+        // const Condition = `${maincategory}/${subcategory}` == `${maincategory}/all`;
+        // console.log(Condition,"co");
+        // if (Condition) {
+        //     LoadMainData()
+        //     console.log('main')
+        // } else {
+        //     console.log('Sub')
+        // }
+        console.log(subcategory, 'init');
+    }, [subcategory, latitude])
     return (
         <>
             <Header />
@@ -105,21 +207,36 @@ export default function SubProduct() {
                     </div>
                     <div className="col-md-6 d-flex justify-content-center align-items-center">
                         <div className=" pt-4">
-                            {/* <RefreshBtn>
-                                <abbr title="Refresh Data"><BiRefresh className='ref' onClick={() => { RefTog() }} /></abbr>
-                            </RefreshBtn> */}
+                            <div className="col-md-6 position-relative ">
+                                <div className="filter_bt  ">
+                                    <div className="dropdown setDrop">
+                                        <button className="btn btn-secondary dropdown-toggle shadow-none btn-outline-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Filter
+                                        </button>
+                                        <ul className="dropdown-menu SetHover">
+                                            <div className="priceFilter ">
+                                                Price
+                                            </div>
+
+                                            <li className="dropdown-item" onClick={() => setfilters(1)}><BsArrowUp className='me-2' />Low To High</li>
+                                            <li className="dropdown-item" onClick={() => setfilters(-1)}><BsArrowDown className='me-2' />High To Low</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="container" id="card_box" >
+            <div className="container" id="card_box">
                 <div className="row">
-                    {Loading && <button className='bg-transparent border-0 d-flex align-items-center justify-content-center'>
+                    {/* {Loading && <button className='bg-transparent border-0 d-flex align-items-center justify-content-center'>
                         <div className="spinner-border spinner-border-lg me-2 text-secondary" role="status">
                         </div>
                         <span className="text-secondary">Loading...</span>
                     </button>
-                    }
+                    } */}
                     {
                         NOData && <Box display='flex' justifyContent='center' mt='-10%' zIndex='-3'>
                             {/* <Image src={NoData} alt='Dan Abramov' boxSize='80vh'/> */}
@@ -132,7 +249,7 @@ export default function SubProduct() {
                     {
                         AllData?.map((automobileProduct, key) => {
                             return (
-                                <div className="col-md-4 col-8 col-lg-3">
+                                <div className="col-md-4 col-8 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>
 
                                         <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
@@ -183,14 +300,12 @@ export default function SubProduct() {
                         })
                     }
                     <div className="row m-0 p-0">
-
-                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
+                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
                             {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
                                 <span className="visually-hidden">Loading...</span>
                             </div>}
                             Load More
                         </ButtonCraete>
-                        {/* </div> */}
                     </div>
                 </div>
             </div>
@@ -227,20 +342,20 @@ top: 0;
     }
 `
 const Ribbon = styled.div`
-  
+    /* margin-left: -10px; */
     font:  10px sans-serif;
     color: #3D6182;
+    text-transform: uppercase;
     text-align: center;
     -webkit-transform: rotate(-45deg);
     -moz-transform:    rotate(-45deg);
     -ms-transform:     rotate(-45deg);
     -o-transform:      rotate(-45deg);
     position: relative;
-    padding: 7px 0;
-    top: -5px;
+    padding: 4px 0;
+    top: 10px;
     left: -40px;
     width: 120px;
     background-color: #3D6182;
-    color: #fff;
-  
+    color: #fff; 
 `

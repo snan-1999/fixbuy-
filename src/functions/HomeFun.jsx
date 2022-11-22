@@ -1,14 +1,14 @@
 import { baseUrl } from "./constant"
 import axios from 'axios';
 
-export const HomeAllData = async (Longitude, latitude, Lmore, UserId) => {
+export const HomeAllData = async (Longitude, latitude, PageNo, UserId) => {
     try {
         console.log(UserId, 'function')
         let api
         if (UserId == undefined || UserId == null) {
-            api = `${baseUrl}/product/fetch/allAds/${latitude}/${Longitude}/${Lmore}`
+            api = `${baseUrl}/product/fetch/allAds/${latitude}/${Longitude}/${PageNo}`
         } else {
-            api = `${baseUrl}/product/fetch/allAds/${latitude}/${Longitude}/${Lmore}?user_id=${UserId}`
+            api = `${baseUrl}/product/fetch/allAds/${latitude}/${Longitude}/${PageNo}?user_id=${UserId}`
         }
         const data = await axios.get(api);
         console.log(api, 'HomeData')

@@ -9,6 +9,9 @@ import Header from './header'
 import shopIcon from '../../assets/images/shopIcon.png'
 import { baseUrl } from '../../functions/constant';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { MdLocationOn } from "react-icons/md";
+import { FiHeart } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 function SearchPage() {
     const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, SearchBar } = useContext(GlobalVariables)
     const searchData = useLocation()
@@ -33,7 +36,8 @@ function SearchPage() {
     }
     useEffect(() => {
         check()
-    }, [searchData.state])
+    }, [searchData.state, Lmore])
+    let Max_length = 26;
     return (
         <>
             <Header />
@@ -62,24 +66,40 @@ function SearchPage() {
                                 <div className="col-md-4 col-8 col-lg-3">
                                     <CardHeight>
 
-                                        <Link to='/singleproductpage' state={automobileProduct} className="text-decor">
+                                        <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
                                             <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
                                                 <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
-                                                    <div className="price">{automobileProduct.price}</div>
-                                                    <div className="font-weight-light desc">{automobileProduct.description}</div>
-                                                    <div className="prd-name">{automobileProduct.title}</div>
+                                                    <div className="row d-flex align-items-center">
+                                                        <div className="col-md-6 col-8 ">
+                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        </div>
+                                                        <div className="col-md-6 col-4 setHeart">
+                                                            {
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    {
+                                                        (automobileProduct.title).length > Max_length ?
+                                                            <div className="prd-name">
+                                                                {`${automobileProduct.title.substring(0, Max_length)}...`}
+                                                            </div>
+                                                            :
+                                                            <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                    }
                                                     <div className="contain-adrs">
-                                                        <span className="adrs">{automobileProduct.location.state}</span>
+                                                        <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
                                                         <span className="year"></span>
                                                     </div>
                                                     <div className="row p-0 m-0">
                                                         <div className="col p-0">
-                                                            <div className="buy-bt">
+                                                            {/* <div className="buy-bt">
                                                                 <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
 
                                                     </div>
@@ -93,7 +113,7 @@ function SearchPage() {
 
                         })
                     }
-                       <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
+                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
                         {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>}
@@ -135,20 +155,20 @@ top: 0;
     }
 `
 const Ribbon = styled.div`
-  
+    /* margin-left: -10px; */
     font:  10px sans-serif;
     color: #3D6182;
+    text-transform: uppercase;
     text-align: center;
     -webkit-transform: rotate(-45deg);
     -moz-transform:    rotate(-45deg);
     -ms-transform:     rotate(-45deg);
     -o-transform:      rotate(-45deg);
     position: relative;
-    padding: 7px 0;
-    top: -5px;
+    padding: 4px 0;
+    top: 10px;
     left: -40px;
     width: 120px;
     background-color: #3D6182;
-    color: #fff;
-  
+    color: #fff; 
 `

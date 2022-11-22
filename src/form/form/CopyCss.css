@@ -1,6 +1,11 @@
 /*my ads start*/
-.container-heading.service-form{
-position: absolute;
+:root {
+    --color1: #487792;
+    --color2: #37577A;
+}
+
+.container-heading.service-form {
+    position: absolute;
     width: 265px;
     height: 58px;
     border-bottom: 3px solid #37577A;
@@ -72,71 +77,370 @@ a.buy-bttn {
 
 /*my ads end*/
 
-@media screen and (max-width: 600px){
-
-/*my ads start*/
-.container-heading.service-form {
-    position: absolute;
-    width: 170px;
-    height: 48px;
-    border-bottom: 3px solid #37577A;
-    line-height: 50px;
-    /* background: gray; */
-    overflow: hidden !important;
-    /* /* margin-top: -15%; */
-}
-.container.my-cont {
-    margin-bottom: 100px;
-    margin-top: 35px;
-    padding: 50px 9px 50px 20px !important;
-    width: 100%;
-}
-
-.dl {
-    margin-left: -30%;
-}
-.delete {
-    margin-top: 8%;
-}
-
-.date {
+.adrs {
     font-size: 10px;
-    margin-left: -2%;
+    color: rgba(0, 0, 0, 0.521);
+    text-transform: capitalize;
+    /* margin-left: -70%; */
+    /* margin-right: 190px; */
 }
 
-.prd-name {
-    margin-top: 3px;
-    font-weight: 500;
-    font-size: 14px;
+.adrs1 {
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.521);
+    text-transform: capitalize;
+    /* margin-left: -70%; */
+    /* margin-right: 190px; */
 }
 
-a.buy-bttn {
-    background: #0999D5;
-    color: white;
-    padding: 9px 7px;
-    border-radius: 3px;
-    font-size: 9px;
-    font-family: 'Poppins';
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-left: -3%;
+.contain-adrs {
+    display: flex;
+    justify-content: space-between;
 }
 
-.img-wh {
-    height: 100%;
-    /* width: 100%; */
-    width: auto !important;
+/*seller profile*/
+
+.heading-box {
+    box-shadow: 1px 1px 10px #8080807a;
+    height: 17vh;
+    width: 80%;
+    margin: 1rem 1rem 1rem 8.3rem
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+.image-box {
+    position: relative;
+    width: 6vw;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
+    height: 12vh;
+    outline: none;
+    border: none;
+    /* border: 1px solid red;
+    border-radius: 100%; */
 }
 
-.price {
-    margin-left: -3%;
+.second-box {
+    /* box-shadow: 1px 1px 10px #8080807a; */
+    /* height: 58vh; */
+    /* width: 90%; */
+    /* margin: 1rem; */
+    overflow: auto;
 }
 
-.status {
-    text-align: right;
-    margin-top: 8%;
+.box2 {
+    width: 100%;
+    margin-top: 5%;
+    padding: 0px 24px;
 }
-/*my ads end*/
+
+.heading-text {
+    justify-content: space-between;
+    margin-top: 4%;
+}
+
+.subcribe-button {
+    background-color: #365679;
+    border-radius: 5%;
+    border: none;
+    padding: 6px 30px 6px;
+    margin-top: -1%;
+    color: white;
+    margin-right: 6%;
+}
+
+.report-button {
+    margin-left: 8%;
+    color: #4C8AAF;
+    color: #4C8AAF;
+    justify-content: space-around;
+    /* margin-top: -2%; */
+    margin-bottom: 6%;
+}
+
+.subscribe-color {
+    font-size: 20px;
+}
+
+.report-Image {
+    padding: 8px 4px 6px 8px;
+    margin-left: -20%;
+}
+
+.mob-view {
+    display: none;
+}
+
+.report-message {
+    font-size: 10px;
+    color: red;
+    /* padding: 12px; */
+    margin-top: -3%;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+}
+
+.report-text {
+    font-size: 22px;
+    background-color: transparent !important;
+    border: none;
+    color: #026590;
+
+}
+
+.ads-head {
+    color: #345376;
+    font-size: 22px;
+    padding: 5px 20px;
+}
+
+
+.sellerButton {
+    background: linear-gradient(var(--color1), var(--color2));
+    padding: 6px 18px;
+    border: none;
+    border-radius: 4%;
+    font-weight: 400 !important;
+    color: white;
+}
+
+/* seller profile end */
+
+@media screen and (max-width: 600px) {
+
+    /*my ads start*/
+    .container-heading.service-form {
+        position: absolute;
+        width: 170px;
+        height: 48px;
+        border-bottom: 3px solid #37577A;
+        line-height: 50px;
+        /* background: gray; */
+        overflow: hidden !important;
+        /* /* margin-top: -15%; */
+    }
+
+    .container.my-cont {
+        margin-bottom: 100px;
+        margin-top: 35px;
+        padding: 50px 9px 50px 20px !important;
+        width: 100%;
+    }
+
+    .dl {
+        margin-left: -30%;
+    }
+
+    .delete {
+        margin-top: 8%;
+    }
+
+    .date {
+        font-size: 10px;
+        margin-left: -2%;
+    }
+
+    .prd-name {
+        margin-top: 3px;
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    a.buy-bttn {
+        background: #0999D5;
+        color: white;
+        padding: 9px 7px;
+        border-radius: 3px;
+        font-size: 9px;
+        font-family: 'Poppins';
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-left: -3%;
+    }
+
+    .img-wh {
+        height: 100%;
+        /* width: 100%; */
+        width: auto !important;
+        overflow: hidden;
+    }
+
+    .price {
+        margin-left: -3%;
+    }
+
+    .status {
+        text-align: right;
+        margin-top: 8%;
+    }
+
+    /*my ads end*/
+
+    .contain-adrs {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .adrs {
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.521);
+        text-transform: capitalize;
+        /* margin-left: 10%; */
+        /* margin-right: 190px; */
+    }
+
+    .adrs1 {
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.521);
+        text-transform: capitalize;
+    }
+
+    /*seller Proifle start*/
+    .desk-view {
+        display: none;
+    }
+
+    .heading-box {
+        box-shadow: 1px 1px 10px #8080807a;
+        height: auto !important;
+        width: 95%;
+        margin: 1rem 1rem 1rem 0.6rem;
+    }
+
+    .second-box {
+        box-shadow: 1px 1px 10px #8080807a;
+        height: 58vh;
+        width: 95%;
+        margin: 1rem 1rem 1rem 0.6rem;
+        overflow: auto;
+    }
+
+    .image-box {
+        position: relative;
+        border-radius: 50%;
+        border: 1px solid;
+        display: flex;
+        overflow: hidden;
+        height: 75%;
+        margin-left: 5%;
+    }
+
+    .text-end1 {
+        text-align: left !important;
+        margin-top: 5%;
+    }
+
+    .mob-view {
+        display: block;
+    }
+
+    .heading-text1 {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 8%;
+    }
+
+    .report-Image {
+        padding: 8px 4px 6px 8px;
+        margin-left: -5%;
+    }
+
+    .report-text1 {
+        font-size: 18px;
+        margin-left: 5%;
+        /* font-size: 22px; */
+        background-color: transparent !important;
+        border: none;
+        color: #026590;
+    }
+
+    .subscribe-button1 {
+        background-color: #365679;
+        border-radius: 5%;
+        border: none;
+        padding: 6px 20px 6px;
+        margin-top: -1%;
+        color: white;
+        margin-left: 4%;
+        width: 40vw;
+        /* margin-right: 6%; */
+    }
+
+    .report-button1 {
+        /* margin-left: 18%; */
+        color: #4C8AAF;
+        margin-top: -2%;
+        margin-bottom: 6%;
+    }
+
+    .report-message {
+        font-size: 10px;
+        color: red;
+        padding: 12px;
+        margin-top: 3%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .subscribe-color1 {
+        font-size: 15px;
+        padding-bottom: 8px;
+    }
+
+    .box3 {
+        width: 100%;
+        margin-top: 15%;
+        padding: 0px 24px;
+    }
+
+    .ads-head {
+        color: #345376;
+        font-size: 17px;
+        padding: 0px;
+    }
+
+    .sellerButton {
+        background-color: green;
+        border: none;
+        border-radius: 4%;
+        padding: 3px 12px;
+        color: white;
+    }
+
+    .adrs {
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.521);
+        text-transform: capitalize;
+        /* margin-left: -60%; */
+        /* margin-right: 190px; */
+    }
+
+    .adrs1 {
+        font-size: 10px;
+        color: rgba(0, 0, 0, 0.521);
+        text-transform: capitalize;
+        /* margin-left: -70%; */
+        /* margin-right: 190px; */
+    }
+
+    /*seller Proifle end*/
+
+}
+
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    .contain-adrs {
+        display: flex;
+        flex-direction: column;
+    }
 
 }

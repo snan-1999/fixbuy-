@@ -14,7 +14,22 @@
     --color1: #487792;
     --color2: #37577A;
 }
-
+.Toastify__toast-theme--colored.Toastify__toast--success{
+    background: linear-gradient(#487792 , #37577A) !important;
+}
+.Toastify__toast{
+    min-height: 6vh !important;
+    font-size: 1rem !important;
+}
+.Toastify__toast-icon{
+    width: 16px !important;
+}
+.Toastify__toast-body > div:last-child {
+    word-break: break-word;
+    flex: 1 1;
+    font-size: 1rem !important;
+    font-weight: 300;
+}
 /* swiper in header index page */
 
 .swiper-wrapper {
@@ -2263,8 +2278,9 @@ box-shadow: none;
 }
 
 .ContentClass {
-    margin-top: 2%;
-    margin-left: 8%;
+    padding-right: 3rem;
+    /* margin-top: 2%; */
+    /* margin-left: 8%; */
 }
 
 .titleHead {
@@ -2452,9 +2468,22 @@ box-shadow: none;
     border-color: linear-gradient(var(--color1), var(--color2)) !important;
     background: linear-gradient(var(--color1), var(--color2)) !important;
 }
-
+/* sell mob start*/
+.MobSell{
+    display: none;
+}
+/* sell mob end */
 
 @media screen and (max-width: 600px) {
+    /* SellMob start*/
+ .desk{
+    display: none;
+ }
+
+ .MobSell{
+    display: block;
+ }
+/* SellMob end */
     .full-blog-content {
         padding: 1rem 1rem;
         display: flex;

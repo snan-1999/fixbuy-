@@ -19,7 +19,8 @@ import { VerifyOtp } from "../../functions/VerifyOtp";
 import { facebookAuth, googleAuth } from '../../functions/LoginAuth';
 import { GlobalVariables } from "../../Context/StateProvider";
 import FacebookLogin from 'react-facebook-login';
-
+import styled from "styled-components";
+import { VscRefresh } from 'react-icons/vsc'
 function Login() {
 
     const nav = useNavigate();
@@ -38,7 +39,9 @@ function Login() {
     const [name, setName] = useState("");
     // const [email, setEmail] = useState("");
     const [url, setUrl] = useState("");
-
+    const [counter, setCounter] = useState(0);
+    const [TImer, setTimer] = useState(false);
+    const [Resend, setResend] = useState(false);
 
 
 
@@ -48,6 +51,8 @@ function Login() {
         if (phone.trim().length > 0 && phone.trim().match(mobRegex)) {
             let status = await generateOtp(phone, "login").then((res) => {
                 setShow(res.status)
+                setCounter(59)
+                setTimer(true)
                 console.log(res.status, "response");
             });
         } else {
@@ -59,13 +64,35 @@ function Login() {
 
     }
 
+    const handleResendOtp = async () => {
+        const EnterResponse = await generateOtp(phone);
+        console.log("enterResponse", EnterResponse.status)
+        if (EnterResponse.status === true) {
+            setCounter(59)
+            setResend(false)
+            console.log("resend otp send successfully after login")
+        }
+
+    }
+
+
+    useEffect(() => {
+        const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+        console.log(counter, 'TImer')
+        if (counter == 1) {
+            setResend(true)
+            console.log(Resend, 'TImer')
+        }
+        return () => clearInterval(timer)
+    }, [counter, handleResendOtp])
+
 
 
     const verify = async () => {
 
         let response = await VerifyOtp(otp, phone).then((res) => {
 
-            console.log(res ,"login")
+            console.log(res, "login")
             setType(res.status.data[0].type)
             if (res.status) {
                 setProfileName(res.status.data[0].name)
@@ -251,6 +278,39 @@ function Login() {
 
 
                                 </div>
+                                <CountdownBtn>
+
+                                    <div className="countdown-text">
+                                        {
+                                            TImer &&
+                                            <p>Didn't recieve code?</p>
+                                        }
+
+
+                                    </div>
+                                    <div className="set_m-resend flex justify-content-center">
+
+                                        <div>
+                                            {
+                                                TImer &&
+                                                <span className="counter" style={{ color: 'white' }}>00:{counter}</span>
+                                            }
+                                        </div>
+                                        <div>
+                                            {
+                                                (Resend !== false) ?
+                                                    <button className="btn  resendButton"
+                                                        onClick={() => handleResendOtp()}
+                                                    >
+                                                        <VscRefresh /> Resend
+                                                    </button>
+                                                    :
+                                                    ""
+                                            }
+                                        </div>
+                                    </div>
+                                </CountdownBtn>
+
                             </form>
                             <div className="other-links">
 
@@ -285,4 +345,26 @@ function Login() {
 }
 
 export default Login;
+const CountdownBtn = styled.div`
+.set_m-resend{
 
+    margin-top: -1rem !important;
+}
+.countdown-text{
+}
+    p{
+        margin-top: -1rem;
+        font-size: .7rem;
+        font-weight: 300;
+    }
+    button.btn.resendButton {
+    border-radius: 6px;
+    padding: 6px 11px;
+    font-size: .9rem;
+    font-weight: 700;
+    margin-left: 10px;
+    border: 0;
+    /* border: 1px solid white; */
+    color: #fff;
+}
+`

@@ -9,7 +9,7 @@ import { localStorage } from "../../functions/Local";
 import { VerifyOtp } from "../../functions/VerifyOtp";
 import { UpdateApi } from "../../functions/UpdateApi";
 import { GoogleLogout } from "react-google-login";
-import { baseUrl } from "../../functions/constant";
+import { baseUrl, ImageView } from "../../functions/constant";
 import axios from "axios";
 import ShopModal from "./Modals/ShopModal";
 import { AnimatePresence } from "framer-motion";
@@ -23,7 +23,7 @@ import { FaHeart } from "react-icons/fa";
 
 
 const Header = () => {
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude , UserId, setUserId } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
 
     let ProfleId;
@@ -87,7 +87,7 @@ const Header = () => {
                         'phone': res.status.data[0].phone,
                         'status': 'login'
                     })
-                ) 
+                )
                 setUserId(res.status.data[0]._id)
                 // console.log(LocalData)
             } else {
@@ -275,6 +275,11 @@ const Header = () => {
                         <i className="fa-solid fa-magnifying-glass search-iconm"></i>
                     </div>
                 </form>
+                <div className="row p-0 m-0 mob-version">
+                    <div className="col-12 mobileversion">
+                        <button className="btnSell" onClick={sellLog}> + SELL</button>
+                    </div>
+                </div>
             </div>
 
             {/* <!-- category --> */}
@@ -290,7 +295,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Automobiles
                                         <ul className="dropdown-category dropdown-category-bikes">
-                                            <Link to="/automobile/all" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                            <Link to="/automobile/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
                                             <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
                                             <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
@@ -305,6 +310,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Laptop&nbsp;&&nbsp;Mobiles
                                         <ul className="dropdown-category ">
+                                            <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
                                             <Link to="/mobiles/tablets" className="dropdown_sub-category "><li className="bghover">Tablets</li></Link>
                                             <Link to="/mobiles/laptops" className="dropdown_sub-category "><li className="bghover">Laptops</li></Link>
@@ -319,6 +325,7 @@ const Header = () => {
                                         Furniture
 
                                         <ul className="dropdown-category">
+                                            <Link to="/furnitures/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/furnitures/home decoration" className="dropdown_sub-category "><li className="bghover">Home Decoration</li></Link>
                                             <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
                                             <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
@@ -332,6 +339,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Fashions
                                         <ul className="dropdown-category">
+                                            <Link to="/Fashions/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>
                                             <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
                                             <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
@@ -345,6 +353,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Services
                                         <ul className="dropdown-category">
+                                            <Link to="/Services/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/Services/education & classes" className="dropdown_sub-category "><li className="bghover">Educations & classes</li></Link>
                                             <Link to="/Services/electronics & computers" className="dropdown_sub-category "><li className="bghover">Electronics & Computers</li></Link>
                                             <Link to="/Services/accountancy services" className="dropdown_sub-category "><li className="bghover">Accountancy Services</li></Link>
@@ -357,6 +366,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Properties
                                         <ul className="dropdown-category">
+                                            <Link to="/properties/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/properties/for rent" className="dropdown_sub-category "><li className="bghover">For Rent</li></Link>
                                             <Link to="/properties/for sale" className="dropdown_sub-category "><li className="bghover">For Sale</li></Link>
                                             <Link to="/properties/land & plots" className="dropdown_sub-category "><li className="bghover">Land & Plots</li></Link>
@@ -368,6 +378,7 @@ const Header = () => {
                                     <div className="drop-down">
                                         Books&nbsp;&&nbsp;Sports
                                         <ul className="dropdown-category">
+                                            <Link to="/booksAndSports/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/booksAndSports/books" className="dropdown_sub-category "><li className="bghover">Books</li></Link>
                                             <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
                                             <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
@@ -381,21 +392,22 @@ const Header = () => {
                                     <div className="drop-down">
                                         Electronics&nbsp;&&nbsp;Appliances
                                         <ul className="dropdown-category catagry-color">
-                                            <li className="bghover"><Link to="/electronics/fridge">Fridge</Link></li>
-                                            <li className="bghover"><Link to="/electronics/cooler">Cooler</Link></li>
-                                            <li className="bghover"><Link to="/electronics/fan">Cooler</Link></li>
-                                            <li className="bghover"><Link to="/electronics/ac">A/C</Link></li>
-                                            <li className="bghover"><Link to="/electronics/television & led">Television & Led</Link></li>
-                                            <li className="bghover"><Link to="/electronics/washing machine">Washing Machine</Link></li>
-                                            <li className="bghover"><Link to="/electronics/hard disks printer">Hard Disks, Printer & Monitor</Link></li>
-                                            <li className="bghover"><Link to="/electronics/games">Games</Link></li>
-                                            <li className="bghover"><Link to="/electronics/speakers">Speakers</Link></li>
-                                            <li className="bghover"><Link to="/electronics/cameras & lens">Cameras & Lens</Link></li>
-                                            <li className="bghover"><Link to="/electronics/kitchen & others">Kitchen & Others</Link></li>
-                                            <li className="bghover"><Link to="/electronics/computer accessories">Computers Accessories</Link></li>
-                                            <li className="bghover"><Link to="/electronics/air purifiers">Air Purifiers</Link></li>
-                                            <li className="bghover"><Link to="/electronics/water purifiers">Water Purifiers</Link></li>
-                                            <li className="bghover"><Link to="/electronics/other items">Other Items</Link></li>
+                                            <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                            <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>
+                                            <Link to="/electronics/cooler"><li className="bghover">Cooler</li></Link>
+                                            <Link to="/electronics/fan"><li className="bghover">Cooler</li></Link>
+                                            <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
+                                            <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
+                                            <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
+                                            <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitor</li></Link>
+                                            <Link to="/electronics/games"><li className="bghover">Games</li></Link>
+                                            <Link to="/electronics/speakers"><li className="bghover">Speakers</li></Link>
+                                            <Link to="/electronics/cameras & lens"><li className="bghover">Cameras & Lens</li></Link>
+                                            <Link to="/electronics/kitchen & others"><li className="bghover">Kitchen & Others</li></Link>
+                                            <Link to="/electronics/computer accessories"><li className="bghover">Computers Accessories</li></Link>
+                                            <Link to="/electronics/air purifiers"><li className="bghover">Air Purifiers</li></Link>
+                                            <Link to="/electronics/water purifiers"><li className="bghover">Water Purifiers</li></Link>
+                                            <Link to="/electronics/other items"><li className="bghover">Other Items</li></Link>
                                         </ul>
                                     </div>
 
@@ -409,7 +421,7 @@ const Header = () => {
                                         (profileName) ?
                                             <>
                                                 <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src={`${baseUrl}/users/profile/image/${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+                                                    <img src={`${ImageView}${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
                                                     {(LocalData == null)
                                                         ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
                                                     }
