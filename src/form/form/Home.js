@@ -14,7 +14,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import { baseUrl } from "../../functions/constant";
+import { baseUrl, ImageView } from "../../functions/constant";
 import axios from 'axios';
 import { HomeAllData, SearchHome } from "../../functions/HomeFun";
 import styled from "styled-components";
@@ -28,7 +28,7 @@ import { FaHeart } from 'react-icons/fa'
 import CategorySlider from "./corousel/CategorySlider";
 import useGeoLocation from "../../hooks/useGeoLoaction";
 
-const Home = () => { 
+const Home = () => {
     const location = useGeoLocation();
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
@@ -38,7 +38,7 @@ const Home = () => {
     const [PageNo, setPageNo] = useState(1);
     const [Loading, setLoading] = useState(false)
     const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
-    console.log(latitude, Longitude ,  'Location')
+    console.log(latitude, Longitude, 'Location')
     setUserId((TokenData) ? TokenData.token : null)
     const homeDataAll = async () => {
         console.log(UserId, 'UserId')
@@ -61,8 +61,8 @@ const Home = () => {
     }
     const LoadMOre = () => {
         setPageNo(PageNo + 1)
-        console.log(PageNo, "HomeData")
-        setLoading(true) 
+        console.log(TotalPagess, PageNo, "HomeData")
+        setLoading(true)
     }
     // window.onscroll = function () {
     //     LoadMOre()
@@ -73,8 +73,8 @@ const Home = () => {
 
     let Max_length = 27;
     useEffect(() => {
-        latitude &&  homeDataAll()
-    }, [PageNo, UserId ,latitude])
+        latitude && homeDataAll()
+    }, [PageNo, UserId, latitude])
     return (
         <>
             {/* <div className="row p-0 m-0"> */}
@@ -120,8 +120,8 @@ const Home = () => {
             <div className="inline-block mr-auto pt-1">
                 {
                     location.loaded &&
-                        JSON.stringify(location)
-            
+                    JSON.stringify(location)
+
                 }
             </div>
             {/* Geolocation end */}
@@ -150,11 +150,11 @@ const Home = () => {
                                 <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>
 
-                                        <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
+                                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
                                             <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
@@ -205,13 +205,18 @@ const Home = () => {
 
                     }
                     <div className="row m-0 p-0">
+                        {
+                            (TotalPagess == PageNo) ?
+                                <></>
+                                :
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre}  disabled={TotalPagess == PageNo}>
+                                    {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>}
+                                    Load More
+                                </ButtonCraete>
+                        }
 
-                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
-                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>}
-                            Load More
-                        </ButtonCraete>
                         {/* </div> */}
                     </div>
                 </div>

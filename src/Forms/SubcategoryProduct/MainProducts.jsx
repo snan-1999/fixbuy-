@@ -14,11 +14,14 @@ import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { MdLocationOn } from 'react-icons/md';
 import { baseUrl } from '../../functions/constant';
-import axios from 'axios'
+import axios from 'axios' 
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
+import useGeoLocation from '../../hooks/useGeoLoaction';
 export default function MainProducts() {
-    const Max_length = 26;
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
+    const Loacation = useGeoLocation()
+    console.log(Loacation , 'latitudes')
+    const Max_length = 26;
     const [AllData, setAllData] = useState([]);
     const [Loading, setLoading] = useState(false);
     const [PageNO, setPageNO] = useState(1);
@@ -29,6 +32,7 @@ export default function MainProducts() {
     const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase()
     const GetSubCatogery = subcategory.replace(/ /g, "_").toLowerCase()
     // filter one time
+    console.log(latitude , 'latituds')
     const MainCategoryDataFIlter = async () => {
         setAllData([])
         console.log(filters, 'filter')
@@ -154,7 +158,7 @@ export default function MainProducts() {
         setPageNO(1)
         MainData()
         console.log('run')
-    }, [maincategory ,latitude])
+    }, [0, maincategory ,latitude])
 
     return (
         <>

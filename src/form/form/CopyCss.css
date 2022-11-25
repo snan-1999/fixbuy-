@@ -49,36 +49,47 @@
     color: rgba(0, 0, 0, 0.521);
 }
 
-a.buy-bttn {
+/* a.buy-bttn {
     background: linear-gradient(var(--color1), var(--color2)) !important;
     color: white;
     padding: 9px 21px;
     border-radius: 3px;
-    /* font-size: 16px; */
+    font-size: 16px;
     font-family: 'Poppins';
-    font-weight: 800;
+    font-weight: 500;
     letter-spacing: 2px;
     text-decoration: none !important;
-}
+} */
 
 .delete {
     margin-top: 3%;
 }
 
 .dl {
-    margin-left: -100%;
+    /* margin-left: -100%; */
+    padding: 1rem;
     width: 50%;
+}
+.dl:hover {
+    /* margin-left: -100%; */
+    width: 50%;
+    background-color: #345376;
+    padding: .5rem .7rem;
+    color: white;
+    border-radius: 50%;
+    transition: all 400ms ease-out;
 }
 
 .date {
-    font-size: 12px;
+    font-size: 13px;
     margin-left: 2%;
+    color:  rgba(0, 0, 0, 0.521);
 }
 
 /*my ads end*/
 
 .adrs {
-    font-size: 10px;
+    font-size: 12px;
     color: rgba(0, 0, 0, 0.521);
     text-transform: capitalize;
     /* margin-left: -70%; */

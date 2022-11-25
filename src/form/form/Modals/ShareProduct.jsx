@@ -19,37 +19,31 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImCross } from 'react-icons/im'
 import { useState } from 'react';
-export default function ShopModal({Onclose ,OnOpen , setisOpen, isOpen, Type, UpdateShop, setGstNumber, setAddress, gstnumber }) {
+import ShareLink from '../Share/ShareLink';
+export default function ShareProuctsModal({Onclose ,OnOpen , setisOpen, isOpen, Type, ShareLinkParam }) {
 
     return (
         <>
             <AnimatePresence>
+
+
                 {
                     isOpen &&
-                    (Type == 'user' || Type == 'shop') &&
+                  
                     <>
                         <Containermodel isOpen={isOpen}  >
                             <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                                 <Modalheader>
-                                    <Headingsetting>Shop</Headingsetting>
-                                    <ImCross onClick={Onclose} style={{ cursor: 'pointer' }} />
+                                    <Headingsetting>Share Product</Headingsetting>
+                                    <ImCross className='text-white' onClick={Onclose} style={{ cursor: 'pointer' }} />
                                 </Modalheader>
                                 <hr style={{ margin: '0rem 0.5rem  0 0.5rem' }} />
                                 <Modalbody>
 
-                                    <FormControl>
-                                        {/* <FormLabel>GST Number</FormLabel> */}
-                                        <Input placeholder='Enter Gst Number' onChange={(e) => setGstNumber(e.target.value)} name='gst_no' className='mt-4'/>
-                                    </FormControl>
-<br/>
-                                    <FormControl>
-                                        {/* <FormLabel>Address Number</FormLabel> */}
-                                        <Input placeholder='Enter Address ' name='shop_address' onChange={(e) => setAddress(e.target.value)} />
-                                    </FormControl>
-
+                                      <ShareLink ShareLinkParam={ShareLinkParam} />
                                     <ModelFooter>
                                         <ApplyBtn onClick={Onclose}>Cancel</ApplyBtn>
-                                        <ApplyBtn onClick={UpdateShop}>OK</ApplyBtn>
+                                        <ApplyBtn onClick={Onclose}>OK</ApplyBtn>
                                     </ModelFooter>
                                 </Modalbody>
                             </Modelcontent>
@@ -63,7 +57,7 @@ export default function ShopModal({Onclose ,OnOpen , setisOpen, isOpen, Type, Up
 const Containermodel = styled.div`
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
 font-family: 'Lato', sans-serif;
-    position: absolute;
+    position: fixed;
     display: grid;
     place-content: center;
     width: 100%;
@@ -94,7 +88,7 @@ const Modalheader = styled.div`
     
     `
 const Headingsetting = styled.h2`
-       
+       color: white;
         font-weight: 600;
 `
 const Modalbody = styled.div`

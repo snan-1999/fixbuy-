@@ -17,10 +17,14 @@ export default function SavedItems() {
     const Token = localStorage.getItem('token');
     const ID = JSON.parse(Token).token
     const SavedItem = async () => {
+      try {
         const api = `${baseUrl}/users/getall/savedItems/${ID}`
         const { data } = await axios.get(api);
         setData(data.data)
         console.log(data , 'saved')
+      } catch (error) {
+        console.log(error.message , 'saved')
+      }
     }
     const Max_length = 26;
     useEffect(() => {

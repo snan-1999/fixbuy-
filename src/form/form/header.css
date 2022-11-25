@@ -340,12 +340,12 @@ li.nav-item {
 a.buy-bttn {
     background: linear-gradient(var(--color1), var(--color2)) !important;
     color: white;
-    padding: 9px 21px;
+    padding: 7px 21px;
     border-radius: 3px;
-    /* font-size: 16px; */
+    font-size: 12px;
     font-family: 'Poppins';
-    font-weight: 800;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 1px;
     text-decoration: none !important;
 }
 
@@ -354,7 +354,10 @@ a.buy-bttn {
     margin-bottom: 10px;
     text-align: left;
 }
-
+.iconSize:hover{
+ background-color: #37577A;
+ color: white;
+}
 .text-decor {
     text-decoration: none;
     color: black;
@@ -415,12 +418,13 @@ img.pdt-img.pdtt-wh {
 }
 
 .sts {
-    font-size: 13px;
+    font-size: 9px;
     color: white;
     border: none;
     border-radius: 10px;
     border-width: 1px;
-    padding: 2px 15px;
+    padding:3px 7px;
+    text-transform: capitalize;
 }
 
 .status {
@@ -858,7 +862,7 @@ iframe.whmap {
 }
 
 .buttonChoose {
-    background-color: linear-gradient(var(--color1), var(--color2)) !important;
+    background: linear-gradient(var(--color1), var(--color2)) !important;
     color: #fff !important;
     /* display: flex; */
 }
@@ -2473,7 +2477,62 @@ box-shadow: none;
     display: none;
 }
 /* sell mob end */
+.kep-login-facebook {
+    font-family: Helvetica,sans-serif;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: .8rem !important;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color .3s,border-color .3s;
+    background-color: #4c69ba;
+    border: calc(0.06887vw + 0.67769px) solid #4c69ba;
+    padding: .4rem 1.5rem !important;
+    border-radius: 2px !important;
+    /* box-shadow: rgb(0 0 0 / 24%) 0px 2px 2px 0px, rgb(0 0 0 / 24%) 0px 0px 1px 0px; */
+    width: 100% !important;
+    /* height: 5vh !important; */
+}
+button.Google_btn {
+    margin-top: .6rem;
+    height: 5vh !important;
+    overflow: hidden;
+    width: 100% !important;
+    background-color: rgb(255, 255, 255);
+    display: inline-flex;
+    align-items: center;
+    box-shadow: rgb(0 0 0 / 24%) 0px 2px 2px 0px, rgb(0 0 0 / 24%) 0px 0px 1px 0px;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 0px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Roboto, sans-serif;
+}
+button.Google_btn div{
+    width: 30% !important;
+    display: flex;
+    justify-content: end !important;
+}
+button.Google_btn span{
+    display: flex;
+    justify-content: start !important;
+    width: 70% !important;
+    /* margin-left: -2rem !important; */
+}
+.UpdateNum p{
+    font-size: .7rem;
+    cursor: pointer;
+    
+}
+.UpdateNum p:hover{
+    text-decoration: underline;
 
+}
 @media screen and (max-width: 600px) {
     /* SellMob start*/
  .desk{

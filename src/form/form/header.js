@@ -21,7 +21,6 @@ import { SearchHome } from "../../functions/HomeFun";
 import { FaHeart } from "react-icons/fa";
 
 
-
 const Header = () => {
     const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
@@ -147,10 +146,10 @@ const Header = () => {
 
 
 
-
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
+           
             <nav className="navbar navbar-expand-lg headerr">
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -446,7 +445,7 @@ const Header = () => {
                                         <li><Link to="/profile" className="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
 
                                         <li><Link to='/posteditems' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
-                                        <li><Link to='/demo' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;demo</Link></li>
+                                        {/* <li><Link to='/demo' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;demo</Link></li> */}
                                         <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
 
 

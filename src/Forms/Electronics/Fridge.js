@@ -5,28 +5,44 @@ import ImageUploading from 'react-images-uploading';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
-import { baseUrl } from "../../functions/constant";
+import { baseUrl, ImageView } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ProfileData } from "../../functions/ProfileData";
 // import { Link } from "react-router-dom";
 
+import styled from "styled-components";
+import OtpPop from "../../form/form/Modals/OtpPop";
 const Fridge = () => {
     const { category } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
-    let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;   
+    let PhoneNumber = JSON.parse(IdData).phone;
+    const [OtpCondition, setOtpCondition] = useState(false);
+    const Type = JSON.parse(IdData).type;
     console.log(ProfleId);
+    const [isOpen, setisOpen] = useState(false)
+    const Onclose = () => {
+        setOtp('')
+        setisOpen(false)
+        setOtpCondition(false)
+    }
+    const OnOpen = () => setisOpen(true)
     // const profileName = localStorage('token');
     // console.log(profileName);
     const [user_id, setUser_id] = useState(ProfleId)
+
+    const [show, setShow] = useState(false);
     const [img, setImg] = useState('');
     const [title, setTitle] = useState('');
+    const [PhoneLocal, setPhoneLocal] = useState(PhoneNumber);
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
+    const [otp, setOtp] = useState();
     // const [categories, setCategories] = useState('fridge');
+    console.log(ModalSellerPhone.length, 'hy');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);
@@ -38,6 +54,9 @@ const Fridge = () => {
     const [message, setMessage] = useState('');
     const [errors, seterrors] = useState(false);
     const [hasError, setError] = useState('')
+    const [imageError, setimageError] = useState('');
+    const [otpError, setotpError] = useState('');
+    const [verify, setverify] = useState(false);
     const maxNumber = 20;
     const sellernameRef = useRef();
     const titleRef = useRef();
@@ -58,7 +77,7 @@ const Fridge = () => {
         console.log(imageList, addUpdateIndex);
         setImg(imageList);
         imgRef.current.style.borderColor = "#ced4da";
-        setError("");
+        setimageError("");
     };
     console.log(img)
     console.log(category)
@@ -76,119 +95,115 @@ const Fridge = () => {
         console.log(title.length);
         if (title.trim().length > 0) {
             if (sellername.trim().length >= 0) {
-            if (description.trim().length > 0) {
-                if (price.trim().length > 0) {
-                    // if ((img.length <= 20) && (img.length > 0)) {
-                        if (state.trim().length > 0) {
-                            if (city.trim().length > 0) {
-                            if (pincode.trim().length > 0) {
-                                if (neighbourhood.trim().length > 0) {
-                                if (sellerphone.trim().length > 0) {
-                                    setError(true)
+                if (description.trim().length > 0) {
+                    if (price.trim().length > 0) {
+                        if ((img.length <= 20) && (img.length > 0)) {
+                            if (state.trim().length > 0) {
+                                if (city.trim().length > 0) {
+                                    if (pincode.trim().length > 0) {
+                                        if (neighbourhood.trim().length > 0) {
+                                            // if (sellerphone.trim().length > 0) {
+                                            setError(true)
 
-                                    formData.append('title', title)
-                                    formData.append('sellerphone', sellerphone)
-                                    formData.append('sellername', sellername)
-                                    formData.append('categories', category)
-                                    formData.append('description', description)
-                                    formData.append('price', price)
-                                    formData.append('sellerType', sellerType)
-                                    formData.append('latitude' , "28.663996")
-                                    formData.append('longitude' , "77.306843")
-                                    let imageStatus = true
-                                    console.log(img);
-                                    img.forEach(imgs => {
-                                        // console.log(imgs.file.type)
-                                        if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                            console.log(imgs.file.type)
-                                            alert("File does not support .webp extension ");
-                                            imageStatus = false
-                                            return false;
-
-
-                                        }
-                                        formData.append("images", imgs.file)
-                                    });
-                                    // formData.append('images', img)
-                                    // if()
-                                    if (imageStatus) {
-                                        formData.append('state', state)
-                                        formData.append('city', city)
-                                        formData.append('pincode', pincode)
-                                        formData.append('neighbourhood', neighbourhood)
-                                        formData.append('user_id', user_id)
-                                    //     formData.append('longitude' , "28.663996")
-                                    // formData.append('latitude' , "77.306843") 
+                                            formData.append('title', title)
+                                            formData.append('sellerphone', sellerphone)
+                                            formData.append('sellername', sellername)
+                                            formData.append('categories', category)
+                                            formData.append('description', description)
+                                            formData.append('price', price)
+                                            formData.append('sellerType', sellerType)
+                                            formData.append('latitude', "28.663996")
+                                            formData.append('longitude', "77.306843")
+                                            let imageStatus = true
+                                            console.log(img);
+                                            img.forEach(imgs => {
+                                                // console.log(imgs.file.type)
+                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                    console.log(imgs.file.type)
+                                                    alert("File does not support .webp extension ");
+                                                    imageStatus = false
+                                                    return false;
 
 
-                                        const api = `${baseUrl}/product/electronics/form/create`;
-                                        await axios.post(api, formData, 
-                                            {
-                                                headers: {
-                                                  'Content-Type': 'multipart/form-data'
                                                 }
-                                            }
-                                            ).then((response) => {
-                                            if (response.data.status) {
-                                                console.log(response.data );
-                                                seterrors(true)
-                                                console.log(errors)
-                                                console.log(response)
-                                                setMessage('Posted !');
-                                            } else {
-                                                console.log(false);
-                                            }
-                                        })
-                                            .catch(err => {
-                                                console.log(err)
-                                            })
-                                    }
+                                                formData.append("images", imgs.file)
+                                            });
+                                            // formData.append('images', img)
+                                            // if()
+                                            if (imageStatus) {
+                                                formData.append('state', state)
+                                                formData.append('city', city)
+                                                formData.append('pincode', pincode)
+                                                formData.append('neighbourhood', neighbourhood)
+                                                formData.append('user_id', user_id)
+                                                //     formData.append('longitude' , "28.663996")
+                                                // formData.append('latitude' , "77.306843") 
 
+
+                                                const api = `${baseUrl}/product/electronics/form/create`;
+                                                await axios.post(api, formData,
+                                                    {
+                                                        headers: {
+                                                            'Content-Type': 'multipart/form-data'
+                                                        }
+                                                    }
+                                                ).then((response) => {
+                                                    if (response.data.status) {
+                                                        console.log(response.data);
+                                                        seterrors(true)
+                                                        console.log(errors)
+                                                        console.log(response)
+                                                        setMessage('Posted !');
+                                                    } else {
+                                                        console.log(false);
+                                                    }
+                                                })
+                                                    .catch(err => {
+                                                        console.log(err)
+                                                    })
+                                            }
+
+
+                                        } else {
+                                            setError(false);
+                                            console.log("landmark error")
+                                            neighbourhoodRef.current.style.borderColor = 'red';
+                                        }
+                                    } else {
+                                        setError(false);
+                                        console.log("pincode error")
+                                        pincodeRef.current.style.borderColor = 'red';
+                                    }
                                 } else {
                                     setError(false);
-                                    console.log("sellername error")
-                                    sellerphoneRef.current.style.borderColor = 'red';
-                                }
-                                } else {
-                                    setError(false);
-                                    console.log("landmark error")
-                                    neighbourhoodRef.current.style.borderColor = 'red';
+                                    console.log("city error")
+                                    cityRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
-                                console.log("pincode error")
-                                pincodeRef.current.style.borderColor = 'red';
-                            }
-                            } else {
-                                setError(false);
-                                console.log("city error")
-                                cityRef.current.style.borderColor = 'red';
+                                console.log("state error")
+                                stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setError(false);
-                            console.log("state error")
-                            stateRef.current.style.borderColor = 'red';
+                            setimageError("Please provide atleast 1 image");
+                            console.log("image error")
+                            //     descriptionRef.current.style.borderColor = 'red';
                         }
-                    // } else {
-                    //     setError("Please provide atleast 1 image");
-                    //     console.log("image error")
-                    //     descriptionRef.current.style.borderColor = 'red';
-                    // }
+                    } else {
+                        setError(false);
+                        console.log("price error")
+                        priceRef.current.style.borderColor = 'red';
+                    }
                 } else {
                     setError(false);
-                    console.log("price error")
-                    priceRef.current.style.borderColor = 'red';
+                    console.log("description error")
+                    descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
-                console.log("description error")
-                descriptionRef.current.style.borderColor = 'red';
+                console.log("sellername error")
+                sellernameRef.current.style.borderColor = 'red';
             }
-        } else {
-            setError(false);
-            console.log("sellername error")
-            sellernameRef.current.style.borderColor = 'red';
-        }
         } else {
             setError(false);
             console.log("title error")
@@ -196,7 +211,51 @@ const Fridge = () => {
         }
 
     }
+    console.log(verify, 'var')
 
+    // number verify with otp
+    const phoneOtp = async () => {
+        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+        // console.log("function started");
+        if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+            const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+            await axios.post(api, {
+                phone: sellerphone
+            }).then((res) => {
+                if (res.data) {
+                    setverify(true);
+                    console.log(verify, 'var')
+                    console.log(res.data);
+                }
+                // }
+            })
+        } else {
+            setError('Invalid Phone Number');
+        }
+
+    }
+
+    const OtpVerify = async () => {
+        const api = `${baseUrl}/users//otp/verify/profileUpdate`;
+        await axios.post(api, {
+            user_id: user_id,
+            phone: sellerphone,
+            name: sellername,
+            // otp: otp
+        }).then((res) => {
+            if (res.data) {
+                // setMessage(res.message);
+                console.log(res.data);
+            }
+            else {
+                setotpError('invalid otp')
+
+            }
+        })
+    }
+    const handleChangeOtp = () => {
+
+    }
 
 
 
@@ -329,7 +388,7 @@ const Fridge = () => {
 
                     </div>
                     <br />
-                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
+                    <div className="errormsg" style={{ color: "red" }} >{imageError}</div>
                 </div>
 
 
@@ -451,7 +510,7 @@ const Fridge = () => {
 
                                     >
                                         <img
-                                            src={ProfileImage}
+                                            src={`${ImageView}${ProfileImage}`}
                                             style={{
                                                 width: "100%",
                                                 height: "100%",
@@ -463,14 +522,15 @@ const Fridge = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required 
-                                value={sellername}
-                                ref={sellernameRef} 
-                                onChange={(e) => {
-                                    setSellerName(e.target.value)
-                                    sellernameRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                                    }} />
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required
+                                    value={sellername}
+                                    ref={sellernameRef}
+                                    onChange={(e) => {
+                                        setSellerName(e.target.value)
+                                        sellernameRef.current.style.borderColor = "#ced4da";
+                                        setError("")
+                                    }}
+                                    readonly="readonly" />
                             </div>
 
                         </div>
@@ -481,20 +541,77 @@ const Fridge = () => {
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
-                    <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setSellerPhone(e.target.value)
-                        sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                    value={sellerphone}
-                    ref={sellerphoneRef}
-                    /><br />
 
-                    <div className="post-pr">
-                        <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />
+
+                    <label for="phone">Phone Number*</label>
+                    <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
+                        onChange={(e) => {
+                            // setPhoneLocal(e.target.value)
+
+                            // sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        // value={sellerphone}
+                        value={ModalSellerPhone}
+                        ref={sellerphoneRef}
+                    />
+                    {
+                        !sellerphone && <div className="text-danger">please add your number</div>
+                    }
+                    <div className="UpdateNum w-100">
+                        {
+                            !sellerphone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                        }
                     </div>
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    <br />
+                    <OTPTAG>
+
+                        {
+
+                            // (sellerphone.length >= 10) ?
+                            <>
+                                <OtpPop
+                                    {
+                                    ...{
+                                        otp,
+                                        setOtp,
+                                        OtpCondition, setOtpCondition,
+                                        setModalSellerPhone,
+                                        setSellerPhone,
+                                        sellername,
+                                        sellerphone,
+                                        user_id,
+                                        handleChangeOtp,
+                                        isOpen,
+                                        setisOpen,
+                                        Onclose,
+                                        OnOpen
+                                    }
+                                    }
+                                />
+                                <div className="text" style={{ color: "red" }}>{otpError}</div>
+                                <br />
+
+                               
+                            </>
+                          
+                        }
+                    </OTPTAG>
+                    {
+                        (PhoneNumber !== null) &&
+                        // (verify) &&
+                        <div className="post-pr">
+
+                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
+                                onChange={(e) => {
+                                    setMessage('')
+                                }} />
+                        </div>
+
+                    }
+                    {/* <div >{otpError}</div> */}
 
                     {errors &&
                         <div className="alert alert-info" role="alert">
@@ -511,3 +628,9 @@ const Fridge = () => {
 }
 
 export default Fridge;
+const OTPTAG = styled.div`
+    OTP input {
+    
+    padding: 17px;
+}
+`

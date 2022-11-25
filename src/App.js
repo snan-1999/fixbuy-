@@ -56,7 +56,7 @@ function App() {
           <Route path='/product' element={<Products />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/faq' element={<FAQ />} />
-          <Route path='/singleproductpage' element={<SingleProductPage />} />
+          <Route path='/singleproductpage/:id' element={<SingleProductPage />} />
           <Route path='/posteditems' element={<PostedItems />} />
           <Route path='/packages' element={<Packages />} />
           <Route path='/blogs' element={<Blogs />} />
@@ -83,7 +83,7 @@ function App() {
           <Route path='/shop' element={<Shop />} />
           {/* mobile */}
           <Route path='/sell/automobile/SellCategory' element={<SellCategory />} />
-
+          <Route path='/packages/:id/:categories/:sellertype' element={<Packages />} />
 
           {/* <Route exact path='/' element={</>/> */}
         </Routes>
