@@ -36,6 +36,7 @@ import ShareLink from './Share/ShareLink';
 import { TiLocation } from 'react-icons/ti'
 import ShareProuctsModal from './Modals/ShareProduct';
 import { TbMessageReport } from 'react-icons/tb';
+import { MdReport } from 'react-icons/md';
 export default function SingleProductPage(props) {
     const { id } = useParams()
     const [isOpen, setisOpen] = useState(false)
@@ -147,23 +148,7 @@ export default function SingleProductPage(props) {
         }
         console.log(data, 'homeData')
     }
-    const ShareProducts = () => {
-        setisOpen(true)
-        console.log(isOpen, 'ss')
-        const CpyText = navigator.clipboard.writeText(window.location.href);
-        if (CpyText) {
-            toast('Link Copy', {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                type: 'success'
-            });
-        }
-    }
+   
     // seller Profile details api 
     const sellerDetails = async (usrId) => {
         const api = (`${baseUrl}/users/getprofile/${usrId}`);
@@ -190,6 +175,7 @@ export default function SingleProductPage(props) {
         // sellerDetails()
     }, [0])
     let ShareLinkParam = window.location.href
+    
     console.log(window.location.href, 'copy')
     let Max_length = 60;
     // useEffect(() => {
@@ -241,7 +227,7 @@ export default function SingleProductPage(props) {
                                     }
                                 </ScrollDiv>
                             </SmallImg>
-                            <div className="shareDetails d-flex align-items-center mt-3">
+                            <div className="shareDetails d-flex align-items-center mt-4">
                                 <div className="col-md-4">
                                     <div className="locations d-flex align-items-center">
                                         <TiLocation />
@@ -249,15 +235,16 @@ export default function SingleProductPage(props) {
                                     </div>
                                 </div>
                                 <div className="col-md-4">
-                                    <div className="Shareset d-flex align-items-center" onClick={ShareProducts} >
+                                    <div className="Shareset d-flex align-items-center" >
                                         <FiShare2 />
                                         <div className='ms-2' >Share</div>
+                                        <ShareLink ShareLinkParam={ShareLinkParam} />
                                     </div>
                                 </div>
                                 <div className="col-md-4">
-                                    <div className="ReportAds d-flex align-items-center">
-                                        <TbMessageReport />
-                                        <div className='ms-2' >Report</div>
+                                    <div className="ReportAds d-flex align-items-center justify-content-end">
+                                        <MdReport className='fs-4' />
+                                        <div className='ms-1' >Report</div>
                                     </div>
                                 </div>
                             </div>
@@ -455,7 +442,7 @@ margin-top: 4%
 `
 const ImageSetion = styled.div`
 .shareDetails{
-
+    font-size: 14px;
     color: ${props => props.theme.colors.primary};
 }
 #img_main{

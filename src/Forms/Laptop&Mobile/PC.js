@@ -1,4 +1,4 @@
-import React, { useState , useRef } from "react";
+import React, { useState, useRef } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -8,8 +8,10 @@ import facebook from '../../assets/images/facebook.png'
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 // import { Link } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
+import OtpPop from "../../form/form/Modals/OtpPop";
 const PC = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -17,12 +19,23 @@ const PC = () => {
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;   
+    const Type = JSON.parse(IdData).type;
+    const [OtpCondition, setOtpCondition] = useState(false);
+    const [isOpen, setisOpen] = useState(false)
+        const Onclose = () => {
+            setOtp('')
+            setisOpen(false)
+            setOtpCondition(false)
+        }
+        const OnOpen = () => setisOpen(true)
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
+    const [otp, setOtp] = useState();
     const [img, setImg] = useState('');
     const [pincode, setPincode] = useState('');
     const [title, setTitle] = useState('');
+    const [errors, seterrors] = useState(false);
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     const [posted, setposted] = useState('');
     // const [categories, setCategories] = useState('fridge');
@@ -79,65 +92,66 @@ const PC = () => {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
                                         if (neighbourhood.trim().length > 0) {
-                                        if (sellerphone.trim().length > 0) {
-                                            setError(true)
-                                            formData.append('sellername', sellername)
-                                            // formData.append('brand', brand)
-                                            formData.append('title', title)
-                                            formData.append('sellerphone', sellerphone)
-                                            formData.append('categories', category2)
-                                            formData.append('description', description)
-                                            formData.append('price', price)
-                                            let imageStatus = true
-                                            console.log(img);
-                                            img.forEach(imgs => {
-                                                // console.log(imgs.file.type)
-                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                    console.log(imgs.file.type)
-                                                    alert("File does not support .webp extension ");
-                                                    imageStatus = false
-                                                    return false;
+                                            if (sellerphone.trim().length > 0) {
+                                                setError(true)
+                                                formData.append('sellername', sellername)
+                                                // formData.append('brand', brand)
+                                                formData.append('title', title)
+                                                formData.append('sellerphone', sellerphone)
+                                                formData.append('categories', category2)
+                                                formData.append('description', description)
+                                                formData.append('price', price)
+                                                let imageStatus = true
+                                                console.log(img);
+                                                img.forEach(imgs => {
+                                                    // console.log(imgs.file.type)
+                                                    if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                        console.log(imgs.file.type)
+                                                        alert("File does not support .webp extension ");
+                                                        imageStatus = false
+                                                        return false;
 
 
-                                                }
-                                                formData.append("images", imgs.file)
-                                            });
-                                            // formData.append('images', img)
-                                            // if()
-                                            if (imageStatus) {
+                                                    }
+                                                    formData.append("images", imgs.file)
+                                                });
                                                 // formData.append('images', img)
-                                                formData.append('state', state)
-                                                formData.append('city', city)
-                                                formData.append('pincode', pincode)
-                                                formData.append('neighbourhood', neighbourhood)
-                                                formData.append('user_id', user_id)
-                                                formData.append('sellerType', sellerType)
-                                                formData.append('longitude' , "28.663996")
-                                    formData.append('latitude' , "77.306843")
-                                                const api = `${baseUrl}/product/mobiles/form/create`;
-                                                await axios.post(api, formData,  {
-                                                    headers: {
-                                                        'Content-Type': 'multipart/form-data'
-                                                    }
-                                                }).then((response) => {
-                                                    if (response.data.status) {
-                                                        console.log(response.data.status);
-                                                        setposted('success')
-                                                        // console.log(posted)
-                                                        setMessage('Posted !');
-                                                    } else {
-                                                        setposted('fail')
-                                                        console.log(false);
-                                                        // seterrors(false)
-                                                        setMessage('Please fill the details')
-                                                    }
-                                                })
+                                                // if()
+                                                if (imageStatus) {
+                                                    // formData.append('images', img)
+                                                    formData.append('state', state)
+                                                    formData.append('city', city)
+                                                    formData.append('pincode', pincode)
+                                                    formData.append('neighbourhood', neighbourhood)
+                                                    formData.append('user_id', user_id)
+                                                    formData.append('sellerType', sellerType)
+                                                    formData.append('longitude', "28.663996")
+                                                    formData.append('latitude', "77.306843")
+                                                    const api = `${baseUrl}/product/mobiles/form/create`;
+                                                    await axios.post(api, formData, {
+                                                        headers: {
+                                                            'Content-Type': 'multipart/form-data'
+                                                        }
+                                                    }).then((response) => {
+                                                        if (response.data.status) {
+                                                            console.log(response.data.status);
+                                                            setposted('success')
+                                                            // console.log(posted)
+                                                            seterrors(true)
+                                                            setMessage('Posted !');
+                                                        } else {
+                                                            setposted('fail')
+                                                            console.log(false);
+                                                            // seterrors(false)
+                                                            setMessage('Please fill the details')
+                                                        }
+                                                    })
+                                                }
+                                            } else {
+                                                setError(false);
+                                                console.log("sellerphone error")
+                                                sellerphoneRef.current.style.borderColor = 'red';
                                             }
-                                        } else {
-                                            setError(false);
-                                            console.log("sellerphone error")
-                                            sellerphoneRef.current.style.borderColor = 'red';
-                                        }
                                         } else {
                                             setposted('fail')
                                             setError(false);
@@ -186,13 +200,69 @@ const PC = () => {
         }
 
     }
+    const Otpverify = async () => {
+        setisOpen(false)
+        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
+        await axios.post(api, {
+            user_id: user_id,
+            phone: sellerphone,
+            name: sellername,
+            otp: otp
+        }).then((res) => {
+            if (res.status) {
+                setModalSellerPhone(sellerphone)
+                // setMessage(res.message);
+                console.log(res.data, 'Otp');
+                toast("Add Successfully", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
+                setOtpCondition(false)
+            }
+            else {
+                // setotpError('invalid otp')
 
+            }
+        })
+    }
+    const Generate = async () => {
+        console.log(sellerphone, 'Otp')
+        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+        // console.log("function started");
+        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+        await axios.post(api, {
+            "phone": sellerphone
+        }).then((res) => {
+            if (res.data) {
+                setOtpCondition(true)
+                // Otpverify()
+                // setverify(true);
+                setOtp(res.data.otp)
+                // console.log(verify, 'var')
+                console.log(res.data, 'Otp');
+            }
+            // }
+        })
+        // } else {
+        // setError('Invalid Phone Number');
+        // }
+
+
+    }
 
 
 
     return (
         <>
             <Header />
+            <ToastContainer />
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
@@ -213,26 +283,26 @@ const PC = () => {
                     <input type="hidden" name='sellerType' value={sellerType} hidden />
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setTitle(e.target.value)
-                        titleRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                        }} 
-                        value={title} 
+                    <input type="text" name="title" className="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setTitle(e.target.value)
+                            titleRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={title}
                         ref={titleRef}
-                        /><br />
+                    /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" 
-                    onChange={(e) => {
-                        setDescription(e.target.value)
-                        descriptionRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                        }} 
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
+                        onChange={(e) => {
+                            setDescription(e.target.value)
+                            descriptionRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
                         value={description}
                         ref={descriptionRef}
-                        ></textarea>
+                    ></textarea>
                     {/* <br />
                     <br /> */}
                     <br />
@@ -240,15 +310,15 @@ const PC = () => {
 
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setPrice(e.target.value)
-                        priceRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                        }} 
-                        value={price} 
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setPrice(e.target.value)
+                            priceRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={price}
                         ref={priceRef}
-                        />
+                    />
 
                 </div>
                 {/* </input> */}
@@ -322,13 +392,13 @@ const PC = () => {
                     </div><br />
                     <div className="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" className="form-control set-pd-input-post" required 
-                        value={state} 
-                        ref={stateRef}
-                        onChange={(e) => {
-                            setState(e.target.value)
-                            stateRef.current.style.borderColor = "#ced4da";
-                        setError("")
+                        <select id="State" name="location" className="form-control set-pd-input-post" required
+                            value={state}
+                            ref={stateRef}
+                            onChange={(e) => {
+                                setState(e.target.value)
+                                stateRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }}>
                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -372,34 +442,34 @@ const PC = () => {
 
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required 
-                        value={city} 
-                        ref={cityRef}
-                        onChange={(e) => {
-                            setCity(e.target.value)
-                            cityRef.current.style.borderColor = "#ced4da";
-                        setError("")
+                        <input type="text" name="city" className="form-control set-pd-input-post" required
+                            value={city}
+                            ref={cityRef}
+                            onChange={(e) => {
+                                setCity(e.target.value)
+                                cityRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} /><br />
 
 
                         <label for="pincpde">PINCODE*</label>
-                        <input type="text" name="pincpde" className="form-control set-pd-input-post" required 
-                        value={pincode} 
-                        ref={pincodeRef}
-                        onChange={(e) => {
-                            setPincode(e.target.value)
-                            pincodeRef.current.style.borderColor = "#ced4da";
-                        setError("")
+                        <input type="text" name="pincpde" className="form-control set-pd-input-post" required
+                            value={pincode}
+                            ref={pincodeRef}
+                            onChange={(e) => {
+                                setPincode(e.target.value)
+                                pincodeRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required 
-                        value={neighbourhood} 
-                        ref={neighbourhoodRef}
-                        onChange={(e) => {
-                            setNeighbourhood(e.target.value)
-                            neighbourhoodRef.current.style.borderColor = "#ced4da";
-                        setError("")
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required
+                            value={neighbourhood}
+                            ref={neighbourhoodRef}
+                            onChange={(e) => {
+                                setNeighbourhood(e.target.value)
+                                neighbourhoodRef.current.style.borderColor = "#ced4da";
+                                setError("")
                             }} />
                     </div>
                 </div>
@@ -446,13 +516,13 @@ const PC = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required 
-                                value={sellername} 
-                                ref={sellernameRef}
-                                onChange={(e) => {
-                                    setSellerName(e.target.value)
-                                    sellernameRef.current.style.borderColor = "#ced4da";
-                        setError("")
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required
+                                    value={sellername}
+                                    ref={sellernameRef}
+                                    onChange={(e) => {
+                                        setSellerName(e.target.value)
+                                        sellernameRef.current.style.borderColor = "#ced4da";
+                                        setError("")
                                     }} />
                             </div>
 
@@ -463,21 +533,75 @@ const PC = () => {
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
-                    <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        setSellerPhone(e.target.value)
-                        sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                    value={sellerphone}
-                    ref={sellerphoneRef}
-                    /><br />
 
-                    <div className="post-pr">
-                        <input type="submit" name="submit" value="POST NOW" onClick={sumbit} />
+
+                    <label for="phone">Phone Number*</label>
+                    <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
+                        onChange={(e) => {
+                            // setPhoneLocal(e.target.value)
+
+                            // sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        // value={sellerphone}
+                        value={ModalSellerPhone}
+                        ref={sellerphoneRef}
+                    />
+                    {
+                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                    }
+                    <div className="UpdateNum w-100">
+                        {
+                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                        }
                     </div>
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    <br />
+                    <OTPTAG>
+                        {
+                            <>
+                                <OtpPop
+                                    {
+                                    ...{
+                                        Otpverify,
+                                        Generate,
+                                        otp,
+                                        OtpCondition,
+                                        setSellerPhone,
+                                        isOpen,
+                                        Onclose,
+                                    }
+                                    }
+                                />
+                                {/* <div className="text" style={{ color: "red" }}>{otpError}</div> */}
+                                <br />
+
+
+                            </>
+
+                        }
+                    </OTPTAG>
+                    {
+                        (PhoneNumber !== null) &&
+                        <div className="post-pr">
+
+                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
+                                onChange={(e) => {
+                                    setMessage('')
+                                }} />
+                        </div>
+
+                    }
+                    {/* <div >{otpError}</div> */}
+
+                    {errors &&
+                        <div className="alert alert-info" role="alert">
+                            {message}
+                        </div>
+                    }
                 </div>
+
 
             </div>
 
@@ -487,3 +611,9 @@ const PC = () => {
 }
 
 export default PC;
+const OTPTAG = styled.div`
+    OTP input {
+    
+    padding: 17px;
+}
+`

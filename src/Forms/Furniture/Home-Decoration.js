@@ -9,7 +9,9 @@ import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
-
+import styled from "styled-components";
+import OtpPop from "../../form/form/Modals/OtpPop";
+import { ToastContainer, toast } from 'react-toastify';
 const HomeDecoration = () => {
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -24,11 +26,22 @@ const HomeDecoration = () => {
     const [pincode, setPincode] = useState('');
     const [title, setTitle] = useState('');
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
+    const [errors, seterrors] = useState(false);
     const [posted, setposted] = useState('');
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
+    const [otp, setOtp] = useState();
+    const [OtpCondition, setOtpCondition] = useState(false);
+    const [isOpen, setisOpen] = useState(false)
+    const Onclose = () => {
+        setOtp('')
+        setisOpen(false)
+        setOtpCondition(false)
+    }
+    const OnOpen = () => setisOpen(true)
     const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
@@ -121,6 +134,7 @@ const HomeDecoration = () => {
                                                     if (response.data.status) {
                                                         console.log(response.data.status);
                                                         setposted('success')
+                                                        seterrors(true)
                                                         // console.log(posted)
                                                         setMessage('Posted !');
                                                     } else {
@@ -186,12 +200,71 @@ const HomeDecoration = () => {
 
     }
 
+// number verify with otp
+const handleChangeOtp = () => { }
+const Otpverify = async () => {
+    setOtpCondition(false)
+    setisOpen(false)
+    const api = `${baseUrl}/users/otp/verify/profileUpdate`;
+    await axios.post(api, {
+        user_id: user_id,
+        phone: sellerphone,
+        name: sellername,
+        otp: otp
+    }).then((res) => {
+        if (res.status) {
+            setModalSellerPhone(sellerphone)
+            // setMessage(res.message);
+            console.log(res.data, 'Otp');
+            toast("Add Successfully", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                type: 'success'
+            });
+        }
+        else {
+            // setotpError('invalid otp')
 
+        }
+    })
+}
+const Generate = async () => {
+    console.log(sellerphone, 'Otp')
+    let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+    // console.log("function started");
+    // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+    const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+    await axios.post(api, {
+        "phone": sellerphone
+    }).then((res) => {
+        if (res.data) {
+            setOtpCondition(true)
+            // Otpverify()
+            // setverify(true);
+            setOtp(res.data.otp)
+            alert(res.data.otp)
+            // console.log(verify, 'var')
+            console.log(res.data, 'Otp');
+        }
+        // }
+    })
+    // } else {
+    // setError('Invalid Phone Number');
+    // }
+
+
+}
 
 
     return (
         <>
             <Header />
+            <ToastContainer />
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
@@ -461,20 +534,73 @@ const HomeDecoration = () => {
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
-                    <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required
-                    onChange={(e) => {
-                        setSellerPhone(e.target.value)
-                        sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                    value={sellerphone}
-                    ref={sellerphoneRef}
-                    /><br />
 
-                    <div className="post-pr">
-                        <input type="submit" name="submit" value="POST NOW" onClick={sumbit} />
+
+                    <label for="phone">Phone Number*</label>
+                    <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
+                        onChange={(e) => {
+                            // setPhoneLocal(e.target.value)
+
+                            // sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        // value={sellerphone}
+                        value={ModalSellerPhone}
+                        ref={sellerphoneRef}
+                    />
+                    {
+                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                    }
+                    <div className="UpdateNum w-100">
+                        {
+                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                        }
                     </div>
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    <br />
+                    <OTPTAG>
+                        {
+                            <>
+                                <OtpPop
+                                    {
+                                    ...{
+                                        Otpverify,
+                                        Generate,
+                                        otp,
+                                        OtpCondition,
+                                        setSellerPhone,
+                                        handleChangeOtp,
+                                        isOpen,
+                                        Onclose,
+                                    }
+                                    }
+                                />
+                                {/* <div className="text" style={{ color: "red" }}>{otpError}</div> */}
+                                <br />
+
+
+                            </>
+                        }
+                    </OTPTAG>
+                    {
+                        (PhoneNumber !== null) &&
+                        <div className="post-pr">
+
+                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
+                                onChange={(e) => {
+                                    setMessage('')
+                                }} />
+                        </div>
+
+                    }
+                    {/* <div >{otpError}</div> */}
+
+                    {errors &&
+                        <div className="alert alert-info" role="alert">
+                            {message}
+                        </div>
+                    }
                 </div>
 
             </div>
@@ -485,3 +611,9 @@ const HomeDecoration = () => {
 }
 
 export default HomeDecoration;
+const OTPTAG = styled.div`
+    OTP input {
+    
+    padding: 17px;
+}
+`

@@ -7,9 +7,11 @@ import "../form/header.css";
 import { ProfileData, updateProfile } from "../../functions/ProfileData";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../functions/constant";
+// import ShopModal from "./Modals/ShopModal";
 // import axios from "axios";
 import { GlobalVariables } from "../../Context/StateProvider";
 import axios from "axios";
+import ProfileNumber from "./Modals/ProfileNumber";
 
 
 const Profile = () => {
@@ -19,15 +21,21 @@ const Profile = () => {
     const Type = JSON.parse(IdData).type;
     console.log(JSON.parse(IdData).type);
     let ProfleId = JSON.parse(IdData).token;
+    let PhoneNumber = JSON.parse(IdData).phone;
+    console.log(PhoneNumber);
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
     // const data = ProfileStore(state => state);
     const [name, setName] = useState('');
+    const [otp , setOtp] = useState('');
     const [email, setEmail] = useState(null);
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState(PhoneNumber);
+    const [numberchange , setNumberChange] = useState(PhoneNumber);
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [profileImg2, setProfileImg2] = useState(null);
     const [profileImg, setProfileImg] = useState('');
     const [id, setId] = useState('');
+    const [hasError, setError] = useState('')
     const [city, setcity] = useState('')
     const [shop_address, setAddress] = useState('');
     const [gender, setGender] = useState('');
@@ -36,6 +44,14 @@ const Profile = () => {
     const [gst_no, setGstNumber] = useState('');
     const [message, setMessage] = useState('');
     const [errors, seterrors] = useState(false);
+    const [isOpen, setisOpen] = useState(false)
+    const [OtpCondition, setOtpCondition] = useState(false);
+    const Onclose = () => {
+        setOtp('')
+        setisOpen(false)
+        setOtpCondition(false)
+    }
+    const OnOpen = () => setisOpen(true)
 
 
     const nav = useNavigate();
@@ -87,6 +103,7 @@ const Profile = () => {
             setGender(response.data.data[0].gender)
             // setDOB(response.data.data[0].date_of_birth)
             setId(response.data.data[0]._id);
+            console.log(id);
             console.log(response.data.profileImg2)
         }
 
@@ -158,6 +175,8 @@ const Profile = () => {
     useEffect(() => {
         console.log(profileImg2, "profileData");
     }, [profileImg2])
+
+   
 
 
     return (
@@ -251,13 +270,23 @@ const Profile = () => {
                                             <input type="text" className="form-control shadow-none" placeholder="Email" contenteditable="true" name="user_email" value={email} onChange={(e) => setEmail(e.target.value)} />
                                         </div>
                                     </div>
-                                    <div className="row mb-3">
+                                    <div className="row mb-1">
                                         <div className="col-sm-3">
                                             <h6 className="mb-0">Phone</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Phone" contenteditable="true" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                                            <input type="text" className="form-control shadow-none" placeholder="Phone"  name="phone" value={ModalSellerPhone} contenteditable='false' 
+                                                 />
                                         </div>
+                                        {
+                        !phone && <div className="text-danger">please add your number</div>
+                    }
+                    <div className="UpdateNum w-100">
+                        {
+                            !phone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                        }
+                    </div>
                                     </div>
                                     <div className="row mb-3">
                                         <div className="col-sm-3">
@@ -275,14 +304,7 @@ const Profile = () => {
                                             <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => setGender(e.target.value)} />
                                         </div>
                                     </div>
-                                    {/* <div className="row mb-3">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">City</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="City Name" contenteditable="true" name="city" value={city} onChange={(e) => setcity(e.target.value)} />
-                                        </div>
-                                    </div> */}
+                                    
                                  {
                                     (Type == 'shop') &&
                                      
@@ -305,12 +327,16 @@ const Profile = () => {
                                     </div>
                                     
                                     </>
-}
-                                       
+}                     
+                                    
                                     <div className="row">
                                         <div className="col-sm-3"></div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update" onClick={UpadateUser} /><br/>
+                                            <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update" 
+                                            onClick={() => {
+                                                UpadateUser()
+                                                }} />
+                                                <br/>
                                            
                                             {errors &&
                         <div className="messageClass" role="alert" style={{color : 'green'}}>
@@ -327,6 +353,22 @@ const Profile = () => {
                         {/* <!-- end row --> */}
                     </div>
                 </div>
+                <ProfileNumber  {
+                                    ...{
+                                        otp,
+                                        setOtp,
+                                        OtpCondition, setOtpCondition,
+                                        setModalSellerPhone,
+                                        setPhone,
+                                        name,
+                                        phone,
+                                        id,
+                                        isOpen,
+                                        setisOpen,
+                                        Onclose,
+                                        OnOpen
+                                    }
+                                    } />
 
             </div>
             <Footer />

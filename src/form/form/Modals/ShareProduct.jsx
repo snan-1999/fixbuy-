@@ -40,7 +40,7 @@ export default function ShareProuctsModal({Onclose ,OnOpen , setisOpen, isOpen, 
                                 <hr style={{ margin: '0rem 0.5rem  0 0.5rem' }} />
                                 <Modalbody>
 
-                                      <ShareLink ShareLinkParam={ShareLinkParam} />
+                                      {/* <ShareLink ShareLinkParam={ShareLinkParam} /> */}
                                     <ModelFooter>
                                         <ApplyBtn onClick={Onclose}>Cancel</ApplyBtn>
                                         <ApplyBtn onClick={Onclose}>OK</ApplyBtn>

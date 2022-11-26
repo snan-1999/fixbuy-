@@ -1,9 +1,95 @@
 import React from 'react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+
+    ModalCloseButton,
+    useDisclosure,
+    Button,
+    FormControl,
+    FormLabel,
+
+    Label,
+    useColorMode,
+    RadioGroup,
+    Radio,
+    Stack
+} from "@chakra-ui/react";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImCross } from 'react-icons/im'
-export default function OtpPop({ Otpverify, Generate, OtpCondition, otp, Onclose, setSellerPhone, isOpen }) {
-    console.log(OtpCondition , 'loo')
+import { useState } from 'react';
+
+// import OTPInput, { ResendOTP } from "otp-input-react";
+import axios from 'axios'
+import { baseUrl } from '../../../functions/constant';
+export default function ProfileNumner({OtpCondition, setOtpCondition, otp, setOtp, setModalSellerPhone, id, phone, name, Onclose, OnOpen, setisOpen, setPhone, isOpen, Type, Reportapi, setreason, reason }) {
+
+    
+    // const [OTP, setOTP] = useState("");
+    // const handleOtp = (OtpValue) => {
+    //     //     // console.log(e , 'opt')
+    //     //     // console.log('hh' , 'opt')
+    //         setOtpValue(OtpValue)
+    //     console.log(OtpValue, 'opt')
+    // }
+    const OtpUpdate = async () => {
+        setisOpen(false)
+        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
+        await axios.post(api, {
+            user_id: id,
+            phone: phone,
+            name: name,
+            otp: otp
+        }).then((res) => {
+            if (res.data) {
+                setModalSellerPhone(phone)
+                // setMessage(res.message);
+                console.log(res.data, 'Otp');
+
+            }
+            else {
+                // setotpError('invalid otp')
+
+            }
+        })
+    }
+    const getOtp = async () => {
+        console.log(phone, 'Otp')
+        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+        // console.log("function started");
+        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+        await axios.post(api, {
+            "phone": phone
+        }).then((res) => {
+            if (res.data) {
+                setOtpCondition(true)
+                // Otpverify()
+                // setverify(true);
+                setOtp(res.data.otp)
+                // console.log(verify, 'var')
+                console.log(res.data, 'Otp');
+            }
+            // }
+        })
+        // } else {
+        // setError('Invalid Phone Number');
+        // }
+
+
+    }
+    let OtpField
+    OtpField = document.getElementById('OTp')
+    const OtpLenght = () => {
+       
+        // setOtpCondition(OtpField.value.length)
+        console.log(OtpField , 'length')
+    }
+
     return (
         <>
 
@@ -23,18 +109,18 @@ export default function OtpPop({ Otpverify, Generate, OtpCondition, otp, Onclose
                                     <MyModal>
                                         <input type="text" placeholder='Your Mobile Number' className='form-control shadow-none'
                                             onChange={(e) => {
-                                                setSellerPhone(e.target.value)
+                                                setPhone(e.target.value)
                                             }} />
                                         <br />
                                         {
-                                            otp && <input type="text" placeholder='Enter Number' className='form-control shadow-none' id='OTp' />
+                                            otp && <input type="text" placeholder='Enter Number' className='form-control shadow-none' onChange={OtpLenght} id='OTp' />
                                         }
                                     </MyModal>
 
                                     <ModelFooter>
                                         <ApplyBtn onClick={Onclose}>Cancel</ApplyBtn>
                                         {
-                                            (!OtpCondition) ? <ApplyBtn1 onClick={Generate} >Generate OTP</ApplyBtn1> : <ApplyBtn1 onClick={Otpverify} >Verify</ApplyBtn1>
+                                            (!OtpCondition) ?<ApplyBtn1 onClick={getOtp} >Generate OTP</ApplyBtn1> : <ApplyBtn1 onClick={OtpUpdate} >Verify</ApplyBtn1>
                                         }
                                     </ModelFooter>
                                 </Modalbody>
@@ -59,7 +145,6 @@ font-family: 'Lato', sans-serif;
     top:0;
     left: 50%;
     transform: translate(-72%);
-
     `
 const Modelcontent = styled(motion.div)`
 background: white;
@@ -72,13 +157,10 @@ box-shadow: 0 1px 5px 5px rgb(235 234 234);
     transition: all 150ms ease;
     width:25vw;
     margin-left: 15%;
-
-
 @media screen and (max-width: 600px){
     margin-left: 25%;
     padding: 1rem 2rem;
 }
-
 `
 const MyModal = styled.div`
 input{
@@ -159,7 +241,6 @@ const ModelFooter = styled.div`
         /* margin-left: 20%; */
         gap:5%;
         margin-bottom: 3%;
-
         @media screen and (max-width : 600px){
             align-items: center;
         margin-left: -8%;
@@ -175,7 +256,6 @@ const ApplyBtn = styled.button`
     /* width: 20%; */
     text-align: center;
     cursor: pointer;
-
     
     &:hover{
         transition: all 500ms ease ;
@@ -183,7 +263,6 @@ const ApplyBtn = styled.button`
         /* box-shadow: 0px 1px 10px #ffffff2b; */
         
     }
-
     @media screen and (max-width: 600px) {
         all: unset;
     background: grey ;
@@ -221,4 +300,3 @@ const ApplyBtn1 = styled.button`
         
     }
 `
-// const FormControl styled

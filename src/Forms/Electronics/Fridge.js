@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { ProfileData } from "../../functions/ProfileData";
 // import { Link } from "react-router-dom";
-
+import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
 const Fridge = () => {
@@ -55,7 +55,7 @@ const Fridge = () => {
     const [errors, seterrors] = useState(false);
     const [hasError, setError] = useState('')
     const [imageError, setimageError] = useState('');
-    const [otpError, setotpError] = useState('');
+   
     const [verify, setverify] = useState(false);
     const maxNumber = 20;
     const sellernameRef = useRef();
@@ -214,54 +214,70 @@ const Fridge = () => {
     console.log(verify, 'var')
 
     // number verify with otp
-    const phoneOtp = async () => {
-        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
-        // console.log("function started");
-        if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
-            const api = `${baseUrl}/users/otp/genrate/formUpdate`;
-            await axios.post(api, {
-                phone: sellerphone
-            }).then((res) => {
-                if (res.data) {
-                    setverify(true);
-                    console.log(verify, 'var')
-                    console.log(res.data);
-                }
-                // }
-            })
-        } else {
-            setError('Invalid Phone Number');
-        }
-
-    }
-
-    const OtpVerify = async () => {
-        const api = `${baseUrl}/users//otp/verify/profileUpdate`;
+    const handleChangeOtp = () => { }
+    const Otpverify = async () => {
+        setOtpCondition(false)
+        setisOpen(false)
+        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
         await axios.post(api, {
             user_id: user_id,
             phone: sellerphone,
             name: sellername,
-            // otp: otp
+            otp: otp
         }).then((res) => {
-            if (res.data) {
+            if (res.status) {
+                setModalSellerPhone(sellerphone)
                 // setMessage(res.message);
-                console.log(res.data);
+                console.log(res.data, 'Otp');
+                toast("Add Successfully", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
             }
             else {
-                setotpError('invalid otp')
+                // setotpError('invalid otp')
 
             }
         })
     }
-    const handleChangeOtp = () => {
+    const Generate = async () => {
+        console.log(sellerphone, 'Otp')
+        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+        // console.log("function started");
+        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+        await axios.post(api, {
+            "phone": sellerphone
+        }).then((res) => {
+            if (res.data) {
+                setOtpCondition(true)
+                // Otpverify()
+                // setverify(true);
+                setOtp(res.data.otp)
+                alert(res.data.otp)
+                // console.log(verify, 'var')
+                console.log(res.data, 'Otp');
+            }
+            // }
+        })
+        // } else {
+        // setError('Invalid Phone Number');
+        // }
+
 
     }
-
 
 
     return (
         <>
             <Header />
+            <ToastContainer />
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     POST YOUR ITEMS
@@ -556,52 +572,42 @@ const Fridge = () => {
                         ref={sellerphoneRef}
                     />
                     {
-                        !sellerphone && <div className="text-danger">please add your number</div>
+                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
                     }
                     <div className="UpdateNum w-100">
                         {
-                            !sellerphone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
                                 <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
                         }
                     </div>
                     <div className="text" style={{ color: "red" }}>{hasError}</div>
                     <br />
                     <OTPTAG>
-
                         {
-
-                            // (sellerphone.length >= 10) ?
                             <>
                                 <OtpPop
                                     {
                                     ...{
+                                        Otpverify,
+                                        Generate,
                                         otp,
-                                        setOtp,
-                                        OtpCondition, setOtpCondition,
-                                        setModalSellerPhone,
+                                        OtpCondition,
                                         setSellerPhone,
-                                        sellername,
-                                        sellerphone,
-                                        user_id,
                                         handleChangeOtp,
                                         isOpen,
-                                        setisOpen,
                                         Onclose,
-                                        OnOpen
                                     }
                                     }
                                 />
-                                <div className="text" style={{ color: "red" }}>{otpError}</div>
                                 <br />
 
-                               
+
                             </>
-                          
+
                         }
                     </OTPTAG>
                     {
                         (PhoneNumber !== null) &&
-                        // (verify) &&
                         <div className="post-pr">
 
                             <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}

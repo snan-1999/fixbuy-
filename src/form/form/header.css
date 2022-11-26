@@ -2054,6 +2054,8 @@ box-shadow: none;
     text-align: start;
     /* margin-left: 1rem !important; */
     border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+    display: flex;
+    align-items: center;
 
 }
 
