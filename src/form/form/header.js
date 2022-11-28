@@ -78,9 +78,9 @@ const Header = () => {
                     JSON.stringify({
                         'token': res.status.data[0]._id,
                         'profileName': res.status.data[0].name,
-                        'profileImg': res.status.profileImg,
                         'email': res.status.data[0].email,
                         'profileImg': res.status.data[0].profileImg,
+                        'profileImg': res.status.profileImg,
                         'name': res.status.data[0].name,
                         'type': res.status.data[0].type,
                         'phone': res.status.data[0].phone,
@@ -420,7 +420,7 @@ const Header = () => {
                                         (profileName) ?
                                             <>
                                                 <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src={`${ImageView}${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+                                                    <img src={`${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
                                                     {(LocalData == null)
                                                         ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
                                                     }
