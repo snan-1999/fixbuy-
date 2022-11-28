@@ -224,7 +224,7 @@ function Login() {
 
         <div className="form-body">     
                   <FacebookLogin
-                appId="5079064385539704"
+                appId="2217693241739570"
                 autoLoad={false}
                 fields="name,email,picture"
                 onClick={componentClicked}
