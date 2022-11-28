@@ -47,7 +47,7 @@ const Home = () => {
         setLoading(true)
         console.log(Loading)
         if (data.status) {
-            setAutomobile([...automobile, ...data.data]);
+            setAutomobile([...automobile, ...data.data]); 
             // setAutomobile(data.data);
             setLoading(false)
             setHomeData(data.data)
