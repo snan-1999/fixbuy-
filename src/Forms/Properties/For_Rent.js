@@ -10,8 +10,10 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import Land_Plot from "./Land_Plots";
 // import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const ForRent = () => {
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileImage = JSON.parse(IdData).profileImg;
@@ -170,8 +172,8 @@ const ForRent = () => {
                                                                                         formData.append('parking', parking)
                                                                                         formData.append('project_name', project_name)
                                                                                         formData.append('furnishing', furnishing)
-                                                                                        formData.append('longitude', "28.663996")
-                                                                                        formData.append('latitude', "77.306843")
+                                                                                        formData.append('latitude', latitude)
+                                                                                        formData.append('longitude', Longitude)
                                                                                         formData.append('sellerType', sellerType)
 
                                                                                         const api = `${baseUrl}/product/properties/form/create`;

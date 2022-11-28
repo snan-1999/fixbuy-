@@ -11,8 +11,10 @@ import { useParams } from "react-router-dom";
 import Cars from "./Car_HeavyVehicle";
 import SpareParts from "./SpareParts_Others";
 // import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const Bike = () => {
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
@@ -125,8 +127,8 @@ const Bike = () => {
                                                                 formData.append('state', state)
                                                                 formData.append('city', city)
                                                                 formData.append('neighbourhood', neighbourhood)
-                                                                formData.append('longitude', "28.663996")
-                                                                formData.append('latitude', "77.306843")
+                                                                formData.append('latitude', latitude)
+                                                                formData.append('longitude', Longitude)
                                                                 formData.append('user_id', user_id)
                                                                 formData.append('kilometer', kilometer)
                                                                 formData.append('year', year)

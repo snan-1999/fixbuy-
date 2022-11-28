@@ -13,8 +13,12 @@ import { ProfileData } from "../../functions/ProfileData";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const Fridge = () => {
     const { category } = useParams();
+    const { latitude, Longitude } = useContext(GlobalVariables)
+    console.log(latitude, Longitude , 'latitude')
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let ProfileImage = JSON.parse(IdData).profileImg;
@@ -55,7 +59,7 @@ const Fridge = () => {
     const [errors, seterrors] = useState(false);
     const [hasError, setError] = useState('')
     const [imageError, setimageError] = useState('');
-   
+
     const [verify, setverify] = useState(false);
     const maxNumber = 20;
     const sellernameRef = useRef();
@@ -112,8 +116,8 @@ const Fridge = () => {
                                             formData.append('description', description)
                                             formData.append('price', price)
                                             formData.append('sellerType', sellerType)
-                                            formData.append('latitude', "28.663996")
-                                            formData.append('longitude', "77.306843")
+                                            formData.append('latitude', latitude)
+                                            formData.append('longitude', Longitude)
                                             let imageStatus = true
                                             console.log(img);
                                             img.forEach(imgs => {
@@ -130,6 +134,7 @@ const Fridge = () => {
                                             });
                                             // formData.append('images', img)
                                             // if()
+                                            console.log(sellerphone, 'postData')
                                             if (imageStatus) {
                                                 formData.append('state', state)
                                                 formData.append('city', city)
@@ -141,6 +146,7 @@ const Fridge = () => {
 
 
                                                 const api = `${baseUrl}/product/electronics/form/create`;
+
                                                 await axios.post(api, formData,
                                                     {
                                                         headers: {

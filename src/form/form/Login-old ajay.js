@@ -4,7 +4,7 @@ import "./css/iofrm-style.css";
 import google from "../../assets/images/google.png";
 import facebook from "../../assets/images/facebook.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
+import { 
     BrowserRouter as Router,
     Switch,
     Route,
@@ -159,12 +159,12 @@ function Login() {
         console.log("response data.response", respon.picture.data.url)
        
         await facebookAuth(JSON.stringify(respon)).then((res) => {
-            console.log(respon, 'facebook response');
-            console.log(res,'response data for login page');
-            console.log(res.data.status)
-            console.log(res.data.data[0].email)
-            console.log(res.data.data[0].name)
-            console.log(res.data.data[0].profileImg)
+            // console.log(respon, 'facebook response');
+            // console.log(res,'response data for login page');
+            // console.log(res.data.status)
+            // console.log(res.data.data[0].email)
+            // console.log(res.data.data[0].name)
+            // console.log(res.data.data[0].profileImg)
             if (res.data.status) {
                 
                 setEmail(res.data.data[0].email);
@@ -201,7 +201,7 @@ function Login() {
 
 
     const responseFacebook = (response) => {
-        console.log(response);
+        console.log(response , 'facbook Data');
         facebook(response);
     }
     const componentClicked = (data) => {

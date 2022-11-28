@@ -9,8 +9,10 @@ import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const Service = () => {
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
@@ -111,8 +113,8 @@ const Service = () => {
                                                 formData.append('neighbourhood', neighbourhood)
                                                 formData.append('user_id', user_id)
                                                 formData.append('sellerType', sellerType)
-                                                formData.append('longitude', "28.663996")
-                                                formData.append('latitude', "77.306843")
+                                                formData.append('latitude', latitude)
+                                                formData.append('longitude', Longitude)
                                                 const api = `${baseUrl}/product/services/form/create`;
                                                 await axios.post(api, formData,  {
                                                     headers: {

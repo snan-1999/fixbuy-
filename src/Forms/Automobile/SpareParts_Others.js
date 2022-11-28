@@ -9,9 +9,12 @@ import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const SpareParts = () => {
     const { category2 } = useParams();
+    const { latitude, Longitude } = useContext(GlobalVariables)
+    console.log(latitude, Longitude , 'latitude')
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
@@ -87,8 +90,8 @@ const SpareParts = () => {
                                     formData.append('categories', category2)
                                     formData.append('description', description)
                                     formData.append('price', price)
-                                    formData.append('longitude' , "28.663996")
-                                    formData.append('latitude' , "77.306843")
+                                    formData.append('latitude', latitude)
+                                    formData.append('longitude', Longitude)
                                     formData.append('sellerType' , sellerType)
                                     let imageStatus = true
                                     console.log(img);

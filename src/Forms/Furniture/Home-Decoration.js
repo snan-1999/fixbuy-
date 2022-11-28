@@ -12,7 +12,10 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const HomeDecoration = () => {
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
@@ -101,8 +104,8 @@ const HomeDecoration = () => {
                                             formData.append('categories', category2)
                                             formData.append('description', description)
                                             formData.append('price', price)
-                                            formData.append('longitude' , "28.663996")
-                                            formData.append('latitude' , "77.306843")
+                                            formData.append('latitude', latitude)
+                                            formData.append('longitude', Longitude)
                                             let imageStatus = true
                                             console.log(img);
                                             img.forEach(imgs => {

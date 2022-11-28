@@ -8,15 +8,17 @@ import facebook from '../../assets/images/facebook.png'
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 
 const Cars = () => {
     const { category2 } = useParams();
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
-    const Type = JSON.parse(IdData).type;   
+    const Type = JSON.parse(IdData).type;
     let ProfleId = JSON.parse(IdData).token;
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
@@ -24,7 +26,7 @@ const Cars = () => {
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
-    const [sellerType , setSellerType] = useState(Type);
+    const [sellerType, setSellerType] = useState(Type);
     // const [categories, setCategories] = useState('fridge');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -139,17 +141,17 @@ const Cars = () => {
                                                                         formData.append('fuel', fuel)
                                                                         formData.append('pincode', pincode)
                                                                         formData.append('sellerphone', sellerphone)
-                                                                        formData.append('latitude', "28.663996")
-                                                                        formData.append('longitude', "77.306843")
+                                                                        formData.append('latitude', latitude)
+                                                                        formData.append('longitude', Longitude)
                                                                         formData.append('sellerType', sellerType)
                                                                         const api = `${baseUrl}/product/automobile/form/create`;
-                                                                        await axios.post(api, formData,  {
+                                                                        await axios.post(api, formData, {
                                                                             headers: {
                                                                                 'Content-Type': 'multipart/form-data'
                                                                             }
                                                                         }).then((response) => {
                                                                             if (response.data.status) {
-                                                                                console.log(response.data , "postItem");
+                                                                                console.log(response.data, "postItem");
                                                                                 seterrors(true)
                                                                                 console.log(errors)
                                                                                 setMessage('Posted !');
@@ -182,7 +184,7 @@ const Cars = () => {
                                                     }
                                                 } else {
                                                     setError(false);
-                                                    
+
                                                     console.log("years error")
                                                     yearsRef.current.style.borderColor = 'red';
                                                 }

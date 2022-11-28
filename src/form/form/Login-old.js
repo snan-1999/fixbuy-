@@ -19,10 +19,13 @@ import { VerifyOtp } from "../../functions/VerifyOtp";
 import { facebookAuth, googleAuth } from '../../functions/LoginAuth';
 import { GlobalVariables } from "../../Context/StateProvider";
 import FacebookLogin from 'react-facebook-login';
+// import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import styled from "styled-components";
+
+import { FacebookLoginClient } from '@greatsumini/react-facebook-login';
 import { VscRefresh } from 'react-icons/vsc'
 function Login() {
-
+ 
     const nav = useNavigate();
     const { type, setType } = useContext(GlobalVariables)
     // console.log(type);
@@ -46,6 +49,7 @@ function Login() {
 
 
     const handlePhone = async () => {
+        // const 
         let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
         // console.log("function started");
         if (phone.trim().length > 0 && phone.trim().match(mobRegex)) {
@@ -151,35 +155,22 @@ function Login() {
         })
     }
 
-    const facebook =  async(respon) => {
-
-        console.log(respon,respon.name,respon.email,respon.picture.data.url,'response for facebook function is here ')
-        console.log("response data.response", respon.name)
-        console.log("response data.response", respon.email)
-        console.log("response data.response", respon.picture.data.url)
-       
+    const facebook = async (respon) => {
         await facebookAuth(JSON.stringify(respon)).then((res) => {
             console.log(respon, 'facebook response');
-            console.log(res,'response data for login page');
-            console.log(res.data.status)
-            console.log(res.data.data[0].email)
-            console.log(res.data.data[0].name)
-            console.log(res.data.data[0].profileImg)
+            console.log(res);
             if (res.data.status) {
-                
                 setEmail(res.data.data[0].email);
                 setName(res.data.data[0].name);
                 setProfileImg(res.data.data[0].profileImg);
+                setError();
                 nav('/')
                 setLoginStatus(true);
                 window.localStorage.setItem('token',
                     JSON.stringify({
                         'email': res.data.data[0].email,
-                        'profileImg': res.data.data[0].name,
-                        'profileName': res.data.data[0].profileImg,
-                        "token":res.data.data[0]._id,
-                        "type":res.data.data[0].type,
-                        "status":"login"
+                        'profileImg': res.data.data[0].profileImg,
+                        'profileName': res.data.data[0].name,
                     })
                 )
             }
@@ -189,6 +180,13 @@ function Login() {
             }
         })
     }
+
+    // const responseFacebook = (response) => {
+    //     facebook()
+    //     console.log(response);
+    // }
+
+
     useEffect(() => {
         const initClient = () => {
             gapi.client.init({
@@ -201,12 +199,14 @@ function Login() {
 
 
     const responseFacebook = (response) => {
-        console.log(response);
-        facebook(response);
+        console.log(response, 'fb');
+        nav('/')
+        // console.log(window ,'fb')
     }
     const componentClicked = (data) => {
-        console.log(data);
-        console.log(window)
+        console.log(data, 'fb');
+
+        // console.log(window)
     }
 
     // window.FB.getLoginStatus(function (response) {
@@ -219,16 +219,21 @@ function Login() {
     //         console.log(response)
     //     });
     // }
+    const logoutfb = () => {
+        FacebookLoginClient.logout(() => {
+            console.log('logout completed!', 'fb');
+        });
+        // nav('/login')
 
+    }
     return (
+        <div className="form-body">
+            <button onClick={logoutfb}>Logout</button>
+            {/* <fb:login-button
+                scope="public_profile,email"
+                onlogin={checkLoginState}>
+            </fb:login-button> */}
 
-        <div className="form-body">    
-                  <FacebookLogin
-                appId="5079064385539704"
-                autoLoad={false}
-                fields="name,email,picture"
-                onClick={componentClicked}
-                callback={responseFacebook} />               
             <div className="row">
                 <div className="form-holder">
                     <div className="form-content">
@@ -315,7 +320,14 @@ function Login() {
                             </form>
                             <div className="other-links">
 
+                                <FacebookLogin
+                                    appId="5079064385539704"
+                                    autoLoad={false}
+                                    fields="name,email,picture"
+                                    onClick={componentClicked}
+                                    callback={responseFacebook} />
                                 <GoogleLogin
+                                    className="Google_btn"
                                     clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
                                     onSuccess={(response) => google(response)}
                                     onFailure={(response) => {
@@ -326,7 +338,6 @@ function Login() {
                                     cookiePolicy={"single_host_origin"}
                                     isSignedIn={true}
                                 />
-
                                 {/* <FacebookLogin
                                     appId='817702366092567'
                                     autoLoad={true}

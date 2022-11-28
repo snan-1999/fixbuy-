@@ -12,7 +12,10 @@ import styled from "styled-components";
 // import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import OtpPop from "../../form/form/Modals/OtpPop";
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const PC = () => {
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
@@ -125,8 +128,8 @@ const PC = () => {
                                                     formData.append('neighbourhood', neighbourhood)
                                                     formData.append('user_id', user_id)
                                                     formData.append('sellerType', sellerType)
-                                                    formData.append('longitude', "28.663996")
-                                                    formData.append('latitude', "77.306843")
+                                                    formData.append('latitude', latitude)
+                                                    formData.append('longitude', Longitude)
                                                     const api = `${baseUrl}/product/mobiles/form/create`;
                                                     await axios.post(api, formData, {
                                                         headers: {

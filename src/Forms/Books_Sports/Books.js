@@ -9,15 +9,17 @@ import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const Books = () => {
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;   
+    const Type = JSON.parse(IdData).type;
     console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
@@ -71,119 +73,119 @@ const Books = () => {
 
         if (title.trim().length > 0) {
             if (sellername.trim().length >= 0) {
-            if (description.trim().length > 0) {
-                if (price.trim().length > 0) {
-                    if ((img.length <= 20) && (img.length > 0)) {
-                        if (state.trim().length > 0) {
-                            if (city.trim().length > 0) {
-                                if (pincode.trim().length > 0) {
-                                if (neighbourhood.trim().length > 0) {
-                                if (sellerphone.trim().length > 0) {
-                                    setError(true)
-                                    setposted('success')
-                                    formData.append('sellername', sellername)
-                                    // formData.append('brand', brand)
-                                    formData.append('title', title)
-                                    formData.append('sellerphone', sellerphone)
-                                    formData.append('categories', category2)
-                                    formData.append('description', description)
-                                    formData.append('price', price)
-                                    let imageStatus = true
-                                    console.log(img);
-                                    img.forEach(imgs => {
-                                        // console.log(imgs.file.type)
-                                        if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                            console.log(imgs.file.type)
-                                            alert("File does not support .webp extension ");
-                                            imageStatus = false
-                                            return false;
-
-
-                                        }
-                                        formData.append("images", imgs.file)
-                                    });
-                                    // formData.append('images', img)
-                                    // if()
-                                    if (imageStatus) {
-
-                                        formData.append('state', state)
-                                        formData.append('city', city)
-                                        formData.append('pincode' , pincode)
-                                        formData.append('neighbourhood', neighbourhood)
-                                        formData.append('user_id', user_id)
-                                        formData.append('sellerType', sellerType)
-                                        formData.append('longitude' , "28.663996")
-                                    formData.append('latitude' , "77.306843")
-                                        const api = `${baseUrl}/product/booksAndSports/form/create`;
-                                        await axios.post(api, formData, {
-                                            headers: {
-                                                'Content-Type': 'multipart/form-data'
-                                            }
-                                        }).then((response) => {
-                                            if (response.data.status) {
-                                                console.log(response.data);
+                if (description.trim().length > 0) {
+                    if (price.trim().length > 0) {
+                        if ((img.length <= 20) && (img.length > 0)) {
+                            if (state.trim().length > 0) {
+                                if (city.trim().length > 0) {
+                                    if (pincode.trim().length > 0) {
+                                        if (neighbourhood.trim().length > 0) {
+                                            if (sellerphone.trim().length > 0) {
+                                                setError(true)
                                                 setposted('success')
-                                                // console.log(posted)
-                                                setMessage('Posted !');
+                                                formData.append('sellername', sellername)
+                                                // formData.append('brand', brand)
+                                                formData.append('title', title)
+                                                formData.append('sellerphone', sellerphone)
+                                                formData.append('categories', category2)
+                                                formData.append('description', description)
+                                                formData.append('price', price)
+                                                let imageStatus = true
+                                                console.log(img);
+                                                img.forEach(imgs => {
+                                                    // console.log(imgs.file.type)
+                                                    if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                        console.log(imgs.file.type)
+                                                        alert("File does not support .webp extension ");
+                                                        imageStatus = false
+                                                        return false;
+
+
+                                                    }
+                                                    formData.append("images", imgs.file)
+                                                });
+                                                // formData.append('images', img)
+                                                // if()
+                                                if (imageStatus) {
+
+                                                    formData.append('state', state)
+                                                    formData.append('city', city)
+                                                    formData.append('pincode', pincode)
+                                                    formData.append('neighbourhood', neighbourhood)
+                                                    formData.append('user_id', user_id)
+                                                    formData.append('sellerType', sellerType)
+                                                    formData.append('latitude', latitude)
+                                                    formData.append('longitude', Longitude)
+                                                    const api = `${baseUrl}/product/booksAndSports/form/create`;
+                                                    await axios.post(api, formData, {
+                                                        headers: {
+                                                            'Content-Type': 'multipart/form-data'
+                                                        }
+                                                    }).then((response) => {
+                                                        if (response.data.status) {
+                                                            console.log(response.data);
+                                                            setposted('success')
+                                                            // console.log(posted)
+                                                            setMessage('Posted !');
+                                                        } else {
+                                                            setposted('fail')
+                                                            console.log(false);
+                                                            // seterrors(false)
+                                                            setMessage('Please fill the details')
+                                                        }
+                                                    })
+                                                    // .catch(err => {
+                                                    //     console.log(err)
+                                                    // })
+
+                                                }
                                             } else {
                                                 setposted('fail')
-                                                console.log(false);
-                                                // seterrors(false)
-                                                setMessage('Please fill the details')
+                                                setError(false);
+                                                console.log("sellerphone error")
+                                                sellerphoneRef.current.style.borderColor = 'red';
                                             }
-                                        })
-                                        // .catch(err => {
-                                        //     console.log(err)
-                                        // })
-
+                                        } else {
+                                            setposted('fail')
+                                            setError(false);
+                                            console.log("landmark error")
+                                            neighbourhoodRef.current.style.borderColor = 'red';
+                                        }
+                                    } else {
+                                        setError(false);
+                                        console.log("pincode error")
+                                        pincodeRef.current.style.borderColor = 'red';
                                     }
                                 } else {
-                                    setposted('fail')
                                     setError(false);
-                                    console.log("sellerphone error")
-                                    sellerphoneRef.current.style.borderColor = 'red';
-                                }
-                                } else {
-                                    setposted('fail')
-                                    setError(false);
-                                    console.log("landmark error")
-                                    neighbourhoodRef.current.style.borderColor = 'red';
+                                    console.log("city error")
+                                    cityRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
-                                console.log("pincode error")
-                                pincodeRef.current.style.borderColor = 'red';
-                            }
-                            } else {
-                                setError(false);
-                                console.log("city error")
-                                cityRef.current.style.borderColor = 'red';
+                                console.log("state error")
+                                stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setError(false);
-                            console.log("state error")
-                            stateRef.current.style.borderColor = 'red';
+                            setError("Please provide atleast 1 image");
+                            console.log("image error")
+                            // descriptionRef.current.style.borderColor = 'red';
                         }
                     } else {
-                        setError("Please provide atleast 1 image");
-                        console.log("image error")
-                        // descriptionRef.current.style.borderColor = 'red';
+                        setError(false);
+                        console.log("price error")
+                        priceRef.current.style.borderColor = 'red';
                     }
                 } else {
                     setError(false);
-                    console.log("price error")
-                    priceRef.current.style.borderColor = 'red';
+                    console.log("description error")
+                    descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
-                console.log("description error")
-                descriptionRef.current.style.borderColor = 'red';
+                console.log("title error")
+                sellernameRef.current.style.borderColor = 'red';
             }
-        } else {
-            setError(false);
-            console.log("title error")
-            sellernameRef.current.style.borderColor = 'red';
-        }
         } else {
             setError(false);
             console.log("title error")
@@ -447,11 +449,11 @@ const Books = () => {
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
-                                ref={sellernameRef} 
-                                onChange={(e) => {
-                                    setSellerName(e.target.value)
-                                    sellernameRef.current.style.borderColor = "#ced4da";
-                                setError("")
+                                    ref={sellernameRef}
+                                    onChange={(e) => {
+                                        setSellerName(e.target.value)
+                                        sellernameRef.current.style.borderColor = "#ced4da";
+                                        setError("")
                                     }} />
                             </div>
 
@@ -464,13 +466,13 @@ const Books = () => {
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
                     <input type="text" name="number" className="form-control set-pd-input-post" required
-                    onChange={(e) => {
-                        setSellerPhone(e.target.value)
-                        sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                    value={sellerphone}
-                    ref={sellerphoneRef}
+                        onChange={(e) => {
+                            setSellerPhone(e.target.value)
+                            sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={sellerphone}
+                        ref={sellerphoneRef}
                     /><br />
 
                     <div className="post-pr">
