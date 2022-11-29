@@ -151,22 +151,22 @@ function Login() {
         })
     }
 
-    const facebook =  async(respon) => {
+    const facebook = async (respon) => {
 
-        console.log(respon,respon.name,respon.email,respon.picture.data.url,'response for facebook function is here ')
+        console.log(respon, respon.name, respon.email, respon.picture.data.url, 'response for facebook function is here ')
         console.log("response data.response", respon.name)
         console.log("response data.response", respon.email)
         console.log("response data.response", respon.picture.data.url)
-       
+
         await facebookAuth(JSON.stringify(respon)).then((res) => {
             console.log(respon, 'facebook response');
-            console.log(res,'response data for login page');
+            console.log(res, 'response data for login page');
             console.log(res.data.status)
             console.log(res.data.data[0].email)
             console.log(res.data.data[0].name)
             console.log(res.data.data[0].profileImg)
             if (res.data.status) {
-                
+
                 setEmail(res.data.data[0].email);
                 setName(res.data.data[0].name);
                 setProfileImg(res.data.data[0].profileImg);
@@ -177,9 +177,9 @@ function Login() {
                         'email': res.data.data[0].email,
                         'profileImg': res.data.data[0].name,
                         'profileName': res.data.data[0].profileImg,
-                        "token":res.data.data[0]._id,
-                        "type":res.data.data[0].type,
-                        "status":"login"
+                        "token": res.data.data[0]._id,
+                        "type": res.data.data[0].type,
+                        "status": "login"
                     })
                 )
             }
@@ -222,13 +222,8 @@ function Login() {
 
     return (
 
-        <div className="form-body">     
-                  <FacebookLogin
-                appId="2217693241739570"
-                autoLoad={false}
-                fields="name,email,picture"
-                onClick={componentClicked}
-                callback={responseFacebook} />               
+        <div className="form-body">
+
             <div className="row">
                 <div className="form-holder">
                     <div className="form-content">
@@ -325,8 +320,16 @@ function Login() {
 
                                     cookiePolicy={"single_host_origin"}
                                     isSignedIn={true}
+                                    className="GoogleBtn"
                                 />
-
+                                <FacebookLogin
+                                    appId="2217693241739570"
+                                    autoLoad={false}
+                                    fields="name,email,picture"
+                                    onClick={componentClicked}
+                                    callback={responseFacebook} 
+                                    icon="fa-facebook fbLogo"
+                                    />
                                 {/* <FacebookLogin
                                     appId='817702366092567'
                                     autoLoad={true}

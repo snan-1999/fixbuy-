@@ -209,3 +209,36 @@ button#dropdownMenuButton1 {
     transform: rotate(360deg);
   }
 }
+.mob-version{
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .mob-version{
+    display: block;
+  }
+  #mob_head{
+    margin: 50px 0px 130px 0px !important;
+  }
+  .container-heading-Automibile span {
+    font-size: 16px;
+    color: whitesmoke;
+    background: linear-gradient(var(--color1), var(--color2)) !important;
+    display: inline-block;
+    padding: 6px 4px 2px 12px;
+    text-transform: uppercase;
+}
+.container-heading-Automibile{
+  width: 360px;
+}
+  .container-heading-shop span {
+    font-size: 16px;
+    color: whitesmoke;
+    background: linear-gradient(var(--color1), var(--color2)) !important;
+    display: inline-block;
+    padding: 6px 4px 2px 12px;
+    text-transform: uppercase;
+}
+.container-heading-shop{
+  width: 280px;
+}
+}

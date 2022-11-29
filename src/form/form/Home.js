@@ -13,7 +13,7 @@ import "../form/header.css";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { baseUrl, ImageView } from "../../functions/constant";
 import axios from 'axios';
 import { HomeAllData, SearchHome } from "../../functions/HomeFun";
@@ -32,6 +32,9 @@ const Home = () => {
     const location = useGeoLocation();
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
+    const nav = useNavigate();
+    console.log(TokenData , 'token');
+    const profileName = JSON.parse(Token)
     const [automobile, setAutomobile] = useState([]);
     const [MoreData, setMoreData] = useState([]);
     const [TotalPagess, setTotalPagess] = useState('');
@@ -47,7 +50,7 @@ const Home = () => {
         setLoading(true)
         console.log(Loading)
         if (data.status) {
-            setAutomobile([...automobile, ...data.data]); 
+            setAutomobile([...automobile, ...data.data]);
             // setAutomobile(data.data);
             setLoading(false)
             setHomeData(data.data)
@@ -70,7 +73,39 @@ const Home = () => {
     //     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
     //     }
     // }
+    const sellLog = () => {
 
+        if (profileName === null) {
+
+            nav('/login')
+        } else {
+
+            nav('/sell')
+        }
+    }
+
+
+    const [isVisible, setIsVisible] = useState(true);
+    const [height, setHeight] = useState(0)
+
+    useEffect(() => {
+        window.addEventListener("scroll", listenToScroll);
+        return () =>
+            window.removeEventListener("scroll", listenToScroll);
+    }, [])
+
+    const listenToScroll = () => {
+        let heightToHideFrom = 1800;
+        const winScroll = document.body.scrollTop ||
+            document.documentElement.scrollTop;
+        setHeight(winScroll);
+
+        if (winScroll > heightToHideFrom) {
+            isVisible && setIsVisible(false);
+        } else {
+            setIsVisible(true);
+        }
+    };
     let Max_length = 27;
     useEffect(() => {
         latitude && homeDataAll()
@@ -209,7 +244,7 @@ const Home = () => {
                             (TotalPagess == PageNo) ?
                                 <></>
                                 :
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre}  disabled={TotalPagess == PageNo}>
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNo}>
                                     {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>}
@@ -223,6 +258,15 @@ const Home = () => {
 
 
             </div >
+            {
+                isVisible
+                &&
+                <div className="row p-0 m-0 d-flex justify-content-center mob-version ">
+                    <div className="col-12 mobileversion">
+                        <button className="btnSell" onClick={sellLog} > + SELL</button>
+                    </div>
+                </div>
+            }
             <Footer />
             {/* </div> */}
         </>

@@ -171,15 +171,15 @@ export default function SubProduct() {
             <Header />
             {/* <button onClick={SHare}>SHare</button> */}
 
-                    <div className="row m-0 p-0">
-                        <div className="for-center flex-row justify-content-center align-items-center">
+                    <div className="row m-0 p-0 overflow-hidden">
+                        <div className="for-center flex-row justify-content-center align-items-center" id='mob_head'>
 
-                            <div className="col-md-6">
+                            <div className="col-6">
                                 <div className="container-heading-Automibile">
                                     <span>CATEGORY PRODUCTS</span>
                                 </div>
                             </div>
-                            <div className="col-md-6 d-flex justify-content-center align-items-center">
+                            <div className="col-6 d-flex justify-content-center align-items-center">
                                 <div className=" pt-4">
                                     <div className="col-md-6 position-relative ">
                                         <div className="filter_bt  ">
@@ -223,7 +223,7 @@ export default function SubProduct() {
                             {
                                 AllData?.map((automobileProduct, key) => {
                                     return (
-                                        <div className="col-md-4 col-8 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
+                                        <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                             <CardHeight>
 
                                             <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
@@ -300,20 +300,29 @@ export default function SubProduct() {
                 padding: 0.3rem 1.2rem;
                 margin: 1rem;
                 `
-                const CardHeight = styled.div`
-                position: relative;
-                top: 0;
-/* @media (max-width: 768px) {
-                    display: none;
-  } */
-                height: 70vh ;
-                .ShopLogo{
-                    height: 7vh;
-                position: absolute;
-                top: 2%;
-                right: 7%;
-    }
-                `
+               const CardHeight = styled.div`
+               position: relative;
+               top: 0;
+               /* @media (max-width: 768px) {
+                   display: none;
+                 } */
+                   height: 70vh ;
+                   @media (max-width :600px){
+                       height: auto ;
+                   }
+                   .ShopLogo{
+                       height: 7vh;
+                       position: absolute;
+                       top: 2%;
+                       right: 7%;
+                       @media (max-width :600px){
+                           height: 4vh;
+                           position: absolute;
+                           top: 2%;
+                           right: 10%;
+                       }
+                   }
+               `
                 const Ribbon = styled.div`
                 /* margin-left: -10px; */
                 font:  10px sans-serif;

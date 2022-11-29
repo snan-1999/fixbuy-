@@ -59,14 +59,14 @@ export default function Shop() {
 
 
                 <div className="row m-0 p-0 ">
-                    <div className="for-center flex-row justify-content-center align-items-center">
+                    <div className="for-center flex-row justify-content-center align-items-center" id='mob_head'>
 
-                        <div className="col-md-6 border-1">
+                        <div className="col-6 border-1">
                             <div className="container-heading-shop">
                                 <span>SHOP PRODUCTS</span>
                             </div>
                         </div>
-                        <div className="col-md-6 position-relative ">
+                        <div className="col-6 position-relative ">
                             <div className="filter_bt  ">
                                 <div className="dropdown setDrop">
                                     <button className="btn btn-secondary dropdown-toggle shadow-none btn-outline-success" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,7 +94,7 @@ export default function Shop() {
                         {
                             AllData?.map((automobileProduct, key) => {
                                 return (
-                                    <div className="col-md-4 col-8 col-lg-3">
+                                    <div className="col-md-4 col-6 col-lg-3">
                                         <CardHeight>
 
                                             <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
@@ -161,11 +161,20 @@ top: 0;
     display: none;
   } */
     height: 70vh ;
+    @media (max-width :600px){
+        height: auto ;
+    }
     .ShopLogo{
         height: 7vh;
         position: absolute;
         top: 2%;
         right: 7%;
+        @media (max-width :600px){
+            height: 4vh;
+            position: absolute;
+            top: 2%;
+            right: 10%;
+        }
     }
 `
 

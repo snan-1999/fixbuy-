@@ -1,65 +1,66 @@
 import React from 'react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+
+    ModalCloseButton,
+    useDisclosure,
+    Button,
+    FormControl,
+    FormLabel,
+
+    Label,
+    useColorMode,
+    RadioGroup,
+    Radio,
+    Stack
+} from "@chakra-ui/react";
 import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImCross } from 'react-icons/im'
 import { useState } from 'react';
-export default function ReportModal({ Onclose, OnOpen, setisOpen, isOpen, Type, Reportapi, setreason, reason }) {
+import { Link, useLocation, useNavigate } from "react-router-dom";
+export default function AllCategoryModal({ Onclose, OnOpen, setisOpen, isOpen, Type, Reportapi, setreason, reason, categories }) {
+
+
     return (
         <>
             <AnimatePresence>
-
-
 
                 <>
 
                     <Containermodel isOpen={isOpen}  >
                         <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                             <Modalheader>
-                                <Headingsetting>Report</Headingsetting>
+                                <Headingsetting>Category</Headingsetting>
                                 <ImCross onClick={Onclose} style={{ cursor: 'pointer', color: 'black' }} />
                             </Modalheader>
-                            <hr style={{ margin: '0rem 0.5rem  0 0.5rem' }} />
+                            {/* <hr style={{ margin: '0rem -1.5rem 0px' }} /> */}
                             <Modalbody>
 
                                 <MyModal>
 
-                                    <div class="form-check">
-                                        <input class="MyInput form-check-input" type="radio" id="flexRadioDefault1"  onChange={(e) => setreason(e.target.value)} name='reason' value='Offensive Content' />
-                                        <label class="MyLabel form-check-label" for="flexRadioDefault1"
-                                            style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
-                                            Offensive Content
-                                        </label>
-                                    </div>
+                                    <div>
 
+                                        <ul class="list-group ">
+                                            {
+                                                categories?.map((value, key) => {
+                                                    return (
+                                                        <Link to={value.to} style={{ textDecoration: "none" }}>
+                                                            <li class="list-group-item row text-center" style={{width: '100%'}}>{value.name}</li>
+                                                        </Link>
+                                                    )
+                                                })
 
-                                    <div class="form-check">
-                                        <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2" onChange={(e) => setreason(e.target.value)} name='reason' value='Fraud' />
-                                        <label class="MyLabel form-check-label" for="flexRadioDefault2"
-                                            style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
-                                            Fraud
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2"  onChange={(e) => setreason(e.target.value)} name='reason' value='Duplicate Ad' />
-                                        <label class="MyLabel form-check-label" for="flexRadioDefault2" style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
-                                            Duplicate Ad
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2"  onChange={(e) => setreason(e.target.value)} name='reason' value='Product Already Sold' />
-                                        <label class="MyLabel form-check-label" for="flexRadioDefault2" style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
-                                            Product Already Sold
-                                        </label>
+                                            }
+                                        </ul>
                                     </div>
 
                                 </MyModal>
 
-                                <ModelFooter>
-                                    <ApplyBtn onClick={Onclose}>Cancel</ApplyBtn>
-                                    {
-                                        <ApplyBtn1 onClick={Reportapi} disabled={reason === ''}>Submit</ApplyBtn1>
-                                    }
-                                </ModelFooter>
                             </Modalbody>
                         </Modelcontent>
                     </Containermodel>
@@ -80,12 +81,16 @@ font-family: 'Lato', sans-serif;
     z-index: 20;
     top:0;
 
+    @media screen and (max-width : 600px) {
+        height :100vh
+    }
+
     `
 const Nandita = styled.button`
 `
 const Modelcontent = styled(motion.div)`
 background: white;
-box-shadow: 0 1px 5px 5px rgb(235 234 234);
+
     /* width: 32rem;
     height: 28rem; */
     border-radius: 1rem;
@@ -98,6 +103,7 @@ margin-left: 15%;
 @media screen and (max-width: 600px){
     margin-left: 25%;
     padding: 1rem 2rem;
+    overflow: hidden;
 }
 
 `
@@ -137,7 +143,7 @@ const Headingsetting = styled.h2`
 `
 const Modalbody = styled.div`
     margin-top: 23px;
-    width: 55vw;
+    width: 60vw;
 
 
     

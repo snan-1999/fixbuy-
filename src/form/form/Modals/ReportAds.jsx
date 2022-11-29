@@ -3,97 +3,36 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImCross } from 'react-icons/im'
 import { useState } from 'react';
-
-// import OTPInput, { ResendOTP } from "otp-input-react";
-import axios from 'axios'
-import { baseUrl } from '../../../functions/constant';
-export default function ProfileNumner({OtpCondition, setOtpCondition, otp, setOtp, setModalSellerPhone, id, phone, name, Onclose, OnOpen, setisOpen, setPhone, isOpen, Type, Reportapi, setreason, reason }) {
-    const OtpUpdate = async () => {
-        setisOpen(false)
-        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
-        await axios.post(api, {
-            user_id: id,
-            phone: phone,
-            name: name,
-            otp: otp
-        }).then((res) => {
-            if (res.data) {
-                setModalSellerPhone(phone)
-                // setMessage(res.message);
-                console.log(res.data, 'Otp');
-
-            }
-            else {
-                // setotpError('invalid otp')
-
-            }
-        })
-    }
-    const getOtp = async () => {
-        console.log(phone, 'Otp')
-        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
-        // console.log("function started");
-        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
-        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
-        await axios.post(api, {
-            "phone": phone
-        }).then((res) => {
-            if (res.data) {
-                setOtpCondition(true)
-                // Otpverify()
-                // setverify(true);
-                setOtp(res.data.otp)
-                // console.log(verify, 'var')
-                console.log(res.data, 'Otp');
-            }
-            // }
-        })
-        // } else {
-        // setError('Invalid Phone Number');
-        // }
-
-
-    }
-    let OtpField
-    OtpField = document.getElementById('OTp')
-    const OtpLenght = () => {
-       
-        // setOtpCondition(OtpField.value.length)
-        console.log(OtpField , 'length')
-    }
-
+export default function ReportAds({ ReportApi, Onclose, OnOpen, setisOpen, isOpen, Type, Reportapi, setReason, reason }) {
     return (
         <>
-
             {
                 isOpen &&
                 <AnimatePresence>
+
+
+
                     <>
+
                         <Containermodel isOpen={isOpen}  >
                             <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                                 <Modalheader>
-                                    <Headingsetting>Add Number</Headingsetting>
+                                    <Headingsetting>Report</Headingsetting>
                                     <ImCross onClick={Onclose} style={{ cursor: 'pointer', color: 'black' }} />
                                 </Modalheader>
                                 <hr style={{ margin: '0rem 0.5rem  0 0.5rem' }} />
                                 <Modalbody>
 
                                     <MyModal>
-                                        <input type="text" placeholder='Your Mobile Number' className='form-control shadow-none'
-                                            onChange={(e) => {
-                                                setPhone(e.target.value)
-                                            }} />
-                                        <br />
-                                        {
-                                            otp && <input type="text" placeholder='Enter Number' className='form-control shadow-none' onChange={OtpLenght} id='OTp' />
-                                        }
+                                        <textarea name="" id="" className='form-control' cols="30" rows="3" onChange={(e) => setReason(e.target.value)} />
+
                                     </MyModal>
 
                                     <ModelFooter>
                                         <ApplyBtn onClick={Onclose}>Cancel</ApplyBtn>
-                                        {
-                                            (!OtpCondition) ?<ApplyBtn1 onClick={getOtp} >Generate OTP</ApplyBtn1> : <ApplyBtn1 onClick={OtpUpdate} >Verify</ApplyBtn1>
-                                        }
+
+                                        <ApplyBtn1 onClick={ReportApi}>Submit</ApplyBtn1>
+
                                     </ModelFooter>
                                 </Modalbody>
                             </Modelcontent>
@@ -116,40 +55,30 @@ font-family: 'Lato', sans-serif;
     z-index: 20;
     top:0;
     left: 50%;
-    transform: translate(-72%);
+    transform: translate(-50%);
+width: 60%;
     `
+const Nandita = styled.button`
+`
 const Modelcontent = styled(motion.div)`
 background: white;
 box-shadow: 0 1px 5px 5px rgb(235 234 234);
-    /* /* width: 32rem; */
-    /* height: 20rem; */
+    /* width: 32rem;
+    height: 28rem; */
     border-radius: 1rem;
     z-index: 25;
     -webkit-transition: all 150ms ease;
-    transition: all 150ms ease;
-    width:25vw;
-    margin-left: 15%;
+transition: all 150ms ease;
+
 @media screen and (max-width: 600px){
     margin-left: 25%;
     padding: 1rem 2rem;
 }
+
 `
 const MyModal = styled.div`
-input{
-    padding: 10px;
-}
- input::placeholder{
-    color : #80808099;
-    font-size: .8rem;
-    padding-left: 10px;
-}
-.OTP{
-    padding: 10px 0;
-}
-.OTP input{
-    padding: 15px 18px;
-}
-margin: 8% 5% 0%;
+     /* margin: 5%; */
+     padding: 10px;
      @media screen and (max-width: 600px) {
         margin-left:-8%;
      }
@@ -179,12 +108,17 @@ const Modalheader = styled.div`
     
     `
 const Headingsetting = styled.h2`
-        font-size : 1.3rem;
+       
         font-weight: 600;
 `
 const Modalbody = styled.div`
-    margin-top: 23px; 
+    margin-top: 23px;
+    width: auto;
+
+
+    
 `
+
 const Input = styled.input`
    height: 4vh;
    margin-bottom: 1rem;
@@ -209,12 +143,14 @@ const ModelFooter = styled.div`
     display: flex;
         align-items: center;
         margin-top: 1rem;
-        justify-content: space-around;
         /* margin-left: 20%; */
+        justify-content: space-around;
         gap:5%;
         margin-bottom: 3%;
+
         @media screen and (max-width : 600px){
             align-items: center;
+        margin-top: 1rem;
         margin-left: -8%;
         }
 `
@@ -222,12 +158,12 @@ const ApplyBtn = styled.button`
     all: unset;
     background: grey ;
     color: white;
-    padding: 8px 12px;
-    font-size: .9rem;
-    border-radius: .4rem;
-    /* width: 20%; */
+    padding: 10px 20px;
+    border-radius: 50rem;
+    /* width: 10%; */
     text-align: center;
     cursor: pointer;
+
     
     &:hover{
         transition: all 500ms ease ;
@@ -235,6 +171,7 @@ const ApplyBtn = styled.button`
         /* box-shadow: 0px 1px 10px #ffffff2b; */
         
     }
+
     @media screen and (max-width: 600px) {
         all: unset;
     background: grey ;
@@ -259,9 +196,9 @@ const ApplyBtn1 = styled.button`
     all: unset;
     background:linear-gradient( ${props => props.theme.colors.primary} ,${props => props.theme.colors.secondary} ) ;;
     color: white;
-    padding: 8px 12px;
-    font-size: .9rem;
-    border-radius: .4rem;
+    padding: 10px 16px;
+    border-radius: 50rem;
+    /* width: 10%; */
     text-align: center;
     cursor: pointer;
     
@@ -272,3 +209,4 @@ const ApplyBtn1 = styled.button`
         
     }
 `
+// const FormControl styled

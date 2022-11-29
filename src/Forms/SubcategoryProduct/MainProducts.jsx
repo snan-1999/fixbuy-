@@ -14,13 +14,13 @@ import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { MdLocationOn } from 'react-icons/md';
 import { baseUrl } from '../../functions/constant';
-import axios from 'axios' 
+import axios from 'axios'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import useGeoLocation from '../../hooks/useGeoLoaction';
 export default function MainProducts() {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
     const Loacation = useGeoLocation()
-    console.log(Loacation , 'latitudes')
+    console.log(Loacation, 'latitudes')
     const Max_length = 26;
     const [AllData, setAllData] = useState([]);
     const [Loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ export default function MainProducts() {
     const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase()
     const GetSubCatogery = subcategory.replace(/ /g, "_").toLowerCase()
     // filter one time
-    console.log(latitude , 'latituds')
+    console.log(latitude, 'latituds')
     const MainCategoryDataFIlter = async () => {
         setAllData([])
         console.log(filters, 'filter')
@@ -158,20 +158,20 @@ export default function MainProducts() {
         setPageNO(1)
         MainData()
         console.log('run')
-    }, [0, maincategory ,latitude])
+    }, [0, maincategory, latitude])
 
     return (
         <>
             <Header />
-            <div className="row m-0 p-0">
-                <div className="for-center flex-row justify-content-center align-items-center">
+            <div className="row m-0 p-0 overflow-hidden">
+                <div className="for-center flex-row justify-content-center align-items-center" id='mob_head'>
 
-                    <div className="col-md-6">
+                    <div className="col-6">
                         <div className="container-heading-Automibile">
                             <span>CATEGORY PRODUCTS</span>
                         </div>
                     </div>
-                    <div className="col-md-6 d-flex justify-content-center align-items-center">
+                    <div className="col-6 d-flex justify-content-center align-items-center">
                         <div className=" pt-4">
                             <div className="col-md-6 position-relative ">
                                 <div className="filter_bt  ">
@@ -215,56 +215,56 @@ export default function MainProducts() {
                         //     if (value.price == )
                         // })
                         AllData?.map((automobileProduct, key) => {
-                                return (
-                                    <div className="col-md-4 col-8 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
-                                        <CardHeight>
+                            return (
+                                <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
+                                    <CardHeight>
 
                                         <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
-                                                <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
-                                                    {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
-                                                    {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                    <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
-                                                    <div className="pdt-details">
-                                                        <div className="row d-flex align-items-center">
-                                                            <div className="col-md-6 col-8 ">
-                                                                <div className="price">₹ {automobileProduct.price}</div>
-                                                            </div>
-                                                            <div className="col-md-6 col-4 setHeart">
-                                                                {
-                                                                    (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
-
-                                                                }
-                                                            </div>
+                                            <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
+                                                {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
+                                                {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
+                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="pdt-details">
+                                                    <div className="row d-flex align-items-center">
+                                                        <div className="col-md-6 col-8 ">
+                                                            <div className="price">₹ {automobileProduct.price}</div>
                                                         </div>
-                                                        {
-                                                            (automobileProduct.title).length > Max_length ?
-                                                                <div className="prd-name">
-                                                                    {`${automobileProduct.title.substring(0, Max_length)}...`}
-                                                                </div>
-                                                                :
-                                                                <div className="prd-name text-capitalize">{automobileProduct.title}</div>
-                                                        }
-                                                        <div className="contain-adrs">
-                                                            <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
-                                                            <span className="year"></span>
-                                                        </div>
-                                                        <div className="row p-0 m-0">
-                                                            <div className="col p-0">
-                                                                {/* <div className="buy-bt">
-                                                                <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
-                                                            </div> */}
-                                                            </div>
+                                                        <div className="col-md-6 col-4 setHeart">
+                                                            {
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
 
+                                                            }
                                                         </div>
                                                     </div>
+                                                    {
+                                                        (automobileProduct.title).length > Max_length ?
+                                                            <div className="prd-name">
+                                                                {`${automobileProduct.title.substring(0, Max_length)}...`}
+                                                            </div>
+                                                            :
+                                                            <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                    }
+                                                    <div className="contain-adrs">
+                                                        <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                        <span className="year"></span>
+                                                    </div>
+                                                    <div className="row p-0 m-0">
+                                                        <div className="col p-0">
+                                                            {/* <div className="buy-bt">
+                                                                <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
+                                                            </div> */}
+                                                        </div>
 
+                                                    </div>
                                                 </div>
-                                            </Link>
-                                        </CardHeight>
-                                    </div>
-                                )
 
-                            })
+                                            </div>
+                                        </Link>
+                                    </CardHeight>
+                                </div>
+                            )
+
+                        })
                     }
                     <div className="row m-0 p-0">
 
@@ -303,11 +303,20 @@ top: 0;
     display: none;
   } */
     height: 70vh ;
+    @media (max-width :600px){
+        height: auto ;
+    }
     .ShopLogo{
         height: 7vh;
         position: absolute;
         top: 2%;
         right: 7%;
+        @media (max-width :600px){
+            height: 4vh;
+            position: absolute;
+            top: 2%;
+            right: 10%;
+        }
     }
 `
 const Ribbon = styled.div`

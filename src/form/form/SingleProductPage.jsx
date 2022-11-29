@@ -37,6 +37,7 @@ import { TiLocation } from 'react-icons/ti'
 import ShareProuctsModal from './Modals/ShareProduct';
 import { TbMessageReport } from 'react-icons/tb';
 import { MdReport } from 'react-icons/md';
+import ReportAds from './Modals/ReportAds';
 export default function SingleProductPage(props) {
     const { id } = useParams()
     const [isOpen, setisOpen] = useState(false)
@@ -55,12 +56,18 @@ export default function SingleProductPage(props) {
     // console.log(HomeData, 'homeData')
     // const { data, isFetching } = SingleProduct(productid)
 
-    const [TokenID, setTokenID] = useState(JSON.parse(Token)?.token)
+    const [TokenID, setTokenID] = useState({
+        'ID': JSON.parse(Token)?.token,
+        'Name': JSON.parse(Token)?.name,
+        'Email': JSON.parse(Token)?.email,
+        'Phone': JSON.parse(Token)?.phone,
+
+    })
     // const [Data, setData] = useState(location.state.automobileProduct)
     // const [UseData, setUseData] = useState(location.state)
     const [AllData, setAllData] = useState([])
 
-    const [HeartShow, setHeartShow] = useState('')
+    const [Reason, setReason] = useState('')
     // console.log(typeof [Data], Data, "allDataSIngle");
     // console.log(UseData, 'homeData')
     // const toast = useToast()
@@ -75,7 +82,7 @@ export default function SingleProductPage(props) {
             if (UserId == undefined || UserId == null) {
                 api = `${baseUrl}/product/getSingle/${id}`
             } else {
-                api = `${baseUrl}/product/getSingle/${id}?user_id=634123e8832860cfb6788fde`
+                api = `${baseUrl}/product/getSingle/${id}?user_id=${TokenID.ID}`
             }
             const { data } = await axios.get(api);
 
@@ -148,7 +155,40 @@ export default function SingleProductPage(props) {
         }
         console.log(data, 'homeData')
     }
-   
+    const SnedReportData = {
+
+        "user_id": TokenID.ID,
+        "name": TokenID?.Name,
+        "email": TokenID?.Email,
+        "phone": TokenID?.Phone,
+        "reason": Reason,
+        "ad_id": id,
+        "title": AllData?.title,
+        "description": AllData?.description,
+        "price": AllData?.price,
+        "category": AllData?.categories
+
+    }
+    const ReportApi = async () => {
+        console.log(SnedReportData, 'Report Data')
+        // console.log(AllData, 'Report Data')
+        const api = `${baseUrl}/users/report/ads`
+        const { data } = await axios.post(api, SnedReportData)
+        console.log(data, 'Report Data')
+        if (data.status) {
+            setisOpen(false)
+            toast(data.message, {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                type: 'success'
+            });
+        }
+    }
     // seller Profile details api 
     const sellerDetails = async (usrId) => {
         const api = (`${baseUrl}/users/getprofile/${usrId}`);
@@ -175,7 +215,7 @@ export default function SingleProductPage(props) {
         // sellerDetails()
     }, [0])
     let ShareLinkParam = window.location.href
-    
+
     console.log(window.location.href, 'copy')
     let Max_length = 60;
     // useEffect(() => {
@@ -193,7 +233,16 @@ export default function SingleProductPage(props) {
         <>
             <Header />
             <ToastContainer />
-            <ShareProuctsModal isOpen={isOpen} setisOpen={setisOpen} Onclose={Onclose} OnOpen={OnOpen} ShareLinkParam={ShareLinkParam} />
+            <ReportAds {
+                ...{
+                    ReportApi,
+                    isOpen,
+                    setisOpen,
+                    Onclose,
+                    OnOpen,
+                    setReason
+                }
+            } />
 
             <div className="main ">
                 <div className="row m-0 p-0">
@@ -242,11 +291,14 @@ export default function SingleProductPage(props) {
                                     </div>
                                 </div>
                                 <div className="col-md-4">
-                                    <div className="ReportAds d-flex align-items-center justify-content-end">
+                                    <div className="ReportAds d-flex align-items-center justify-content-end" >
                                         <MdReport className='fs-4' />
-                                        <div className='ms-1' >Report</div>
+                                        <div className='ms-1' onClick={OnOpen}>Report</div>
                                     </div>
+
                                 </div>
+                            </div>
+                            <div className="reasondiv">
                             </div>
                         </ImageSetion>
 
@@ -308,7 +360,7 @@ export default function SingleProductPage(props) {
                                 }
                             </div>
                             <div className="Btns d-flex justify-content-between">
-                               
+
                                 {/* <Link to=   '/sellerProfile' state={AllData?.user_id}><button className='sellerButton '>Report Ads</button></Link> */}
                             </div>
                         </DetailsData>

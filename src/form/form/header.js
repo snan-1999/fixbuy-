@@ -19,6 +19,7 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import { useContext } from "react";
 import { SearchHome } from "../../functions/HomeFun";
 import { FaHeart } from "react-icons/fa";
+import { BiSearchAlt } from "react-icons/bi";
 
 
 const Header = () => {
@@ -61,7 +62,12 @@ const Header = () => {
             nav('/sell')
         }
     }
-
+    const profilefunction = () => {
+        if (profileName === null) {
+            nav('/login')
+        }
+        
+    }
     const [Upstate, setUpstate] = useState(0)
 
     let id;
@@ -149,7 +155,7 @@ const Header = () => {
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
-           
+
             <nav className="navbar navbar-expand-lg headerr">
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,8 +163,8 @@ const Header = () => {
                         <i className="fas fa-bars"></i>
                     </button>
                     <div className="logo">
-                        <a className="navbar-brand" href="">
-                            <img src={logo} alt="logo" /></a>
+                        <Link to="/" className="navbar-brand" >
+                            <img src={logo} alt="logo" /></Link>
                     </div>
 
 
@@ -237,7 +243,7 @@ const Header = () => {
                                             <Link to="/blogs" className="nav-link">BLOGS</Link>
                                         </li>
                                         <li className="nav-item aa mob-login">
-                                            <Link to="/profile" className="nav-link">PROFILE</Link>
+                                            <Link to="/profile" className="nav-link" onClick={profilefunction}>PROFILE</Link>
                                         </li>
                                         {
                                             (Type == "user" || Type == "shop") &&
@@ -249,13 +255,13 @@ const Header = () => {
                                             </li>
                                         }
                                         <li className="nav-item aa mob-login">
-                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                            <Link to="/posteditems" className="nav-link" onClick={profilefunction}>MY ADS</Link>
                                         </li>
                                         <li className="nav-item aa mob-login">
-                                            <Link to="/packages" className="nav-link">PACKAGES</Link>
+                                            <Link to="/packages" className="nav-link" onClick={profilefunction}>PACKAGES</Link>
                                         </li>
                                         <li className="nav-item aa mob-login">
-                                            <Link to='/login' className='nav-link'>LOGOUT</Link>
+                                            <Link to='/login' className='nav-link'>{!LocalData ? 'LOGIN' : <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div>}</Link>
                                         </li>
 
                                     </ul>
@@ -270,15 +276,15 @@ const Header = () => {
             <div className="mob-version search-box col-12">
                 <form className="form-inline my-2 my-lg-0" action="search-result.php" method="get">
                     <div className="mob-search">
-                        <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" aria-label="Search" />
-                        <i className="fa-solid fa-magnifying-glass search-iconm"></i>
+                        <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
+                        <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
                     </div>
                 </form>
-                <div className="row p-0 m-0 mob-version">
+                {/* <div className="row p-0 m-0 mob-version">
                     <div className="col-12 mobileversion">
                         <button className="btnSell" onClick={sellLog}> + SELL</button>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             {/* <!-- category --> */}

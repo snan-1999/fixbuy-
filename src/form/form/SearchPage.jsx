@@ -13,16 +13,32 @@ import { MdLocationOn } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 function SearchPage() {
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, SearchBar } = useContext(GlobalVariables)
+    const {latitude, Longitude } = useContext(GlobalVariables)
     const searchData = useLocation()
     const [TotalPagess, setTotalPagess] = useState('');
     const [AllData, setAllData] = useState([])
+    const [PageNO, setPageNO] = useState(1)
     const [Loading, setLoading] = useState(false)
-    console.log(searchData, 'dataSearch')
-    const check = async () => {
-        const { data } = await SearchHome(Longitude, latitude, searchData.state, Lmore)
+    const [searchWord, setsearchWord] = useState(null)
+  
+    console.log(searchData.state, 'dataSearch')
+    const OneTImeData = async () => {
+        const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
         console.log(data, 'hello')
-        setLoading(true)
+        setLoading(true, 'dataSearch')
+
+        if (data.status) {
+            setLoading(false)
+            setTotalPagess(data.totalPages);
+            setAllData(data.data);
+            console.log(AllData, 'hello1')
+        }
+    }
+    const LoadDataFun = async () => {
+        const { data } = await SearchHome(Longitude, latitude, searchData.state, setPageNO)
+        console.log(data, 'hello')
+        setLoading(true, 'dataSearch')
+
         if (data.status) {
             setLoading(false)
             setTotalPagess(data.totalPages);
@@ -31,12 +47,21 @@ function SearchPage() {
         }
     }
     const LoadMOre = () => {
-        setLmore(Lmore + 1)
+        setPageNO(setPageNO + 1)
         setLoading(true)
     }
     useEffect(() => {
-        check()
-    }, [searchData.state, Lmore])
+        setsearchWord(searchData.state)
+        // check()
+        OneTImeData()
+        if (searchWord == searchData.state) {
+            LoadDataFun()
+            console.log(true , 'dataSearch')
+        // } else {
+           
+        //     console.log(false, 'dataSearch')
+        }
+    }, [searchData.state, setPageNO])
     let Max_length = 26;
     return (
         <>
@@ -65,8 +90,8 @@ function SearchPage() {
                             return (
                                 <div className="col-md-4 col-8 col-lg-3">
                                     <CardHeight>
-                                    
-                                    <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
+
+                                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
                                             <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
@@ -113,7 +138,7 @@ function SearchPage() {
 
                         })
                     }
-                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
+                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == setPageNO}>
                         {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
                             <span className="visually-hidden">Loading...</span>
                         </div>}
