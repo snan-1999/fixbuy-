@@ -232,7 +232,7 @@ function Login() {
                                 <Link to="/">
                                     <div className="logo">
                                         <img className="logo-size" src="images/logo-light.svg" alt="" />
-                                        <h1 className="fw-bold text-white">Welcome to FixeBuy</h1>
+                                        <h1 className="fw-bold text-white">Welcome to<br/> FixeBuy</h1>
                                     </div>
                                 </Link>
                             </div>

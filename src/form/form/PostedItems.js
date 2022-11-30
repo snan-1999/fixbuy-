@@ -17,7 +17,7 @@ const PostedItems = () => {
   const MAX_LENGTH = 25;
   const IdData = window.localStorage.getItem('token')
   let ProfleId;
-  if (ProfleId) {
+  if (IdData) {
     ProfleId = JSON.parse(IdData).token;
   }
   console.log(ProfleId , 'TokenData')
@@ -61,8 +61,8 @@ const PostedItems = () => {
   }
 
   useEffect(() => {
-    if(ProfleId == null || ProfleId == undefined){
-      console.log('yes' , 'tokenData')
+    if(IdData == null || IdData == undefined){
+      // console.log('yes' , 'tokenData')
       navigate('/login')
     }
     Myads();

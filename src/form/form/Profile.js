@@ -23,7 +23,7 @@ const Profile = () => {
     let PhoneNumber;
     let Type;
     if(IdData){
-        console.log('hai')
+        // console.log('hai')
         ProfleId = JSON.parse(IdData).token;
         PhoneNumber = JSON.parse(IdData).phone;
         Type = JSON.parse(IdData)?.type;
