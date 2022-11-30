@@ -15,13 +15,25 @@ import ProfileNumber from "./Modals/ProfileNumber";
 
 
 const Profile = () => {
+    const nav = useNavigate();
     // const {type} = useContext(GlobalVariables);
     // console.log(type , 'check')
     const IdData = localStorage.getItem('token');
-    const Type = JSON.parse(IdData).type;
-    console.log(JSON.parse(IdData).type);
-    let ProfleId = JSON.parse(IdData).token;
-    let PhoneNumber = JSON.parse(IdData).phone;
+    let ProfleId;
+    let PhoneNumber;
+    let Type;
+    if(IdData){
+        console.log('hai')
+        ProfleId = JSON.parse(IdData).token;
+        PhoneNumber = JSON.parse(IdData).phone;
+        Type = JSON.parse(IdData)?.type;
+    }else{
+        console.log('nahi hai')
+        nav('/')
+    }
+    
+    // console.log(JSON.parse(IdData) , 'tokenData');
+  
     console.log(PhoneNumber);
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
@@ -54,7 +66,7 @@ const Profile = () => {
     const OnOpen = () => setisOpen(true)
 
 
-    const nav = useNavigate();
+  
 
 
 
@@ -165,12 +177,10 @@ const Profile = () => {
 
     useEffect(() => {
         console.log(new Date(dob).toDateString())
-        console.log(dob)
-        // console.log(handleProfileData);
+        if(IdData == null || IdData == undefined){
+          nav('/login')
+        }
         handleProfileData();
-        // date();
-        // console.log(data);
-        // UpadateUser()
     }, [0])
     useEffect(() => {
         console.log(profileImg2, "profileData");

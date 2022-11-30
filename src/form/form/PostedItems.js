@@ -16,11 +16,15 @@ import axios from 'axios';
 const PostedItems = () => {
   const MAX_LENGTH = 25;
   const IdData = window.localStorage.getItem('token')
-  let ProfleId = JSON.parse(IdData).token;
+  let ProfleId;
+  if (ProfleId) {
+    ProfleId = JSON.parse(IdData).token;
+  }
+  console.log(ProfleId , 'TokenData')
   const [automobile, setAutomobile] = useState([]);
   const [Upstate, setUpstate] = useState(0);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const Myads = async () => {
     const api = (`${baseUrl}/users/listed/items/${ProfleId}`);
@@ -34,8 +38,8 @@ const navigate = useNavigate();
       //   date = date.split('T')[0]
       // }
 
-      console.warn(res.data.data, "response data warning by ajay");
-      console.warn(res.data.data[0]._id,"user id is here ")
+      // console.warn(res.data.data, "response data warning by ajay");
+      // console.warn(res.data.data[0]._id,"user id is here ")
       if (res.data) {
         setAutomobile(res.data.data);
         // setAutomobile(date);
@@ -45,7 +49,7 @@ const navigate = useNavigate();
     })
   }
 
-  
+
   const deleteUser = async (idDelete) => {
     console.log(idDelete);
     const api = (`${baseUrl}/product/delete/${idDelete}`);
@@ -57,9 +61,13 @@ const navigate = useNavigate();
   }
 
   useEffect(() => {
+    if(ProfleId == null || ProfleId == undefined){
+      console.log('yes' , 'tokenData')
+      navigate('/login')
+    }
     Myads();
 
-  }, [0 , Upstate])
+  }, [0, Upstate])
 
   return (
     <>
@@ -81,7 +89,7 @@ const navigate = useNavigate();
               automobile.map((automobileProduct, key) => {
                 return (
                   <div className="col-md-4 col-6 col-lg-3">
-                      {/* <div className="mob-cardWidth"> */}
+                    {/* <div className="mob-cardWidth"> */}
                     <Link to='' state={automobileProduct} className="text-decor">
                       <div className="shadow p-2 mb-4 bg-white maindiv-ads">
                         <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
@@ -103,32 +111,32 @@ const navigate = useNavigate();
                           </div>
                           {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
                           {
-                                          (automobileProduct.title).length > MAX_LENGTH ?
-                          <div className="prd-name">
-                          {`${automobileProduct.title.substring(0 , MAX_LENGTH)}...`}
-                          </div>
-                          :
-                          <div className="prd-name">{automobileProduct.title}</div>
-                                            
-                        }
+                            (automobileProduct.title).length > MAX_LENGTH ?
+                              <div className="prd-name">
+                                {`${automobileProduct.title.substring(0, MAX_LENGTH)}...`}
+                              </div>
+                              :
+                              <div className="prd-name">{automobileProduct.title}</div>
+
+                          }
                           <div className="contain-adrs">
                             <span className="adrs">{automobileProduct.location.state}</span>
                             <span className="year"></span>
                           </div>
                           <div className="row p-0 m-0">
                             <div className="col p-0">
-                              <div className="d-flex" style={{justifyContent : "space-between"}}>
+                              <div className="d-flex" style={{ justifyContent: "space-between" }}>
                                 <div className="buy-bt">
                                   <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
 
-                                 { console.log(automobileProduct.categories)}
+                                  {console.log(automobileProduct.categories)}
                                   {/* <span onClick={()=>handleClickSpan()} className="buy-bttn">Boost Now</span> */}
                                 </div>
                                 {/* <div className="edit" style={{ marginTop: '5%' }} >
                                   <span className="ed"><FontAwesomeIcon icon="fas fa-pen"></FontAwesomeIcon></span>
                                 </div> */}
 
-                                <div className="delete"  onClick={() => deleteUser(automobileProduct._id)}>
+                                <div className="delete" onClick={() => deleteUser(automobileProduct._id)}>
                                   <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can" className="iconSize"></FontAwesomeIcon></span>
                                 </div>
                               </div>
@@ -140,7 +148,7 @@ const navigate = useNavigate();
                         </div>
                       </div>
                     </Link>
-                      {/* </div> */}
+                    {/* </div> */}
                   </div>
                 )
 

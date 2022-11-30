@@ -242,7 +242,7 @@ function Login() {
                                 {/* <Link to='/signup'>Register</Link> */}
 
                             </div>
-                            <form method="post">
+                            {/* <form method="post"> */}
                                 <input className="form-control text-dark shadow-none" type="text" name="phone_number" placeholder="Phone Number"
                                     onChange={(e) => {
                                         console.log(e.target.value)
@@ -307,7 +307,7 @@ function Login() {
                                     </div>
                                 </CountdownBtn>
 
-                            </form>
+                            {/* </form> */}
                             <div className="other-links">
 
                                 <GoogleLogin
@@ -322,14 +322,14 @@ function Login() {
                                     isSignedIn={true}
                                     className="GoogleBtn"
                                 />
-                                <FacebookLogin
+                                {/* <FacebookLogin
                                     appId="2217693241739570"
                                     autoLoad={false}
                                     fields="name,email,picture"
                                     onClick={componentClicked}
                                     callback={responseFacebook} 
                                     icon="fa-facebook fbLogo"
-                                    />
+                                    /> */}
                                 {/* <FacebookLogin
                                     appId='817702366092567'
                                     autoLoad={true}

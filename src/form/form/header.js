@@ -50,7 +50,8 @@ const Header = () => {
     const OnOpen = () => setisOpen(true)
     // if(profileName){}
     const profileName = localStorage('token');
-    // console.log(localStorage('token'))
+    let lastname = window.localStorage.getItem('token');
+    console.log(lastname ,'tokenData')
     const nav = useNavigate();
     const sellLog = () => {
         // console.log('work ')
@@ -63,7 +64,10 @@ const Header = () => {
         }
     }
     const profilefunction = () => {
-        if (profileName === null) {
+        const checkk = !window.localStorage.getItem('token')
+        console.log( checkk , 'tokenData')
+        if (window.localStorage.getItem('token').name == null) {
+            alert('yes')
             nav('/login')
         }
         
@@ -261,7 +265,7 @@ const Header = () => {
                                             <Link to="/packages" className="nav-link" onClick={profilefunction}>PACKAGES</Link>
                                         </li>
                                         <li className="nav-item aa mob-login">
-                                            <Link to='/login' className='nav-link'>{!LocalData ? 'LOGIN' : <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div>}</Link>
+                                            <Link to='/login' className='nav-link'>{LocalData ? <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div> :'LOGIN' }</Link>
                                         </li>
 
                                     </ul>
