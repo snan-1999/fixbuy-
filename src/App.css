@@ -210,11 +210,11 @@ button#dropdownMenuButton1 {
   }
 }
 .mob-version{
-  display: none;
+  display: none !important;
 }
 @media screen and (max-width: 600px) {
   .mob-version{
-    display: block;
+    display: block !important;
   }
   #mob_head{
     margin: 50px 0px 130px 0px !important;

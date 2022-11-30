@@ -90,7 +90,7 @@ const PostedItems = () => {
                 return (
                   <div className="col-md-4 col-6 col-lg-3">
                     {/* <div className="mob-cardWidth"> */}
-                    <Link to='' state={automobileProduct} className="text-decor">
+                    <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                       <div className="shadow p-2 mb-4 bg-white maindiv-ads">
                         <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
                         <div className="pdt-details">

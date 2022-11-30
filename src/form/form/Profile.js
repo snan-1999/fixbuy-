@@ -365,10 +365,12 @@ const Profile = () => {
                 </div>
                 <ProfileNumber  {
                                     ...{
+                                        email,
                                         otp,
                                         setOtp,
                                         OtpCondition, setOtpCondition,
                                         setModalSellerPhone,
+                                        profileImg,
                                         setPhone,
                                         name,
                                         phone,

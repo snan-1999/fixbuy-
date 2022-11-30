@@ -66,8 +66,8 @@ const Header = () => {
     const profilefunction = () => {
         const checkk = !window.localStorage.getItem('token')
         console.log( checkk , 'tokenData')
-        if (window.localStorage.getItem('token').name == null) {
-            alert('yes')
+        if (window.localStorage.getItem('token') == null) {
+            // alert('yes')
             nav('/login')
         }
         
@@ -246,8 +246,8 @@ const Header = () => {
                                         <li className="nav-item aa">
                                             <Link to="/blogs" className="nav-link">BLOGS</Link>
                                         </li>
-                                        <li className="nav-item aa mob-login">
-                                            <Link to="/profile" className="nav-link" onClick={profilefunction}>PROFILE</Link>
+                                        <li className="nav-item aa mob-login" onClick={profilefunction}>
+                                            <Link to="/profile" className="nav-link" >PROFILE</Link>
                                         </li>
                                         {
                                             (Type == "user" || Type == "shop") &&
@@ -258,11 +258,11 @@ const Header = () => {
                                                 </li>
                                             </li>
                                         }
-                                        <li className="nav-item aa mob-login">
-                                            <Link to="/posteditems" className="nav-link" onClick={profilefunction}>MY ADS</Link>
+                                        <li className="nav-item aa mob-login"  onClick={profilefunction}>
+                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
                                         </li>
-                                        <li className="nav-item aa mob-login">
-                                            <Link to="/packages" className="nav-link" onClick={profilefunction}>PACKAGES</Link>
+                                        <li className="nav-item aa mob-login"  onClick={profilefunction}>
+                                            <Link to="/packages" className="nav-link">PACKAGES</Link>
                                         </li>
                                         <li className="nav-item aa mob-login">
                                             <Link to='/login' className='nav-link'>{LocalData ? <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div> :'LOGIN' }</Link>

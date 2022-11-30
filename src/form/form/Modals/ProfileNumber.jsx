@@ -7,7 +7,7 @@ import { useState } from 'react';
 // import OTPInput, { ResendOTP } from "otp-input-react";
 import axios from 'axios'
 import { baseUrl } from '../../../functions/constant';
-export default function ProfileNumner({OtpCondition, setOtpCondition, otp, setOtp, setModalSellerPhone, id, phone, name, Onclose, OnOpen, setisOpen, setPhone, isOpen, Type, Reportapi, setreason, reason }) {
+export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCondition, otp, setOtp, setModalSellerPhone, id, phone, name, Onclose, OnOpen, setisOpen, setPhone, isOpen, Type, Reportapi, setreason, reason }) {
     const OtpUpdate = async () => {
         setisOpen(false)
         const api = `${baseUrl}/users/otp/verify/profileUpdate`;
@@ -19,6 +19,17 @@ export default function ProfileNumner({OtpCondition, setOtpCondition, otp, setOt
         }).then((res) => {
             if (res.data) {
                 setModalSellerPhone(phone)
+                localStorage.setItem('token', JSON.stringify({
+                    'token': id,    
+                    'profileName': name,
+                    'profileImg': profileImg,
+                    'email': email,
+                    'profileImg': profileImg,
+                    'name':name,
+                    'type': Type,
+                    'phone': phone,
+                    'status': 'login'
+                }))
                 // setMessage(res.message);
                 console.log(res.data, 'Otp');
 
@@ -43,6 +54,7 @@ export default function ProfileNumner({OtpCondition, setOtpCondition, otp, setOt
                 // Otpverify()
                 // setverify(true);
                 setOtp(res.data.otp)
+                alert(res.data.otp)
                 // console.log(verify, 'var')
                 console.log(res.data, 'Otp');
             }
