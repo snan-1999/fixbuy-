@@ -73,17 +73,23 @@ export default function AllCategoryModal({ Onclose, OnOpen, setisOpen, isOpen, T
 const Containermodel = styled.div`
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
 font-family: 'Lato', sans-serif;
-    position: absolute;
-    display: grid;
-    place-content: center;
-    height: 100%;
+position: fixed;
+display: grid;
+place-content: center;
+height: 100%;
     place-items: center;
     z-index: 20;
     top:0;
-
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
+        position: fixed;
+        left :0;
+        width : 100%;
+        
+    }
     @media screen and (max-width : 600px) {
         height :100vh
     }
+    
 
     `
 const Nandita = styled.button`
@@ -101,10 +107,24 @@ width:85%;
 margin-left: 15%;
 
 @media screen and (max-width: 600px){
-    margin-left: 25%;
-    padding: 1rem 2rem;
+    margin-left: 23rem;
+    // justify-content : center;
+    padding: 1rem 3rem;
     overflow: hidden;
+    position: fixed;
+    width : 75%;
 }
+
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    width: 40vw;
+    // position : fixed;
+    // height: 50vh;
+    // display: flex;
+    // justify-content: center;
+    // align-items:center;
+    // flex-direction :column;
+    // top:0%;
+} 
 
 `
 const MyModal = styled.div`
@@ -135,7 +155,12 @@ const Modalheader = styled.div`
     padding: 1rem 0rem 0rem 0rem;
    }
     
+   @media screen and (min-width: 601px) and (max-width: 1000px) {
+       display :flex;
+    align-items:center;
+       justify-content: space-between;
     
+}
     `
 const Headingsetting = styled.h2`
        
@@ -144,7 +169,10 @@ const Headingsetting = styled.h2`
 const Modalbody = styled.div`
     margin-top: 23px;
     width: 60vw;
-
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
+        width: 100%;
+        
+    }
 
     
 `
@@ -255,4 +283,3 @@ const ApplyBtn1 = styled.button`
         
     }
 `
-// const FormControl styled

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -8,14 +8,11 @@ import facebook from '../../assets/images/facebook.png'
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import styled from "styled-components";
-import OtpPop from "../../form/form/Modals/OtpPop";
-import { GlobalVariables } from "../../Context/StateProvider";
 // import { Link } from "react-router-dom";
-
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
 const Fashion = () => {
-    const {latitude , Longitude} = useContext(GlobalVariables)
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
@@ -24,17 +21,7 @@ const Fashion = () => {
     let ProfleId = JSON.parse(IdData).token;
     const Type = JSON.parse(IdData).type;
     // console.log(ProfleId);
-    const [isOpen, setisOpen] = useState(false)
-    const Onclose = () => {
-        setOtp('')
-        setisOpen(false)
-        setOtpCondition(false)
-    }
-    const OnOpen = () => setisOpen(true)
-    const [OtpCondition, setOtpCondition] = useState(false);
-    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [user_id, setUser_id] = useState(ProfleId)
-    const [otp , setOtp] = useState('');
     const [img, setImg] = useState('');
     // const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
@@ -49,12 +36,8 @@ const Fashion = () => {
     const [pincode, setPincode] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
     const [hasError, setError] = useState('')
-    const [errors, seterrors] = useState(false);
     const [message, setMessage] = useState('');
     const [posted, setposted] = useState('');
-    const [imageError, setimageError] = useState('');
-    const [otpError, setotpError] = useState('');
-    const [verify, setverify] = useState(false);
     const titleRef = useRef();
     const descriptionRef = useRef();
     const priceRef = useRef();
@@ -78,7 +61,7 @@ const Fashion = () => {
         console.log(imageList, addUpdateIndex);
         setImg(imageList);
         imgRef.current.style.borderColor = "#ced4da";
-        setimageError("");
+        setError("");
     };
     console.log(img)
     const sumbit = async () => {
@@ -99,7 +82,7 @@ const Fashion = () => {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
                                         if (neighbourhood.trim().length > 0) {
-                                            // if (sellerphone.trim().length > 0) {
+                                            if (sellerphone.trim().length > 0) {
                                                 setError(true)
                                                 formData.append('sellername', sellername)
                                                 // formData.append('brand', brand)
@@ -143,7 +126,6 @@ const Fashion = () => {
                                                             console.log(response.data.status);
                                                             setposted('success')
                                                             // console.log(posted)
-                                                            seterrors(true)
                                                             setMessage('Posted !');
                                                         } else {
                                                             setposted('fail')
@@ -153,7 +135,11 @@ const Fashion = () => {
                                                         }
                                                     })
                                                 }
-                                            
+                                            } else {
+                                                setError(false);
+                                                console.log("sellerphone error")
+                                                sellerphoneRef.current.style.borderColor = 'red';
+                                            }
                                         } else {
                                             setError(false);
                                             console.log("landmark error")
@@ -175,7 +161,7 @@ const Fashion = () => {
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setimageError("Please provide atleast 1 image");
+                            setError("Please provide atleast 1 image");
                             console.log("image error")
                             // descriptionRef.current.style.borderColor = 'red';
                         }
@@ -199,64 +185,6 @@ const Fashion = () => {
             console.log("title error")
             titleRef.current.style.borderColor = 'red';
         }
-
-
-    }
-
-    const handleChangeOtp = () => { }
-    const Otpverify = async () => {
-        setisOpen(false)
-        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
-        await axios.post(api, {
-            user_id: user_id,
-            phone: sellerphone,
-            name: sellername,
-            otp: otp
-        }).then((res) => {
-            if (res.status) {
-                setModalSellerPhone(sellerphone)
-                // setMessage(res.message);
-                console.log(res.data, 'Otp');
-                toast("Add Successfully", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    type: 'success'
-                });
-                setOtpCondition(false)
-            }
-            else {
-                // setotpError('invalid otp')
-
-            }
-        })
-    }
-    const Generate = async () => {
-        console.log(sellerphone, 'Otp')
-        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
-        // console.log("function started");
-        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
-        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
-        await axios.post(api, {
-            "phone": sellerphone
-        }).then((res) => {
-            if (res.data) {
-                setOtpCondition(true)
-                // Otpverify()
-                // setverify(true);
-                setOtp(res.data.otp)
-                // console.log(verify, 'var')
-                console.log(res.data, 'Otp');
-            }
-            // }
-        })
-        // } else {
-        // setError('Invalid Phone Number');
-        // }
 
 
     }
@@ -384,7 +312,7 @@ const Fashion = () => {
                         </ImageUploading>
 
                     </div>
-                    <div className="errormsg" style={{ color: "red" }} >{imageError}</div>
+                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                 </div>
 
 
@@ -518,7 +446,7 @@ const Fashion = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required readOnly
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                     value={sellername}
                                     ref={sellernameRef}
                                     onChange={(e) => {
@@ -536,83 +464,19 @@ const Fashion = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        // setSellerPhone(e.target.value)
-                        // sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
-                        value={ModalSellerPhone}
+                    <input type="text" name="number" className="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            setSellerPhone(e.target.value)
+                            sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
+                        value={sellerphone}
                         ref={sellerphoneRef}
-                        readOnly
-                    />
-                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                    {/* <br /> */}
-                    {
-                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
-                    }
-                    <div className="UpdateNum w-100">
-                        {
-                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
-                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
-                        }
+                    /><br />
+
+                    <div className="post-pr">
+                        <input type="submit" name="submit" value="POST NOW" onClick={sumbit} />
                     </div>
-                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                    <br />
-                    <OTPTAG>
-
-                        {
-
-                            // (sellerphone.length >= 10) ?
-                            <>
-                                <OtpPop
-                                    {
-                                    ...{
-                                        Otpverify,
-                                        Generate,
-                                        otp,
-                                        setOtp,
-                                        OtpCondition, setOtpCondition,
-                                        setModalSellerPhone,
-                                        setSellerPhone,
-                                        sellername,
-                                        sellerphone,
-                                        user_id,
-                                        handleChangeOtp,
-                                        isOpen,
-                                        setisOpen,
-                                        Onclose,
-                                        OnOpen
-                                    }
-                                    }
-                                />
-                                <div className="text" style={{ color: "red" }}>{otpError}</div>
-                                <br />
-
-
-                            </>
-
-                        }
-                    </OTPTAG>
-                    {
-                        (PhoneNumber !== null) &&
-                        // (verify) &&
-                        <div className="post-pr">
-
-                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
-                                onChange={(e) => {
-                                    setMessage('')
-                                }} />
-                        </div>
-
-                    }
-                    {/* <div >{otpError}</div> */}
-
-                    {errors &&
-                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
-                            {message}
-                        </div>
-                    }
                 </div>
 
             </div>
@@ -623,9 +487,3 @@ const Fashion = () => {
 }
 
 export default Fashion;
-const OTPTAG = styled.div`
-OTP input {
-
-padding: 17px;
-}
-`

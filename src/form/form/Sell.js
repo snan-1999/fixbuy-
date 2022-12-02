@@ -34,10 +34,10 @@ const Sell = () => {
                                 </div>
                             </div>
                             <div className="main-Div">
-                                <div className="row p-0 m-0  h-100 w-100">
+                                <div className="row p-0 m-0  h-100 w-100 overflow-auto">
                                     <div className="col-6 setRightBr">
                                         <div className="dropOne">
-                                            <div className="btn-group dropend" style={{ width: "100%" }}>
+                                            <div className="btn-group dropend " style={{ width: "100%" }}>
                                                 <button type="button" className="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <FontAwesomeIcon icon="fa-tv" className="sell-icon"></FontAwesomeIcon> Electronic & Appliances <FontAwesomeIcon icon="fa-chervon-right"></FontAwesomeIcon>
                                                 </button>
@@ -53,7 +53,7 @@ const Sell = () => {
                                                     <Link to="/sell/electronics/hard_disks_printer" className="textLine"><li>Hard Disks, Printer & Monitor</li></Link>
                                                     <Link to="/sell/electronics/games" className="textLine"><li>Games</li></Link>
                                                     <Link to="/sell/electronics/speakers" className="textLine"><li>Speakers</li></Link>
-                                                    <Link to="/sell/electronics/camera_&_lens" className="textLine"><li>Camera & Lens</li></Link>
+                                                    <Link to="/sell/electronics/cameras_&_lens" className="textLine"><li>Camera & Lens</li></Link>
                                                     <Link to="/sell/electronics/kitchen_&_others" className="textLine"><li>Kitchen & Others</li></Link>
                                                     <Link to="/sell/electronics/computer_accessories" className="textLine"><li>Computer Accessories</li></Link>
                                                     <Link to="/sell/electronics/air_purifier" className="textLine"><li>Air Purifiers</li></Link>

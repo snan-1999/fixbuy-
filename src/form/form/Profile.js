@@ -58,6 +58,7 @@ const Profile = () => {
     const [errors, seterrors] = useState(false);
     const [isOpen, setisOpen] = useState(false)
     const [OtpCondition, setOtpCondition] = useState(false);
+    const[gendererror , setGenderError] = useState("")
     const Onclose = () => {
         setOtp('')
         setisOpen(false)
@@ -110,8 +111,13 @@ const Profile = () => {
             setGstNumber(response.data.data[0].gst_no);
             setAddress(response.data.data[0].shop_address);
             // console.log(new ,"date");
-            setDOB(date);
-            console.log(dob)
+            let date = new Date(response.data.data[0].date_of_birth).getDate();
+            let month = new Date(response.data.data[0].date_of_birth).getMonth() +1;
+            let year = new Date(response.data.data[0].date_of_birth).getFullYear();
+
+            console.log(`${year}-${month}-${date}`, 'full date');
+            setDOB(`${year}-${month}-${(date>=9)?date:`0${date}`}`);
+            // console.log(dob)
             setGender(response.data.data[0].gender)
             // setDOB(response.data.data[0].date_of_birth)
             setId(response.data.data[0]._id);
@@ -148,12 +154,13 @@ const Profile = () => {
         if (city != null){
             formData.append('city', city)
         }
-        if (dob != null){
-            formData.append('date_of_birth', dob)
+        if(dob.trim().length > 0){
+
+            formData.append('date_of_birth', new Date(dob).toDateString());
         }
-        if (gender != null){
+        if (gender?.trim().length > 0) {
             formData.append('gender', gender)
-        }
+
         if(gst_no != null){
             formData.append('gst_no', gst_no)
         }
@@ -173,6 +180,11 @@ const Profile = () => {
         }, error => {
             console.log(error.response.data);
         },)
+    } else {
+        setGenderError('Mandartory Field');
+        console.log('Mandartory Field');
+        // setGenderError('')       
+    }
     }
 
     useEffect(() => {
@@ -198,18 +210,6 @@ const Profile = () => {
 
                     <div className="page-content ">
                         <br />
-                        {/* <?php
-            if(isset($_GET['status']))
-            {
-            ?>
-            <div className="alert alert-success">
-                    <strong>Update Success!</strong>
-            </div>
-            <?php
-            }
-            ?> */}
-
-
                         <h5 className="my-2">User Profile</h5>
 
 
@@ -311,7 +311,8 @@ const Profile = () => {
                                             <h6 className="mb-0">Gender</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => setGender(e.target.value)} />
+                                            <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => {setGender(e.target.value) ;setGenderError('')}} />
+                                        <div style={{ color: "red" }} >{gendererror}</div>
                                         </div>
                                     </div>
                                     

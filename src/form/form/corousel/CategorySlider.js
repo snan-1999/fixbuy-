@@ -272,7 +272,7 @@ const CategorySlider = () => {
 
   const breakPoints = [
     { width: 1, itemsToShow: 3 },
-    { width: 550, itemsToShow: 2, itemsToScroll: 2 },
+    { width: 550, itemsToShow: 3, itemsToScroll: 2 },
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 }
   ];
@@ -284,12 +284,13 @@ const CategorySlider = () => {
           Look Through Categories
         </div>
       </div>
-
-      <Carousel breakPoints={breakPoints} slide={1} loop={true} showArrows={false}
-        pagination={{
-          dynamicBullets: true,
-          className: "paginationClass"
-        }}>
+ 
+      <Carousel breakPoints={breakPoints} slide={1} loop={true} showArrows={false} enableAutoPlay pagination={false}
+        // pagination={{
+        //   dynamicBullets: false,
+        //   className: "paginationClass"
+        // }}
+        >
         
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Automobile) }}>
           <img src={car} className='sliderClass' />

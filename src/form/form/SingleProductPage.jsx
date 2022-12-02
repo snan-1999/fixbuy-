@@ -76,6 +76,7 @@ export default function SingleProductPage(props) {
         setImages(source)
         // console.log(imgChange) 
     }
+    let Max_length = 60;
     const SingleData = async () => {
         let api;
         try {
@@ -92,7 +93,12 @@ export default function SingleProductPage(props) {
             // } else {
             // }
             if (data.status) {
+                console.log(data.data, 'slkfsdjflksd')
+
                 setAllData(data.data)
+                // for( const [key, val] of data.data){
+                //     console.log(key, val, 'forOf')
+                // }
                 setHEart(HomeData)
                 // if(HomeData){setHeartShow()}
                 sellerDetails(data.data.user_id)
@@ -100,7 +106,56 @@ export default function SingleProductPage(props) {
                 setLoader(false)
                 setImages(data.data.images[0])
             }
-            console.log(data, 'singleData')
+            console.log(typeof data.data, 'singleData')
+            let validField = ['description', 'price', 'title', 'plotArea', 'furnishing', 'length', 'breadth', 'projectName', 'bedrooms', 'bathrooms', 'builtUpArea', 'floors', 'maintenance', 'parking', 'bachelorsAllowed', 'years', 'fuel'
+                , 'transmission', 'kmDriven', 'No_of_owner'];
+            let arr = [];
+            for (let i in data.data) {
+                console.log(i, 'singleData')
+                // alert(data.data[i]) == (data.data['description'])
+                if (validField.includes(i)) {
+                    // {
+                    //     alert(data.data[i]).includes(data.data['price'])
+                    //     console.log(!description.includes(data.data['description']))
+                    // }
+                    arr.push(
+
+                        <tr>
+                            <th className="col text-capitalize">{i}  </th>
+                            <th className='text-capitalize'>
+                                {/* {data.data[i]} */}
+                                {
+                                    (data.data[i]) == (data.data['description'])
+                                        ?
+                                        // alert(true)
+                                        // 'caption'
+                                        (data.data['description']).length > Max_length
+                                            ?
+                                            (data.data['description'].substring(0, Max_length))
+                                            :
+                                            (data.data['description'])
+                                        // String(data.data['description'])
+                                        :
+                                        String(data.data[i])
+                                }
+                            </th>
+                        </tr>
+                    )
+                }
+            }
+            setDescription(() => {
+                return (<>
+                    <table className="table table-striped table-hover"  >
+                        <tbody>
+                            {arr}
+                        </tbody>
+                    </table>
+                </>)
+            })
+            // for (let i in data.data) {
+            //     setDescription(<div><p>{i}: {String(data.data[i])}</p></div>);
+            //     console.log(i, 'loop items');
+            // }
         } catch (error) {
 
         }
@@ -136,7 +191,7 @@ export default function SingleProductPage(props) {
         }
     }
     const Run = async () => {
-        const api = `${baseUrl}/users/savedItems/${TokenID}`
+        const api = `${baseUrl}/users/savedItems/${TokenID.ID}`
         const { data } = await axios.post(api, SendData);
         console.log(SendData.saveStatus, 'homeData')
         if (data.status) {
@@ -209,6 +264,9 @@ export default function SingleProductPage(props) {
             }
         })
     }
+    const print = () => {
+        return description;
+    }
     // end
     useEffect(() => {
         SingleData()
@@ -217,7 +275,6 @@ export default function SingleProductPage(props) {
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
-    let Max_length = 60;
     // useEffect(() => {
     //     setUseData(location.state)
     // }, [SavedItem])
@@ -245,16 +302,19 @@ export default function SingleProductPage(props) {
             } />
 
             <div className="main ">
-                <div className="row m-0 p-0">
-                    <div className="for-center flex-row justify-content-center align-items-center">
-                        <div className="col-md-12">
-                            <div className="container-heading-pr text-white">
-                                <span>PRODUCTS DETAILS :-</span>
-                            </div>
-                        </div>
+                <Head>
 
+                    <div className="row m-0 p-0">
+                        <div className="for-center flex-row justify-content-center align-items-center">
+                            <div className="col-md-12">
+                                <div className="container-heading-pr text-white">
+                                    <span>PRODUCTS DETAILS :-</span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                </Head>
 
                 <div className="row m-0 p-0">
                     <div className="col-md-6 ">
@@ -277,7 +337,7 @@ export default function SingleProductPage(props) {
                                 </ScrollDiv>
                             </SmallImg>
                             <div className="shareDetails d-flex align-items-center mt-4">
-                                <div className="col-md-4">
+                                <div className="col-md-6">
                                     <div className="locations d-flex align-items-center">
                                         <TiLocation />
                                         <div className='ms-2'>{`${AllData.location?.city} ,${AllData.location?.state}`}</div>
@@ -290,7 +350,7 @@ export default function SingleProductPage(props) {
                                         <ShareLink ShareLinkParam={ShareLinkParam} />
                                     </div>
                                 </div>
-                                <div className="col-md-4">
+                                <div className="col-md-2">
                                     <div className="ReportAds d-flex align-items-center justify-content-end" >
                                         <MdReport className='fs-4' />
                                         <div className='ms-1' onClick={OnOpen}>Report</div>
@@ -325,7 +385,14 @@ export default function SingleProductPage(props) {
                                 </div>
                                 {/* <span className="report-message">*If you find this user inappropriate/fake. You can report here.</span> */}
                             </div>
-                            <div>
+                            {
+                                description
+                            }
+                            <DetailsData className=''>
+
+
+                            </DetailsData>
+                            {/* <div>
                                 <div className=' TitleSet text-capitalize'>  {AllData?.title} </div>
                             </div>
                             <div>
@@ -343,21 +410,38 @@ export default function SingleProductPage(props) {
                                         <th className='text-capitalize'> {AllData?.description}</th>
                                     )
                                 }
-                            </div>
+                            </div> */}
 
                             <div className='heartBtn'>
-                                {
-                                    (HomeData) ? <>
-                                        <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
-                                            Saved
-                                        </Button>
-                                    </>
-                                        :
-                                        <>
-                                            <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
-                                                UnSaved
-                                            </Button></>
-                                }
+                                <table className="table table-striped table-hover"  >
+                                    <tbody>
+                                        <tr>
+                                            <td className='fs-6'>Status</td>
+                                            {
+                                                (HomeData) ?
+                                                    <>
+
+                                                        <th>
+
+                                                            <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
+                                                                Saved
+                                                            </Button>
+                                                        </th>
+
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <td>
+                                                            <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
+                                                                UnSaved
+                                                            </Button>
+                                                        </td>
+                                                    </>
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+
                             </div>
                             <div className="Btns d-flex justify-content-between">
 
@@ -374,145 +458,154 @@ export default function SingleProductPage(props) {
         </>
     )
 }
+const Head = styled.div`
+    .for-center {
+        width: 100%;
+    display: flex;
+    margin: 50px 0px 97px 0px !important;
+    margin-left: 6% !important;
+    }
+`
 
 const ButtonCraete = styled.button`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* all: unset; */  
-    font-size: 15px; 
-    font-weight: 600;
-    color: grey;
-    border: none;
-    background-color: transparent;
-    border-radius: 4px;
-    padding: 0.3rem 1.2rem;
-    margin: 1rem;
-`
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            /* all: unset; */
+                            font-size: 15px;
+                            font-weight: 600;
+                            color: grey;
+                            border: none;
+                            background-color: transparent;
+                            border-radius: 4px;
+                            padding: 0.3rem 1.2rem;
+                            margin: 1rem;
+                            `
 const DetailsData = styled.div`
-.SellerImgSingle {
-    display: flex;
-    justify-content: center;
+                            .SellerImgSingle {
+                                display: flex;
+                            justify-content: center;
 }
-    .TitleSet{
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        font-weight: 300 !important;
-        color : ${props => props.theme.colors.primary}
+                            .TitleSet{
+                                margin-top: 1rem;
+                            font-size: 0.9rem;
+                            font-weight: 300 !important;
+                            color : ${props => props.theme.colors.primary}
     }
-    .priceSet{
-        
-        margin: .4rem 0 .6rem 0;
-        color : ${props => props.theme.colors.secondary};
-        font-size: 1.3rem;
-        -webkit-text-stroke: 1px  ${props => props.theme.colors.secondary};
+                            .priceSet{
+
+                                margin: .4rem 0 .6rem 0;
+                            color : ${props => props.theme.colors.secondary};
+                            font-size: 1.3rem;
+                            -webkit-text-stroke: 1px  ${props => props.theme.colors.secondary};
 
     }
-    .disSet{
-        
-        margin: .4rem 0 .1rem 0;
-        color : ${props => props.theme.colors.secondary};
-        font-size: 1rem;
+                            .disSet{
+
+                                margin: .4rem 0 .1rem 0;
+                            color : ${props => props.theme.colors.secondary};
+                            font-size: 1rem;
         /* -webkit-text-stroke: 1px  ${props => props.theme.colors.secondary}; */
 
     }
-    .discriptionSet{
-        
-        margin: .1rem 0 .1rem 0;
-        color : ${props => props.theme.colors.secondary};
-        font-size: .8rem;
+                            .discriptionSet{
+
+                                margin: .1rem 0 .1rem 0;
+                            color : ${props => props.theme.colors.secondary};
+                            font-size: .8rem;
         /* -webkit-text-stroke: 1px  ${props => props.theme.colors.secondary}; */
 
     }
-.detailsSeller h6{
-    color: #2472e6;
-    font-size: .6rem;
-    :hover{
-        text-decoration: underline;
-        cursor: pointer;
+                            .detailsSeller h6{
+                                color: #2472e6;
+                            font-size: .6rem;
+                            :hover{
+                                text-decoration: underline;
+                            cursor: pointer;
     }
 }
-.heading-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 1px 1px 10px #80808039;
-    height: 15vh;
-    width: 80%;
-    margin: 0;
+                            .heading-box {
+                                display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            box-shadow: none;
+                            height: 15vh;
+                            width: 80%;
+                            margin: 0;
+                            margin-bottom: 1rem;
 }
-    .posted{
-        color: #b4b4b4;
-        font-size: .8rem;
+                            .posted{
+                                color: #b4b4b4;
+                            font-size: .8rem;
     }
-    .SellerImgSingle img {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    padding: 5px;
-    border: 1px solid  #b4b4b4;
-    border-radius: 50%;
+                            .SellerImgSingle img {
+                                display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            padding: 5px;
+                            border: 1px solid  #b4b4b4;
+                            border-radius: 50%;
 }
-    margin-top: .3rem;
-    .brand{
-        padding: .4rem 1rem;
-        background-color: green;
-        color: white;
-        border-radius: 4px;
-        margin-bottom: 2%;
-        width: 50%;
-        text-align: center;     
+                            margin-top: .3rem;
+                            .brand{
+                                padding: .4rem 1rem;
+                            background-color: green;
+                            color: white;
+                            border-radius: 4px;
+                            margin-bottom: 2%;
+                            width: 50%;
+                            text-align: center;     
         }
-        .heartBtn{
-            font-size: 1.3rem;
-            animation-name: heartss;
-            animation-duration: 2s;
-            animation-iteration-count: infinite;
-            :hover{
-                margin: 0;
-                padding: 0;
-                font-size: 1.3rem;
-                /* transform: scale(1); */
-                transition: transform 500ms ease;
+                            .heartBtn{
+                                font-size: 1.3rem;
+                            animation-name: heartss;
+                            animation-duration: 2s;
+                            animation-iteration-count: infinite;
+                            :hover{
+                                margin: 0;
+                            padding: 0;
+                            font-size: 1.3rem;
+                            /* transform: scale(1); */
+                            transition: transform 500ms ease;
 
             }
         }
-        width: 80%;
-`
+                            width: 80%;
+                            `
 const MainSlide = styled.div`
-        width: 100%;
-    height: 37vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img{
-        border-radius: 10px;
+                            width: 100%;
+                            height: 37vh;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            img{
+                                border-radius: 10px;
     }
-`
+                            `
 const SmallImg = styled.div`
-margin-top: 4%
-`
+                            margin-top: 4%
+                            `
 const ImageSetion = styled.div`
-.shareDetails{
-    font-size: 14px;
-    color: ${props => props.theme.colors.primary};
+                            .shareDetails{
+                                font-size: 14px;
+                            color: ${props => props.theme.colors.primary};
+} 
+                            #img_main{
+                                height: 20vh !important;
 }
-#img_main{
-    height: 20vh !important;
-}
-position: relative;
-top: 1.5rem;
-margin-left : 20%;
-`
+                            position: relative;
+                            top: 1.5rem;
+                            margin-left : 20%;
+                            `
 const ScrollDiv = styled.div`
-cursor: pointer;
-    overflow: auto;
-    width: 100%;
-    display: flex;
-    img{
-        width: 100px;
-        height: 80px;
-        margin: 10px;
-        border-radius: 10px;
+                            cursor: pointer;
+                            overflow: auto;
+                            width: 100%;
+                            display: flex;
+                            img{
+                                width: 100px;
+                            height: 80px;
+                            margin: 10px;
+                            border-radius: 10px;
     }
-`
+                            `

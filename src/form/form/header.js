@@ -20,7 +20,7 @@ import { useContext } from "react";
 import { SearchHome } from "../../functions/HomeFun";
 import { FaHeart } from "react-icons/fa";
 import { BiSearchAlt } from "react-icons/bi";
-
+import { ToastContainer, toast } from 'react-toastify';
 
 const Header = () => {
     const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, UserId, setUserId } = useContext(GlobalVariables)
@@ -145,7 +145,17 @@ const Header = () => {
         }).then((response) => {
             console.log(response, "shop user");
             if (response.status) {
-
+                toast(response.data.message, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
+                Onclose()
                 setMessage('Upgraded!');
                 seterrors(true);
             }
@@ -159,7 +169,7 @@ const Header = () => {
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
-
+            <ToastContainer />
             <nav className="navbar navbar-expand-lg headerr">
                 <div className="container-fluid">
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -404,7 +414,7 @@ const Header = () => {
                                             <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                             <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>
                                             <Link to="/electronics/cooler"><li className="bghover">Cooler</li></Link>
-                                            <Link to="/electronics/fan"><li className="bghover">Cooler</li></Link>
+                                            <Link to="/electronics/fan"><li className="bghover">Fan</li></Link>
                                             <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
                                             <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
                                             <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
@@ -462,7 +472,7 @@ const Header = () => {
                                         <li><Link to='/packages' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
 
                                         {
-                                            (Type == "user") &&
+                                            (Type == "user" || Type == 'shop') &&
 
                                             <li onClick={OnOpen}>
                                                 <Link to="" className="dropdown-item">

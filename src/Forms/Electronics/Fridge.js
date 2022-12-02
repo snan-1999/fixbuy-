@@ -532,7 +532,7 @@ const Fridge = () => {
 
                                     >
                                         <img
-                                            src={`${ImageView}${ProfileImage}`}
+                                            src={`${ProfileImage}`}
                                             style={{
                                                 width: "100%",
                                                 height: "100%",

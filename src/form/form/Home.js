@@ -292,14 +292,26 @@ const CardHeight = styled.div`
 position: relative;
 top: 0;
 @media (max-width: 768px) {
-    height: 55vh ;
+    // height: 55vh ;
   }
-    height: 60vh ;
+    // height: 60vh ;
     .ShopLogo{
         height: 5vh;
         position: absolute;
         top: 2%;
         right: 7%;
+        @media screen and (max-width: 600px){
+            height: 3vh;
+        position: absolute;
+        top: 2%;
+        right: 7%;
+        }
+        @media screen and (min-width: 601px) and (max-width: 1000px) {
+            height: 3vh;
+        position: absolute;
+        top: 2%;
+        right: 3%;
+        }
     }
 `
 const Ribbon = styled.div`

@@ -49,6 +49,7 @@ export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCon
         await axios.post(api, {
             "phone": phone
         }).then((res) => {
+            console.log(res , 'Otp')
             if (res.data) {
                 setOtpCondition(true)
                 // Otpverify()

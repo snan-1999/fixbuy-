@@ -29,7 +29,7 @@ const PostedItems = () => {
   const Myads = async () => {
     const api = (`${baseUrl}/users/listed/items/${ProfleId}`);
     await axios.get(api).then((res) => {
-
+    
       // let date = '0000-00-00T00:00:00.000Z'
       // if (res.data.data[0].createdAt) {
       //   date = res.data.data[0].createdAt.split('T')[0]
@@ -38,7 +38,7 @@ const PostedItems = () => {
       //   date = date.split('T')[0]
       // }
 
-      // console.warn(res.data.data, "response data warning by ajay");
+      console.warn(res.data.data, "response data warning by ajay");
       // console.warn(res.data.data[0]._id,"user id is here ")
       if (res.data) {
         setAutomobile(res.data.data);

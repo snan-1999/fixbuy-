@@ -73,13 +73,13 @@ export default function ShareLink({ ShareLinkParam }) {
                     >
                         <WhatsappIcon size={20} round />
                     </WhatsappShareButton>
-                    <TwitterShareButton
+                    {/* <TwitterShareButton
                         url={ShareLinkParam}
                         title={titl}
                         className="Demo__some-network__share-button"
                     >
                         <TwitterIcon size={20} round />
-                    </TwitterShareButton>
+                    </TwitterShareButton> */}
                     <div className="copy" onClick={ShareProducts}>
                         <abbr title='Copy Link'> <AiFillCopy /></abbr>
                     </div>

@@ -322,14 +322,14 @@ function Login() {
                                     isSignedIn={true}
                                     className="GoogleBtn"
                                 />
-                                {/* <FacebookLogin
+                                <FacebookLogin
                                     appId="2217693241739570"
                                     autoLoad={false}
                                     fields="name,email,picture"
                                     onClick={componentClicked}
                                     callback={responseFacebook} 
                                     icon="fa-facebook fbLogo"
-                                    /> */}
+                                    />
                                 {/* <FacebookLogin
                                     appId='817702366092567'
                                     autoLoad={true}
