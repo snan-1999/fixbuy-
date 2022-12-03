@@ -38,6 +38,7 @@ import ShareProuctsModal from './Modals/ShareProduct';
 import { TbMessageReport } from 'react-icons/tb';
 import { MdReport } from 'react-icons/md';
 import ReportAds from './Modals/ReportAds';
+import { BsChatDots } from 'react-icons/bs';
 export default function SingleProductPage(props) {
     const { id } = useParams()
     const [isOpen, setisOpen] = useState(false)
@@ -76,7 +77,7 @@ export default function SingleProductPage(props) {
         setImages(source)
         // console.log(imgChange) 
     }
-    let Max_length = 60;
+    let Max_length = 85;
     const SingleData = async () => {
         let api;
         try {
@@ -86,33 +87,22 @@ export default function SingleProductPage(props) {
                 api = `${baseUrl}/product/getSingle/${id}?user_id=${TokenID.ID}`
             }
             const { data } = await axios.get(api);
-
-            console.log(data.data, 'ggs')
-            // if (SellerDetails) {
             setLoader(true)
-            // } else {
-            // }
             if (data.status) {
                 console.log(data.data, 'slkfsdjflksd')
-
                 setAllData(data.data)
-                // for( const [key, val] of data.data){
-                //     console.log(key, val, 'forOf')
-                // }
                 setHEart(HomeData)
-                // if(HomeData){setHeartShow()}
                 sellerDetails(data.data.user_id)
                 console.log(AllData, 'singleDatas')
                 setLoader(false)
                 setImages(data.data.images[0])
             }
             console.log(typeof data.data, 'singleData')
-            let validField = ['description', 'price', 'title', 'plotArea', 'furnishing', 'length', 'breadth', 'projectName', 'bedrooms', 'bathrooms', 'builtUpArea', 'floors', 'maintenance', 'parking', 'bachelorsAllowed', 'years', 'fuel'
+            let validField = ['price', 'title', 'plotArea', 'furnishing', 'length', 'breadth', 'projectName', 'bedrooms', 'bathrooms', 'builtUpArea', 'floors', 'maintenance', 'parking', 'bachelorsAllowed', 'years', 'fuel'
                 , 'transmission', 'kmDriven', 'No_of_owner'];
             let arr = [];
             for (let i in data.data) {
                 console.log(i, 'singleData')
-                // alert(data.data[i]) == (data.data['description'])
                 if (validField.includes(i)) {
                     // {
                     //     alert(data.data[i]).includes(data.data['price'])
@@ -120,36 +110,40 @@ export default function SingleProductPage(props) {
                     // }
                     arr.push(
 
-                        <tr>
-                            <th className="col text-capitalize">{i}  </th>
-                            <th className='text-capitalize'>
-                                {/* {data.data[i]} */}
+                        <div className='row d-flex w-100 mb-1 KeyBox'>
+                            <div className='col-md-3 '>
+
+                                <p className="setKeys w-100 text-capitalize">
+                                    {i}
+                                </p>
+                            </div>
+                            <div className='col-md-9 text-capitalize setKeysVal'>
                                 {
-                                    (data.data[i]) == (data.data['description'])
+                                    (data.data[i]) == (data.data['title'])
                                         ?
-                                        // alert(true)
-                                        // 'caption'
-                                        (data.data['description']).length > Max_length
+                                        (data.data['title']).length > Max_length
                                             ?
-                                            (data.data['description'].substring(0, Max_length))
+                                            (data.data['title'].substring(0, Max_length))
                                             :
-                                            (data.data['description'])
-                                        // String(data.data['description'])
+                                            (data.data['title'])
                                         :
                                         String(data.data[i])
                                 }
-                            </th>
-                        </tr>
+                            </div>
+                        </div>
                     )
                 }
             }
             setDescription(() => {
                 return (<>
-                    <table className="table table-striped table-hover"  >
-                        <tbody>
-                            {arr}
-                        </tbody>
-                    </table>
+                    {/* <table className="table table-striped table-hover"  >
+                        <tbody> */}
+                    <div>
+
+                        {arr}
+                    </div>
+                    {/* </tbody>
+                    </table> */}
                 </>)
             })
             // for (let i in data.data) {
@@ -361,8 +355,8 @@ export default function SingleProductPage(props) {
                             <div className="reasondiv">
                             </div>
                         </ImageSetion>
-
                     </div>
+
                     <div className="col-md-6 d-flex flex-column justify-content-center align-items-center ContentClass ">
                         <DetailsData className=''>
                             <div className="d-flex justify-content-center heading-box w-100">
@@ -388,10 +382,7 @@ export default function SingleProductPage(props) {
                             {
                                 description
                             }
-                            <DetailsData className=''>
 
-
-                            </DetailsData>
                             {/* <div>
                                 <div className=' TitleSet text-capitalize'>  {AllData?.title} </div>
                             </div>
@@ -413,34 +404,35 @@ export default function SingleProductPage(props) {
                             </div> */}
 
                             <div className='heartBtn'>
-                                <table className="table table-striped table-hover"  >
-                                    <tbody>
-                                        <tr>
-                                            <td className='fs-6'>Status</td>
-                                            {
-                                                (HomeData) ?
-                                                    <>
+                                <div className='row d-flex w-100 KeyBox1'>
+                                    <div className='col-md-3'>
 
-                                                        <th>
+                                        <p className='fs-6 setKeys w-100 text-capitalize'>Status</p>
 
-                                                            <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
-                                                                Saved
-                                                            </Button>
-                                                        </th>
+                                    </div>
+                                    <div className='col-md-9 text-capitalize setKeysVal'>
+                                        {(HomeData) ?
+                                            <>
 
-                                                    </>
-                                                    :
-                                                    <>
-                                                        <td>
-                                                            <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} colorScheme='teal' variant='solid' border='none' size='xs' onClick={SavedItem}>
-                                                                UnSaved
-                                                            </Button>
-                                                        </td>
-                                                    </>
-                                            }
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                <th>
+
+                                                    <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} border='none' size='xs' onClick={SavedItem}>
+                                                        Saved
+                                                    </Button>
+                                                </th>
+
+                                            </>
+                                            :
+                                            <>
+                                                <td>
+                                                    <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} border='none' size='xs' onClick={SavedItem}>
+                                                        UnSaved
+                                                    </Button>
+                                                </td>
+                                            </>
+                                        }
+                                    </div>
+                                </div>
 
                             </div>
                             <div className="Btns d-flex justify-content-between">
@@ -448,6 +440,26 @@ export default function SingleProductPage(props) {
                                 {/* <Link to=   '/sellerProfile' state={AllData?.user_id}><button className='sellerButton '>Report Ads</button></Link> */}
                             </div>
                         </DetailsData>
+                    </div>
+                </div>
+                <div className="setMarginDiv">
+                    <div className="row">
+                        <div className="ChatBtnProduct mt-1">
+                            <button className='d-flex justify-content-center align-items-center '> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
+                        </div>
+                    </div><br />
+                    <div className="row m-0 p-0">
+                        <div className="col-md-6 col-12">
+                            <Descrip className=''>
+                                <div>Description</div>
+                                <p className='text-capitalize'> {AllData?.description}</p>
+
+                            </Descrip>
+                        </div>
+                        <div className="col-md-6 col-12">
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -466,7 +478,13 @@ const Head = styled.div`
     margin-left: 6% !important;
     }
 `
-
+const Descrip = styled.div`
+margin-top: 1rem;
+    p{
+        font-size: .8rem;
+        color: #646464df;
+    }
+`
 const ButtonCraete = styled.button`
                             display: flex;
                             justify-content: center;

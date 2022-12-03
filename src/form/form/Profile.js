@@ -22,27 +22,27 @@ const Profile = () => {
     let ProfleId;
     let PhoneNumber;
     let Type;
-    if(IdData){
+    if (IdData) {
         // console.log('hai')
         ProfleId = JSON.parse(IdData).token;
         PhoneNumber = JSON.parse(IdData).phone;
         Type = JSON.parse(IdData)?.type;
-    }else{
+    } else {
         console.log('nahi hai')
         nav('/')
     }
-    
+
     // console.log(JSON.parse(IdData) , 'tokenData');
-  
+
     console.log(PhoneNumber);
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
     // const data = ProfileStore(state => state);
     const [name, setName] = useState('');
-    const [otp , setOtp] = useState('');
+    const [otp, setOtp] = useState('');
     const [email, setEmail] = useState(null);
     const [phone, setPhone] = useState(PhoneNumber);
-    const [numberchange , setNumberChange] = useState(PhoneNumber);
+    const [numberchange, setNumberChange] = useState(PhoneNumber);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [profileImg2, setProfileImg2] = useState(null);
     const [profileImg, setProfileImg] = useState('');
@@ -58,7 +58,7 @@ const Profile = () => {
     const [errors, seterrors] = useState(false);
     const [isOpen, setisOpen] = useState(false)
     const [OtpCondition, setOtpCondition] = useState(false);
-    const[gendererror , setGenderError] = useState("")
+    const [gendererror, setGenderError] = useState("")
     const Onclose = () => {
         setOtp('')
         setisOpen(false)
@@ -67,7 +67,7 @@ const Profile = () => {
     const OnOpen = () => setisOpen(true)
 
 
-  
+
 
 
 
@@ -98,7 +98,7 @@ const Profile = () => {
         if (response.data.data[0].date_of_birth) {
             date = response.data.data[0].date_of_birth.split('T')[0]
         }
-        else{
+        else {
             date = date.split('T')[0]
         }
         // // console.log(response.data.data[0].name);
@@ -111,12 +111,15 @@ const Profile = () => {
             setGstNumber(response.data.data[0].gst_no);
             setAddress(response.data.data[0].shop_address);
             // console.log(new ,"date");
-            let date = new Date(response.data.data[0].date_of_birth).getDate();
-            let month = new Date(response.data.data[0].date_of_birth).getMonth() +1;
-            let year = new Date(response.data.data[0].date_of_birth).getFullYear();
+            if (response.data.data[0].date_of_birth) {
 
-            console.log(`${year}-${month}-${date}`, 'full date');
-            setDOB(`${year}-${month}-${(date>=9)?date:`0${date}`}`);
+                let date = new Date(response.data.data[0].date_of_birth).getDate();
+                let month = new Date(response.data.data[0].date_of_birth).getMonth() + 1;
+                let year = new Date(response.data.data[0].date_of_birth).getFullYear();
+
+                console.log(`${year}-${month}-${date}`, 'full date');
+                setDOB(`${year}-${month}-${(date >= 9) ? date : `0${date}`}`);
+            }
             // console.log(dob)
             setGender(response.data.data[0].gender)
             // setDOB(response.data.data[0].date_of_birth)
@@ -126,10 +129,10 @@ const Profile = () => {
         }
 
     };
-    
+
     const UpadateUser = async () => {
-
-
+        console.log(dob, 'dob')
+        console.log('ok', 'dob')
         const formData = new FormData();
         const config = {
             headers: {
@@ -141,56 +144,57 @@ const Profile = () => {
             formData.append("profileImg", profileImg2);
         }
         // if (name != null) {
-            formData.append('name', name);
-            console.log('run')
-            console.log({formData})
+        formData.append('name', name);
+        console.log('run')
+        console.log({ formData })
         // }
-        if (email != null){
+        if (email != null) {
             formData.append('email', email)
-        }   
-        if (phone != null){
+        }
+        if (phone != null) {
             formData.append('phone', phone)
         }
-        if (city != null){
+        if (city != null) {
             formData.append('city', city)
         }
-        if(dob.trim().length > 0){
+        // dob != NaN-NaN-0NaN
+        if (dob.trim().length > 0) {
 
             formData.append('date_of_birth', new Date(dob).toDateString());
         }
         if (gender?.trim().length > 0) {
             formData.append('gender', gender)
 
-        if(gst_no != null){
-            formData.append('gst_no', gst_no)
-        }
-        if(shop_address != null){
-            formData.append('shop_address' , shop_address)
-        }
-        const api = `${baseUrl}/users/update/profile/${ProfleId}`;
-        console.log(formData.entries() , "profile")
-        // console.log(formData , "profile")
-        console.log(name , "profile")
-        await axios.put(api, formData).then((response) => {
-            console.log(response.data);
-            if(response.data.status){
-                setMessage('Profile Updated!');
-                seterrors(true);
+            if (gst_no != null) {
+                formData.append('gst_no', gst_no)
             }
-        }, error => {
-            console.log(error.response.data);
-        },)
-    } else {
-        setGenderError('Mandartory Field');
-        console.log('Mandartory Field');
-        // setGenderError('')       
-    }
+            if (shop_address != null) {
+                formData.append('shop_address', shop_address)
+            }
+            const api = `${baseUrl}/users/update/profile/${ProfleId}`;
+            console.log(formData.entries(), "profile")
+            // console.log(formData , "profile")
+            console.log(name, "profile")
+            await axios.put(api, formData).then((response) => {
+                console.log(response.data);
+                if (response.data.status) {
+                    setMessage('Profile Updated!');
+                    seterrors(true);
+                }
+            }, error => {
+                console.log(error.response.data);
+            },)
+        } else {
+            setGenderError('Mandartory Field');
+            console.log('Mandartory Field');
+            // setGenderError('')       
+        }
     }
 
     useEffect(() => {
         console.log(new Date(dob).toDateString())
-        if(IdData == null || IdData == undefined){
-          nav('/login')
+        if (IdData == null || IdData == undefined) {
+            nav('/login')
         }
         handleProfileData();
     }, [0])
@@ -198,7 +202,7 @@ const Profile = () => {
         console.log(profileImg2, "profileData");
     }, [profileImg2])
 
-   
+
 
 
     return (
@@ -263,7 +267,7 @@ const Profile = () => {
 
                                         </div>
                                     </div>
-                                    
+
                                     <div className="row mb-3">
                                         <div className="col-sm-3 ">
                                             <h6 className="mb-0">Full Name</h6>
@@ -285,18 +289,18 @@ const Profile = () => {
                                             <h6 className="mb-0">Phone</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Phone"  name="phone" value={ModalSellerPhone} contenteditable='false' 
-                                                 />
+                                            <input type="text" className="form-control shadow-none" placeholder="Phone" name="phone" value={ModalSellerPhone} contenteditable='false'
+                                            />
                                         </div>
                                         {
-                        !phone && <div className="text-danger">please add your number</div>
-                    }
-                    <div className="UpdateNum w-100">
-                        {
-                            !phone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
-                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
-                        }
-                    </div>
+                                            !phone && <div className="text-danger">please add your number</div>
+                                        }
+                                        <div className="UpdateNum w-100">
+                                            {
+                                                !phone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                                    <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                                            }
+                                        </div>
                                     </div>
                                     <div className="row mb-3">
                                         <div className="col-sm-3">
@@ -311,49 +315,49 @@ const Profile = () => {
                                             <h6 className="mb-0">Gender</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => {setGender(e.target.value) ;setGenderError('')}} />
-                                        <div style={{ color: "red" }} >{gendererror}</div>
+                                            <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => { setGender(e.target.value); setGenderError('') }} />
+                                            <div style={{ color: "red" }} >{gendererror}</div>
                                         </div>
                                     </div>
-                                    
-                                 {
-                                    (Type == 'shop') &&
-                                     
-                                    <>
-                                        <div className="row mb-3">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Shop Address</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Gst Number</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
-                                        </div>
-                                    </div>
-                                    
-                                    </>
-}                     
-                                    
+
+                                    {
+                                        (Type == 'shop') &&
+
+                                        <>
+                                            <div className="row mb-3">
+                                                <div className="col-sm-3">
+                                                    <h6 className="mb-0">Shop Address</h6>
+                                                </div>
+                                                <div className="col-sm-9 text-secondary">
+                                                    <input type="text" className="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
+                                                </div>
+                                            </div>
+                                            <div className="row mb-3">
+                                                <div className="col-sm-3">
+                                                    <h6 className="mb-0">Gst Number</h6>
+                                                </div>
+                                                <div className="col-sm-9 text-secondary">
+                                                    <input type="text" className="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
+                                                </div>
+                                            </div>
+
+                                        </>
+                                    }
+
                                     <div className="row">
                                         <div className="col-sm-3"></div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update" 
-                                            onClick={() => {
-                                                UpadateUser()
+                                            <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update"
+                                                onClick={() => {
+                                                    UpadateUser()
                                                 }} />
-                                                <br/>
-                                           
+                                            <br />
+
                                             {errors &&
-                        <div className="messageClass" role="alert" style={{color : 'green'}}>
-                            {message}
-                        </div>
-                    }
+                                                <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                                                    {message}
+                                                </div>
+                                            }
                                         </div>
                                     </div>
 
@@ -365,23 +369,23 @@ const Profile = () => {
                     </div>
                 </div>
                 <ProfileNumber  {
-                                    ...{
-                                        email,
-                                        otp,
-                                        setOtp,
-                                        OtpCondition, setOtpCondition,
-                                        setModalSellerPhone,
-                                        profileImg,
-                                        setPhone,
-                                        name,
-                                        phone,
-                                        id,
-                                        isOpen,
-                                        setisOpen,
-                                        Onclose,
-                                        OnOpen
-                                    }
-                                    } />
+                    ...{
+                        email,
+                        otp,
+                        setOtp,
+                        OtpCondition, setOtpCondition,
+                        setModalSellerPhone,
+                        profileImg,
+                        setPhone,
+                        name,
+                        phone,
+                        id,
+                        isOpen,
+                        setisOpen,
+                        Onclose,
+                        OnOpen
+                    }
+                } />
 
             </div>
             <Footer />

@@ -97,7 +97,7 @@ export default function Shop() {
                                     <div className="col-md-4 col-6 col-lg-3">
                                         <CardHeight>
 
-                                            <Link to='/singleproductpage' state={{ automobileProduct, key }} className="text-decor">
+                                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
                                                 <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                     {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                     {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}

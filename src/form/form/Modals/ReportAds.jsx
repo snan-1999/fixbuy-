@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ImCross } from 'react-icons/im'
 import { useState } from 'react';
 export default function ReportAds({ ReportApi, Onclose, OnOpen, setisOpen, isOpen, Type, Reportapi, setReason, reason }) {
+    const [Custom, setCustom] = useState(false)
     return (
         <>
             {
@@ -24,8 +25,44 @@ export default function ReportAds({ ReportApi, Onclose, OnOpen, setisOpen, isOpe
                                 <Modalbody>
 
                                     <MyModal>
-                                        <textarea name="" id="" className='form-control' cols="30" rows="3" onChange={(e) => setReason(e.target.value)} />
+                                        <div class="form-check">
+                                            <input class="MyInput form-check-input" type="radio" id="flexRadioDefault1" onChange={(e) => setReason(e.target.value)} name='reason' value='Offensive Content' />
+                                            <label class="MyLabel form-check-label" for="flexRadioDefault1"
+                                                style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
+                                                Offensive Content
+                                            </label>
+                                        </div>
 
+
+                                        <div class="form-check">
+                                            <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2" onChange={(e) => setReason(e.target.value)} name='reason' value='Fraud' />
+                                            <label class="MyLabel form-check-label" for="flexRadioDefault2"
+                                                style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
+                                                Fraud
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2" onChange={(e) => setReason(e.target.value)} name='reason' value='Duplicate Ad' />
+                                            <label class="MyLabel form-check-label" for="flexRadioDefault2" style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
+                                                Duplicate Ad
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2" onChange={(e) => setReason(e.target.value)} name='reason' value='Product Already Sold' />
+                                            <label class="MyLabel form-check-label" for="flexRadioDefault2" style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
+                                                Product Already Sold
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="MyInput form-check-input" type="radio" id="flexRadioDefault2" onClick={(e) => setCustom(!Custom)} name='reason' value='Product Already Sold' />
+                                            <label class="MyLabel form-check-label" for="flexRadioDefault2" style={{ marginTop: '4%', marginLeft: '5%', color: 'black' }}>
+                                                Custom 
+                                            </label>
+                                        </div>
+
+                                        {
+                                            Custom && <textarea placeholder='Your Message' name="" id="" className='mt-2 form-control' cols="30" rows="3" onChange={(e) => setReason(e.target.value)} />
+                                        }
                                     </MyModal>
 
                                     <ModelFooter>
@@ -56,11 +93,12 @@ font-family: 'Lato', sans-serif;
     top:0;
     left: 50%;
     transform: translate(-50%);
-width: 60%;
+width: 100%;
     `
 const Nandita = styled.button`
 `
 const Modelcontent = styled(motion.div)`
+width: 28vw;
 background: white;
 box-shadow: 0 1px 5px 5px rgb(235 234 234);
     /* width: 32rem;
@@ -77,13 +115,23 @@ transition: all 150ms ease;
 
 `
 const MyModal = styled.div`
+.form-check {
+    display: flex;
+    align-items: center;
+    min-height: 1.5rem;
+    position: relative;
+    margin-left: 0 !important;
+    margin-bottom: 0.5rem !important;
+    left: 6% !important;
+}
      /* margin: 5%; */
      padding: 10px;
      @media screen and (max-width: 600px) {
         margin-left:-8%;
      }
     .MyInput{
-        width: 3%;
+        height: 2vh;
+    width: auto;
         margin-top :4%;
         padding: 0 5px ;
         @media screen and (max-width: 600px) {
