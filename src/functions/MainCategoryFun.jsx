@@ -11,7 +11,7 @@ export const AllDataCategory = async (MainCategory,  latitude, Longitude, PageNO
 
         }
         const Data = await axios.get(api);
-        // console.log(api, 'main')
+        console.log(api, 'main')
         return Data
     } catch (error) {
         return error

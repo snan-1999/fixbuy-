@@ -8,8 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 import { baseUrl } from "../../functions/constant";
 import axios from "axios";
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Contact = () => {
@@ -40,7 +40,17 @@ const Contact = () => {
         }).then((response) => {
             console.log(response.data);
             if (response.data) {
-                setMessages('Your message has been sent !');
+                // setMessages('Your message has been sent !');
+                toast('Your message has been sent.', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
                 seterrors(true);
                 setFirstName('')
                 setLastName('')
@@ -56,6 +66,7 @@ const Contact = () => {
 
     return (
         <>
+        <ToastContainer />
             <Header />
             <div className="container">
                 <div className="for-center-contact">

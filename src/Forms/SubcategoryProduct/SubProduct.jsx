@@ -272,7 +272,7 @@ export default function SubProduct() {
 
                                 })
                             }
-                            <div className="row m-0 p-0">
+                            <div className="row m-0 p-0 d-flex justify-content-center">
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
                                     {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
                                         <span className="visually-hidden">Loading...</span>
@@ -286,20 +286,21 @@ export default function SubProduct() {
                 </>
                 )
 }
-                const ButtonCraete = styled.button`
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                /* all: unset; */
-                font-size: 15px;
-                font-weight: 600;
-                color: grey;
-                border: none;
-                background-color: transparent;
-                border-radius: 4px;
-                padding: 0.3rem 1.2rem;
-                margin: 1rem;
-                `
+const ButtonCraete = styled.button`
+display: flex;
+justify-content: center;
+align-items: center;
+/* all: unset; */  
+font-size: 15px; 
+font-weight: 600;
+color: white;
+border: none;
+background: linear-gradient(${(props) => props.theme.colors.primary} , ${(props) => props.theme.colors.secondary});
+border-radius: 4px;
+padding: 0.5rem 1.2rem;
+margin: 1rem;
+width: 15%;
+`
                const CardHeight = styled.div`
                position: relative;
                top: 0;

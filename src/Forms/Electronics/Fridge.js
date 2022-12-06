@@ -155,11 +155,21 @@ const Fridge = () => {
                                                     }
                                                 ).then((response) => {
                                                     if (response.data.status) {
+                                                        toast('Successfully Created', {
+                                                            position: "bottom-right",
+                                                            autoClose: 5000,
+                                                            hideProgressBar: false,
+                                                            closeOnClick: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                            theme: "colored",
+                                                            type: 'success'
+                                                        });
                                                         console.log(response.data);
                                                         seterrors(true)
                                                         console.log(errors)
                                                         console.log(response)
-                                                        setMessage('Posted !');
+                                                        // setMessage('Posted !');
                                                     } else {
                                                         console.log(false);
                                                     }
@@ -284,10 +294,11 @@ const Fridge = () => {
         <>
             <Header />
             <ToastContainer />
+            <h6 className="sub-Categories-Heading text-uppercase">Electronics/{newcategory}</h6>
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     POST YOUR ITEMS
-                    <h6 className="sub-Categories-Heading">{newcategory}</h6>
+                    {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
                 </div>
                 <hr />
                 <div className="container set-pd-post">

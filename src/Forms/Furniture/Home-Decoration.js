@@ -135,11 +135,21 @@ const HomeDecoration = () => {
                                                     }
                                                 }).then((response) => {
                                                     if (response.data.status) {
+                                                        toast('Successfully Created', {
+                                                            position: "bottom-right",
+                                                            autoClose: 5000,
+                                                            hideProgressBar: false,
+                                                            closeOnClick: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                            theme: "colored",
+                                                            type: 'success'
+                                                        });
                                                         console.log(response.data.status);
-                                                        setposted('success')
+                                                        // setposted('success')
                                                         seterrors(true)
                                                         // console.log(posted)
-                                                        setMessage('Posted !');
+                                                        // setMessage('Posted !');
                                                     } else {
                                                         setposted('fail')
                                                         console.log(false);
@@ -268,12 +278,13 @@ const Generate = async () => {
         <>
             <Header />
             <ToastContainer />
+            <h6 className="sub-Categories-Heading text-uppercase">furnitures/{newcategory}</h6>
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
                     {/* <h3>hello</h3> */}
                     POST YOUR ITEMS
-                    <h6 className="sub-Categories-Heading">{newcategory}</h6>
+                    {/* <h6 className="sub-Categories-Heading">{newcateg/ory}</h6> */}
                 </div>
                 <hr />
                 <div className="container set-pd-post">

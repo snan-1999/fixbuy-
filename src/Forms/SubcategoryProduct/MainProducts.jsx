@@ -266,7 +266,7 @@ export default function MainProducts() {
 
                         })
                     }
-                    <div className="row m-0 p-0">
+                    <div className="row m-0 p-0 d-flex justify-content-center">
 
                         <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
                             {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
@@ -289,12 +289,13 @@ const ButtonCraete = styled.button`
     /* all: unset; */  
     font-size: 15px; 
     font-weight: 600;
-    color: grey;
+    color: white;
     border: none;
-    background-color: transparent;
+    background: linear-gradient(${(props) => props.theme.colors.primary} , ${(props) => props.theme.colors.secondary});
     border-radius: 4px;
-    padding: 0.3rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     margin: 1rem;
+    width: 15%;
 `
 const CardHeight = styled.div`
 position: relative;

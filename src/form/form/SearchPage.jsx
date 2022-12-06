@@ -13,22 +13,22 @@ import { MdLocationOn } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 function SearchPage() {
-    const {latitude, Longitude } = useContext(GlobalVariables)
+    const { latitude, Longitude } = useContext(GlobalVariables)
     const searchData = useLocation()
     const [TotalPagess, setTotalPagess] = useState('');
     const [AllData, setAllData] = useState([])
     const [PageNO, setPageNO] = useState(1)
     const [Loading, setLoading] = useState(false)
     const [searchWord, setsearchWord] = useState(null)
-  
+
     console.log(searchData.state, 'dataSearch')
     const OneTImeData = async () => {
+        setLoading(true, 'dataSearch')
         const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
         console.log(data, 'hello')
-        setLoading(true, 'dataSearch')
 
+        setLoading(false)
         if (data.status) {
-            setLoading(false)
             setTotalPagess(data.totalPages);
             setAllData(data.data);
             console.log(AllData, 'hello1')
@@ -47,7 +47,7 @@ function SearchPage() {
         }
     }
     const LoadMOre = () => {
-        setPageNO(setPageNO + 1)
+        setPageNO(PageNO + 1)
         setLoading(true)
     }
     useEffect(() => {
@@ -56,17 +56,17 @@ function SearchPage() {
         OneTImeData()
         if (searchWord == searchData.state) {
             LoadDataFun()
-            console.log(true , 'dataSearch')
-        // } else {
-           
-        //     console.log(false, 'dataSearch')
+            console.log(true, 'dataSearch')
+        } else {
+
+            console.log(false, 'dataSearch')
         }
-    }, [searchData.state, setPageNO])
+    }, [searchData.state, PageNO])
     let Max_length = 26;
     return (
         <>
             <Header />
-            <div className="row m-0 p-0">
+            <div className="row m-0 p-0 overflow-hidden">
                 <div className="for-center flex-row justify-content-center align-items-center">
 
                     <div className="col-md-6">
@@ -138,12 +138,15 @@ function SearchPage() {
 
                         })
                     }
-                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == setPageNO}>
-                        {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
-                            <span className="visually-hidden">Loading...</span>
-                        </div>}
-                        Load More
-                    </ButtonCraete>
+                    <div className="row m-0 p-0 d-flex justify-content-center">
+
+                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == setPageNO}>
+                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>}
+                            Load More
+                        </ButtonCraete>
+                    </div>
                 </div>
             </div>
         </>
@@ -158,12 +161,13 @@ const ButtonCraete = styled.button`
     /* all: unset; */  
     font-size: 15px; 
     font-weight: 600;
-    color: grey;
+    color: white;
     border: none;
-    background-color: transparent;
+    background: linear-gradient(${(props) => props.theme.colors.primary} , ${(props) => props.theme.colors.secondary});
     border-radius: 4px;
-    padding: 0.3rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     margin: 1rem;
+    width: 15%;
 `
 const CardHeight = styled.div`
 position: relative;

@@ -21,7 +21,7 @@ import styled from "styled-components";
 import ReportModal from "./Modals/ReportModal";
 import { MdLocationOn } from "react-icons/md";
 
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 const SellerProfile = () => {
@@ -91,7 +91,7 @@ const SellerProfile = () => {
         }).then((res) => {
             if (res.data) {
                 setShow(true)
-                console.log(res.data);
+                console.log(res.data, 'subs');
             }
         })
 
@@ -106,7 +106,7 @@ const SellerProfile = () => {
         }).then((res) => {
             if (res.data) {
                 setShow(false)
-                console.log(res.data);
+                console.log(res.data, 'subs');
             }
         })
     }
@@ -120,14 +120,24 @@ const SellerProfile = () => {
         }).then((res) => {
             if (res.data) {
                 setShow(res.data.status)
-                console.log(res.data);
+                toast(res.data.message, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
+                console.log(res.data.message, 'subs');
             }
         })
     }
 
-    useEffect(() => {
-        CheckSubscribe()
-    }, [0])
+    // useEffect(() => {
+    //     CheckSubscribe()
+    // }, [Unsubscribe ,CheckSubscribe])
 
     const Reportapi = async () => {
         console.log('report api call....')
@@ -155,6 +165,7 @@ const SellerProfile = () => {
     return (
         <>
             <Header />
+            <ToastContainer />
             <div class="container">
 
                 <div class="page-wrapper">
@@ -188,14 +199,20 @@ const SellerProfile = () => {
                                                     {
                                                         (show == false) ?
                                                             <button className="subcribe-button"
-                                                                onClick={() =>
+                                                                onClick={() => {
                                                                     Subscribe()
+                                                                    CheckSubscribe()
+                                                                }
                                                                 }>
                                                                 <span className="subscribe-color">Subscribe</span>
                                                             </button>
                                                             :
                                                             (show == true) ?
-                                                                <button className="subcribe-button" onClick={() => Unsubscribe()}>
+                                                                <button className="subcribe-button" onClick={() => {
+                                                                    CheckSubscribe()
+                                                                    Unsubscribe()
+                                                                }
+                                                                }>
                                                                     <span className="subscribe-color">Unsubscribe</span>
                                                                 </button>
                                                                 :
@@ -237,9 +254,9 @@ const SellerProfile = () => {
                                                                         <span className="date">{new Date(ProductDetails.createdAt).toDateString()}</span>
                                                                     </div>
                                                                     <div className="contain-adrs">
-                                                                            <span className="adrs fs-6"><MdLocationOn className="fs-6" />{ProductDetails.location.state}</span>
-                                                                            <span className="year"></span>
-                                                                        </div>
+                                                                        <span className="adrs fs-6"><MdLocationOn className="fs-6" />{ProductDetails.location.state}</span>
+                                                                        <span className="year"></span>
+                                                                    </div>
                                                                     <div class="row p-0 m-0">
                                                                         <div class="col p-0">
                                                                             <div class="buy-bt">
@@ -345,7 +362,7 @@ const SellerProfile = () => {
                                                                         <div>
                                                                             <span className="date">{new Date(ProductDetails.createdAt).toDateString()}</span>
                                                                         </div>
-                                                                        
+
                                                                         <div className="contain-adrs">
                                                                             <span className="adrs fs-6"><MdLocationOn className="fs-6" />{ProductDetails.location.state}</span>
                                                                             <span className="year"></span>

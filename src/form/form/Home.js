@@ -27,9 +27,13 @@ import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
 import CategorySlider from "./corousel/CategorySlider";
 import useGeoLocation from "../../hooks/useGeoLoaction";
+import DownloadModal from "./Modals/DownloadModal";
 
 const Home = () => {
     const location = useGeoLocation();
+    const [isOpen, setisOpen] = useState(false)
+    const Onclose = () => setisOpen(false)
+    const OnOpen = () => setisOpen(true)
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
     const nav = useNavigate();
@@ -106,6 +110,11 @@ const Home = () => {
             setIsVisible(true);
         }
     };
+    window.onload = function () {
+        setTimeout(function () {
+            OnOpen()
+        }, 5000);
+    };
     let Max_length = 27;
     useEffect(() => {
         latitude && homeDataAll()
@@ -114,7 +123,9 @@ const Home = () => {
         <>
             {/* <div className="row p-0 m-0"> */}
             <Header />
-
+            {
+                 <DownloadModal  Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} />
+            }
             <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
@@ -239,7 +250,7 @@ const Home = () => {
                     {
 
                     }
-                    <div className="row m-0 p-0">
+                    <div className="row m-0 p-0 d-flex justify-content-center">
                         {
                             (TotalPagess == PageNo) ?
                                 <></>
@@ -281,12 +292,13 @@ const ButtonCraete = styled.button`
     /* all: unset; */  
     font-size: 15px; 
     font-weight: 600;
-    color: grey;
+    color: white;
     border: none;
-    background-color: transparent;
+    background: linear-gradient(${(props) => props.theme.colors.primary} , ${(props) => props.theme.colors.secondary});
     border-radius: 4px;
-    padding: 0.3rem 1.2rem;
+    padding: 0.5rem 1.2rem;
     margin: 1rem;
+    width: 15%;
 `
 const CardHeight = styled.div`
 position: relative;

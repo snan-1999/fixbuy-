@@ -123,6 +123,16 @@ const Fashion = () => {
                                                         }
                                                     }).then((response) => {
                                                         if (response.data.status) {
+                                                            toast('Successfully Created', {
+                                                                position: "bottom-right",
+                                                                autoClose: 5000,
+                                                                hideProgressBar: false,
+                                                                closeOnClick: true,
+                                                                draggable: true,
+                                                                progress: undefined,
+                                                                theme: "colored",
+                                                                type: 'success'
+                                                            });
                                                             console.log(response.data.status);
                                                             setposted('success')
                                                             // console.log(posted)

@@ -11,6 +11,9 @@ import { useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
+import OtpPop from "../../form/form/Modals/OtpPop";
+import { ToastContainer, toast } from 'react-toastify';
+import styled from "styled-components";
 const Land_Plot = () => {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -21,6 +24,17 @@ const Land_Plot = () => {
     let ProfleId = JSON.parse(IdData).token;
     const Type = JSON.parse(IdData).type;   
     console.log(ProfleId);
+    const [isOpen, setisOpen] = useState(false)
+    const Onclose = () => {
+        setOtp('')
+        setisOpen(false)
+        setOtpCondition(false)
+    }
+    const OnOpen = () => setisOpen(true)
+    const [otp , setOtp] = useState('');
+    const [otpError, setotpError] = useState('');
+    const [OtpCondition, setOtpCondition] = useState(false);
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
     const [pincode, setPincode] = useState('');
@@ -156,10 +170,20 @@ const Land_Plot = () => {
                                                                 }
                                                             }).then((response) => {
                                                                 if (response.data.status) {
+                                                                    toast('Successfully Created', {
+                                                                        position: "bottom-right",
+                                                                        autoClose: 5000,
+                                                                        hideProgressBar: false,
+                                                                        closeOnClick: true,
+                                                                        draggable: true,
+                                                                        progress: undefined,
+                                                                        theme: "colored",
+                                                                        type: 'success'
+                                                                    });
                                                                     console.log(response.data.status);
                                                                     seterrors(true)
                                                                     console.log(errors)
-                                                                    setMessage('Posted !');
+                                                                    // setMessage('Posted !');
                                                                 } else {
                                                                     console.log(false);
                                                                     // seterrors(false)
@@ -257,6 +281,64 @@ const Land_Plot = () => {
 
     }
 
+    const handleChangeOtp = () => { }
+    const Otpverify = async () => {
+        setisOpen(false)
+        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
+        await axios.post(api, {
+            user_id: user_id,
+            phone: sellerphone,
+            name: sellername,
+            otp: otp
+        }).then((res) => {
+            if (res.status) {
+                setModalSellerPhone(sellerphone)
+                // setMessage(res.message);
+                console.log(res.data, 'Otp');
+                toast("Add Successfully", {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
+                setOtpCondition(false)
+            }
+            else {
+                // setotpError('invalid otp')
+
+            }
+        })
+    }
+    const Generate = async () => {
+        console.log(sellerphone, 'Otp')
+        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+        // console.log("function started");
+        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+        await axios.post(api, {
+            "phone": sellerphone
+        }).then((res) => {
+            if (res.data) {
+                setOtpCondition(true)
+                // Otpverify()
+                // setverify(true);
+                setOtp(res.data.otp)
+                // console.log(verify, 'var')
+                console.log(res.data, 'Otp');
+            }
+            // }
+        })
+        // } else {
+        // setError('Invalid Phone Number');
+        // }
+
+
+    }
+
 
 
 
@@ -264,12 +346,13 @@ return (
     <>
         {/* <Header /> */}
         {/* <h1>car/heavy</h1> */}
+        <h6 className="sub-Categories-Heading text-uppercase">properties/{newcategory}</h6>
         <div className="container post border p-0">
             <div className="heading-post-product">
                 {/* <input type="text" name='category' value={category2} /> */}
                 {/* <h3>hello</h3> */}
                 POST YOUR ITEMS
-                <h6 className="sub-Categories-Heading">{newcategory}</h6>
+                {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
             </div>
             <hr />
             <div className="container set-pd-post">
@@ -591,33 +674,87 @@ return (
                 </div>
                 <br />
                 <div className="sub-heading-post">
-                    VERIFICATION
-                </div>
-                <p>We will send you OTP on your number</p><br />
-                <label for="phone">Phone Number*</label>
-                <input type="text" name="number" className="form-control set-pd-input-post" required 
-                onChange={(e) => {
-                    setSellerPhone(e.target.value)
-                    sellerphoneRef.current.style.borderColor = "#ced4da";
-                    setError("")
-                }}
-                    value={sellerphone}
-                    ref={sellerphoneRef}
-                /><br />
+                        VERIFICATION
+                    </div>
+                    <p>We will send you OTP on your number</p><br />
+                    <label for="phone">Phone Number*</label>
+                    <input type="text" name="number" className="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        // setSellerPhone(e.target.value)
+                        // sellerphoneRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }}
+                        value={ModalSellerPhone}
+                        ref={sellerphoneRef}
+                        readOnly
+                    />
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    {/* <br /> */}
+                    {
+                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                    }
+                    <div className="UpdateNum w-100">
+                        {
+                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                        }
+                    </div>
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    <br />
+                    <OTPTAG>
 
-                <div className="post-pr">
-                    <input type="submit" name="submit" value="POST NOW" onClick={sumbit} onChange={(e) => setMessage('')} />
-                </div>
-                {
-                    (errors) ?
-                        <div className="msgerror" role="alert" style={{ color: "green" }}>
+                        {
+
+                            // (sellerphone.length >= 10) ?
+                            <>
+                                <OtpPop
+                                    {
+                                    ...{
+                                        Otpverify,
+                                        Generate,
+                                        otp,
+                                        setOtp,
+                                        OtpCondition, setOtpCondition,
+                                        setModalSellerPhone,
+                                        setSellerPhone,
+                                        sellername,
+                                        sellerphone,
+                                        user_id,
+                                        handleChangeOtp,
+                                        isOpen,
+                                        setisOpen,
+                                        Onclose,
+                                        OnOpen
+                                    }
+                                    }
+                                />
+                                <div className="text" style={{ color: "red" }}>{otpError}</div>
+                                <br />
+
+
+                            </>
+
+                        }
+                    </OTPTAG>
+                    {
+                        (PhoneNumber !== null) &&
+                        // (verify) &&
+                        <div className="post-pr">
+
+                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
+                                onChange={(e) => {
+                                    setMessage('')
+                                }} />
+                        </div>
+
+                    }
+                    {/* <div >{otpError}</div> */}
+
+                    {errors &&
+                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                        :
-                        <div className="msgerror" role="alert" style={{ color: "red" }}>
-                            {message}
-                        </div>
-                }
+                    }
             </div>
 
         </div>
@@ -628,3 +765,9 @@ return (
 }
 
 export default Land_Plot;
+const OTPTAG = styled.div`
+OTP input {
+
+padding: 17px;
+}
+`

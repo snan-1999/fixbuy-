@@ -5,6 +5,7 @@ import facebook from '../../assets/images/facebook.png'
 import sunset from '../../assets/images/sunset.jpg';
 import instagram from '../../assets/images/instagram.png';
 import Header from "../../form/form/header";
+import shopIcon from '../../assets/images/shopIcon.png'
 import Footer from "../../form/form/Footer";
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios'
@@ -36,25 +37,30 @@ import ShareLink from './Share/ShareLink';
 import { TiLocation } from 'react-icons/ti'
 import ShareProuctsModal from './Modals/ShareProduct';
 import { TbMessageReport } from 'react-icons/tb';
-import { MdReport } from 'react-icons/md';
+import { MdLocationOn, MdReport } from 'react-icons/md';
 import ReportAds from './Modals/ReportAds';
 import { BsChatDots } from 'react-icons/bs';
+import { AllDataCategory } from '../../functions/MainCategoryFun';
+import useGeoLocation from '../../hooks/useGeoLoaction';
 export default function SingleProductPage(props) {
     const { id } = useParams()
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => setisOpen(false)
     const OnOpen = () => setisOpen(true)
-    const [BntStatus, setBntStatus] = useState(null)
-    const [title, setTitle] = useState('');
+    const [Loading, setLoading] = useState(false)
+    const [TotalPagess, setTotalPagess] = useState('')
+    const [PageNO, setPageNO] = useState(1);
+    const [RelatedData, setRelatedData] = useState([]);
     const [SellerDetails, setSellerDetails] = useState([]);
     const [description, setDescription] = useState('');
     const location = useLocation()
+    const Geolocation = useGeoLocation();
     // console.log(location.state, 'single Data')
     // console.log(location , 'all')
     const Token = localStorage.getItem('token');
-    const { HomeData, setHomeData, UserId } = useContext(GlobalVariables);
+    const { HomeData, setHomeData, UserId, latitude, Longitude } = useContext(GlobalVariables);
     // console.log(location.state, 'homeData')
-    // console.log(HomeData, 'homeData')
+    console.log(latitude, 'ltitude')
     // const { data, isFetching } = SingleProduct(productid)
 
     const [TokenID, setTokenID] = useState({
@@ -78,6 +84,7 @@ export default function SingleProductPage(props) {
         // console.log(imgChange) 
     }
     let Max_length = 85;
+    let Max_lengthDisc = 27;
     const SingleData = async () => {
         let api;
         try {
@@ -89,6 +96,7 @@ export default function SingleProductPage(props) {
             const { data } = await axios.get(api);
             setLoader(true)
             if (data.status) {
+               { latitude &&  await RelatedProducts(data.data.mainCategories)}
                 console.log(data.data, 'slkfsdjflksd')
                 setAllData(data.data)
                 setHEart(HomeData)
@@ -97,12 +105,12 @@ export default function SingleProductPage(props) {
                 setLoader(false)
                 setImages(data.data.images[0])
             }
-            console.log(typeof data.data, 'singleData')
+            console.log(data.data, 'singleData')
             let validField = ['price', 'title', 'plotArea', 'furnishing', 'length', 'breadth', 'projectName', 'bedrooms', 'bathrooms', 'builtUpArea', 'floors', 'maintenance', 'parking', 'bachelorsAllowed', 'years', 'fuel'
                 , 'transmission', 'kmDriven', 'No_of_owner'];
             let arr = [];
             for (let i in data.data) {
-                console.log(i, 'singleData')
+                // console.log(i, 'singleData')
                 if (validField.includes(i)) {
                     // {
                     //     alert(data.data[i]).includes(data.data['price'])
@@ -260,26 +268,45 @@ export default function SingleProductPage(props) {
     }
     const print = () => {
         return description;
-    }
+    } 
     // end
+    const LoadMOre = async () => {
+        setPageNO(PageNO + 1)
+        setLoading(true)
+    }
+    const RelatedProducts = async (MainCategory) => {
+        console.log('run' ,'main')
+        try {
+            const { data } = await AllDataCategory(MainCategory, latitude, Longitude, PageNO, UserId);
+            if (data.status) { 
+                setTotalPagess(data.totalPages)
+                setRelatedData([...RelatedData, ...data.data])
+                setLoading(false)
+            }
+            console.log(data, 'ltitude')
+        } catch (error) {
+            console.log(error , 'main')
+        }
+    }
+
     useEffect(() => {
         SingleData()
         // sellerDetails()
-    }, [0])
+    }, [0 ,latitude ,PageNO])
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
     // useEffect(() => {
     //     setUseData(location.state)
     // }, [SavedItem])
-    if (Loader) {
-        return <ButtonCraete size='lg' variant='outline' colorScheme='teal' >
-            <div className="spinner-border spinner-border-sm me-2" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-            Load More
-        </ButtonCraete>
-    }
+    // if (Loader) {
+    //     return <ButtonCraete size='lg' variant='outline' colorScheme='teal' >
+    //         <div className="spinner-border spinner-border-sm me-2" role="status">
+    //             <span className="visually-hidden">Loading...</span>
+    //         </div>
+    //         Load More
+    //     </ButtonCraete>
+    // }
     return (
         <>
             <Header />
@@ -294,7 +321,15 @@ export default function SingleProductPage(props) {
                     setReason
                 }
             } />
+            {/* GeoLocation start */}
+            <div className="inline-block mr-auto pt-1">
+                {
+                    Geolocation.loaded &&
+                    JSON.stringify(Geolocation)
 
+                }
+            </div>
+            {/* Geolocation end */}
             <div className="main ">
                 <Head>
 
@@ -463,13 +498,166 @@ export default function SingleProductPage(props) {
                     </div>
 
                 </div>
+                <div className="row m-0 p-0">
+                    <div className="for-center flex-row justify-content-center align-items-center">
+
+                        <div className="col-md-12">
+                            <div className="container-heading-related">
+                                <span>RELATED PRODUCTS</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div className="container" id="card_box">
+
+                    <div className="row p-0 m-0">
+                        {
+                            RelatedData?.map((automobileProduct, key) => {
+                                return (
+                                    <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
+                                        <CardHeight>
+
+                                            <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
+                                                <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
+                                                    {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
+                                                    {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
+                                                    <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                    <div className="pdt-details">
+                                                        <div className="row d-flex align-items-center">
+                                                            <div className="col-md-6 col-8 ">
+                                                                <div className="price">₹ {automobileProduct.price}</div>
+                                                            </div>
+                                                            <div className="col-md-6 col-4 setHeart">
+                                                                {
+                                                                    (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
+
+                                                        {
+                                                            (automobileProduct.title).length > Max_lengthDisc ?
+                                                                <div className="prd-name">
+                                                                    {`${automobileProduct.title.substring(0, Max_lengthDisc)}...`}
+                                                                </div>
+                                                                :
+                                                                <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                        }
+                                                        <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
+                                                            <span className="adrs text-capitalize fs-6">   <MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                            <span className="year"></span>
+                                                        </div>
+                                                        <div className="row p-0 m-0">
+                                                            <div className="col p-0">
+
+                                                                {/* <div className="buy-bt">
+                                                <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
+                                            </div> */}
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </Link>
+                                        </CardHeight>
+                                    </div>
+                                )
+
+                            })
+                        }
+                        {/* <div className="d-grid place-items-center"> */}
+                        <br />
+                        <div className="row m-0 p-0 d-flex justify-content-center">
+                            {
+                                (TotalPagess == PageNO) ?
+                                    <></>
+                                    :
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                        {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>}
+                                        Load More
+                                    </ButtonCraete>
+                            }
+
+                            {/* </div> */}
+                        </div>
+                    </div>
+
+
+                </div >
                 <br />
                 <br />
                 <Footer className="mt-4 position-relative top-0" />
             </div>
+
         </>
     )
 }
+const CardHeight = styled.div`
+position: relative;
+top: 0;
+@media (max-width: 768px) {
+    // height: 55vh ;
+  }
+    // height: 60vh ;
+    .ShopLogo{
+        height: 5vh;
+        position: absolute;
+        top: 2%;
+        right: 7%;
+        @media screen and (max-width: 600px){
+            height: 3vh;
+        position: absolute;
+        top: 2%;
+        right: 7%;
+        }
+        @media screen and (min-width: 601px) and (max-width: 1000px) {
+            height: 3vh;
+        position: absolute;
+        top: 2%;
+        right: 3%;
+        }
+    }
+`
+const Ribbon = styled.div`
+    /* margin-left: -10px; */
+    font:  10px sans-serif;
+    color: #3D6182;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform:    rotate(-45deg);
+    -ms-transform:     rotate(-45deg);
+    -o-transform:      rotate(-45deg);
+    position: relative;
+    padding: 4px 0;
+    top: 10px;
+    left: -40px;
+    width: 120px;
+    background-color: #3D6182;
+    color: #fff;
+  
+`
+const ButtonCraete = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* all: unset; */  
+    font-size: 15px; 
+    font-weight: 600;
+    color: white;
+    border: none;
+    background: linear-gradient(${(props) => props.theme.colors.primary} , ${(props) => props.theme.colors.secondary});
+    border-radius: 4px;
+    padding: 0.5rem 1.2rem;
+    margin: 1rem;
+    width: 15%;
+`
 const Head = styled.div`
     .for-center {
         width: 100%;
@@ -485,20 +673,20 @@ margin-top: 1rem;
         color: #646464df;
     }
 `
-const ButtonCraete = styled.button`
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            /* all: unset; */
-                            font-size: 15px;
-                            font-weight: 600;
-                            color: grey;
-                            border: none;
-                            background-color: transparent;
-                            border-radius: 4px;
-                            padding: 0.3rem 1.2rem;
-                            margin: 1rem;
-                            `
+// const ButtonCraete = styled.button`
+//                             display: flex;
+//                             justify-content: center;
+//                             align-items: center;
+//                             /* all: unset; */
+//                             font-size: 15px;
+//                             font-weight: 600;
+//                             color: grey;
+//                             border: none;
+//                             background-color: transparent;
+//                             border-radius: 4px;
+//                             padding: 0.3rem 1.2rem;
+//                             margin: 1rem;
+//                             `
 const DetailsData = styled.div`
                             .SellerImgSingle {
                                 display: flex;

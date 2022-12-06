@@ -214,7 +214,7 @@ const Profile = () => {
 
                     <div className="page-content ">
                         <br />
-                        <h5 className="my-2">User Profile</h5>
+                        <h5 className="my-2 text-capitalize">{Type} Profile</h5>
 
 
 

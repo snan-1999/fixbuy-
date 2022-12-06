@@ -51,7 +51,7 @@ const Header = () => {
     // if(profileName){}
     const profileName = localStorage('token');
     let lastname = window.localStorage.getItem('token');
-    console.log(lastname ,'tokenData')
+    console.log(lastname, 'tokenData')
     const nav = useNavigate();
     const sellLog = () => {
         // console.log('work ')
@@ -65,12 +65,12 @@ const Header = () => {
     }
     const profilefunction = () => {
         const checkk = !window.localStorage.getItem('token')
-        console.log( checkk , 'tokenData')
+        console.log(checkk, 'tokenData')
         if (window.localStorage.getItem('token') == null) {
             // alert('yes')
             nav('/login')
         }
-        
+
     }
     const [Upstate, setUpstate] = useState(0)
 
@@ -256,26 +256,26 @@ const Header = () => {
                                         <li className="nav-item aa">
                                             <Link to="/blogs" className="nav-link">BLOGS</Link>
                                         </li>
-                                        <li className="nav-item aa mob-login" onClick={profilefunction}>
+                                        <li className="nav-item aa" onClick={profilefunction}>
                                             <Link to="/profile" className="nav-link" >PROFILE</Link>
                                         </li>
                                         {
                                             (Type == "user" || Type == "shop") &&
 
                                             <li onClick={OnOpen}>
-                                                <li className="nav-item aa mob-login">
+                                                <li className="nav-item aa">
                                                     <Link to="/shop" className="nav-link">SHOP</Link>
                                                 </li>
                                             </li>
                                         }
-                                        <li className="nav-item aa mob-login"  onClick={profilefunction}>
+                                        <li className="nav-item aa" onClick={profilefunction}>
                                             <Link to="/posteditems" className="nav-link">MY ADS</Link>
                                         </li>
-                                        <li className="nav-item aa mob-login"  onClick={profilefunction}>
+                                        <li className="nav-item aa" onClick={profilefunction}>
                                             <Link to="/packages" className="nav-link">PACKAGES</Link>
                                         </li>
-                                        <li className="nav-item aa mob-login">
-                                            <Link to='/login' className='nav-link'>{LocalData ? <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div> :'LOGIN' }</Link>
+                                        <li className="nav-item aa">
+                                            <Link to='/login' className='nav-link'>{LocalData ? <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div> : 'LOGIN'}</Link>
                                         </li>
 
                                     </ul>
@@ -302,137 +302,151 @@ const Header = () => {
             </div>
 
             {/* <!-- category --> */}
-            <div className="desk-category">
+            <div className="desk-category overflow-hidden">
                 <div className="row m-0 p-0">
                     <div className="col  p-0">
                         <div className="catagry">
 
                             {/* <div className="row catagry-color p-0 m-0"> */}
                             <div className="category-section">
-                                {/* <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div> */}
-                                <div className=" disp">
-                                    <div className="drop-down">
-                                        Automobiles
-                                        <ul className="dropdown-category dropdown-category-bikes">
-                                            <Link to="/automobile/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
-                                            <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
-                                            <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
-                                            <Link to="/automobile/heavy vehicle" className="dropdown_sub-category" ><li className="bghover">Heavy Vehicle</li></Link>
-                                            <Link to="/automobile/spare parts" className="dropdown_sub-category" ><li className="bghover">Spare Parts</li></Link>
-                                            <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Others</li></Link>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="disp">
-                                    <div className="drop-down">
-                                        Laptop&nbsp;&&nbsp;Mobiles
-                                        <ul className="dropdown-category ">
-                                            <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
-                                            <Link to="/mobiles/tablets" className="dropdown_sub-category "><li className="bghover">Tablets</li></Link>
-                                            <Link to="/mobiles/laptops" className="dropdown_sub-category "><li className="bghover">Laptops</li></Link>
-                                            <Link to="/mobiles/computers" className="dropdown_sub-category "><li className="bghover">Computers</li></Link>
-                                            <Link to="/mobiles/accessories" className="dropdown_sub-category "><li className="bghover">Accessories</li></Link>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="disp">
-                                    <div className="drop-down">
-                                        Furniture
-
-                                        <ul className="dropdown-category">
-                                            <Link to="/furnitures/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/furnitures/home decoration" className="dropdown_sub-category "><li className="bghover">Home Decoration</li></Link>
-                                            <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
-                                            <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
-                                            <Link to="/furnitures/kids furniture" className="dropdown_sub-category "><li className="bghover">Kids Furniture</li></Link>
-                                            <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="disp">
-                                    <div className="drop-down">
-                                        Fashions
-                                        <ul className="dropdown-category">
-                                            <Link to="/Fashions/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>
-                                            <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
-                                            <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
-                                            <Link to="/Fashions/fashion & beauty" className="dropdown_sub-category "><li className="bghover">Fashion & Beauty Products</li></Link>
-                                            <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="disp">
-                                    <div className="drop-down">
-                                        Services
-                                        <ul className="dropdown-category">
-                                            <Link to="/Services/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/Services/education & classes" className="dropdown_sub-category "><li className="bghover">Educations & classes</li></Link>
-                                            <Link to="/Services/electronics & computers" className="dropdown_sub-category "><li className="bghover">Electronics & Computers</li></Link>
-                                            <Link to="/Services/accountancy services" className="dropdown_sub-category "><li className="bghover">Accountancy Services</li></Link>
-                                            <Link to="/Services/software services" className="dropdown_sub-category "><li className="bghover">Software Services</li></Link>
-                                            <Link to="/Services/other services" className="dropdown_sub-category "><li className="bghover">Other Services</li></Link>
-                                        </ul>
-                                    </div></div>
-
-                                <div className="disp">
-                                    <div className="drop-down">
-                                        Properties
-                                        <ul className="dropdown-category">
-                                            <Link to="/properties/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/properties/for rent" className="dropdown_sub-category "><li className="bghover">For Rent</li></Link>
-                                            <Link to="/properties/for sale" className="dropdown_sub-category "><li className="bghover">For Sale</li></Link>
-                                            <Link to="/properties/land & plots" className="dropdown_sub-category "><li className="bghover">Land & Plots</li></Link>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="disp">
-                                    <div className="drop-down">
-                                        Books&nbsp;&&nbsp;Sports
-                                        <ul className="dropdown-category">
-                                            <Link to="/booksAndSports/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/booksAndSports/books" className="dropdown_sub-category "><li className="bghover">Books</li></Link>
-                                            <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
-                                            <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
-                                            <Link to="/booksAndSports/sports items" className="dropdown_sub-category "><li className="bghover">Sports Items</li></Link>
-                                            <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
-                                        </ul>
-                                    </div></div>
-
-
-                                <div className="col-2 disp">
-                                    <div className="drop-down">
-                                        Electronics&nbsp;&&nbsp;Appliances
-                                        <ul className="dropdown-category catagry-color">
-                                            <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                            <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>
-                                            <Link to="/electronics/cooler"><li className="bghover">Cooler</li></Link>
-                                            <Link to="/electronics/fan"><li className="bghover">Fan</li></Link>
-                                            <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
-                                            <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
-                                            <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
-                                            <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitor</li></Link>
-                                            <Link to="/electronics/games"><li className="bghover">Games</li></Link>
-                                            <Link to="/electronics/speakers"><li className="bghover">Speakers</li></Link>
-                                            <Link to="/electronics/cameras & lens"><li className="bghover">Cameras & Lens</li></Link>
-                                            <Link to="/electronics/kitchen & others"><li className="bghover">Kitchen & Others</li></Link>
-                                            <Link to="/electronics/computer accessories"><li className="bghover">Computers Accessories</li></Link>
-                                            <Link to="/electronics/air purifiers"><li className="bghover">Air Purifiers</li></Link>
-                                            <Link to="/electronics/water purifiers"><li className="bghover">Water Purifiers</li></Link>
-                                            <Link to="/electronics/other items"><li className="bghover">Other Items</li></Link>
-                                        </ul>
+                                <div className="d-flex gap-3">
+                                    {/* <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div> */}
+                                    <div className=" disp">
+                                        <div className="drop-down">
+                                            Automobiles
+                                            <ul className="dropdown-category dropdown-category-bikes">
+                                                <Link to="/automobile/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
+                                                <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
+                                                <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
+                                                <Link to="/automobile/heavy vehicle" className="dropdown_sub-category" ><li className="bghover">Heavy Vehicle</li></Link>
+                                                <Link to="/automobile/spare parts" className="dropdown_sub-category" ><li className="bghover">Spare Parts</li></Link>
+                                                <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Others</li></Link>
+                                            </ul>
+                                        </div>
                                     </div>
 
-                                    {/* <!-- end --> */}
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Laptop&nbsp;&&nbsp;Mobiles
+                                            <ul className="dropdown-category ">
+                                                <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
+                                                <Link to="/mobiles/tablets" className="dropdown_sub-category "><li className="bghover">Tablets</li></Link>
+                                                <Link to="/mobiles/laptops" className="dropdown_sub-category "><li className="bghover">Laptops</li></Link>
+                                                <Link to="/mobiles/computers" className="dropdown_sub-category "><li className="bghover">Computers</li></Link>
+                                                <Link to="/mobiles/accessories" className="dropdown_sub-category "><li className="bghover">Accessories</li></Link>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Furniture
+
+                                            <ul className="dropdown-category">
+                                                <Link to="/furnitures/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/furnitures/home decoration" className="dropdown_sub-category "><li className="bghover">Home Decoration</li></Link>
+                                                <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
+                                                <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
+                                                <Link to="/furnitures/kids furniture" className="dropdown_sub-category "><li className="bghover">Kids Furniture</li></Link>
+                                                <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Fashions
+                                            <ul className="dropdown-category">
+                                                <Link to="/Fashions/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>
+                                                <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
+                                                <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
+                                                <Link to="/Fashions/fashion & beauty" className="dropdown_sub-category "><li className="bghover">Fashion & Beauty Products</li></Link>
+                                                <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Services
+                                            <ul className="dropdown-category">
+                                                <Link to="/Services/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/Services/education & classes" className="dropdown_sub-category "><li className="bghover">Educations & classes</li></Link>
+                                                <Link to="/Services/electronics & computers" className="dropdown_sub-category "><li className="bghover">Electronics & Computers</li></Link>
+                                                <Link to="/Services/accountancy services" className="dropdown_sub-category "><li className="bghover">Accountancy Services</li></Link>
+                                                <Link to="/Services/software services" className="dropdown_sub-category "><li className="bghover">Software Services</li></Link>
+                                                <Link to="/Services/other services" className="dropdown_sub-category "><li className="bghover">Other Services</li></Link>
+                                            </ul>
+                                        </div></div>
+
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Properties
+                                            <ul className="dropdown-category">
+                                                <Link to="/properties/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/properties/for rent" className="dropdown_sub-category "><li className="bghover">For Rent</li></Link>
+                                                <Link to="/properties/for sale" className="dropdown_sub-category "><li className="bghover">For Sale</li></Link>
+                                                <Link to="/properties/land & plots" className="dropdown_sub-category "><li className="bghover">Land & Plots</li></Link>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Books&nbsp;&&nbsp;Sports
+                                            <ul className="dropdown-category">
+                                                <Link to="/booksAndSports/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/booksAndSports/books" className="dropdown_sub-category "><li className="bghover">Books</li></Link>
+                                                <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
+                                                <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
+                                                <Link to="/booksAndSports/sports items" className="dropdown_sub-category "><li className="bghover">Sports Items</li></Link>
+                                                <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            Electronics&nbsp;&&nbsp;Appliances
+                                            <ul className="dropdown-category catagry-color">
+                                                <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>
+                                                <Link to="/electronics/cooler"><li className="bghover">Cooler</li></Link>
+                                                <Link to="/electronics/fan"><li className="bghover">Fan</li></Link>
+                                                <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
+                                                <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
+                                                <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
+                                                <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitor</li></Link>
+                                                <Link to="/electronics/games"><li className="bghover">Games</li></Link>
+                                                <Link to="/electronics/speakers"><li className="bghover">Speakers</li></Link>
+                                                <Link to="/electronics/cameras & lens"><li className="bghover">Cameras & Lens</li></Link>
+                                                <Link to="/electronics/kitchen & others"><li className="bghover">Kitchen & Others</li></Link>
+                                                <Link to="/electronics/computer accessories"><li className="bghover">Computers Accessories</li></Link>
+                                                <Link to="/electronics/air purifiers"><li className="bghover">Air Purifiers</li></Link>
+                                                <Link to="/electronics/water purifiers"><li className="bghover">Water Purifiers</li></Link>
+                                                <Link to="/electronics/other items"><li className="bghover">Other Items</li></Link>
+                                            </ul>
+                                        </div>
+
+                                        {/* <!-- end --> */}
+                                    </div>
+                                    <div className="disp">
+                                        <div className="drop-down">
+                                            More
+                                            <ul className="dropdown-category catagry-color">
+                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">More</li></Link>
+                                                <Link to="/"><li className="bghover">More</li></Link>
+                                            </ul>
+                                        </div>
+
+                                        {/* <!-- end --> */}
+                                    </div>
                                 </div>
-                                <div className="profiles d-flex align-items-center justify-content-start">
+                                <div className="profiles">
 
 
 
@@ -472,7 +486,7 @@ const Header = () => {
                                         <li><Link to='/packages' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
 
                                         {
-                                            (Type == "user" || Type == 'shop') &&
+                                            (Type == "user") &&
 
                                             <li onClick={OnOpen}>
                                                 <Link to="" className="dropdown-item">
@@ -504,9 +518,6 @@ const Header = () => {
 
 
                                 <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
-
-                                <div className="col-3 desk-login">
-                                </div>
 
                                 {/* </div> */}
                             </div>
