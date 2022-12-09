@@ -247,7 +247,7 @@ button#dropdownMenuButton1 {
   /* Realed products */
 .container-heading-related {
   position: absolute;
-  width: 400px;
+  width: 370px;
   height: 60px;
   border-bottom: 3px solid #37577A;
   /* background: linear-gradient(var(--color1) , var(--color2)) !important; */
@@ -261,7 +261,7 @@ button#dropdownMenuButton1 {
   color: whitesmoke;
   background: linear-gradient(var(--color1), var(--color2)) !important;
   display: inline-block;
-  padding: 8px 20px 10px 25px;
+  padding: 8px 0px 10px 15px;
   text-transform: uppercase;
 }
 
@@ -279,7 +279,7 @@ button#dropdownMenuButton1 {
   /* // end  */
 .container-heading-pr {
   position: absolute;
-  width: 350px;
+  width: 320px;
   height: 60px;
   border-bottom: 3px solid #37577A;
   /* background: linear-gradient(var(--color1) , var(--color2)) !important; */

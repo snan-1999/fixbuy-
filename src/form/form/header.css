@@ -2624,6 +2624,13 @@ button.GoogleBtn {
 
 
 @media screen and (max-width: 600px) {
+    .ContentClass {
+    padding-right: 0 !important;
+    position: relative;
+    left: 3%;
+    /* margin-top: 2%; */
+    /* margin-left: 8%; */
+}
     .sub-Categories-Heading {
         font-size: 15px;
         color: grey;

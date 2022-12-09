@@ -117,14 +117,14 @@ export default function SingleProductPage(props) {
                     // }
                     arr.push(
 
-                        <div className='row d-flex w-100 mb-1 KeyBox'>
-                            <div className='col-md-3 '>
+                        <div className='row  mb-1 KeyBox'>
+                            <div className='col-md-3 col-5'>
 
                                 <p className="setKeys w-100 text-capitalize">
                                     {i}
                                 </p>
                             </div>
-                            <div className='col-md-9 text-capitalize setKeysVal'>
+                            <div className='col-md-9 col-7 text-capitalize setKeysVal'>
                                 {
                                     (data.data[i]) == (data.data['title'])
                                         ?
@@ -337,7 +337,7 @@ export default function SingleProductPage(props) {
                             <div className="for-center flex-row justify-content-center align-items-center">
                                 <div className="col-md-12 col-6">
                                     <div className="container-heading-pr text-white">
-                                        <span>PRODUCTS DETAILS :-</span>
+                                        <span>PRODUCTS DETAILS</span>
                                     </div>
                                 </div>
 
@@ -392,11 +392,11 @@ export default function SingleProductPage(props) {
                             </ImageSetion>
                         </div>
 
-                        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center ContentClass ">
+                        <div className="col-md-6 d-flex flex-row justify-content-center align-items-center ContentClass ">
                             <DetailsData className=''>
                                 <div className="d-flex justify-content-center heading-box w-100">
-                                    <div className="row w-100 d-flex align-items-center" style={{ overflow: 'hidden' }}>
-                                        <div className="col-md-3 ">
+                                    <div className="row w-100 d-flex flex-row align-items-center" style={{ overflow: 'hidden' }}>
+                                        <div className="col-md-3 col-3">
 
                                             <div className="SellerImgSingle">
                                                 <img src={SellerDetails.data?.profileImg} />
@@ -404,7 +404,7 @@ export default function SingleProductPage(props) {
 
 
                                         </div>
-                                        <div className="col-md-9 p-0 d-flex align-items-start flex-row ">
+                                        <div className="col-md-9 col-9 p-0 d-flex align-items-start flex-row mob-Edit">
                                             <div className="detailsSeller">
                                                 <h4 className='posted mb-1'>Posted By</h4>
                                                 <h4 className='fs-5 mb-1'>{SellerDetails.data?.data[0].name}</h4>
@@ -440,12 +440,12 @@ export default function SingleProductPage(props) {
 
                                 <div className='heartBtn'>
                                     <div className='row d-flex w-100 KeyBox1'>
-                                        <div className='col-md-3'>
+                                        <div className='col-md-3 col-5'>
 
                                             <p className='fs-6 setKeys w-100 text-capitalize'>Status</p>
 
                                         </div>
-                                        <div className='col-md-9 text-capitalize setKeysVal'>
+                                        <div className='col-md-9 col-7 text-capitalize setKeysVal'>
                                             {(HomeData) ?
                                                 <>
 
@@ -792,7 +792,11 @@ const DetailsData = styled.div`
         }
                             width: 80%;
                             @media screen and (max-width : 600px){
+                                .mob-Edit{
+                                    margin-left:1rem ;
+                                }
                                 margin-top: 2.4rem  !important;
+                                width: 100%;
                             }
                             `
 const MainSlide = styled.div`

@@ -385,7 +385,9 @@ li.footerLink:hover::before {
 }
 
 @media screen and (max-width: 600px) {
-
+    .setMarginDiv{
+        left: 3%;
+    }
     /*my ads start*/
     .container-heading.service-form {
         position: absolute;

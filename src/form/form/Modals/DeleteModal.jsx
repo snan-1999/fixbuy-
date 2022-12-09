@@ -56,7 +56,7 @@ z-index: 10;
         z-index: 10;
         position: fixed;
         top: 45% !important;
-        left: 16% !important;
+        left: 14% !important;
     }
     `
 const ModelDiv = styled(motion.div)`
@@ -68,8 +68,13 @@ height: 16rem;
 transition: all 400ms;
 border-radius: 1rem;
 z-index: 25;
+@media screen and (max-width :600px){
+    width: 18rem;
+    height: 13rem;
+}
 `
 const DeleteDiv = styled.div`
+
 z-index: 25;
     position: absolute;
     top: -18%;
@@ -80,6 +85,15 @@ z-index: 25;
     background-color: #fff;
     border-radius: 50%;
     border: 5px solid ${props => props.theme.colors.primary};
+    @media screen and (max-width : 600px){
+        top: -15%;
+        lord-icon{
+
+            width : 60px !important;
+            height : 60px !important;
+        }
+    }
+
 `
 const ModalBody = styled.div`
     position: relative;
@@ -91,6 +105,10 @@ const ModalBody = styled.div`
     color:  ${props => props.theme.colors.primary};
     font-weight: 600;
     font-size: 1.4rem;
+    @media screen and (max-width : 600px){
+        font-size: 1.1rem;
+        
+    }
 `
 const ModalFooter = styled.div`
     position: relative;
@@ -105,5 +123,9 @@ const Cancelbtn = styled.button`
     border-radius: 3px;
     color: white;
     background: linear-gradient(${props => props.theme.colors.primary} , ${props => props.theme.colors.primary});
+    @media screen and (max-width: 600px){
+        font-size: 13px;
+        padding: 7px 12px;
+    }
 `
 const OKbtn = styled(Cancelbtn)``
