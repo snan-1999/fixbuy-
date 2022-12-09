@@ -27,12 +27,18 @@ import { ToastContainer, toast } from 'react-toastify';
 const SellerProfile = () => {
     const MAX_LENGTH = 25;
     const IdData = localStorage.getItem('token');
-    let ProfleId = JSON.parse(IdData).token;
+    let Type;
+    let PhoneNumber ; 
+    let Name ;
+    if(IdData){
+         Type = JSON.parse(IdData).type;
+         PhoneNumber = JSON.parse(IdData).phone;
+         Name = JSON.parse(IdData).name;
+
+    }
+    let ProfleId = JSON.parse(IdData)?.token;
     console.log(ProfleId, "profile");
     console.log(IdData, 'data');
-    const Type = JSON.parse(IdData).type;
-    const PhoneNumber = JSON.parse(IdData).phone;
-    const Name = JSON.parse(IdData).name;
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
     const [Upstate, setUpstate] = useState(1);
@@ -189,7 +195,7 @@ const SellerProfile = () => {
         <>
             <Header />
             <ToastContainer />
-            <div class="container">
+            <div class="containers">
 
                 <div class="page-wrapper">
 

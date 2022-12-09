@@ -52,7 +52,12 @@ z-index: 10;
     position: fixed;
     top: 30%;
     left: 40%;
-
+    @media screen and (max-width :600px){
+        z-index: 10;
+        position: fixed;
+        top: 45% !important;
+        left: 16% !important;
+    }
     `
 const ModelDiv = styled(motion.div)`
 box-shadow: 1px 1px 10px #dadada;

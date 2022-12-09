@@ -8,7 +8,7 @@ import AdminMessage from './adminMessage'
 import UserMessage from './UserMessage';
 
 
-const Support = () => { 
+const Support = () => {
 
     const [isOpen, setisOpen] = useState(false);
     const [closeBtn, setcloseBtn] = useState(false);
@@ -20,7 +20,7 @@ const Support = () => {
 
     const Onclose = () => {
         setcloseBtn(false)
-        setisOpen(false) 
+        setisOpen(false)
     }
 
     let textData;
@@ -28,7 +28,7 @@ const Support = () => {
     const [sendMess, setsendMess] = useState(false)
     const senMessage = (e) => {
         textData = document.getElementById('adminText').value;
-        (e.target.value == "")?setsendMess(true) : setsendMess(false)
+        (e.target.value == "") ? setsendMess(true) : setsendMess(false)
         document.getElementById('adminText').value = ""
         alert('😄');
     }
@@ -71,7 +71,7 @@ const Support = () => {
 
                                 <InputChat placeholder='Enter Your Message' id='adminText' />
                                 <SendIcon>
-                                    <AiOutlineSend onClick={senMessage}/>
+                                    <AiOutlineSend onClick={senMessage} />
                                 </SendIcon>
                             </div>
                         </ChatMain>
@@ -179,7 +179,14 @@ const ChatBox = styled(motion.div)`
     box-shadow: 1px 1px 10px grey;
     overflow: hidden;
     z-index: 10;
-
+    @media screen and (max-width:600px){
+        height: 48vh;
+        width: 62vw;
+        background-color: white;
+        position: fixed;
+        top: 41%;
+        left: 35.3%;
+    }
     `
 
 const ChatHeader = styled.div`

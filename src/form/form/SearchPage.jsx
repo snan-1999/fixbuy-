@@ -172,6 +172,12 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    @media (max-width: 768px) {
+        font-size: 13px; 
+        width: 32%;
+        // height: 55vh ;
+      }
+    
 `
 const CardHeight = styled.div`
 position: relative;

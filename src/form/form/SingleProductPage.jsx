@@ -498,7 +498,7 @@ export default function SingleProductPage(props) {
                         </div>
 
                     </div>
-                    <div className="row m-0 p-0 d-none d-lg-block d-md-block">
+                    <div className="row m-0 p-0 ">
                         <div className="for-center flex-row justify-content-center align-items-center">
 
                             <div className="col-md-12">
@@ -658,6 +658,12 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    @media (max-width: 768px) {
+        font-size: 13px; 
+        width: 32%;
+        // height: 55vh ;
+      }
+    
 `
 const Head = styled.div`
     .for-center {

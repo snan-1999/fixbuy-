@@ -75,10 +75,11 @@ font-family: 'Lato', sans-serif;
     position: absolute;
     display: grid;
     place-content: center;
-    height: 100%;
+    height: 100vh;
     place-items: center;
     z-index: 20;
     top:0;
+    width: 100%;
 
     `
 const Nandita = styled.button`
@@ -92,11 +93,12 @@ box-shadow: 0 1px 5px 5px rgb(235 234 234);
     z-index: 25;
     -webkit-transition: all 150ms ease;
 transition: all 150ms ease;
-width:85%;
-margin-left: 15%;
+width: 29vw;
+margin-left: 0%;
 
 @media screen and (max-width: 600px){
-    margin-left: 25%;
+    width:50vw;
+    // margin-left: 25%;
     padding: 1rem 2rem;
 }
 
@@ -107,7 +109,8 @@ const MyModal = styled.div`
         margin-left:-8%;
      }
     .MyInput{
-        width: 3%;
+        width: 20px !important;
+        height :20px !important;
         margin-top :4%;
         padding: 0 5px ;
         @media screen and (max-width: 600px) {
@@ -137,7 +140,7 @@ const Headingsetting = styled.h2`
 `
 const Modalbody = styled.div`
     margin-top: 23px;
-    width: 55vw;
+    width: 100%;
 
 
     
@@ -184,10 +187,10 @@ const ModelFooter = styled.div`
     display: flex;
         align-items: center;
         margin-top: 3rem;
-        margin-left: 20%;
+        // margin-left: 20%;
         gap:5%;
         margin-bottom: 3%;
-
+justify-content: space-evenly;
         @media screen and (max-width : 600px){
             align-items: center;
         margin-top: 3rem;

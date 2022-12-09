@@ -109,7 +109,8 @@ box-shadow: 0 1px 5px 5px rgb(235 234 234);
 transition: all 150ms ease;
 
 @media screen and (max-width: 600px){
-    margin-left: 25%;
+    width: 74vw;
+    margin-left: 0%;
     padding: 1rem 2rem;
 }
 
@@ -130,12 +131,12 @@ const MyModal = styled.div`
         margin-left:-8%;
      }
     .MyInput{
-        height: 2vh;
-    width: auto;
+        height: 20px;
+    width: 20px;
         margin-top :4%;
         padding: 0 5px ;
         @media screen and (max-width: 600px) {
-            width: 11%; 
+            width: 20px; 
             border-Radius: 100%
         }
         
