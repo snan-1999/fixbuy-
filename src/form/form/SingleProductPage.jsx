@@ -793,7 +793,7 @@ const DetailsData = styled.div`
                             width: 80%;
                             @media screen and (max-width : 600px){
                                 .mob-Edit{
-                                    margin-left:1rem ;
+                                    // margin-left:1rem ;
                                 }
                                 margin-top: 2.4rem  !important;
                                 width: 100%;

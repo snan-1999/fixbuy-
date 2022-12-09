@@ -247,7 +247,7 @@ button#dropdownMenuButton1 {
   /* Realed products */
 .container-heading-related {
   position: absolute;
-  width: 370px;
+  width: 336px;
   height: 60px;
   border-bottom: 3px solid #37577A;
   /* background: linear-gradient(var(--color1) , var(--color2)) !important; */
@@ -257,7 +257,7 @@ button#dropdownMenuButton1 {
 }
 
 .container-heading-related span {
-  font-size: 18px;
+  font-size: 16px;
   color: whitesmoke;
   background: linear-gradient(var(--color1), var(--color2)) !important;
   display: inline-block;
