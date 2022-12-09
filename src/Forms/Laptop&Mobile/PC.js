@@ -609,11 +609,11 @@ const PC = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {errors &&
+                    {/* {errors &&
                         <div className="alert alert-info" role="alert">
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
 

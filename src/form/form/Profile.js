@@ -12,9 +12,14 @@ import { baseUrl } from "../../functions/constant";
 import { GlobalVariables } from "../../Context/StateProvider";
 import axios from "axios";
 import ProfileNumber from "./Modals/ProfileNumber";
-
+import UserDeleteModal from "./Modals/DeleteModal";
+import EmailVerify from "./Modals/EmailVerify";
+import { ToastContainer, toast } from 'react-toastify';
 
 const Profile = () => {
+    const [ModalOpen, setModalOpen] = useState(false)
+
+    const OpenDelete = () => setModalOpen(true)
     const nav = useNavigate();
     // const {type} = useContext(GlobalVariables);
     // console.log(type , 'check')
@@ -22,11 +27,15 @@ const Profile = () => {
     let ProfleId;
     let PhoneNumber;
     let Type;
+    let ID;
+    let EMAIL;
     if (IdData) {
         // console.log('hai')
         ProfleId = JSON.parse(IdData).token;
         PhoneNumber = JSON.parse(IdData).phone;
         Type = JSON.parse(IdData)?.type;
+        ID = JSON.parse(IdData)?.token;
+        EMAIL = JSON.parse(IdData)?.email;
     } else {
         console.log('nahi hai')
         nav('/')
@@ -40,9 +49,10 @@ const Profile = () => {
     // const data = ProfileStore(state => state);
     const [name, setName] = useState('');
     const [otp, setOtp] = useState('');
-    const [email, setEmail] = useState(null);
+    const [OTP, setOTP] = useState('');
+    const [email, setEmail] = useState(EMAIL);
     const [phone, setPhone] = useState(PhoneNumber);
-    const [numberchange, setNumberChange] = useState(PhoneNumber);
+    const [ModalEmail, setModalEmail] = useState(email);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [profileImg2, setProfileImg2] = useState(null);
     const [profileImg, setProfileImg] = useState('');
@@ -57,6 +67,7 @@ const Profile = () => {
     const [message, setMessage] = useState('');
     const [errors, seterrors] = useState(false);
     const [isOpen, setisOpen] = useState(false)
+    const [EmalOpen, setEmalOpen] = useState(false)
     const [OtpCondition, setOtpCondition] = useState(false);
     const [gendererror, setGenderError] = useState("")
     const Onclose = () => {
@@ -65,6 +76,7 @@ const Profile = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
+    const EmailModalOpen = () => setEmalOpen(true)
 
 
 
@@ -178,8 +190,18 @@ const Profile = () => {
             await axios.put(api, formData).then((response) => {
                 console.log(response.data);
                 if (response.data.status) {
-                    setMessage('Profile Updated!');
+                    // setMessage('Profile Updated!');
                     seterrors(true);
+                    toast(response.data.message, {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        type: 'success'
+                    });
                 }
             }, error => {
                 console.log(error.response.data);
@@ -188,6 +210,21 @@ const Profile = () => {
             setGenderError('Mandartory Field');
             console.log('Mandartory Field');
             // setGenderError('')       
+        }
+    }
+    // Delete User
+    const DeleteData = async () => {
+        try {
+            const api = `${baseUrl}/users/delete/user/${ID}`
+            const { data } = await axios.delete(api);
+            console.log("Delete User", data)
+            if (data.status) {
+                window.localStorage.removeItem('token');
+                nav('/')
+            }
+
+        } catch (error) {
+
         }
     }
 
@@ -208,6 +245,57 @@ const Profile = () => {
     return (
         <>
             <Header />
+            <UserDeleteModal
+                {
+                ...{
+                    ModalOpen,
+                    setModalOpen,
+                    DeleteData
+                }
+                }
+            />
+            <ProfileNumber  {
+                ...{
+                    email,
+                    OTP,
+                    setOTP,
+                    otp,
+                    setOtp,
+                    OtpCondition, setOtpCondition,
+                    setModalSellerPhone,
+                    profileImg,
+                    setPhone,
+                    name,
+                    phone,
+                    id,
+                    isOpen,
+                    setisOpen,
+                    Onclose,
+                    OnOpen
+                }
+            } />
+            <EmailVerify  {
+                ...{
+                    email,
+                    OTP,
+                    setOTP,
+                    otp,
+                    setOtp,
+                    OtpCondition, setOtpCondition,
+                    ModalEmail,
+                    setModalEmail,
+                    profileImg,
+                    setEmail,
+                    name,
+                    phone,
+                    id,
+                    EmalOpen,
+                    setEmalOpen,
+                    EmailModalOpen
+                }
+            } />
+            <ToastContainer />
+
             <div className="container">
 
                 <div className="page-wrapper">
@@ -215,14 +303,9 @@ const Profile = () => {
                     <div className="page-content ">
                         <br />
                         <h5 className="my-2 text-capitalize">{Type} Profile</h5>
-
-
-
                         <div className="card">
-
                             <form method="post" enctype="multipart/form-data">
                                 <div className="card-body">
-
                                     <div className="myi">
                                         <div className="row">
                                             <div className="col d-flex align-items-center justify-content-center m-4 p-2">
@@ -281,7 +364,16 @@ const Profile = () => {
                                             <h6 className="mb-0">Email</h6>
                                         </div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Email" contenteditable="true" name="user_email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                            <input type="text" className="form-control shadow-none" placeholder="Email" name="user_email" value={ModalEmail} contenteditable='false' />
+                                        {
+                                            !ModalEmail && <div className="text-danger">please add your Email</div>
+                                        }
+                                        </div>
+                                        <div className="UpdateNum w-100">
+                                            {
+                                                !phone ? <p className="fs-6 float-end text-primary" onClick={EmailModalOpen}>Add Your Number</p> :
+                                                    <p className=" float-end text-primary" onClick={EmailModalOpen}>Update Your Number</p>
+                                            }
                                         </div>
                                     </div>
                                     <div className="row mb-1">
@@ -293,7 +385,7 @@ const Profile = () => {
                                             />
                                         </div>
                                         {
-                                            !phone && <div className="text-danger">please add your number</div>
+                                            !ModalSellerPhone && <div className="text-danger">please add your number</div>
                                         }
                                         <div className="UpdateNum w-100">
                                             {
@@ -347,10 +439,16 @@ const Profile = () => {
                                     <div className="row">
                                         <div className="col-sm-3"></div>
                                         <div className="col-sm-9 text-secondary">
-                                            <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update"
-                                                onClick={() => {
-                                                    UpadateUser()
-                                                }} />
+                                            <div className="d-flex justify-content-between">
+                                                <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update"
+                                                    onClick={() => {
+                                                        UpadateUser()
+                                                    }} />
+                                                <input type="button" name="Delete" className="btn btn-color  px-4 DeletBtnUser text-uppercase" value="Delete"
+                                                    onClick={() => {
+                                                        OpenDelete()
+                                                    }} />
+                                            </div>
                                             <br />
 
                                             {errors &&
@@ -368,24 +466,6 @@ const Profile = () => {
                         {/* <!-- end row --> */}
                     </div>
                 </div>
-                <ProfileNumber  {
-                    ...{
-                        email,
-                        otp,
-                        setOtp,
-                        OtpCondition, setOtpCondition,
-                        setModalSellerPhone,
-                        profileImg,
-                        setPhone,
-                        name,
-                        phone,
-                        id,
-                        isOpen,
-                        setisOpen,
-                        Onclose,
-                        OnOpen
-                    }
-                } />
 
             </div>
             <Footer />

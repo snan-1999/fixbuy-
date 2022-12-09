@@ -622,11 +622,11 @@ const Books = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {errors &&
+                    {/* {errors &&
                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
             </div>

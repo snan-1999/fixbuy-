@@ -609,12 +609,12 @@ const Generate = async () => {
 
                     }
                     {/* <div >{otpError}</div> */}
-
+{/* 
                     {errors &&
                         <div className="alert alert-info" role="alert">
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
             </div>

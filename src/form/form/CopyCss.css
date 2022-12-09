@@ -445,6 +445,7 @@ li.footerLink:hover::before {
 
     .price {
         margin-left: -3%;
+        margin-top: 0 !important;
     }
 
     .status {
@@ -588,7 +589,7 @@ li.footerLink:hover::before {
     }
 
     .adrs {
-        font-size: 10px;
+        font-size: 10px !important;
         color: rgba(0, 0, 0, 0.521);
         text-transform: capitalize;
         /* margin-left: -60%; */

@@ -109,6 +109,7 @@ div.logo {
 } */
 
 .category-section {
+    /* overflow-x: hidden !important; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -116,11 +117,13 @@ div.logo {
     color: #fff;
     gap: 7%;
 }
+
 .profiles {
     display: flex;
-    /* position: relative; */
+    position: relative;
     right: 4% !important;
 }
+
 .dropdown-category {
     position: absolute;
     color: white;
@@ -266,6 +269,7 @@ li.nav-item {
 /* catagory */
 
 .catagry {
+
     background: linear-gradient(var(--color1), var(--color2)) !important;
     padding: 10px 0px 8px 5px;
 }
@@ -316,6 +320,13 @@ li.nav-item {
 
 .submitBtn {
     background: linear-gradient(#37577A, #395B7D);
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.DeletBtnUser {
+    background: linear-gradient(#b91f1a, #db0505);
     color: white;
     font-size: 15px;
     margin-top: 10px;
@@ -561,7 +572,7 @@ ul.subhead li {
 }
 
 .foocet {
-    z-index: 10;
+    z-index: 0;
     text-align: center;
 }
 
@@ -2212,6 +2223,7 @@ box-shadow: none;
 }
 
 .setGoogleLog {
+    width: 100%;
     background: transparent !important;
     color: white !important;
     border: none !important;
@@ -2223,9 +2235,11 @@ box-shadow: none;
 }
 
 .setGoogleLog span {
-    padding: 0 10px !important;
+    text-align: left;
+    padding: 0 0 0 10px !important;
     font-weight: 400;
     font-size: 12px;
+    width: 100%;
 }
 
 .setShopClor {
@@ -2435,9 +2449,9 @@ box-shadow: none;
 }
 
 .blog-title {
-    font-size: 40px;
+    font-size: 27px;
     font-weight: 600;
-    line-height: 44px;
+    line-height: 36px;
     font-family: sans-serif !important;
     margin: 1% 0% 3% 0%;
 }
@@ -2486,6 +2500,7 @@ box-shadow: none;
     color: rgba(41, 41, 41, 0.651) !important;
     font-family: 'Open Sans', sans-serif !important;
     text-align: justify;
+    font-weight: 400;
 }
 
 .btnProfileButton {
@@ -2599,9 +2614,11 @@ button.GoogleBtn {
     width: 100% !important;
 
 }
-.col-12.mobileversion{
+
+.col-12.mobileversion {
     display: none;
 }
+
 /* 3 dec */
 
 
@@ -2871,11 +2888,12 @@ button.GoogleBtn {
 
     .maindiv {
         margin-top: 5%;
-        height: 40vh;
+        height: 34vh;
         width: 43vw;
         box-shadow: 0 1px 5px 5px rgb(235 234 234);
         border-radius: 10px;
-        margin-left: -8%;
+        margin-left: 0%;
+        padding-top: 5px !important;
     }
 
     .maindiv-ads {
@@ -3650,12 +3668,12 @@ button.GoogleBtn {
         text-align: justify;
         align-items: center;
         margin-top: 12%;
-        margin-bottom: -8%;
+        margin-bottom: -2%;
 
     }
 
     .FooterLink {
-        font-size: 10px;
+        font-size: 10px !important;
     }
 
     .gettouch {

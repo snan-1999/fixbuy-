@@ -12,6 +12,7 @@ import Footer from "./Footer";
 import google from '../../assets/images/google.png';
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
+import styled from "styled-components";
 
 const PostedItems = () => {
   const MAX_LENGTH = 25;
@@ -91,7 +92,8 @@ const PostedItems = () => {
                   <div className="col-md-4 col-6 col-lg-3">
                     {/* <div className="mob-cardWidth"> */}
                     <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
-                      <div className="shadow p-2 mb-4 bg-white maindiv-ads">
+                    <div className="shadow p-3 mb-4 bg-white maindiv-ads overflow-hidden">
+                      {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                         <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
                         <div className="pdt-details">
                           <div className="d-flex" style={{ justifyContent: 'space-between' }}>
@@ -127,8 +129,13 @@ const PostedItems = () => {
                             <div className="col p-0">
                               <div className="d-flex" style={{ justifyContent: "space-between" }}>
                                 <div className="buy-bt">
-                                  <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
-
+                                  {/* <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link> */}
+                                  {
+                                    (automobileProduct.boostPlan.plan === "free")?
+                                    <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
+                                    :
+                                    <button className="buy-bttn">Boosted</button>
+                                  }
                                   {console.log(automobileProduct.categories)}
                                   {/* <span onClick={()=>handleClickSpan()} className="buy-bttn">Boost Now</span> */}
                                 </div>
@@ -163,3 +170,22 @@ const PostedItems = () => {
 }
 
 export default PostedItems;
+const Ribbon = styled.div`
+    /* margin-left: -10px; */
+    font:  10px sans-serif;
+    color: #3D6182;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform:    rotate(-45deg);
+    -ms-transform:     rotate(-45deg);
+    -o-transform:      rotate(-45deg);
+    position: relative;
+    padding: 4px 0;
+    top: 10px;
+    left: -40px;
+    width: 120px;
+    background-color: #3D6182;
+    color: #fff;
+  
+`

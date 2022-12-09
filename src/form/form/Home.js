@@ -27,7 +27,7 @@ import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
 import CategorySlider from "./corousel/CategorySlider";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-import DownloadModal from "./Modals/DownloadModal";
+// import DownloadModal from "./Modals/DownloadModal";
 
 const Home = () => {
     const location = useGeoLocation();
@@ -37,7 +37,7 @@ const Home = () => {
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
     const nav = useNavigate();
-    console.log(TokenData , 'token');
+    console.log(TokenData, 'token');
     const profileName = JSON.parse(Token)
     const [automobile, setAutomobile] = useState([]);
     const [MoreData, setMoreData] = useState([]);
@@ -122,43 +122,45 @@ const Home = () => {
     return (
         <>
             {/* <div className="row p-0 m-0"> */}
-            <Header />
-            {
+            <div className="overflow-hidden">
+                <Header />
+                {/* {
                  <DownloadModal  Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} />
-            }
-            <Swiper
-                spaceBetween={30}
-                centeredSlides={true}
-                autoplay={{
-                    delay: 2500,
-                    disableOnInteraction: false,
-                }}
-                pagination={{
-                    clickable: true,
-                    dynamicBullets: true,
-                    className: "swiper-pagination-bullet-active",
-                }}
-                navigation={true}
-                // effect={'fade'}
-                // slidesPerView={1}
-                loop
-                modules={[Pagination, Navigation]}
-                // modules={[Autoplay, Pagination, Navigation]}
-                className="mySwiper"
-            >
-                {/* <div className="swiper-wrapper"> */}
-                <SwiperSlide className="swiper-slide" id="poster1">
-                    <img src={poster1} />
-                </SwiperSlide>
-                <SwiperSlide className="swiper-slide" id="poster2">
-                    <img src={poster2} />
-                </SwiperSlide>
-                <SwiperSlide className="swiper-slide" id="poster3">
-                    <img src={poster3} />
-                </SwiperSlide>
-                <div className="swiper-pagination"></div>
-                {/* </div> */}
-            </Swiper>
+            } */}
+                <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }}
+                    pagination={{
+                        clickable: true,
+                        dynamicBullets: true,
+                        className: "swiper-pagination-bullet-active",
+                    }}
+                    navigation={true}
+                    // effect={'fade'}
+                    // slidesPerView={1}
+                    loop
+                    modules={[Pagination, Navigation]}
+                    // modules={[Autoplay, Pagination, Navigation]}
+                    className="mySwiper"
+                >
+                    {/* <div className="swiper-wrapper"> */}
+                    <SwiperSlide className="swiper-slide" id="poster1">
+                        <img src={poster1} />
+                    </SwiperSlide>
+                    <SwiperSlide className="swiper-slide" id="poster2">
+                        <img src={poster2} />
+                    </SwiperSlide>
+                    <SwiperSlide className="swiper-slide" id="poster3">
+                        <img src={poster3} />
+                    </SwiperSlide>
+                    <div className="swiper-pagination"></div>
+                    {/* </div> */}
+                </Swiper>
+            </div>
             <div className="mobile-Categoryslider">
                 <CategorySlider />
             </div>
@@ -299,6 +301,12 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    @media (max-width: 768px) {
+        font-size: 13px; 
+        width: 32%;
+        // height: 55vh ;
+      }
+    
 `
 const CardHeight = styled.div`
 position: relative;

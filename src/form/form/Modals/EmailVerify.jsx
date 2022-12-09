@@ -3,32 +3,37 @@ import styled from 'styled-components';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ImCross } from 'react-icons/im'
 import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+
 // import OTPInput, { ResendOTP } from "otp-input-react";
 import axios from 'axios'
 import { baseUrl } from '../../../functions/constant';
-export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCondition, otp, setOtp, setModalSellerPhone, id, phone, name, Onclose, OnOpen, setisOpen, setPhone, isOpen, Type, Reportapi, setreason, reason }) {
+import { ToastContainer, toast } from 'react-toastify';
+export default function EmailVerify({ ModalEmail, setModalEmail, OTP, setOTP, profileImg, email, OtpCondition, setOtpCondition, otp, setOtp, setModalSellerPhone, id, phone, name, EmailModalOpen, setEmalOpen, setEmail, EmalOpen, Type, Reportapi, setreason, reason }) {
+    const Onclose = () => {
+        setEmalOpen(false);
+        setOtpCondition(false)
+    }
     const emailLocal = localStorage.getItem('token')
-    let PhoneSet  = JSON.parse(emailLocal).phone;
+    let EmailSet  = JSON.parse(emailLocal).email;
     const OtpUpdate = async () => {
-        setisOpen(false)
-
+        setEmalOpen(false)
         const api = `${baseUrl}/users/otp/verify/profileUpdate`;
         await axios.post(api, {
             user_id: id,
-            phone: phone,
+            email: email,
             name: name,
             otp: otp
         }).then((res) => {
             if (res.data.status) {
-                setModalSellerPhone(phone)
+                setOtpCondition(false)
+                setModalEmail(email)
                 localStorage.setItem('token', JSON.stringify({
-                    'token': id,    
+                    'token': id,
                     'profileName': name,
                     'profileImg': profileImg,
                     'email': email,
                     'profileImg': profileImg,
-                    'name':name,
+                    'name': name,
                     'type': Type,
                     'phone': phone,
                     'status': 'login'
@@ -48,7 +53,8 @@ export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCon
 
             }
             else {
-                setModalSellerPhone(PhoneSet)
+                setModalEmail(EmailSet)
+                setOtpCondition(false)
                 toast(res.data.message, {
                     position: "bottom-right",
                     autoClose: 5000,
@@ -65,16 +71,12 @@ export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCon
         })
     }
     const getOtp = async () => {
-        console.log(phone, 'Otp')
-        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
-        // console.log("function started");
-        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
         const api = `${baseUrl}/users/otp/genrate/formUpdate`;
         await axios.post(api, {
-            "phone": phone
+            "email": email
         }).then((res) => {
-            console.log(res , 'Otp')
-            if (res.data.status) {
+            console.log(res, 'Otp')
+            if (res.data) {
                 setOtpCondition(true)
                 // Otpverify()
                 // setverify(true);
@@ -94,32 +96,30 @@ export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCon
     let OtpField
     OtpField = document.getElementById('OTp')
     const OtpLenght = () => {
-       
+
         // setOtpCondition(OtpField.value.length)
-        console.log(OtpField , 'length')
+        console.log(OtpField, 'length')
     }
 
     return (
         <>
-<ToastContainer />
+        <ToastContainer />
             {
-                isOpen &&
+                EmalOpen &&
                 <AnimatePresence>
                     <>
-                        <Containermodel isOpen={isOpen}  >
+                        <Containermodel EmalOpen={EmalOpen}  >
                             <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                                 <Modalheader>
-                                    <Headingsetting>Add Number</Headingsetting>
+                                    <Headingsetting>Add Your Email</Headingsetting>
                                     <ImCross onClick={Onclose} style={{ cursor: 'pointer', color: 'black' }} />
                                 </Modalheader>
                                 <hr style={{ margin: '0rem 0.5rem  0 0.5rem' }} />
                                 <Modalbody>
 
                                     <MyModal>
-                                        <input type="text" placeholder='Your Mobile Number' className='form-control shadow-none'
-                                            onChange={(e) => {
-                                                setPhone(e.target.value)
-                                            }} />
+                                        <input type="text" placeholder='Your Email' className='form-control shadow-none'
+                                            onChange={(e) => setEmail(e.target.value)} />
                                         <br />
                                         {
                                             OtpCondition && <input type="text" placeholder='Enter Number' className='form-control shadow-none' onChange={(e) => setOtp(e.target.value)} id='OTp' />
@@ -129,7 +129,7 @@ export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCon
                                     <ModelFooter>
                                         <ApplyBtn onClick={Onclose}>Cancel</ApplyBtn>
                                         {
-                                            (!OtpCondition) ?<ApplyBtn1 onClick={getOtp} >Generate OTP</ApplyBtn1> : <ApplyBtn1 onClick={OtpUpdate} >Verify</ApplyBtn1>
+                                            (!OtpCondition) ? <ApplyBtn1 onClick={getOtp} >Generate OTP</ApplyBtn1> : <ApplyBtn1 onClick={OtpUpdate} >Verify</ApplyBtn1>
                                         }
                                     </ModelFooter>
                                 </Modalbody>
@@ -142,7 +142,7 @@ export default function ProfileNumner({profileImg, email,OtpCondition, setOtpCon
         </>
     )
 }
-const Containermodel = styled.div`
+const Containermodel = styled(motion.div)`
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
 font-family: 'Lato', sans-serif;
     position: fixed;

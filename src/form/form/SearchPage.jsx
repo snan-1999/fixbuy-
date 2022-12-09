@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MdLocationOn } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
+import Footer from './Footer';
 function SearchPage() {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const searchData = useLocation()
@@ -65,7 +66,9 @@ function SearchPage() {
     let Max_length = 26;
     return (
         <>
-            <Header />
+            <div className="overflow-hidden">
+                <Header />
+            </div>
             <div className="row m-0 p-0 overflow-hidden">
                 <div className="for-center flex-row justify-content-center align-items-center">
 
@@ -88,7 +91,7 @@ function SearchPage() {
                     {
                         AllData?.map((automobileProduct, key) => {
                             return (
-                                <div className="col-md-4 col-8 col-lg-3">
+                                <div className="col-md-4 col-6 col-lg-3">
                                     <CardHeight>
 
                                         <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
@@ -149,6 +152,7 @@ function SearchPage() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
@@ -172,15 +176,27 @@ const ButtonCraete = styled.button`
 const CardHeight = styled.div`
 position: relative;
 top: 0;
-/* @media (max-width: 768px) {
-    display: none;
-  } */
-    height: 70vh ;
+@media (max-width: 768px) {
+    // height: 55vh ;
+  }
+    // height: 60vh ;
     .ShopLogo{
-        height: 7vh;
+        height: 5vh;
         position: absolute;
         top: 2%;
         right: 7%;
+        @media screen and (max-width: 600px){
+            height: 3vh;
+        position: absolute;
+        top: 2%;
+        right: 7%;
+        }
+        @media screen and (min-width: 601px) and (max-width: 1000px) {
+            height: 3vh;
+        position: absolute;
+        top: 2%;
+        right: 3%;
+        }
     }
 `
 const Ribbon = styled.div`

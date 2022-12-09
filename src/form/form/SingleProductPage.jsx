@@ -68,7 +68,6 @@ export default function SingleProductPage(props) {
         'Name': JSON.parse(Token)?.name,
         'Email': JSON.parse(Token)?.email,
         'Phone': JSON.parse(Token)?.phone,
-
     })
     // const [Data, setData] = useState(location.state.automobileProduct)
     // const [UseData, setUseData] = useState(location.state)
@@ -96,7 +95,7 @@ export default function SingleProductPage(props) {
             const { data } = await axios.get(api);
             setLoader(true)
             if (data.status) {
-               { latitude &&  await RelatedProducts(data.data.mainCategories)}
+                { latitude && await RelatedProducts(data.data.mainCategories) }
                 console.log(data.data, 'slkfsdjflksd')
                 setAllData(data.data)
                 setHEart(HomeData)
@@ -268,31 +267,31 @@ export default function SingleProductPage(props) {
     }
     const print = () => {
         return description;
-    } 
+    }
     // end
     const LoadMOre = async () => {
         setPageNO(PageNO + 1)
         setLoading(true)
     }
     const RelatedProducts = async (MainCategory) => {
-        console.log('run' ,'main')
+        console.log('run', 'main')
         try {
             const { data } = await AllDataCategory(MainCategory, latitude, Longitude, PageNO, UserId);
-            if (data.status) { 
+            if (data.status) {
                 setTotalPagess(data.totalPages)
                 setRelatedData([...RelatedData, ...data.data])
                 setLoading(false)
             }
             console.log(data, 'ltitude')
         } catch (error) {
-            console.log(error , 'main')
+            console.log(error, 'main')
         }
     }
 
     useEffect(() => {
         SingleData()
         // sellerDetails()
-    }, [0 ,latitude ,PageNO])
+    }, [0, latitude, PageNO])
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
@@ -309,116 +308,117 @@ export default function SingleProductPage(props) {
     // }
     return (
         <>
-            <Header />
-            <ToastContainer />
-            <ReportAds {
-                ...{
-                    ReportApi,
-                    isOpen,
-                    setisOpen,
-                    Onclose,
-                    OnOpen,
-                    setReason
-                }
-            } />
-            {/* GeoLocation start */}
-            <div className="inline-block mr-auto pt-1">
-                {
-                    Geolocation.loaded &&
-                    JSON.stringify(Geolocation)
+            <div className="overflow-hidden">
+                <Header />
+                <ToastContainer />
+                <ReportAds {
+                    ...{
+                        ReportApi,
+                        isOpen,
+                        setisOpen,
+                        Onclose,
+                        OnOpen,
+                        setReason
+                    }
+                } />
+                {/* GeoLocation start */}
+                <div className="inline-block mr-auto pt-1">
+                    {
+                        Geolocation.loaded &&
+                        JSON.stringify(Geolocation)
 
-                }
-            </div>
-            {/* Geolocation end */}
-            <div className="main ">
-                <Head>
+                    }
+                </div>
+                {/* Geolocation end */}
+                <div className="main ">
+                    <Head>
+
+                        <div className="row m-0 p-0">
+                            <div className="for-center flex-row justify-content-center align-items-center">
+                                <div className="col-md-12 col-6">
+                                    <div className="container-heading-pr text-white">
+                                        <span>PRODUCTS DETAILS :-</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </Head>
 
                     <div className="row m-0 p-0">
-                        <div className="for-center flex-row justify-content-center align-items-center">
-                            <div className="col-md-12">
-                                <div className="container-heading-pr text-white">
-                                    <span>PRODUCTS DETAILS :-</span>
-                                </div>
-                            </div>
+                        <div className="col-md-6 ">
+                            <ImageSetion>
 
+                                <MainSlide>
+                                    <img src={`${ImageView}${Images}`} alt="" className='' id="img_main" />
+                                </MainSlide>
+
+                                <SmallImg className='d-flex'>
+                                    <ScrollDiv>
+
+                                        {
+                                            AllData.images?.map((img, key) => {
+                                                return (
+                                                    <img src={`${ImageView}${img}`} className="border " onClick={() => getImgSrc(`${img}`)} />
+                                                )
+                                            })
+                                        }
+                                    </ScrollDiv>
+                                </SmallImg>
+                                <div className="shareDetails d-flex align-items-center mt-4">
+                                    <div className="col-md-6">
+                                        <div className="locations d-flex align-items-center">
+                                            <TiLocation />
+                                            <div className='ms-2'>{`${AllData.location?.city} ,${AllData.location?.state}`}</div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="Shareset d-flex align-items-center" >
+                                            <FiShare2 />
+                                            <div className='ms-2' >Share</div>
+                                            <ShareLink ShareLinkParam={ShareLinkParam} />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-2">
+                                        <div className="ReportAds d-flex align-items-center justify-content-end" >
+                                            <MdReport className='fs-4' />
+                                            <div className='ms-1' onClick={OnOpen}>Report</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div className="reasondiv">
+                                </div>
+                            </ImageSetion>
                         </div>
-                    </div>
-                </Head>
 
-                <div className="row m-0 p-0">
-                    <div className="col-md-6 ">
-                        <ImageSetion>
+                        <div className="col-md-6 d-flex flex-column justify-content-center align-items-center ContentClass ">
+                            <DetailsData className=''>
+                                <div className="d-flex justify-content-center heading-box w-100">
+                                    <div className="row w-100 d-flex align-items-center" style={{ overflow: 'hidden' }}>
+                                        <div className="col-md-3 ">
 
-                            <MainSlide>
-                                <img src={`${ImageView}${Images}`} alt="" className='' id="img_main" />
-                            </MainSlide>
-
-                            <SmallImg className='d-flex'>
-                                <ScrollDiv>
-
-                                    {
-                                        AllData.images?.map((img, key) => {
-                                            return (
-                                                <img src={`${ImageView}${img}`} className="border " onClick={() => getImgSrc(`${img}`)} />
-                                            )
-                                        })
-                                    }
-                                </ScrollDiv>
-                            </SmallImg>
-                            <div className="shareDetails d-flex align-items-center mt-4">
-                                <div className="col-md-6">
-                                    <div className="locations d-flex align-items-center">
-                                        <TiLocation />
-                                        <div className='ms-2'>{`${AllData.location?.city} ,${AllData.location?.state}`}</div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="Shareset d-flex align-items-center" >
-                                        <FiShare2 />
-                                        <div className='ms-2' >Share</div>
-                                        <ShareLink ShareLinkParam={ShareLinkParam} />
-                                    </div>
-                                </div>
-                                <div className="col-md-2">
-                                    <div className="ReportAds d-flex align-items-center justify-content-end" >
-                                        <MdReport className='fs-4' />
-                                        <div className='ms-1' onClick={OnOpen}>Report</div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div className="reasondiv">
-                            </div>
-                        </ImageSetion>
-                    </div>
-
-                    <div className="col-md-6 d-flex flex-column justify-content-center align-items-center ContentClass ">
-                        <DetailsData className=''>
-                            <div className="d-flex justify-content-center heading-box w-100">
-                                <div className="row w-100 d-flex align-items-center" style={{ overflow: 'hidden' }}>
-                                    <div className="col-md-3 h-100">
-                                        <div className="">
                                             <div className="SellerImgSingle">
-                                                <img src={SellerDetails.data?.profileImg} style={{ height: '9vh' }} />
+                                                <img src={SellerDetails.data?.profileImg} />
                                             </div>
 
-                                        </div>
-                                    </div>
-                                    <div className="col-md-9 p-0 d-flex align-items-start flex-row ">
-                                        <div className="detailsSeller">
-                                            <h4 className='posted mb-1'>Posted By</h4>
-                                            <h4 className='fs-5 mb-1'>{SellerDetails.data?.data[0].name}</h4>
-                                            <Link to='/sellerProfile' state={AllData?.user_id}><h6>See Profile</h6></Link>
-                                        </div>
-                                    </div>
-                                </div>
-                                {/* <span className="report-message">*If you find this user inappropriate/fake. You can report here.</span> */}
-                            </div>
-                            {
-                                description
-                            }
 
-                            {/* <div>
+                                        </div>
+                                        <div className="col-md-9 p-0 d-flex align-items-start flex-row ">
+                                            <div className="detailsSeller">
+                                                <h4 className='posted mb-1'>Posted By</h4>
+                                                <h4 className='fs-5 mb-1'>{SellerDetails.data?.data[0].name}</h4>
+                                                <Link to='/sellerProfile' state={AllData?.user_id}><h6>See Profile</h6></Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/* <span className="report-message">*If you find this user inappropriate/fake. You can report here.</span> */}
+                                </div>
+                                {
+                                    description
+                                }
+
+                                {/* <div>
                                 <div className=' TitleSet text-capitalize'>  {AllData?.title} </div>
                             </div>
                             <div>
@@ -438,161 +438,162 @@ export default function SingleProductPage(props) {
                                 }
                             </div> */}
 
-                            <div className='heartBtn'>
-                                <div className='row d-flex w-100 KeyBox1'>
-                                    <div className='col-md-3'>
+                                <div className='heartBtn'>
+                                    <div className='row d-flex w-100 KeyBox1'>
+                                        <div className='col-md-3'>
 
-                                        <p className='fs-6 setKeys w-100 text-capitalize'>Status</p>
+                                            <p className='fs-6 setKeys w-100 text-capitalize'>Status</p>
 
+                                        </div>
+                                        <div className='col-md-9 text-capitalize setKeysVal'>
+                                            {(HomeData) ?
+                                                <>
+
+                                                    <th>
+
+                                                        <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} border='none' size='xs' onClick={SavedItem}>
+                                                            Saved
+                                                        </Button>
+                                                    </th>
+
+                                                </>
+                                                :
+                                                <>
+                                                    <td>
+                                                        <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} border='none' size='xs' onClick={SavedItem}>
+                                                            UnSaved
+                                                        </Button>
+                                                    </td>
+                                                </>
+                                            }
+                                        </div>
                                     </div>
-                                    <div className='col-md-9 text-capitalize setKeysVal'>
-                                        {(HomeData) ?
-                                            <>
 
-                                                <th>
-
-                                                    <Button className='fs-6' leftIcon={<FaHeart className="text-danger" />} border='none' size='xs' onClick={SavedItem}>
-                                                        Saved
-                                                    </Button>
-                                                </th>
-
-                                            </>
-                                            :
-                                            <>
-                                                <td>
-                                                    <Button className='fs-6' leftIcon={<FiHeart onClick={SavedItem} />} border='none' size='xs' onClick={SavedItem}>
-                                                        UnSaved
-                                                    </Button>
-                                                </td>
-                                            </>
-                                        }
-                                    </div>
                                 </div>
+                                <div className="Btns d-flex justify-content-between">
 
-                            </div>
-                            <div className="Btns d-flex justify-content-between">
-
-                                {/* <Link to=   '/sellerProfile' state={AllData?.user_id}><button className='sellerButton '>Report Ads</button></Link> */}
-                            </div>
-                        </DetailsData>
+                                    {/* <Link to=   '/sellerProfile' state={AllData?.user_id}><button className='sellerButton '>Report Ads</button></Link> */}
+                                </div>
+                            </DetailsData>
+                        </div>
                     </div>
-                </div>
-                <div className="setMarginDiv">
-                    <div className="row">
-                        <div className="ChatBtnProduct mt-1">
-                            <button className='d-flex justify-content-center align-items-center '> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
-                        </div>
-                    </div><br />
-                    <div className="row m-0 p-0">
-                        <div className="col-md-6 col-12">
-                            <Descrip className=''>
-                                <div>Description</div>
-                                <p className='text-capitalize'> {AllData?.description}</p>
-
-                            </Descrip>
-                        </div>
-                        <div className="col-md-6 col-12">
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div className="row m-0 p-0">
-                    <div className="for-center flex-row justify-content-center align-items-center">
-
-                        <div className="col-md-12">
-                            <div className="container-heading-related">
-                                <span>RELATED PRODUCTS</span>
+                    <div className="setMarginDiv">
+                        <div className="row">
+                            <div className="ChatBtnProduct mt-1">
+                                <Link to='/mainchatfile'><button className='d-flex justify-content-center align-items-center '> <BsChatDots className='fs-5 me-2' />Chat With Seller</button></Link>
                             </div>
+                        </div><br />
+                        <div className="row m-0 p-0">
+                            <div className="col-md-6 col-12">
+                                <Descrip className=''>
+                                    <div>Description</div>
+                                    <p className='text-capitalize'> {AllData?.description}</p>
+
+                                </Descrip>
+                            </div>
+                            <div className="col-md-6 col-12">
+
+                            </div>
+
                         </div>
 
                     </div>
-                </div>
+                    <div className="row m-0 p-0 d-none d-lg-block d-md-block">
+                        <div className="for-center flex-row justify-content-center align-items-center">
 
-                <div className="container" id="card_box">
+                            <div className="col-md-12">
+                                <div className="container-heading-related">
+                                    <span>RELATED PRODUCTS</span>
+                                </div>
+                            </div>
 
-                    <div className="row p-0 m-0">
-                        {
-                            RelatedData?.map((automobileProduct, key) => {
-                                return (
-                                    <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
-                                        <CardHeight>
+                        </div>
+                    </div>
 
-                                            <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
-                                                <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
-                                                    {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
-                                                    {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                    <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
-                                                    <div className="pdt-details">
-                                                        <div className="row d-flex align-items-center">
-                                                            <div className="col-md-6 col-8 ">
-                                                                <div className="price">₹ {automobileProduct.price}</div>
-                                                            </div>
-                                                            <div className="col-md-6 col-4 setHeart">
-                                                                {
-                                                                    (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
-                                                                }
-                                                            </div>
-                                                        </div>
+                    <div className="container" id="card_box">
 
-                                                        {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
+                        <div className="row p-0 m-0">
+                            {
+                                RelatedData?.map((automobileProduct, key) => {
+                                    return (
+                                        <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
+                                            <CardHeight>
 
-                                                        {
-                                                            (automobileProduct.title).length > Max_lengthDisc ?
-                                                                <div className="prd-name">
-                                                                    {`${automobileProduct.title.substring(0, Max_lengthDisc)}...`}
+                                                <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
+                                                    <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
+                                                        {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
+                                                        {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
+                                                        <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                        <div className="pdt-details">
+                                                            <div className="row d-flex align-items-center">
+                                                                <div className="col-md-6 col-8 ">
+                                                                    <div className="price">₹ {automobileProduct.price}</div>
                                                                 </div>
-                                                                :
-                                                                <div className="prd-name text-capitalize">{automobileProduct.title}</div>
-                                                        }
-                                                        <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
-                                                            <span className="adrs text-capitalize fs-6">   <MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
-                                                            <span className="year"></span>
-                                                        </div>
-                                                        <div className="row p-0 m-0">
-                                                            <div className="col p-0">
+                                                                <div className="col-md-6 col-4 setHeart">
+                                                                    {
+                                                                        (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+                                                                    }
+                                                                </div>
+                                                            </div>
 
-                                                                {/* <div className="buy-bt">
+                                                            {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
+
+                                                            {
+                                                                (automobileProduct.title).length > Max_lengthDisc ?
+                                                                    <div className="prd-name">
+                                                                        {`${automobileProduct.title.substring(0, Max_lengthDisc)}...`}
+                                                                    </div>
+                                                                    :
+                                                                    <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                            }
+                                                            <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
+                                                                <span className="adrs text-capitalize fs-6">   <MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                                <span className="year"></span>
+                                                            </div>
+                                                            <div className="row p-0 m-0">
+                                                                <div className="col p-0">
+
+                                                                    {/* <div className="buy-bt">
                                                 <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
                                             </div> */}
+                                                                </div>
+
                                                             </div>
-
                                                         </div>
+
                                                     </div>
+                                                </Link>
+                                            </CardHeight>
+                                        </div>
+                                    )
 
-                                                </div>
-                                            </Link>
-                                        </CardHeight>
-                                    </div>
-                                )
-
-                            })
-                        }
-                        {/* <div className="d-grid place-items-center"> */}
-                        <br />
-                        <div className="row m-0 p-0 d-flex justify-content-center">
-                            {
-                                (TotalPagess == PageNO) ?
-                                    <></>
-                                    :
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                        {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
-                                            <span className="visually-hidden">Loading...</span>
-                                        </div>}
-                                        Load More
-                                    </ButtonCraete>
+                                })
                             }
+                            {/* <div className="d-grid place-items-center"> */}
+                            <br />
+                            <div className="row m-0 p-0 d-flex justify-content-center">
+                                {
+                                    (TotalPagess == PageNO) ?
+                                        <></>
+                                        :
+                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>}
+                                            Load More
+                                        </ButtonCraete>
+                                }
 
-                            {/* </div> */}
+                                {/* </div> */}
+                            </div>
                         </div>
-                    </div>
 
 
-                </div >
-                <br />
-                <br />
-                <Footer className="mt-4 position-relative top-0" />
+                    </div >
+                    <br />
+                    <br />
+                    <Footer className="mt-4 position-relative top-0" />
+                </div>
             </div>
 
         </>
@@ -661,9 +662,14 @@ const ButtonCraete = styled.button`
 const Head = styled.div`
     .for-center {
         width: 100%;
-    display: flex;
-    margin: 50px 0px 97px 0px !important;
-    margin-left: 6% !important;
+        display: flex;
+        margin: 50px 0px 97px 0px !important;
+        margin-left: 6% !important;
+    }
+    @media screen and (max-width : 600px){
+        .for-center {
+            justify-content: left !important;
+        }
     }
 `
 const Descrip = styled.div`
@@ -689,8 +695,10 @@ margin-top: 1rem;
 //                             `
 const DetailsData = styled.div`
                             .SellerImgSingle {
-                                display: flex;
-                            justify-content: center;
+                                display: inline-block;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
 }
                             .TitleSet{
                                 margin-top: 1rem;
@@ -745,9 +753,9 @@ const DetailsData = styled.div`
                             font-size: .8rem;
     }
                             .SellerImgSingle img {
-                                display: flex;
-                            justify-content: center;
-                            align-items: center;
+                                height: 100%;
+    width: 100%;
+    border-radius: 50%;
                             padding: 5px;
                             border: 1px solid  #b4b4b4;
                             border-radius: 50%;
@@ -777,6 +785,9 @@ const DetailsData = styled.div`
             }
         }
                             width: 80%;
+                            @media screen and (max-width : 600px){
+                                margin-top: 2.4rem  !important;
+                            }
                             `
 const MainSlide = styled.div`
                             width: 100%;
@@ -797,11 +808,14 @@ const ImageSetion = styled.div`
                             color: ${props => props.theme.colors.primary};
 } 
                             #img_main{
-                                height: 20vh !important;
+                                height: 38vh !important;
 }
                             position: relative;
                             top: 1.5rem;
                             margin-left : 20%;
+                            @media screen and (max-width : 600px){
+        margin-left: 0 !important;
+    }
                             `
 const ScrollDiv = styled.div`
                             cursor: pointer;
@@ -814,4 +828,7 @@ const ScrollDiv = styled.div`
                             margin: 10px;
                             border-radius: 10px;
     }
+    /* @media screen and (max-width : 600px){
+        margin-left: 0 !important;
+    } */
                             `

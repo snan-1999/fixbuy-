@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { AnimatePresence } from 'framer-motion';
 import StateProvider from './Context/StateProvider';
 import { ThemeProvider } from 'styled-components';
 const theme = {
@@ -18,8 +19,9 @@ root.render(
     {/* <CookiesProvider> */}
     <StateProvider >
       <ThemeProvider theme={theme}>
-
-        <App />
+        <AnimatePresence>
+          <App />
+        </AnimatePresence>
       </ThemeProvider>
     </StateProvider>
     {/* </CookiesProvider> */}

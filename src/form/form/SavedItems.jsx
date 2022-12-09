@@ -11,30 +11,32 @@ import Header from './header';
 import shopIcon from '../../assets/images/shopIcon.png'
 import { useState } from 'react';
 import { MdLocationOn } from 'react-icons/md';
+import Footer from './Footer';
 export default function SavedItems() {
-    const {setHomeData , HomeData} = useContext(GlobalVariables)
-    const [Data , setData] = useState([])
+    const { setHomeData, HomeData } = useContext(GlobalVariables)
+    const [Data, setData] = useState([])
     const Token = localStorage.getItem('token');
     const ID = JSON.parse(Token).token
     const SavedItem = async () => {
-      try {
-        const api = `${baseUrl}/users/getall/savedItems/${ID}`
-        const { data } = await axios.get(api);
-        setData(data.data)
-        console.log(data , 'saved')
-      } catch (error) {
-        console.log(error.message , 'saved')
-      }
+        try {
+            const api = `${baseUrl}/users/getall/savedItems/${ID}`
+            const { data } = await axios.get(api);
+            setData(data.data)
+            console.log(data, 'saved')
+        } catch (error) {
+            console.log(error.message, 'saved')
+        }
     }
     const Max_length = 26;
     useEffect(() => {
         SavedItem()
     }, [0])
-    
+
     return (
         <>
+        <div className="overflow-hidden">
+      
             <Header />
-            
             <div className="row m-0 p-0">
                 <div className="for-center flex-row justify-content-center align-items-center">
 
@@ -46,83 +48,71 @@ export default function SavedItems() {
 
                 </div>
             </div>
+            </div>
             <div className="container" id="card_box">
 
-<div className="row p-0 m-0">
-    {
-        Data?.map((automobileProduct, key) => {
-            return (
-                <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
-                    <CardHeight>
+                <div className="row p-0 m-0">
+                    {
+                        Data?.map((automobileProduct, key) => {
+                            return (
+                                <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
+                                    <CardHeight>
 
-                    <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
-                            <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
-                                {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
-                                {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
-                                <div className="pdt-details">
-                                    <div className="row d-flex align-items-center">
-                                        <div className="col-md-6 col-8 ">
-                                            <div className="price">₹ {automobileProduct.price}</div>
-                                        </div>
-                                        <div className="col-md-6 col-4 setHeart">
-                                            {
-                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5"/>
-                                            }
-                                        </div>
-                                    </div>
+                                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
+                                            <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
+                                                {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
+                                                {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
+                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="pdt-details">
+                                                    <div className="row d-flex align-items-center">
+                                                        <div className="col-md-6 col-8 ">
+                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        </div>
+                                                        <div className="col-md-6 col-4 setHeart">
+                                                            {
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+                                                            }
+                                                        </div>
+                                                    </div>
 
-                                    {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
+                                                    {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
 
-                                    {
-                                        (automobileProduct.title).length > Max_length ?
-                                            <div className="prd-name">
-                                                {`${automobileProduct.title.substring(0, Max_length)}...`}
-                                            </div>
-                                            :
-                                            <div className="prd-name text-capitalize">{automobileProduct.title}</div>
-                                    }
-                                    <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
-                                        <span className="adrs text-capitalize fs-6">   <MdLocationOn className="fs-6"/>{automobileProduct.location.state}</span>
-                                        <span className="year"></span>
-                                    </div>
-                                    <div className="row p-0 m-0">
-                                        <div className="col p-0">
-                                         
-                                            {/* <div className="buy-bt">
+                                                    {
+                                                        (automobileProduct.title).length > Max_length ?
+                                                            <div className="prd-name">
+                                                                {`${automobileProduct.title.substring(0, Max_length)}...`}
+                                                            </div>
+                                                            :
+                                                            <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                    }
+                                                    <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
+                                                        <span className="adrs text-capitalize fs-6">   <MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                        <span className="year"></span>
+                                                    </div>
+                                                    <div className="row p-0 m-0">
+                                                        <div className="col p-0">
+
+                                                            {/* <div className="buy-bt">
                                                 <Link to="/singleproductpage" className="buy-bttn"><FontAwesomeIcon icon="fa fa-shopping-cart"></FontAwesomeIcon>&nbsp;&nbsp;Buy Now</Link>
                                             </div> */}
-                                        </div>
+                                                        </div>
 
-                                    </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </Link>
+                                    </CardHeight>
                                 </div>
+                            )
 
-                            </div>
-                        </Link>
-                    </CardHeight>
+                        })
+                    }
                 </div>
-            )
-
-        })
-    }
-    {/* <div className="d-grid place-items-center"> */}
-    {
-
-    }
-    {/* <div className="row m-0 p-0">
-
-        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == Lmore}>
-            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>}
-            Load More
-        </ButtonCraete>
-
-    </div> */}
-</div>
 
 
-</div >
+            </div >
+            <Footer />
 
         </>
     )

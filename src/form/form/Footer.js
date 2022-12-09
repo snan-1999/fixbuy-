@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import Playstore from '../../assets/images/Playstore.png';
 import Appstore from '../../assets/images/Appstore.png';
 import styled from "styled-components";
+import Support from "../../ChatSeller/Support";
 
 
 
@@ -53,7 +54,7 @@ const Footer = () => {
                             </div>
                             <br />
                             <br />
-                            <div className="LinkClass1 ">
+                            <div className="LinkClass1 d-lg-block d-md-none d-none d-sm-none">
                                 <div className="d-flex">
                                 <div><Link to="" className="FooterLink">Download App for IOS
                                 </Link></div>&nbsp;&nbsp;
@@ -133,6 +134,7 @@ const Footer = () => {
                     </div>
                 </div>
 
+                <Support />
                 <div className="copyright">
                     <div className="row copyrightt p-0 m-0">
                         <div className="col-md-12 col-12 foocet">@Copyright 2022 - Fixebuy.in </div>

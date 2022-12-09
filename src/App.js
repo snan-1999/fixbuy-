@@ -35,6 +35,7 @@ import Demo from './form/form/ImageUpload';
 import SellerProfile from './form/form/SellerProfile';
 import MainProducts from './Forms/SubcategoryProduct/MainProducts';
 import SellCategory from './form/form/SellCategory';
+import MainChatFile from './ChatSeller/MainChatFile';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -84,6 +85,7 @@ function App() {
           {/* mobile */}
           <Route path='/sell/automobile/SellCategory' element={<SellCategory />} />
           <Route path='/packages/:id/:categories/:sellertype' element={<Packages />} />
+          <Route path='/mainchatfile' element={<MainChatFile/>} />
 
           {/* <Route exact path='/' element={</>/> */}
         </Routes>

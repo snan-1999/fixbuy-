@@ -108,6 +108,7 @@ function Login() {
                         'status': "logIn"
                     })
                 )
+                window.localStorage.setItem('loginThrough' , JSON.stringify({'loginCome' : 'phone'}))
             }
             else {
                 setError(res.message);
@@ -141,6 +142,7 @@ function Login() {
                         // 'type' : res.data.data.type  
                     })
                 )
+                window.localStorage.setItem('loginThrough' , JSON.stringify({'loginCome' : 'google'}))
             }
             else {
                 setError(res.message)
@@ -182,6 +184,7 @@ function Login() {
                         "status": "login"
                     })
                 )
+                window.localStorage.setItem('loginThrough' , JSON.stringify({'loginCome' : 'facebook'}))
             }
             else {
                 setError(res.message);

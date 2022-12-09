@@ -35,14 +35,14 @@ const SellerProfile = () => {
     const Name = JSON.parse(IdData).name;
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
-    const [profileImg2, setProfileImg2] = useState(null);
+    const [Upstate, setUpstate] = useState(1);
     const [postedproduct, setpostedproduct] = useState([]);
     const [sellername, setsellername] = useState('');
     const [sellerimage, setsellerimage] = useState('');
     const [selleremail, setselleremail] = useState('');
     const [sellerphone, setsellerphone] = useState('');
     const [reason, setreason] = useState('');
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState();
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => setisOpen(false)
     const OnOpen = () => setisOpen(true)
@@ -90,8 +90,20 @@ const SellerProfile = () => {
             subscriber_id: ProfleId
         }).then((res) => {
             if (res.data) {
+                toast(res.data.message, {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        type: 'success'
+                    });
+                // CheckSubscribe()
                 setShow(true)
-                console.log(res.data, 'subs');
+                setUpstate(Upstate + 1)
+                console.log(res, 'subscribe');
             }
         })
 
@@ -105,8 +117,21 @@ const SellerProfile = () => {
             subscriber_id: ProfleId
         }).then((res) => {
             if (res.data) {
+                console.log(res, 'subscribe');
+                toast(res.data.message, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
+                // CheckSubscribe()
+                setUpstate(Upstate + 1)
                 setShow(false)
-                console.log(res.data, 'subs');
+                // console.log(res.data, 'subs')
             }
         })
     }
@@ -118,27 +143,25 @@ const SellerProfile = () => {
             shop_id: location.state,
             subscriber_id: ProfleId
         }).then((res) => {
-            if (res.data) {
-                setShow(res.data.status)
-                toast(res.data.message, {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    type: 'success'
-                });
-                console.log(res.data.message, 'subs');
+            if (res.data) { 
+                if(res.data.message == "you are subscriber"){
+                    setShow(true)
+                    window.localStorage.setItem('Subscribe' , true)
+                }else{
+                    
+                    setShow(false)
+                    window.localStorage.setItem('Subscribe' , false)
+                }
+                console.log(res.data.message, 'subscirbe')
             }
         })
     }
 
-    // useEffect(() => {
-    //     CheckSubscribe()
-    // }, [Unsubscribe ,CheckSubscribe])
-
+    useEffect(() => {
+        CheckSubscribe()
+    }, [0])
+    const ShowBtn = localStorage.getItem('Subscribe')
+    console.log(ShowBtn , 'show')
     const Reportapi = async () => {
         console.log('report api call....')
         setisOpen(false)
@@ -197,26 +220,25 @@ const SellerProfile = () => {
                                             (Type == "user" || Type == 'shop') ?
                                                 <div className="subc-button">
                                                     {
+
                                                         (show == false) ?
                                                             <button className="subcribe-button"
                                                                 onClick={() => {
                                                                     Subscribe()
-                                                                    CheckSubscribe()
                                                                 }
                                                                 }>
                                                                 <span className="subscribe-color">Subscribe</span>
                                                             </button>
                                                             :
-                                                            (show == true) ?
-                                                                <button className="subcribe-button" onClick={() => {
-                                                                    CheckSubscribe()
-                                                                    Unsubscribe()
-                                                                }
-                                                                }>
-                                                                    <span className="subscribe-color">Unsubscribe</span>
-                                                                </button>
-                                                                :
-                                                                ""
+
+                                                            <button className="subcribe-button" onClick={() => {
+                                                                Unsubscribe()
+                                                            }
+                                                            }>
+                                                                <span className="subscribe-color">Unsubscribe</span>
+                                                            </button>
+
+
                                                     }
                                                 </div>
                                                 :

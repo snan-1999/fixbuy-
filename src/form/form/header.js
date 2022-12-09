@@ -25,12 +25,22 @@ import { ToastContainer, toast } from 'react-toastify';
 const Header = () => {
     const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
+    const UserLogin = window.localStorage.getItem('loginThrough');
+    console.log(UserLogin, 'userlogin data')
 
+    const LoginthroughData = JSON.parse(UserLogin)?.loginCome;
+    console.log(LoginthroughData, 'loginthroughData')
     let ProfleId;
     let IdData;
     let Type;
+    let userProfileName;
+    let userProfileImg;
     IdData = window.localStorage.getItem('token');
+    console.log(userProfileImg, 'userProfileName')
+    console.log(userProfileName, 'userProfileName')
     if (IdData) {
+        userProfileName = JSON.parse(IdData).profileName;
+       userProfileImg = JSON.parse(IdData).profileImg;
 
         ProfleId = JSON.parse(IdData).token;
         Type = JSON.parse(IdData).type;
@@ -128,7 +138,7 @@ const Header = () => {
             setLocalData(JSON.parse(profileName));
             Update()
             console.log('hi')
-        }, 1000)
+        }, 100)
         console.log(LocalData, 'second')
         console.log('sevcond')
     }, [Upstate])
@@ -302,10 +312,10 @@ const Header = () => {
             </div>
 
             {/* <!-- category --> */}
-            <div className="desk-category overflow-hidden">
+            <div className="desk-category">
                 <div className="row m-0 p-0">
                     <div className="col  p-0">
-                        <div className="catagry">
+                        <div className="catagry ">
 
                             {/* <div className="row catagry-color p-0 m-0"> */}
                             <div className="category-section">
@@ -453,13 +463,24 @@ const Header = () => {
                                     {
                                         (profileName) ?
                                             <>
-                                                <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <img src={`${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
-                                                    {(LocalData == null)
-                                                        ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
-                                                    }
+                                                {
+                                                    LoginthroughData === 'facebook' ?
+                                                        <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <img src={`${userProfileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+                                                            {(LocalData == null)
+                                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : userProfileName
+                                                            }
+                                                        </button>
+                                                        :
+                                                        <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                            <img src={`${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
+                                                            {(LocalData == null)
+                                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
+                                                            }
 
-                                                </button>
+                                                        </button>
+                                                }
+
                                             </>
                                             :
 
@@ -472,7 +493,6 @@ const Header = () => {
 
 
                                     }
-
 
 
                                     <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
@@ -495,22 +515,22 @@ const Header = () => {
                                                 </Link>
                                             </li>
                                         }
-                                        <Link to="" className="dropdown-item" id="Hov">
-                                            <li >
+                                        {/* <Link to="" className="dropdown-item" id="Hov"> */}
+                                            <li className="dropdown-item">
                                                 <FontAwesomeIcon icon="fas fa-sign-out-alt" />
                                                 <GoogleLogout
                                                     clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
                                                     buttonText="Logout"
                                                     onLogoutSuccess={() => {
                                                         window.localStorage.removeItem('token');
-                                                        nav("/login")
+                                                        nav("/")
                                                     }}
                                                     icon={false}
                                                     className='setGoogleLog'
                                                 />
 
                                             </li>
-                                        </Link>
+                                        {/* </Link> */}
 
                                     </ul>
 
