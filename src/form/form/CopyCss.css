@@ -41,7 +41,7 @@
 .prd-name {
     margin-top: 3px;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .adrs {
@@ -503,7 +503,8 @@ li.footerLink:hover::before {
         border: 1px solid;
         display: flex;
         overflow: hidden;
-        height: 75%;
+        width: 60px;
+        height: 60px;
         margin-left: 5%;
     }
 
@@ -524,12 +525,14 @@ li.footerLink:hover::before {
     }
 
     .report-Image {
-        padding: 8px 4px 6px 8px;
-        margin-left: -5%;
+        padding: 2px; 
+        /* margin-left: -5%; */
+        width: 10px !important;
+        height: 10px !important;
     }
 
     .report-text1 {
-        font-size: 18px;
+        font-size: 9px;
         margin-left: 5%;
         /* font-size: 22px; */
         background-color: transparent !important;
@@ -545,7 +548,7 @@ li.footerLink:hover::before {
         margin-top: -1%;
         color: white;
         margin-left: 4%;
-        width: 40vw;
+        width: 30vw;
         /* margin-right: 6%; */
     }
 
@@ -567,7 +570,7 @@ li.footerLink:hover::before {
 
     .subscribe-color1 {
         font-size: 15px;
-        padding-bottom: 8px;
+        padding-bottom: 0px;
     }
 
     .box3 {

@@ -61,7 +61,7 @@
 
 .container-heading-pr {
   position: absolute;
-  width: 680px;
+  width: 630px;
   height: 60px;
   border-bottom: 3px solid #37577A;
   /* background: linear-gradient(var(--color1) , var(--color2)) !important; */
@@ -244,6 +244,9 @@ button#dropdownMenuButton1 {
   display: none !important;
 }
 @media screen and (max-width: 600px) {
+  .seller-name1 h4 {
+    font-size: 1.1rem !important;
+}
   /* Realed products */
 .container-heading-related {
   position: absolute;

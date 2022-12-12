@@ -12,7 +12,7 @@ import locationIcon from '../../assets/images/locationIcon.png';
 // import facebook from '../../assets/images/facebook.png';
 import { baseUrl } from "../../functions/constant";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios'
 // import { NewSubscriber } from "../../functions/Subscriber";
 import { useContext } from "react";
@@ -22,18 +22,19 @@ import ReportModal from "./Modals/ReportModal";
 import { MdLocationOn } from "react-icons/md";
 
 import { ToastContainer, toast } from 'react-toastify';
+import { Button } from "@chakra-ui/react";
 
 
 const SellerProfile = () => {
     const MAX_LENGTH = 25;
     const IdData = localStorage.getItem('token');
     let Type;
-    let PhoneNumber ; 
-    let Name ;
-    if(IdData){
-         Type = JSON.parse(IdData).type;
-         PhoneNumber = JSON.parse(IdData).phone;
-         Name = JSON.parse(IdData).name;
+    let PhoneNumber;
+    let Name;
+    if (IdData) {
+        Type = JSON.parse(IdData).type;
+        PhoneNumber = JSON.parse(IdData).phone;
+        Name = JSON.parse(IdData).name;
 
     }
     let ProfleId = JSON.parse(IdData)?.token;
@@ -53,7 +54,7 @@ const SellerProfile = () => {
     const Onclose = () => setisOpen(false)
     const OnOpen = () => setisOpen(true)
     // const [subscribe , setsubscribe , unsubscribe , setunsubscribe] = useContext(GlobalVariables);
-
+    const nav = useNavigate()
     const location = useLocation()
     console.log(location, 'seller Data')
 
@@ -90,28 +91,33 @@ const SellerProfile = () => {
 
     // Subscribe api
     const Subscribe = async () => {
-        const api = `${baseUrl}/subscriber/add/NewSubscriber`;
-        await axios.post(api, {
-            shop_id: location.state,
-            subscriber_id: ProfleId
-        }).then((res) => {
-            if (res.data) {
-                toast(res.data.message, {
+        if(Type){
+
+            const api = `${baseUrl}/subscriber/add/NewSubscriber`;
+            await axios.post(api, {
+                shop_id: location.state,
+                subscriber_id: ProfleId
+            }).then((res) => {
+                if (res.data) {
+                    toast(res.data.message, {
                         position: "bottom-right",
                         autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                        type: 'success'
-                    });
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
                 // CheckSubscribe()
                 setShow(true)
                 setUpstate(Upstate + 1)
                 console.log(res, 'subscribe');
             }
         })
+    }else{
+        nav('/login')
+    }
 
     }
 
@@ -149,14 +155,14 @@ const SellerProfile = () => {
             shop_id: location.state,
             subscriber_id: ProfleId
         }).then((res) => {
-            if (res.data) { 
-                if(res.data.message == "you are subscriber"){
+            if (res.data) {
+                if (res.data.message == "you are subscriber") {
                     setShow(true)
-                    window.localStorage.setItem('Subscribe' , true)
-                }else{
-                    
+                    window.localStorage.setItem('Subscribe', true)
+                } else {
+
                     setShow(false)
-                    window.localStorage.setItem('Subscribe' , false)
+                    window.localStorage.setItem('Subscribe', false)
                 }
                 console.log(res.data.message, 'subscirbe')
             }
@@ -167,7 +173,7 @@ const SellerProfile = () => {
         CheckSubscribe()
     }, [0])
     const ShowBtn = localStorage.getItem('Subscribe')
-    console.log(ShowBtn , 'show')
+    console.log(ShowBtn, 'show')
     const Reportapi = async () => {
         console.log('report api call....')
         setisOpen(false)
@@ -184,7 +190,17 @@ const SellerProfile = () => {
             "reason": reason
         }).then((res) => {
             if (res.data) {
-                console.log(res.data);
+                toast(res.data.message, {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    type: 'success'
+                });
+                console.log(res.data , 'Report');
                 setreason("")
             }
         })
@@ -204,14 +220,14 @@ const SellerProfile = () => {
                         <div className="desk-view">
                             <div className="d-flex justify-content-center heading-box">
                                 <div className="row w-100" style={{ overflow: 'hidden' }}>
-                                    <div className="col-md-4 h-100">
+                                    <div className="col-md-4 col-4 h-100">
                                         <div className="d-flex h-100 justify-content-center align-items-center text-end">
                                             <div className="image-box">
                                                 <img src={sellerimage} style={{ width: '100%', height: '100%' }} />
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-md-8 px-3 d-flex align-items-start flex-row heading-text ">
+                                    <div className="col-md-8 col-8 px-3 d-flex align-items-start flex-row heading-text ">
                                         <div className="seller-name">
                                             <h4>{sellername}</h4>
                                         </div>
@@ -331,16 +347,22 @@ const SellerProfile = () => {
                                                 </div>
 
                                                 {
-                                                    (Type == 'user' || Type == 'shop') ?
+                                                    // (Type == 'user' || Type == 'shop') ?
                                                         <div className="subc-button1">
                                                             {
                                                                 (show == false) ?
-                                                                    <button className="subscribe-button1"
+                                                                    <Button
+                                                                        className="subscribe-button1"
                                                                         onClick={() =>
                                                                             Subscribe()
-                                                                        }>
+                                                                        }
+                                                                    >
+
                                                                         <span className="subscribe-color1">Subscribe</span>
-                                                                    </button>
+                                                                        {/* <button 
+                                                                   >
+                                                                </button> */}
+                                                                    </Button>
                                                                     :
                                                                     (show == true) ?
                                                                         <button className="subscribe-button1" onClick={() => Unsubscribe()}>
@@ -350,8 +372,9 @@ const SellerProfile = () => {
                                                                         ""
                                                             }
                                                         </div>
-                                                        :
-                                                        ""
+                                                        // :
+                                                        // ''
+                                                    //    nav()
                                                 }
 
                                             </div>
@@ -374,7 +397,7 @@ const SellerProfile = () => {
                                                     <div class="col-md-4 col-6 col-lg-3">
                                                         <div class="shadow p-2 mb-4 bg-white maindiv">
                                                             {/* <CardHeight> */}
-                                                            <Link to='/singleproductpage' className="text-decor">
+                                                            <Link to={`/singleproductpage/${ProductDetails._id}`} state={{ ProductDetails, key }} className="text-decor">
                                                                 <div class="img-wh overflow-hidden"><img src={`${baseUrl}/allcategories/get/productImage/${ProductDetails.images[0]}`} class="pdt-img" /></div>
                                                                 <div style={{ height: '18vh' }} >
                                                                     <div class="pdt-details">

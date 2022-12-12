@@ -55,8 +55,8 @@ z-index: 10;
     @media screen and (max-width :600px){
         z-index: 10;
         position: fixed;
-        top: 45% !important;
-        left: 14% !important;
+        top: 30% !important;
+        left: 10% !important;
     }
     `
 const ModelDiv = styled(motion.div)`

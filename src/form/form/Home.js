@@ -210,7 +210,7 @@ const Home = () => {
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart">
                                                             {
-                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-6 fs-md-5 fs-lg-5" /> : <FiHeart className="fs-6 fs-md-5 fs-lg-5" />
                                                             }
                                                         </div>
                                                     </div>

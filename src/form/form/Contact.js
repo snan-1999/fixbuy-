@@ -113,10 +113,10 @@ const Contact = () => {
                             ref={EmailRef}
                         />
                     </div>
-                </div><br />
+                </div>
                 <div className="row p-0 m-0 form-group">
                     <div className="col-md-12 col-12">
-                        <input type="text" name="mobile_no" placeholder="Mobile Number" className="form-control imput-padding" required
+                        <input type="text" name="mobile_no" placeholder="Mobile Number" className="form-control imput-paddin" required
                             value={mobile}
                             onChange={(e) => {
                                 setMobile(e.target.value)
@@ -126,10 +126,10 @@ const Contact = () => {
                             ref={MobileRef}
                         />
                     </div>
-                </div><br />
+                </div>
                 <div className="row p-0 m-0 form-group">
                     <div className="col-md-12 col-12">
-                        <textarea name="message" id="" className="textareaa form-control" required
+                        <textarea name="message" id="" className="textareaa form-control" required placeholder="Enter Your Message"
                             value={message}
                             onChange={(e) => {
                                 setMessage(e.target.value)

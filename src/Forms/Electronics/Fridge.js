@@ -46,7 +46,7 @@ const Fridge = () => {
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [otp, setOtp] = useState();
     // const [categories, setCategories] = useState('fridge');
-    console.log(ModalSellerPhone.length, 'hy');
+    // console.log(ModalSellerPhone.length, 'hy');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);

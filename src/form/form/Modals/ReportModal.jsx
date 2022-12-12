@@ -97,9 +97,10 @@ width: 29vw;
 margin-left: 0%;
 
 @media screen and (max-width: 600px){
-    width:50vw;
-    // margin-left: 25%;
+    width: 74vw;
+    margin-left: 0%;
     padding: 1rem 2rem;
+    
 }
 
 `

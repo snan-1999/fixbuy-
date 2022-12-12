@@ -154,6 +154,11 @@ font-family: 'Lato', sans-serif;
     top:0;
     left: 50%;
     transform: translate(-72%);
+    @media screen and (max-width: 600px){
+        
+        transform: translate(-57%);
+    }
+    
     `
 const Modelcontent = styled(motion.div)`
 background: white;
@@ -167,7 +172,8 @@ box-shadow: 0 1px 5px 5px rgb(235 234 234);
     width:25vw;
     margin-left: 15%;
 @media screen and (max-width: 600px){
-    margin-left: 25%;
+    width:70vw;
+    margin-left: 15%;
     padding: 1rem 2rem;
 }
 `
