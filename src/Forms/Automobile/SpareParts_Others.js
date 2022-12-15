@@ -14,16 +14,18 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
+import CropImage2 from "../CropImage2";
+
 const SpareParts = () => {
     const { category2 } = useParams();
     const { latitude, Longitude } = useContext(GlobalVariables)
-    console.log(latitude, Longitude , 'latitude')
+    console.log(latitude, Longitude, 'latitude')
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;   
+    const Type = JSON.parse(IdData).type;
     // console.log(ProfleId);
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => {
@@ -32,7 +34,7 @@ const SpareParts = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
-    const [otp , setOtp] = useState('');
+    const [otp, setOtp] = useState('');
     const [otpError, setotpError] = useState('');
     const [OtpCondition, setOtpCondition] = useState(false);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
@@ -66,6 +68,12 @@ const SpareParts = () => {
     const sellerphoneRef = useRef();
     const maxNumber = 20;
 
+    const [imageError, setimageError] = useState('');
+    const [cropdata, setCropData] = useState([])
+    const [titleerror, setTitleError] = useState('');
+    const [descriptionerror, setDescriptionError] = useState('');
+
+
     let newcategory = category2.replace(/_/g, ' ')
     console.log(newcategory);
 
@@ -86,134 +94,144 @@ const SpareParts = () => {
             },
         };
 
-        if (title.trim().length > 0) {
+        if (title.trim().length > 0 && title.trim().length <= 60) {
             if (sellername.trim().length >= 0) {
-            if (description.trim().length > 0) {
-                if (price.trim().length > 0) {
-                    if ((img.length <= 20) && (img.length > 0)) {
-                        if (state.trim().length > 0) {
-                            if (city.trim().length > 0) {
-                                if(pincode.trim().length > 0){
-                                if (neighbourhood.trim().length > 0) {
-                                if (sellerphone.trim().length > 0) {
-                                    setError(true)
-                                    setposted('success')
-                                    formData.append('sellername', sellername)
-                                    // formData.append('brand', brand)
-                                    formData.append('title', title)
-                                    formData.append('categories', category2)
-                                    formData.append('description', description)
-                                    formData.append('price', price)
-                                    formData.append('latitude', latitude)
-                                    formData.append('longitude', Longitude)
-                                    formData.append('sellerType' , sellerType)
-                                    let imageStatus = true
-                                    console.log(img);
-                                    img.forEach(imgs => {
-                                        // console.log(imgs.file.type)
-                                        if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                            console.log(imgs.file.type)
-                                            alert("File does not support .webp extension ");
-                                            imageStatus = false
-                                            return false;
-                                            
-                                            
-                                        }
-                                        formData.append("images", imgs.file)
-                                    });
-                                    // formData.append('images', img)
-                                    // if()
-                                    if (imageStatus) {
-                                        
-                                        formData.append('state', state)
-                                        formData.append('city', city)
-                                        formData.append('pincode', pincode)
-                                        formData.append('neighbourhood', neighbourhood)
-                                        formData.append('user_id', user_id)
-                                        formData.append('sellerphone', sellerphone)
-                                        const api = `${baseUrl}/product/automobile/form/create`;
-                                        await axios.post(api, formData, {
-                                            headers: {
-                                                'Content-Type': 'multipart/form-data'
-                                            }
-                                        }).then((response) => {
-                                            if (response.data.status) {
-                                                toast('Successfully Created', {
-                                                    position: "bottom-right",
-                                                    autoClose: 5000,
-                                                    hideProgressBar: false,
-                                                    closeOnClick: true,
-                                                    draggable: true,
-                                                    progress: undefined,
-                                                    theme: "colored",
-                                                    type: 'success'
-                                                });
-                                                console.log(response.data , "postItem");
-                                                // setposted('success')
-                                                // console.log(posted)
-                                                // setMessage('Posted !');
+                if (description.trim().length > 0 && description.trim().length <= 300) {
+                    if (price.trim().length > 0) {
+                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
+                            if (state.trim().length > 0) {
+                                if (city.trim().length > 0) {
+                                    if (pincode.trim().length > 0) {
+                                        if (neighbourhood.trim().length > 0) {
+                                            if (sellerphone.trim().length > 0) {
+                                                setError(true)
+                                                setposted('success')
+                                                formData.append('sellername', sellername)
+                                                // formData.append('brand', brand)
+                                                formData.append('title', title)
+                                                formData.append('categories', category2)
+                                                formData.append('description', description)
+                                                formData.append('price', price)
+                                                formData.append('latitude', latitude)
+                                                formData.append('longitude', Longitude)
+                                                formData.append('sellerType', sellerType)
+                                                let imageStatus = true
+                                                console.log(img);
+
+                                                if (imageStatus) {
+
+                                                    formData.append('state', state)
+                                                    formData.append('city', city)
+                                                    formData.append('pincode', pincode)
+                                                    formData.append('neighbourhood', neighbourhood)
+                                                    formData.append('user_id', user_id)
+                                                    formData.append('sellerphone', sellerphone)
+                                                    formData.append('images', cropdata[0])
+                                                    formData.append('images', cropdata[1])
+                                                    formData.append('images', cropdata[2])
+                                                    formData.append('images', cropdata[3])
+                                                    formData.append('images', cropdata[4])
+                                                    formData.append('images', cropdata[5])
+                                                    formData.append('images', cropdata[6])
+                                                    formData.append('images', cropdata[7])
+                                                    formData.append('images', cropdata[8])
+                                                    formData.append('images', cropdata[9])
+                                                    formData.append('images', cropdata[10])
+                                                    formData.append('images', cropdata[11])
+                                                    formData.append('images', cropdata[12])
+                                                    formData.append('images', cropdata[13])
+                                                    formData.append('images', cropdata[14])
+                                                    formData.append('images', cropdata[15])
+                                                    formData.append('images', cropdata[16])
+                                                    formData.append('images', cropdata[17])
+                                                    formData.append('images', cropdata[18])
+                                                    formData.append('images', cropdata[19])
+                                                    const api = `${baseUrl}/product/automobile/form/create`;
+                                                    await axios.post(api, formData, {
+                                                        headers: {
+                                                            'Content-Type': 'multipart/form-data'
+                                                        }
+                                                    }).then((response) => {
+                                                        if (response.data.status) {
+                                                            toast('Successfully Created', {
+                                                                position: "bottom-right",
+                                                                autoClose: 5000,
+                                                                hideProgressBar: false,
+                                                                closeOnClick: true,
+                                                                draggable: true,
+                                                                progress: undefined,
+                                                                theme: "colored",
+                                                                type: 'success'
+                                                            });
+                                                            console.log(response.data, "postItem");
+                                                            // setposted('success')
+                                                            // console.log(posted)
+                                                            // setMessage('Posted !');
+                                                        } else {
+                                                            setposted('fail')
+                                                            console.log(false);
+                                                            // seterrors(false)
+                                                            setMessage('Please fill the details')
+                                                        }
+                                                    })
+                                                    // .catch(err => {
+                                                    //     console.log(err)
+                                                    // })
+
+                                                }
                                             } else {
                                                 setposted('fail')
-                                                console.log(false);
-                                                // seterrors(false)
-                                                setMessage('Please fill the details')
+                                                setError(false);
+                                                console.log("sellerphone error")
+                                                sellerphoneRef.current.style.borderColor = 'red';
                                             }
-                                        })
-                                        // .catch(err => {
-                                        //     console.log(err)
-                                        // })
-
+                                        } else {
+                                            setposted('fail')
+                                            setError(false);
+                                            console.log("landmark error")
+                                            neighbourhoodRef.current.style.borderColor = 'red';
+                                        }
+                                    } else {
+                                        setError(false);
+                                        console.log("pincode error")
+                                        pincodeRef.current.style.borderColor = 'red';
                                     }
                                 } else {
-                                    setposted('fail')
                                     setError(false);
-                                    console.log("sellerphone error")
-                                    sellerphoneRef.current.style.borderColor = 'red';
-                                }
-                                } else {
-                                    setposted('fail')
-                                    setError(false);
-                                    console.log("landmark error")
-                                    neighbourhoodRef.current.style.borderColor = 'red';
+                                    console.log("city error")
+                                    cityRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
-                                console.log("pincode error")
-                                pincodeRef.current.style.borderColor = 'red';
-                            }
-                            } else {
-                                setError(false);
-                                console.log("city error")
-                                cityRef.current.style.borderColor = 'red';
+                                console.log("state error")
+                                stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setError(false);
-                            console.log("state error")
-                            stateRef.current.style.borderColor = 'red';
+                            setimageError("Please provide atleast 1 image");
+                            console.log("image error")
+                            // descriptionRef.current.style.borderColor = 'red';
                         }
                     } else {
-                        setError("Please provide atleast 1 image");
-                        console.log("image error")
-                        // descriptionRef.current.style.borderColor = 'red';
+                        setError(false);
+                        console.log("price error")
+                        priceRef.current.style.borderColor = 'red';
                     }
                 } else {
                     setError(false);
-                    console.log("price error")
-                    priceRef.current.style.borderColor = 'red';
+                    console.log("description error")
+                    setDescriptionError("Description should not be more than 300 words !")
+                    descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
-                console.log("description error")
-                descriptionRef.current.style.borderColor = 'red';
+                console.log("title error")
+                sellernameRef.current.style.borderColor = 'red';
             }
         } else {
             setError(false);
+            // usecheck(true);
             console.log("title error")
-            sellernameRef.current.style.borderColor = 'red';
-        }
-        } else {
-            setError(false);
-            console.log("title error")
+            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
 
@@ -288,6 +306,7 @@ const SpareParts = () => {
         <>
             {/* <Header /> */}
             <h6 className="sub-Categories-Heading text-uppercase">automobile/{newcategory}</h6>
+            <MyContainer>
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
@@ -312,7 +331,7 @@ const SpareParts = () => {
                     <input type="text" name="brand" className="form-control set-pd-input-post" required onChange={(e) => setBrand(e.target.value)} value={brand} /><br /> */}
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required
+                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
                         onChange={(e) => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
@@ -320,23 +339,27 @@ const SpareParts = () => {
                         }}
                         value={title}
                         ref={titleRef}
-                    /><br />
+                    />
+                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                    <br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Description"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
                             setError("")
                         }} value={description}
                         ref={descriptionRef}
-                    ></textarea>
+                    >
+                        <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                    </textarea>
                     {/* <br />
                     <br /> */}
-                    <br />
+                    {/* <br /> */}
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
+                    <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
@@ -361,50 +384,71 @@ const SpareParts = () => {
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <ImageUploading
-                            multiple
-                            value={img}
-                            ref={imgRef}
-                            onChange={onChange}
-                            maxNumber={maxNumber}
-                            dataURLKey="data_url"
-                        >
-                            {({
-                                imageList,
-                                onImageUpload,
-                                onImageRemove,
-                                onImageUpdate,
-                            }) => (
-                                // write your building UI
-                                <div className="upload__image-wrapper">
-
-                                    &nbsp;
-                                    <div className="">
-
-                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
-                                            {imageList.map((image, index) => (
-                                                <div key={index} className="image-item mt-4 ms-4 col-2">
-                                                    <img src={image['data_url']} alt="" width="100" />
-                                                    <div className="image-item__btn-wrapper">
-                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
-                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
-                                                    </div>
-                                                </div>
-                                            ))}
+                        <div class="row ">
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
                                         </div>
-                                    </div>
-                                    <div className="setFloat">
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
 
-                                        <button className=" btn btn-sm buttonChoose"
-                                            onClick={onImageUpload}
-                                        //   {...dragProps}
-                                        >
-                                            Choose Images
-                                        </button>
+
                                     </div>
-                                </div>
-                            )}
-                        </ImageUploading>
+                                    <div className="text-danger">{imageError}</div>
 
                     </div>
                     <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
@@ -467,7 +511,7 @@ const SpareParts = () => {
 
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city}
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city} placeholder="Enter Your City"
                             ref={cityRef}
                             onChange={(e) => {
                                 setCity(e.target.value)
@@ -477,7 +521,7 @@ const SpareParts = () => {
 
 
                         <label for="city">PINCODE*</label>
-                        <input type="text" name="pincode" className="form-control set-pd-input-post" required value={pincode}
+                        <input type="number" name="pincode" className="form-control set-pd-input-post" required value={pincode} placeholder="Enter Your Pincode"
                             ref={pincodeRef}
                             onChange={(e) => {
                                 setPincode(e.target.value)
@@ -486,8 +530,8 @@ const SpareParts = () => {
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood}
-                            ref={neighbourhoodRef}
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood} placeholder="Enter Your Landmark"
+                            ref={neighbourhoodRef} 
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
                                 neighbourhoodRef.current.style.borderColor = "#ced4da";
@@ -538,12 +582,12 @@ const SpareParts = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername} 
-                                ref={sellernameRef}
-                                onChange={(e) => {
-                                    setSellerName(e.target.value)
-                                    sellernameRef.current.style.borderColor = "#ced4da";
-                                setError("")
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
+                                    ref={sellernameRef}
+                                    onChange={(e) => {
+                                        setSellerName(e.target.value)
+                                        sellernameRef.current.style.borderColor = "#ced4da";
+                                        setError("")
                                     }} />
                             </div>
 
@@ -555,12 +599,12 @@ const SpareParts = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        // setSellerPhone(e.target.value)
-                        // sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
+                    <input type="text" name="number" className="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            // setSellerPhone(e.target.value)
+                            // sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
                         value={ModalSellerPhone}
                         ref={sellerphoneRef}
                         readOnly
@@ -627,15 +671,15 @@ const SpareParts = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {/* {errors &&
+                    {errors &&
                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                    } */}
+                    }
                 </div>
 
             </div>
-
+            </MyContainer>
             {/* <Footer /> */}
         </>
     )
@@ -648,4 +692,14 @@ OTP input {
 
 padding: 17px;
 }
+`
+const MyContainer = styled.div`
+    input::placeholder{
+        font-size: 12px;
+        padding-left: 10px;
+    }
+    textarea::placeholder{
+        padding-left: 10px;
+        font-size: 12px;
+    }
 `

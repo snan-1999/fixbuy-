@@ -1,29 +1,30 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
-import { baseUrl } from "../../functions/constant";
+import { baseUrl, ImageView } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
+import { ProfileData } from "../../functions/ProfileData";
 // import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { GlobalVariables } from "../../Context/StateProvider";
-import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
-import CropImage2 from "../CropImage2";
-
-const Service = () => {
+import OtpPop from "../../form/form/Modals/OtpPop";
+import { useContext } from "react";
+import { GlobalVariables } from "../../Context/StateProvider";
+const Fridge = () => {
+    const { category } = useParams();
     const { latitude, Longitude } = useContext(GlobalVariables)
-    const { category2 } = useParams();
+    console.log(latitude, Longitude, 'latitude')
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
-    let PhoneNumber = JSON.parse(IdData).phone;
     let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
+    let PhoneNumber = JSON.parse(IdData).phone;
+    const [OtpCondition, setOtpCondition] = useState(false);
     const Type = JSON.parse(IdData).type;
     console.log(ProfleId);
     const [isOpen, setisOpen] = useState(false)
@@ -33,27 +34,35 @@ const Service = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
-    const [otp, setOtp] = useState('');
-    const [otpError, setotpError] = useState('');
-    const [OtpCondition, setOtpCondition] = useState(false);
-    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
+    // const profileName = localStorage('token');
+    // console.log(profileName);
     const [user_id, setUser_id] = useState(ProfleId)
+
+    const [show, setShow] = useState(false);
     const [img, setImg] = useState('');
-    const [pincode, setPincode] = useState('');
     const [title, setTitle] = useState('');
+    const [PhoneLocal, setPhoneLocal] = useState(PhoneNumber);
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
+    const [otp, setOtp] = useState();
     // const [categories, setCategories] = useState('fridge');
+    // console.log(ModalSellerPhone.length, 'hy');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
     const [sellername, setSellerName] = useState(ProfileNameForm);
     const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
+    const [pincode, setPincode] = useState('');
     const [city, setCity] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
     const [message, setMessage] = useState('');
     const [errors, seterrors] = useState(false);
-    const [posted, setposted] = useState('');
     const [hasError, setError] = useState('')
+    const [imageError, setimageError] = useState('');
+
+    const [verify, setverify] = useState(false);
+    const maxNumber = 20;
+    const sellernameRef = useRef();
     const titleRef = useRef();
     const cityRef = useRef();
     const priceRef = useRef();
@@ -61,17 +70,10 @@ const Service = () => {
     const neighbourhoodRef = useRef();
     const descriptionRef = useRef();
     const stateRef = useRef();
-    const sellernameRef = useRef();
     const pincodeRef = useRef();
     const sellerphoneRef = useRef();
-    const maxNumber = 20;
 
-    const [imageError, setimageError] = useState('');
-    const [cropdata, setCropData] = useState([])
-    const [titleerror, setTitleError] = useState('');
-    const [descriptionerror, setDescriptionError] = useState('');
-
-    let newcategory = category2.replace(/_/g, ' ')
+    let newcategory = category.replace(/_/g, ' ')
     console.log(newcategory);
 
     const onChange = (imageList, addUpdateIndex) => {
@@ -79,10 +81,13 @@ const Service = () => {
         console.log(imageList, addUpdateIndex);
         setImg(imageList);
         imgRef.current.style.borderColor = "#ced4da";
-        setError("");
+        setimageError("");
     };
     console.log(img)
+    console.log(category)
+
     const sumbit = async () => {
+
         const formData = new FormData();
         const config = {
             headers: {
@@ -91,105 +96,98 @@ const Service = () => {
             },
         };
 
-
-        if (title.trim().length > 0 && title.trim().length <= 60) {
+        console.log(title.length);
+        if (title.trim().length > 0) {
             if (sellername.trim().length >= 0) {
-                if (description.trim().length > 0 && description.trim().length <= 300) {
+                if (description.trim().length > 0) {
                     if (price.trim().length > 0) {
-                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
+                        if ((img.length <= 20) && (img.length > 0)) {
                             if (state.trim().length > 0) {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
                                         if (neighbourhood.trim().length > 0) {
-                                            if (sellerphone.trim().length > 0) {
-                                                setError(true)
-                                                setposted('success')
-                                                formData.append('sellername', sellername)
-                                                // formData.append('brand', brand)
-                                                formData.append('title', title)
-                                                formData.append('sellerphone', sellerphone)
-                                                formData.append('categories', category2)
-                                                formData.append('description', description)
-                                                formData.append('price', price)
-                                                let imageStatus = true
-                                                console.log(img);
+                                            // if (sellerphone.trim().length > 0) {
+                                            setError(true)
 
-                                                if (imageStatus) {
+                                            formData.append('title', title)
+                                            formData.append('sellerphone', sellerphone)
+                                            formData.append('sellername', sellername)
+                                            formData.append('categories', category)
+                                            formData.append('description', description)
+                                            formData.append('price', price)
+                                            formData.append('sellerType', sellerType)
+                                            formData.append('latitude', latitude)
+                                            formData.append('longitude', Longitude)
+                                            let imageStatus = true
+                                            console.log(img);
+                                            img.forEach(imgs => {
+                                                // console.log(imgs.file.type)
+                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                    console.log(imgs.file.type)
+                                                    alert("File does not support .webp extension ");
+                                                    imageStatus = false
+                                                    return false;
 
-                                                    formData.append('state', state)
-                                                    formData.append('city', city)
-                                                    formData.append('pincode', pincode)
-                                                    formData.append('neighbourhood', neighbourhood)
-                                                    formData.append('user_id', user_id)
-                                                    formData.append('sellerType', sellerType)
-                                                    formData.append('latitude', latitude)
-                                                    formData.append('longitude', Longitude)
-                                                    formData.append('images', cropdata[0])
-                                                    formData.append('images', cropdata[1])
-                                                    formData.append('images', cropdata[2])
-                                                    formData.append('images', cropdata[3])
-                                                    formData.append('images', cropdata[4])
-                                                    formData.append('images', cropdata[5])
-                                                    formData.append('images', cropdata[6])
-                                                    formData.append('images', cropdata[7])
-                                                    formData.append('images', cropdata[8])
-                                                    formData.append('images', cropdata[9])
-                                                    formData.append('images', cropdata[10])
-                                                    formData.append('images', cropdata[11])
-                                                    formData.append('images', cropdata[12])
-                                                    formData.append('images', cropdata[13])
-                                                    formData.append('images', cropdata[14])
-                                                    formData.append('images', cropdata[15])
-                                                    formData.append('images', cropdata[16])
-                                                    formData.append('images', cropdata[17])
-                                                    formData.append('images', cropdata[18])
-                                                    formData.append('images', cropdata[19])
-                                                    const api = `${baseUrl}/product/services/form/create`;
-                                                    await axios.post(api, formData, {
+
+                                                }
+                                                formData.append("images", imgs.file)
+                                            });
+                                            // formData.append('images', img)
+                                            // if()
+                                            console.log(sellerphone, 'postData')
+                                            if (imageStatus) {
+                                                formData.append('state', state)
+                                                formData.append('city', city)
+                                                formData.append('pincode', pincode)
+                                                formData.append('neighbourhood', neighbourhood)
+                                                formData.append('user_id', user_id)
+                                                //     formData.append('longitude' , "28.663996")
+                                                // formData.append('latitude' , "77.306843") 
+
+
+                                                const api = `${baseUrl}/product/electronics/form/create`;
+
+                                                await axios.post(api, formData,
+                                                    {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
-                                                    }).then((response) => {
-                                                        if (response.data.status) {
-                                                            toast('Successfully Created', {
-                                                                position: "bottom-right",
-                                                                autoClose: 5000,
-                                                                hideProgressBar: false,
-                                                                closeOnClick: true,
-                                                                draggable: true,
-                                                                progress: undefined,
-                                                                theme: "colored",
-                                                                type: 'success'
-                                                            });
-                                                            console.log(response.data.status);
-                                                            // setposted('success')
-                                                            // console.log(posted)
-                                                            setMessage('Posted !');
-                                                        } else {
-                                                            setposted('fail')
-                                                            console.log(false);
-                                                            // seterrors(false)
-                                                            setMessage('Please fill the details')
-                                                        }
+                                                    }
+                                                ).then((response) => {
+                                                    if (response.data.status) {
+                                                        toast('Successfully Created', {
+                                                            position: "bottom-right",
+                                                            autoClose: 5000,
+                                                            hideProgressBar: false,
+                                                            closeOnClick: true,
+                                                            draggable: true,
+                                                            progress: undefined,
+                                                            theme: "colored",
+                                                            type: 'success'
+                                                        });
+                                                        console.log(response.data);
+                                                        seterrors(true)
+                                                        console.log(errors)
+                                                        console.log(response)
+                                                        // setMessage('Posted !');
+                                                    } else {
+                                                        console.log(false);
+                                                    }
+                                                })
+                                                    .catch(err => {
+                                                        console.log(err)
                                                     })
-
-                                                }
-                                            } else {
-                                                setposted('fail')
-                                                setError(false);
-                                                console.log("landmark error")
-                                                sellerphoneRef.current.style.borderColor = 'red';
                                             }
+
+
                                         } else {
-                                            setposted('fail')
                                             setError(false);
                                             console.log("landmark error")
                                             neighbourhoodRef.current.style.borderColor = 'red';
                                         }
-
                                     } else {
                                         setError(false);
-                                        console.log("city error")
+                                        console.log("pincode error")
                                         pincodeRef.current.style.borderColor = 'red';
                                     }
                                 } else {
@@ -205,7 +203,7 @@ const Service = () => {
                         } else {
                             setimageError("Please provide atleast 1 image");
                             console.log("image error")
-                            // descriptionRef.current.style.borderColor = 'red';
+                            //     descriptionRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError(false);
@@ -215,28 +213,26 @@ const Service = () => {
                 } else {
                     setError(false);
                     console.log("description error")
-                    setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
-
             } else {
                 setError(false);
-                console.log("title error")
+                console.log("sellername error")
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
             setError(false);
-            // usecheck(true);
             console.log("title error")
-            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
 
-
     }
+    console.log(verify, 'var')
 
+    // number verify with otp
     const handleChangeOtp = () => { }
     const Otpverify = async () => {
+        setOtpCondition(false)
         setisOpen(false)
         const api = `${baseUrl}/users/otp/verify/profileUpdate`;
         await axios.post(api, {
@@ -259,7 +255,6 @@ const Service = () => {
                     theme: "colored",
                     type: 'success'
                 });
-                setOtpCondition(false)
             }
             else {
                 // setotpError('invalid otp')
@@ -281,6 +276,7 @@ const Service = () => {
                 // Otpverify()
                 // setverify(true);
                 setOtp(res.data.otp)
+                alert(res.data.otp)
                 // console.log(verify, 'var')
                 console.log(res.data, 'Otp');
             }
@@ -294,16 +290,13 @@ const Service = () => {
     }
 
 
-
-
     return (
         <>
             <Header />
-            <h6 className="sub-Categories-Heading text-uppercase">services/{newcategory}</h6>
-            <MyContainer>
+            <ToastContainer />
+            <h6 className="sub-Categories-Heading text-uppercase">Electronics/{newcategory}</h6>
             <div className="container post border p-0">
                 <div className="heading-post-product">
-
                     POST YOUR ITEMS
                     {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
                 </div>
@@ -312,128 +305,131 @@ const Service = () => {
                     <div className="sub-heading-post">
                         Put Some Details
                     </div>
-
+                    {/* <br /> */}
+                    {/* <form action="<?php echo $server_name; ?>/api-call/car-product-api-call.php" method="post" enctype="multipart/form-data"> */}
 
                     <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
-                    <input type="hidden" name='category' value={category2} hidden />
+                    <input type="hidden" name='category' value={category} hidden />
                     <input type="hidden" name='sellerType' value={sellerType} hidden />
 
 
-
-
-                    <label for="title">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
+                    <label for="title">ADD TITLE*</label>
+                    <input type="text" name="ad_title" className="form-control set-pd-input-post" placeholder="Add Your Title"
                         onChange={(e) => {
+
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }}
+                        }
+                        }
                         value={title}
                         ref={titleRef}
+                        required='true'
                     />
-                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                    {/* {hasError ? <p style={{ color: 'red' }}>Name is required</p> : null} */}
                     <br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Description"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"  placeholder="Add Your Description"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
                             setError("")
-                        }} value={description}
+                        }}
+                        value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
-                    {/* <br /> */}
+                    {/* <br />
+                    <br /> */}
+                    {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
+                    {/* {hasError ? <p style={{ color: 'red' }}>Name is required</p> : null} */}
+
+                    <br />
+
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
+                    <div class="input-group mt-1">
+                        <span class="input-group-text" id="basic-addon1">₹</span>
+                        <input type="text" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username"  name="set_price" aria-describedby="basic-addon1" 
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
                             setError("")
                         }} value={price}
                         ref={priceRef}
-                    />
+                        required/>
+                    </div>
+                    {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required
+                        
+                    /> */}
+                    {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
 
                 </div>
-
+                {/* </input> */}
+                {/* <hr /> */}
+                {/* <div className="container set-pd-post">
+                <label for="description">SET PRICE</label>
+                    <br />
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" placeholder="PRICE*" required />
+                </div> */}
                 <hr />
-
+                {/* <br /> */}
                 <div className="container set-pd-post">
                     <div className="sub-heading-post">
                         UPLOAD SOME PHOTOS
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <div class="row ">
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
+                        <ImageUploading
+                            multiple
+                            value={img}
+                            ref={imgRef}
+                            onChange={onChange}
+                            maxNumber={maxNumber}
+                            dataURLKey="data_url"
+                        >
+                            {({
+                                imageList,
+                                onImageUpload,
+                                onImageRemove,
+                                onImageUpdate,
+                            }) => (
+                                // write your building UI
+                                <div className="upload__image-wrapper">
 
+                                    &nbsp;
+                                    <div className="">
 
+                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
+                                            {imageList.map((image, index) => (
+                                                <div key={index} className="image-item mt-4 ms-4 col-2">
+                                                    <img src={image['data_url']} alt="" width="100" />
+                                                    <div className="image-item__btn-wrapper">
+                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
+                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="text-danger">{imageError}</div>
+                                    <div className="setFloat">
+
+                                        <button className=" btn btn-sm buttonChoose"
+                                            onClick={onImageUpload}
+                                        //   {...dragProps}
+                                        >
+                                            Choose Images
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </ImageUploading>
+
                     </div>
-                    {/* <div className="errormsg" style={{ color: "red" }} >{hasError}</div> */}
+                    <br />
+                    <div className="errormsg" style={{ color: "red" }} >{imageError}</div>
                 </div>
+
 
 
                 <hr />
@@ -443,14 +439,12 @@ const Service = () => {
                     </div><br />
                     <div className="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" className="form-control set-pd-input-post" required
-                            value={state}
-                            ref={stateRef}
+                        <select id="State" name="location" className="form-control set-pd-input-post" value={state} ref={stateRef}
                             onChange={(e) => {
                                 setState(e.target.value)
                                 stateRef.current.style.borderColor = "#ced4da";
                                 setError("")
-                            }}>
+                            }} required>
                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
                             <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -489,36 +483,39 @@ const Service = () => {
                             <option value="Uttaranchal">Uttaranchal</option>
                             <option value="West Bengal">West Bengal</option>
                         </select>
+                        {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
                         <br />
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city} placeholder="Enter Your City"
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city}  placeholder="Add Your City"
                             ref={cityRef}
                             onChange={(e) => {
                                 setCity(e.target.value)
                                 cityRef.current.style.borderColor = "#ced4da";
                                 setError("")
-                            }} /><br />
+                            }} />
+                        <br />
 
                         <label for="pincode">PINCODE*</label>
-                        <input type="number" name="pincode" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
-                            value={pincode}
+                        <input type="number" name="pincode" className="form-control set-pd-input-post" required value={pincode}  placeholder="Add Your Pincode"
                             ref={pincodeRef}
                             onChange={(e) => {
                                 setPincode(e.target.value)
                                 pincodeRef.current.style.borderColor = "#ced4da";
                                 setError("")
-                            }} /><br />
-
+                            }} />
+                        <br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood} placeholder="Enter Your Landmark"
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required  placeholder="Add Your Landmark"
+                            value={neighbourhood}
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
                                 neighbourhoodRef.current.style.borderColor = "#ced4da";
                                 setError("")
                             }} />
+                        {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
                     </div>
                 </div>
                 <hr />
@@ -531,7 +528,15 @@ const Service = () => {
                             <div className=" d-flex text-align-left m-2 p-1">
                                 <div className="preview-container shadow shadowclass">
                                     <span className="fileName d-block my-2"></span>
-
+                                    {/* <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        ref={imageUploader}
+                                        style={{
+                                            display: "none"
+                                        }}
+                                    />*/}
                                     <div
                                         style={{
                                             height: "80px",
@@ -540,11 +545,11 @@ const Service = () => {
                                             overflow: 'hidden'
 
                                         }}
-
+                                    // onClick={() => imageUploader.current.click()}
 
                                     >
                                         <img
-                                            src={ProfileImage}
+                                            src={`${ProfileImage}`}
                                             style={{
                                                 width: "100%",
                                                 height: "100%",
@@ -563,29 +568,32 @@ const Service = () => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
                                         setError("")
-                                    }} />
+                                    }}
+                                    readonly="readonly" />
                             </div>
 
                         </div>
                     </div>
+                    {/* <div className="errormsgName" style={{ color: "red" }} >{error}</div> */}
                     <br />
                     <div className="sub-heading-post">
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
+
+
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required
+                    <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
                         onChange={(e) => {
-                            // setSellerPhone(e.target.value)
+                            // setPhoneLocal(e.target.value)
+
                             // sellerphoneRef.current.style.borderColor = "#ced4da";
                             setError("")
                         }}
+                        // value={sellerphone}
                         value={ModalSellerPhone}
                         ref={sellerphoneRef}
-                        readOnly
                     />
-                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                    {/* <br /> */}
                     {
                         !ModalSellerPhone && <div className="text-danger">please add your number</div>
                     }
@@ -598,10 +606,7 @@ const Service = () => {
                     <div className="text" style={{ color: "red" }}>{hasError}</div>
                     <br />
                     <OTPTAG>
-
                         {
-
-                            // (sellerphone.length >= 10) ?
                             <>
                                 <OtpPop
                                     {
@@ -609,22 +614,14 @@ const Service = () => {
                                         Otpverify,
                                         Generate,
                                         otp,
-                                        setOtp,
-                                        OtpCondition, setOtpCondition,
-                                        setModalSellerPhone,
+                                        OtpCondition,
                                         setSellerPhone,
-                                        sellername,
-                                        sellerphone,
-                                        user_id,
                                         handleChangeOtp,
                                         isOpen,
-                                        setisOpen,
                                         Onclose,
-                                        OnOpen
                                     }
                                     }
                                 />
-                                <div className="text" style={{ color: "red" }}>{otpError}</div>
                                 <br />
 
 
@@ -634,7 +631,6 @@ const Service = () => {
                     </OTPTAG>
                     {
                         (PhoneNumber !== null) &&
-                        // (verify) &&
                         <div className="post-pr">
 
                             <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
@@ -646,35 +642,24 @@ const Service = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {errors &&
-                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                    {/* {errors &&
+                        <div className="alert alert-info" role="alert">
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
             </div>
-            </MyContainer>
+
             <Footer />
         </>
     )
 }
 
-
-export default Service;
+export default Fridge;
 const OTPTAG = styled.div`
-OTP input {
-
-padding: 17px;
+    OTP input {
+    
+    padding: 17px;
 }
-`
-const MyContainer = styled.div`
-    input::placeholder{
-        font-size: 12px;
-        padding-left: 10px;
-    }
-    textarea::placeholder{
-        padding-left: 10px;
-        font-size: 12px;
-    }
 `

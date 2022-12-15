@@ -115,7 +115,7 @@ const Sell = () => {
                                                     <Link to='/sell/services/educations_&_classes' className="textLine"><li className="w-100">Educations & classes</li></Link>
                                                     <Link to='/sell/services/electronics_&_computers' className="textLine"><li>Electronics & Computers</li></Link>
                                                     <Link to='/sell/services/accountancy_services' className="textLine"><li>Accountancy Services</li></Link>
-                                                    <Link to='/sell/sevices/software_services' className="textLine"><li>Software Services</li></Link>
+                                                    <Link to='/sell/services/software_services' className="textLine"><li>Software Services</li></Link>
                                                     <Link to='/sell/services/others_services' className="textLine"><li>Other Services</li></Link>
                                                 </ul>
                                             </div>

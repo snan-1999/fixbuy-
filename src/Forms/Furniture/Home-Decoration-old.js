@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useState , useRef } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -8,23 +8,36 @@ import facebook from '../../assets/images/facebook.png'
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+// import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
+import { ToastContainer, toast } from 'react-toastify';
+import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
-// import { Link } from "react-router-dom";
-import CropImage2 from "../CropImage2";
-
-const Fashion = () => {
+const HomeDecoration = () => {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
-    let ProfileImage = JSON.parse(IdData).profileImg
+    let ProfileImage = JSON.parse(IdData).profileImg;
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;
+    const Type = JSON.parse(IdData).type;   
     // console.log(ProfleId);
+    const [user_id, setUser_id] = useState(ProfleId)
+    const [img, setImg] = useState('');
+    const [pincode, setPincode] = useState('');
+    const [title, setTitle] = useState('');
+    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
+    const [errors, seterrors] = useState(false);
+    const [posted, setposted] = useState('');
+    // const [categories, setCategories] = useState('fridge');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [sellername, setSellerName] = useState(ProfileNameForm);
+    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
+    const [otp, setOtp] = useState();
+    const [OtpCondition, setOtpCondition] = useState(false);
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => {
         setOtp('')
@@ -32,30 +45,12 @@ const Fashion = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
-    const [OtpCondition, setOtpCondition] = useState(false);
-    const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
-    const [user_id, setUser_id] = useState(ProfleId)
-    const [otp, setOtp] = useState('');
-    const [img, setImg] = useState('');
-    // const [brand, setBrand] = useState('');
-    const [title, setTitle] = useState('');
-    const [sellerphone, setSellerPhone] = useState(PhoneNumber);
-    // const [categories, setCategories] = useState('fridge');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [sellername, setSellerName] = useState(ProfileNameForm);
     const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
-    const [pincode, setPincode] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
     const [hasError, setError] = useState('')
-    const [errors, seterrors] = useState(false);
     const [message, setMessage] = useState('');
-    const [posted, setposted] = useState('');
-    const [imageError, setimageError] = useState('');
-    const [otpError, setotpError] = useState('');
-    const [verify, setverify] = useState(false);
     const titleRef = useRef();
     const descriptionRef = useRef();
     const priceRef = useRef();
@@ -66,10 +61,6 @@ const Fashion = () => {
     const sellernameRef = useRef();
     const imgRef = useRef();
     const sellerphoneRef = useRef();
-
-    const [cropdata, setCropData] = useState([])
-    const [titleerror, setTitleError] = useState('');
-    const [descriptionerror, setDescriptionError] = useState('');
 
     console.log(category2)
 
@@ -83,28 +74,28 @@ const Fashion = () => {
         console.log(imageList, addUpdateIndex);
         setImg(imageList);
         imgRef.current.style.borderColor = "#ced4da";
-        setimageError("");
+        setError("");
     };
     console.log(img)
     const sumbit = async () => {
         const formData = new FormData();
         const config = {
             headers: {
-                // 'Accept': 'application/json , text/plain',
-                'Content-type': 'multipart/form-data'
-            }
+                Accept: 'application/json , text/plain, /',
+                'Content-type': 'multipart/form-data',
+            },
         };
 
-        if (title.trim().length > 0 && title.trim().length <= 60) {
+        if (title.trim().length > 0) {
             if (sellername.trim().length >= 0) {
-                if (description.trim().length > 0 && description.trim().length <= 300) {
+                if (description.trim().length > 0) {
                     if (price.trim().length > 0) {
-                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
+                        if ((img.length <= 20) && (img.length > 0)) {
                             if (state.trim().length > 0) {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
                                         if (neighbourhood.trim().length > 0) {
-                                            // if (sellerphone.trim().length > 0) {
+                                        if (sellerphone.trim().length > 0) {
                                             setError(true)
                                             formData.append('sellername', sellername)
                                             // formData.append('brand', brand)
@@ -113,46 +104,37 @@ const Fashion = () => {
                                             formData.append('categories', category2)
                                             formData.append('description', description)
                                             formData.append('price', price)
+                                            formData.append('latitude', latitude)
+                                            formData.append('longitude', Longitude)
                                             let imageStatus = true
                                             console.log(img);
+                                            img.forEach(imgs => {
+                                                // console.log(imgs.file.type)
+                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                    console.log(imgs.file.type)
+                                                    alert("File does not support .webp extension ");
+                                                    imageStatus = false
+                                                    return false;
 
+
+                                                }
+                                                formData.append("images", imgs.file)
+                                            });
+                                            // formData.append('images', img)
+                                            // if()
                                             if (imageStatus) {
                                                 formData.append('state', state)
                                                 formData.append('city', city)
-                                                formData.append('pincode', pincode)
                                                 formData.append('neighbourhood', neighbourhood)
                                                 formData.append('user_id', user_id)
                                                 formData.append('sellerType', sellerType)
-                                                formData.append('latitude', latitude)
-                                                formData.append('longitude', Longitude)
-                                                formData.append('images', cropdata[0])
-                                                formData.append('images', cropdata[1])
-                                                formData.append('images', cropdata[2])
-                                                formData.append('images', cropdata[3])
-                                                formData.append('images', cropdata[4])
-                                                formData.append('images', cropdata[5])
-                                                formData.append('images', cropdata[6])
-                                                formData.append('images', cropdata[7])
-                                                formData.append('images', cropdata[8])
-                                                formData.append('images', cropdata[9])
-                                                formData.append('images', cropdata[10])
-                                                formData.append('images', cropdata[11])
-                                                formData.append('images', cropdata[12])
-                                                formData.append('images', cropdata[13])
-                                                formData.append('images', cropdata[14])
-                                                formData.append('images', cropdata[15])
-                                                formData.append('images', cropdata[16])
-                                                formData.append('images', cropdata[17])
-                                                formData.append('images', cropdata[18])
-                                                formData.append('images', cropdata[19])
-                                                const api = `${baseUrl}/product/fashions/form/create`;
+                                                const api = `${baseUrl}/product/furnitures/form/create`;
                                                 await axios.post(api, formData, {
                                                     headers: {
                                                         'Content-Type': 'multipart/form-data'
                                                     }
                                                 }).then((response) => {
                                                     if (response.data.status) {
-                                                        console.log(response.data);
                                                         toast('Successfully Created', {
                                                             position: "bottom-right",
                                                             autoClose: 5000,
@@ -163,9 +145,10 @@ const Fashion = () => {
                                                             theme: "colored",
                                                             type: 'success'
                                                         });
+                                                        console.log(response.data.status);
                                                         // setposted('success')
-                                                        // console.log(posted)
                                                         seterrors(true)
+                                                        // console.log(posted)
                                                         // setMessage('Posted !');
                                                     } else {
                                                         setposted('fail')
@@ -175,8 +158,13 @@ const Fashion = () => {
                                                     }
                                                 })
                                             }
-
                                         } else {
+                                            setError(false);
+                                            console.log("sellerphone error")
+                                            sellerphoneRef.current.style.borderColor = 'red';
+                                        }
+                                        } else {
+                                            setposted('fail')
                                             setError(false);
                                             console.log("landmark error")
                                             neighbourhoodRef.current.style.borderColor = 'red';
@@ -197,7 +185,7 @@ const Fashion = () => {
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setimageError("Please provide atleast 1 image");
+                            setError("Please provide atleast 1 image");
                             console.log("image error")
                             // descriptionRef.current.style.borderColor = 'red';
                         }
@@ -209,7 +197,6 @@ const Fashion = () => {
                 } else {
                     setError(false);
                     console.log("description error")
-                    setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
@@ -219,87 +206,85 @@ const Fashion = () => {
             }
         } else {
             setError(false);
-            // usecheck(true);
             console.log("title error")
-            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
 
 
     }
 
-    const handleChangeOtp = () => { }
-    const Otpverify = async () => {
-        setisOpen(false)
-        const api = `${baseUrl}/users/otp/verify/profileUpdate`;
-        await axios.post(api, {
-            user_id: user_id,
-            phone: sellerphone,
-            name: sellername,
-            otp: otp
-        }).then((res) => {
-            if (res.status) {
-                setModalSellerPhone(sellerphone)
-                // setMessage(res.message);
-                console.log(res.data, 'Otp');
-                toast("Add Successfully", {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    type: 'success'
-                });
-                setOtpCondition(false)
-            }
-            else {
-                // setotpError('invalid otp')
+// number verify with otp
+const handleChangeOtp = () => { }
+const Otpverify = async () => {
+    setOtpCondition(false)
+    setisOpen(false)
+    const api = `${baseUrl}/users/otp/verify/profileUpdate`;
+    await axios.post(api, {
+        user_id: user_id,
+        phone: sellerphone,
+        name: sellername,
+        otp: otp
+    }).then((res) => {
+        if (res.status) {
+            setModalSellerPhone(sellerphone)
+            // setMessage(res.message);
+            console.log(res.data, 'Otp');
+            toast("Add Successfully", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                type: 'success'
+            });
+        }
+        else {
+            // setotpError('invalid otp')
 
-            }
-        })
-    }
-    const Generate = async () => {
-        console.log(sellerphone, 'Otp')
-        let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
-        // console.log("function started");
-        // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
-        const api = `${baseUrl}/users/otp/genrate/formUpdate`;
-        await axios.post(api, {
-            "phone": sellerphone
-        }).then((res) => {
-            if (res.data) {
-                setOtpCondition(true)
-                // Otpverify()
-                // setverify(true);
-                setOtp(res.data.otp)
-                // console.log(verify, 'var')
-                console.log(res.data, 'Otp');
-            }
-            // }
-        })
-        // } else {
-        // setError('Invalid Phone Number');
+        }
+    })
+}
+const Generate = async () => {
+    console.log(sellerphone, 'Otp')
+    let mobRegex = new RegExp('^[6-9]{1}[0-9]{9}$');
+    // console.log("function started");
+    // if (sellerphone.trim().length > 0 && sellerphone.trim().match(mobRegex)) {
+    const api = `${baseUrl}/users/otp/genrate/formUpdate`;
+    await axios.post(api, {
+        "phone": sellerphone
+    }).then((res) => {
+        if (res.data) {
+            setOtpCondition(true)
+            // Otpverify()
+            // setverify(true);
+            setOtp(res.data.otp)
+            alert(res.data.otp)
+            // console.log(verify, 'var')
+            console.log(res.data, 'Otp');
+        }
         // }
+    })
+    // } else {
+    // setError('Invalid Phone Number');
+    // }
 
 
-    }
-
-
+}
 
 
     return (
         <>
             <Header />
-            <h6 className="sub-Categories-Heading text-uppercase">fashion/{newcategory}</h6>
-            <MyContainer>
+            <ToastContainer />
+            <h6 className="sub-Categories-Heading text-uppercase">furnitures/{newcategory}</h6>
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
                     {/* <h3>hello</h3> */}
                     POST YOUR ITEMS
-                    {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
+                    {/* <h6 className="sub-Categories-Heading">{newcateg/ory}</h6> */}
                 </div>
                 <hr />
                 <div className="container set-pd-post">
@@ -314,42 +299,39 @@ const Fashion = () => {
                     <input type="hidden" name='sellerType' value={sellerType} hidden />
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
-                        onChange={(e) => {
-                            setTitle(e.target.value)
-                            titleRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}
-                        value={title}
-                        ref={titleRef}
-                    />
-                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
-                    <br />
+                    <input type="text" name="title" className="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        setTitle(e.target.value)
+                        titleRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }} 
+                    value={title} 
+                    ref={titleRef}
+                    /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Description"
-                        onChange={(e) => {
-                            setDescription(e.target.value)
-                            descriptionRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}
-                        value={description}
-                        ref={descriptionRef}
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" 
+                    onChange={(e) => {
+                        setDescription(e.target.value)
+                        descriptionRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }} 
+                    value={description}
+                    ref={descriptionRef}
                     ></textarea>
-                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
-
-                    {/* <br /> */}
-
+                    {/* <br />
+                    <br /> */}
+                    <br />
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
-                        onChange={(e) => {
-                            setPrice(e.target.value)
-                            priceRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}
-                        value={price}
-                        ref={priceRef}
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        setPrice(e.target.value)
+                        priceRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }} 
+                    value={price} 
+                    ref={priceRef}
                     />
 
                 </div>
@@ -368,74 +350,52 @@ const Fashion = () => {
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <div class="row ">
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
+                        <ImageUploading
+                            multiple
+                            value={img}
+                            onChange={onChange}
+                            maxNumber={maxNumber}
+                            dataURLKey="data_url"
+                        >
+                            {({
+                                imageList,
+                                onImageUpload,
+                                onImageRemove,
+                                onImageUpdate,
+                            }) => (
+                                // write your building UI
+                                <div className="upload__image-wrapper">
 
+                                    &nbsp;
+                                    <div className="">
 
+                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
+                                            {imageList.map((image, index) => (
+                                                <div key={index} className="image-item mt-4 ms-4 col-2">
+                                                    <img src={image['data_url']} alt="" width="100" />
+                                                    <div className="image-item__btn-wrapper">
+                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
+                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="text-danger">{imageError}</div>
+                                    <div className="setFloat">
+
+                                        <button className=" btn btn-sm buttonChoose"
+                                            onClick={onImageUpload}
+                                        //   {...dragProps}
+                                        >
+                                            Choose Images
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </ImageUploading>
 
                     </div>
-                    {/* <div className="errormsg" style={{ color: "red" }} >{imageError}</div> */}
+                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                 </div>
 
 
@@ -446,13 +406,13 @@ const Fashion = () => {
                     </div><br />
                     <div className="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" className="form-control set-pd-input-post" required
-                            value={state}
-                            ref={stateRef}
-                            onChange={(e) => {
-                                setState(e.target.value)
-                                stateRef.current.style.borderColor = "#ced4da";
-                                setError("")
+                        <select id="State" name="location" className="form-control set-pd-input-post" required 
+                        value={state} 
+                        ref={stateRef}
+                        onChange={(e) => {
+                            setState(e.target.value)
+                            stateRef.current.style.borderColor = "#ced4da";
+                        setError("")
                             }}>
                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -494,36 +454,38 @@ const Fashion = () => {
                         </select>
                         <br />
 
+
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
-                            value={city}
-                            ref={cityRef}
-                            onChange={(e) => {
-                                setCity(e.target.value)
-                                cityRef.current.style.borderColor = "#ced4da";
-                                setError("")
+                        <input type="text" name="city" className="form-control set-pd-input-post" required 
+                        value={city} 
+                        ref={cityRef}
+                        onChange={(e) => {
+                            setCity(e.target.value)
+                            cityRef.current.style.borderColor = "#ced4da";
+                        setError("")
                             }} /><br />
 
 
                         <label for="pincode">PINCODE*</label>
-                        <input type="number" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
-                            value={pincode}
-                            ref={pincodeRef}
-                            onChange={(e) => {
-                                setPincode(e.target.value)
-                                pincodeRef.current.style.borderColor = "#ced4da";
-                                setError("")
+                        <input type="text" name="pincpde" className="form-control set-pd-input-post" required 
+                        value={pincode} 
+                        ref={pincodeRef}
+                        onChange={(e) => {
+                            setPincode(e.target.value)
+                            pincodeRef.current.style.borderColor = "#ced4da";
+                        setError("")
                             }} /><br />
 
+
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required placeholder="Enter Your Landmark"
-                            value={neighbourhood}
-                            ref={neighbourhoodRef}
-                            onChange={(e) => {
-                                setNeighbourhood(e.target.value)
-                                neighbourhoodRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }} />
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required 
+                        value={neighbourhood} 
+                        ref={neighbourhoodRef}
+                        onChange={(e) => {
+                            setNeighbourhood(e.target.value)
+                            neighbourhoodRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                        }} />
                     </div>
                 </div>
                 <hr />
@@ -569,13 +531,13 @@ const Fashion = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required readOnly
-                                    value={sellername}
-                                    ref={sellernameRef}
-                                    onChange={(e) => {
-                                        setSellerName(e.target.value)
-                                        sellernameRef.current.style.borderColor = "#ced4da";
-                                        setError("")
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required 
+                                value={sellername} 
+                                ref={sellernameRef}
+                                onChange={(e) => {
+                                    setSellerName(e.target.value)
+                                    sellernameRef.current.style.borderColor = "#ced4da";
+                        setError("")
                                     }} />
                             </div>
 
@@ -586,19 +548,20 @@ const Fashion = () => {
                         VERIFICATION
                     </div>
                     <p>We will send you OTP on your number</p><br />
+
+
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required
+                    <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
                         onChange={(e) => {
-                            // setSellerPhone(e.target.value)
+                            // setPhoneLocal(e.target.value)
+
                             // sellerphoneRef.current.style.borderColor = "#ced4da";
                             setError("")
                         }}
+                        // value={sellerphone}
                         value={ModalSellerPhone}
                         ref={sellerphoneRef}
-                        readOnly
                     />
-                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                    {/* <br /> */}
                     {
                         !ModalSellerPhone && <div className="text-danger">please add your number</div>
                     }
@@ -611,10 +574,7 @@ const Fashion = () => {
                     <div className="text" style={{ color: "red" }}>{hasError}</div>
                     <br />
                     <OTPTAG>
-
                         {
-
-                            // (sellerphone.length >= 10) ?
                             <>
                                 <OtpPop
                                     {
@@ -622,32 +582,23 @@ const Fashion = () => {
                                         Otpverify,
                                         Generate,
                                         otp,
-                                        setOtp,
-                                        OtpCondition, setOtpCondition,
-                                        setModalSellerPhone,
+                                        OtpCondition,
                                         setSellerPhone,
-                                        sellername,
-                                        sellerphone,
-                                        user_id,
                                         handleChangeOtp,
                                         isOpen,
-                                        setisOpen,
                                         Onclose,
-                                        OnOpen
                                     }
                                     }
                                 />
-                                <div className="text" style={{ color: "red" }}>{otpError}</div>
+                                {/* <div className="text" style={{ color: "red" }}>{otpError}</div> */}
                                 <br />
 
 
                             </>
-
                         }
                     </OTPTAG>
                     {
                         (PhoneNumber !== null) &&
-                        // (verify) &&
                         <div className="post-pr">
 
                             <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
@@ -658,35 +609,25 @@ const Fashion = () => {
 
                     }
                     {/* <div >{otpError}</div> */}
-
+{/* 
                     {errors &&
-                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                        <div className="alert alert-info" role="alert">
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
             </div>
-            </MyContainer>
+
             <Footer />
         </>
     )
 }
 
-export default Fashion;
-const MyContainer = styled.div`
-    input::placeholder{
-        font-size: 12px;
-        padding-left: 10px;
-    }
-    textarea::placeholder{
-        padding-left: 10px;
-        font-size: 12px;
-    }
-`
+export default HomeDecoration;
 const OTPTAG = styled.div`
-OTP input {
-
-padding: 17px;
+    OTP input {
+    
+    padding: 17px;
 }
 `

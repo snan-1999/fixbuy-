@@ -14,9 +14,9 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
-import CropImage2 from "../CropImage2";
 
-const Service = () => {
+
+const Books = () => {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -33,13 +33,13 @@ const Service = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
-    const [otp, setOtp] = useState('');
+    const [otp , setOtp] = useState('');
     const [otpError, setotpError] = useState('');
     const [OtpCondition, setOtpCondition] = useState(false);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
     const [user_id, setUser_id] = useState(ProfleId)
     const [img, setImg] = useState('');
-    const [pincode, setPincode] = useState('');
+    const [brand, setBrand] = useState('');
     const [title, setTitle] = useState('');
     const [sellerphone, setSellerPhone] = useState(PhoneNumber);
     // const [categories, setCategories] = useState('fridge');
@@ -49,6 +49,7 @@ const Service = () => {
     const [sellerType, setSellerType] = useState(Type);
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
+    const [pincode, setPincode] = useState('');
     const [neighbourhood, setNeighbourhood] = useState('');
     const [message, setMessage] = useState('');
     const [errors, seterrors] = useState(false);
@@ -61,15 +62,10 @@ const Service = () => {
     const neighbourhoodRef = useRef();
     const descriptionRef = useRef();
     const stateRef = useRef();
-    const sellernameRef = useRef();
     const pincodeRef = useRef();
+    const sellernameRef = useRef();
     const sellerphoneRef = useRef();
     const maxNumber = 20;
-
-    const [imageError, setimageError] = useState('');
-    const [cropdata, setCropData] = useState([])
-    const [titleerror, setTitleError] = useState('');
-    const [descriptionerror, setDescriptionError] = useState('');
 
     let newcategory = category2.replace(/_/g, ' ')
     console.log(newcategory);
@@ -91,12 +87,11 @@ const Service = () => {
             },
         };
 
-
-        if (title.trim().length > 0 && title.trim().length <= 60) {
+        if (title.trim().length > 0) {
             if (sellername.trim().length >= 0) {
-                if (description.trim().length > 0 && description.trim().length <= 300) {
+                if (description.trim().length > 0) {
                     if (price.trim().length > 0) {
-                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
+                        if ((img.length <= 20) && (img.length > 0)) {
                             if (state.trim().length > 0) {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
@@ -113,7 +108,20 @@ const Service = () => {
                                                 formData.append('price', price)
                                                 let imageStatus = true
                                                 console.log(img);
+                                                img.forEach(imgs => {
+                                                    // console.log(imgs.file.type)
+                                                    if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                        console.log(imgs.file.type)
+                                                        alert("File does not support .webp extension ");
+                                                        imageStatus = false
+                                                        return false;
 
+
+                                                    }
+                                                    formData.append("images", imgs.file)
+                                                });
+                                                // formData.append('images', img)
+                                                // if()
                                                 if (imageStatus) {
 
                                                     formData.append('state', state)
@@ -124,27 +132,7 @@ const Service = () => {
                                                     formData.append('sellerType', sellerType)
                                                     formData.append('latitude', latitude)
                                                     formData.append('longitude', Longitude)
-                                                    formData.append('images', cropdata[0])
-                                                    formData.append('images', cropdata[1])
-                                                    formData.append('images', cropdata[2])
-                                                    formData.append('images', cropdata[3])
-                                                    formData.append('images', cropdata[4])
-                                                    formData.append('images', cropdata[5])
-                                                    formData.append('images', cropdata[6])
-                                                    formData.append('images', cropdata[7])
-                                                    formData.append('images', cropdata[8])
-                                                    formData.append('images', cropdata[9])
-                                                    formData.append('images', cropdata[10])
-                                                    formData.append('images', cropdata[11])
-                                                    formData.append('images', cropdata[12])
-                                                    formData.append('images', cropdata[13])
-                                                    formData.append('images', cropdata[14])
-                                                    formData.append('images', cropdata[15])
-                                                    formData.append('images', cropdata[16])
-                                                    formData.append('images', cropdata[17])
-                                                    formData.append('images', cropdata[18])
-                                                    formData.append('images', cropdata[19])
-                                                    const api = `${baseUrl}/product/services/form/create`;
+                                                    const api = `${baseUrl}/product/booksAndSports/form/create`;
                                                     await axios.post(api, formData, {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
@@ -161,10 +149,10 @@ const Service = () => {
                                                                 theme: "colored",
                                                                 type: 'success'
                                                             });
-                                                            console.log(response.data.status);
+                                                            console.log(response.data);
                                                             // setposted('success')
                                                             // console.log(posted)
-                                                            setMessage('Posted !');
+                                                            // setMessage('Posted !');
                                                         } else {
                                                             setposted('fail')
                                                             console.log(false);
@@ -172,12 +160,15 @@ const Service = () => {
                                                             setMessage('Please fill the details')
                                                         }
                                                     })
+                                                    // .catch(err => {
+                                                    //     console.log(err)
+                                                    // })
 
                                                 }
                                             } else {
                                                 setposted('fail')
                                                 setError(false);
-                                                console.log("landmark error")
+                                                console.log("sellerphone error")
                                                 sellerphoneRef.current.style.borderColor = 'red';
                                             }
                                         } else {
@@ -186,10 +177,9 @@ const Service = () => {
                                             console.log("landmark error")
                                             neighbourhoodRef.current.style.borderColor = 'red';
                                         }
-
                                     } else {
                                         setError(false);
-                                        console.log("city error")
+                                        console.log("pincode error")
                                         pincodeRef.current.style.borderColor = 'red';
                                     }
                                 } else {
@@ -203,7 +193,7 @@ const Service = () => {
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setimageError("Please provide atleast 1 image");
+                            setError("Please provide atleast 1 image");
                             console.log("image error")
                             // descriptionRef.current.style.borderColor = 'red';
                         }
@@ -215,10 +205,8 @@ const Service = () => {
                 } else {
                     setError(false);
                     console.log("description error")
-                    setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
-
             } else {
                 setError(false);
                 console.log("title error")
@@ -226,12 +214,9 @@ const Service = () => {
             }
         } else {
             setError(false);
-            // usecheck(true);
             console.log("title error")
-            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
-
 
     }
 
@@ -294,16 +279,14 @@ const Service = () => {
     }
 
 
-
-
     return (
         <>
             <Header />
-            <h6 className="sub-Categories-Heading text-uppercase">services/{newcategory}</h6>
-            <MyContainer>
+            <h6 className="sub-Categories-Heading text-uppercase">Books/{newcategory}</h6>
             <div className="container post border p-0">
                 <div className="heading-post-product">
-
+                    {/* <input type="text" name='category' value={category2} /> */}
+                    {/* <h3>hello</h3> */}
                     POST YOUR ITEMS
                     {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
                 </div>
@@ -312,17 +295,19 @@ const Service = () => {
                     <div className="sub-heading-post">
                         Put Some Details
                     </div>
-
+                    {/* <br /> */}
+                    {/* <form action="<?php echo $server_name; ?>/api-call/car-product-api-call.php" method="post" enctype="multipart/form-data"> */}
 
                     <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
                     <input type="hidden" name='category' value={category2} hidden />
-                    <input type="hidden" name='sellerType' value={sellerType} hidden />
+                    <input type="hidden" name='sellerType' value={Type} hidden />
 
 
+                    {/* <label for="brand">BRAND*</label>
+                    <input type="text" name="brand" className="form-control set-pd-input-post" required onChange={(e) => setBrand(e.target.value)} value={brand} /><br /> */}
 
-
-                    <label for="title">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
+                    <label for="brand">TITLE*</label>
+                    <input type="text" name="title" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
@@ -330,12 +315,10 @@ const Service = () => {
                         }}
                         value={title}
                         ref={titleRef}
-                    />
-                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
-                    <br />
+                    /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Description"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -343,11 +326,12 @@ const Service = () => {
                         }} value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
-                    {/* <br /> */}
+                    {/* <br />
+                    <br /> */}
+                    <br />
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
@@ -357,82 +341,68 @@ const Service = () => {
                     />
 
                 </div>
-
+                {/* </input> */}
+                {/* <hr /> */}
+                {/* <div className="container set-pd-post">
+                <label for="description">SET PRICE</label>
+                    <br />
+                    <input type="text" name="set_price" className="form-control set-pd-input-post" placeholder="PRICE*" required />
+                </div> */}
                 <hr />
-
+                {/* <br /> */}
                 <div className="container set-pd-post">
                     <div className="sub-heading-post">
                         UPLOAD SOME PHOTOS
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <div class="row ">
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
+                        <ImageUploading
+                            multiple
+                            value={img}
+                            ref={imgRef}
+                            onChange={onChange}
+                            maxNumber={maxNumber}
+                            dataURLKey="data_url"
+                        >
+                            {({
+                                imageList,
+                                onImageUpload,
+                                onImageRemove,
+                                onImageUpdate,
+                            }) => (
+                                // write your building UI
+                                <div className="upload__image-wrapper">
 
+                                    &nbsp;
+                                    <div className="">
 
+                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
+                                            {imageList.map((image, index) => (
+                                                <div key={index} className="image-item mt-4 ms-4 col-2">
+                                                    <img src={image['data_url']} alt="" width="100" />
+                                                    <div className="image-item__btn-wrapper">
+                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
+                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="text-danger">{imageError}</div>
+                                    <div className="setFloat">
+
+                                        <button className=" btn btn-sm buttonChoose"
+                                            onClick={onImageUpload}
+                                        //   {...dragProps}
+                                        >
+                                            Choose Images
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+                        </ImageUploading>
+
                     </div>
-                    {/* <div className="errormsg" style={{ color: "red" }} >{hasError}</div> */}
+                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                 </div>
 
 
@@ -443,8 +413,7 @@ const Service = () => {
                     </div><br />
                     <div className="select-loaction">
                         <label for="state">STATE*</label>
-                        <select id="State" name="location" className="form-control set-pd-input-post" required
-                            value={state}
+                        <select id="State" name="location" className="form-control set-pd-input-post" required value={state}
                             ref={stateRef}
                             onChange={(e) => {
                                 setState(e.target.value)
@@ -491,8 +460,9 @@ const Service = () => {
                         </select>
                         <br />
 
+
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city} placeholder="Enter Your City"
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city}
                             ref={cityRef}
                             onChange={(e) => {
                                 setCity(e.target.value)
@@ -501,8 +471,7 @@ const Service = () => {
                             }} /><br />
 
                         <label for="pincode">PINCODE*</label>
-                        <input type="number" name="pincode" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
-                            value={pincode}
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
                                 setPincode(e.target.value)
@@ -512,7 +481,7 @@ const Service = () => {
 
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood} placeholder="Enter Your Landmark"
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood}
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
@@ -531,7 +500,15 @@ const Service = () => {
                             <div className=" d-flex text-align-left m-2 p-1">
                                 <div className="preview-container shadow shadowclass">
                                     <span className="fileName d-block my-2"></span>
-
+                                    {/* <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={handleImageUpload}
+                                        ref={imageUploader}
+                                        style={{
+                                            display: "none"
+                                        }}
+                                    />*/}
                                     <div
                                         style={{
                                             height: "80px",
@@ -540,7 +517,7 @@ const Service = () => {
                                             overflow: 'hidden'
 
                                         }}
-
+                                    // onClick={() => imageUploader.current.click()}
 
                                     >
                                         <img
@@ -556,8 +533,7 @@ const Service = () => {
                             </div>
                             <div className="nameControl">
                                 <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required
-                                    value={sellername}
+                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
                                     ref={sellernameRef}
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
@@ -574,12 +550,12 @@ const Service = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required
-                        onChange={(e) => {
-                            // setSellerPhone(e.target.value)
-                            // sellerphoneRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}
+                    <input type="text" name="number" className="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        // setSellerPhone(e.target.value)
+                        // sellerphoneRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }}
                         value={ModalSellerPhone}
                         ref={sellerphoneRef}
                         readOnly
@@ -646,35 +622,25 @@ const Service = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {errors &&
+                    {/* {errors &&
                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
             </div>
-            </MyContainer>
+
             <Footer />
         </>
     )
 }
 
 
-export default Service;
+export default Books;
 const OTPTAG = styled.div`
 OTP input {
 
 padding: 17px;
 }
-`
-const MyContainer = styled.div`
-    input::placeholder{
-        font-size: 12px;
-        padding-left: 10px;
-    }
-    textarea::placeholder{
-        padding-left: 10px;
-        font-size: 12px;
-    }
 `

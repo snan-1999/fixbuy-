@@ -82,7 +82,7 @@ function App() {
           <Route path='/sell/Automobile/:category2' element={<Bike />} />
           <Route path='/sell/Properties/:category2' element={<ForRent />} />
           <Route path='/sell/Books/:category2' element={<Books />} />
-          <Route exact path='/sell/services/:category2' element={<Service />} />
+          <Route path='/sell/services/:category2' element={<Service />} />
           <Route path='/shop' element={<Shop />} />
           {/* mobile */}
           <Route path='/sell/automobile/SellCategory' element={<SellCategory />} />

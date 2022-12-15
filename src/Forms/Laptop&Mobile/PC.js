@@ -14,6 +14,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
+import CropImage2 from "../CropImage2";
+
+
 const PC = () => {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -25,12 +28,12 @@ const PC = () => {
     const Type = JSON.parse(IdData).type;
     const [OtpCondition, setOtpCondition] = useState(false);
     const [isOpen, setisOpen] = useState(false)
-        const Onclose = () => {
-            setOtp('')
-            setisOpen(false)
-            setOtpCondition(false)
-        }
-        const OnOpen = () => setisOpen(true)
+    const Onclose = () => {
+        setOtp('')
+        setisOpen(false)
+        setOtpCondition(false)
+    }
+    const OnOpen = () => setisOpen(true)
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
@@ -62,6 +65,11 @@ const PC = () => {
     const sellerphoneRef = useRef();
     const imgRef = useRef();
 
+    const [imageError, setimageError] = useState('');
+    const [cropdata, setCropData] = useState([])
+    const [titleerror, setTitleError] = useState('');
+    const [descriptionerror, setDescriptionError] = useState('');
+
     console.log(category2)
 
     const maxNumber = 20;
@@ -86,11 +94,11 @@ const PC = () => {
             },
         };
 
-        if (title.trim().length > 0) {
+        if (title.trim().length > 0 && title.trim().length <= 60) {
             if (sellername.trim().length >= 0) {
-                if (description.trim().length > 0) {
+                if (description.trim().length > 0 && description.trim().length <= 300) {
                     if (price.trim().length > 0) {
-                        if ((img.length <= 20) && (img.length > 0)) {
+                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
                             if (state.trim().length > 0) {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
@@ -106,20 +114,7 @@ const PC = () => {
                                                 formData.append('price', price)
                                                 let imageStatus = true
                                                 console.log(img);
-                                                img.forEach(imgs => {
-                                                    // console.log(imgs.file.type)
-                                                    if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                        console.log(imgs.file.type)
-                                                        alert("File does not support .webp extension ");
-                                                        imageStatus = false
-                                                        return false;
 
-
-                                                    }
-                                                    formData.append("images", imgs.file)
-                                                });
-                                                // formData.append('images', img)
-                                                // if()
                                                 if (imageStatus) {
                                                     // formData.append('images', img)
                                                     formData.append('state', state)
@@ -130,6 +125,26 @@ const PC = () => {
                                                     formData.append('sellerType', sellerType)
                                                     formData.append('latitude', latitude)
                                                     formData.append('longitude', Longitude)
+                                                    formData.append('images', cropdata[0])
+                                                    formData.append('images', cropdata[1])
+                                                    formData.append('images', cropdata[2])
+                                                    formData.append('images', cropdata[3])
+                                                    formData.append('images', cropdata[4])
+                                                    formData.append('images', cropdata[5])
+                                                    formData.append('images', cropdata[6])
+                                                    formData.append('images', cropdata[7])
+                                                    formData.append('images', cropdata[8])
+                                                    formData.append('images', cropdata[9])
+                                                    formData.append('images', cropdata[10])
+                                                    formData.append('images', cropdata[11])
+                                                    formData.append('images', cropdata[12])
+                                                    formData.append('images', cropdata[13])
+                                                    formData.append('images', cropdata[14])
+                                                    formData.append('images', cropdata[15])
+                                                    formData.append('images', cropdata[16])
+                                                    formData.append('images', cropdata[17])
+                                                    formData.append('images', cropdata[18])
+                                                    formData.append('images', cropdata[19])
                                                     const api = `${baseUrl}/product/mobiles/form/create`;
                                                     await axios.post(api, formData, {
                                                         headers: {
@@ -187,7 +202,7 @@ const PC = () => {
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setError("Please provide atleast 1 image");
+                            setimageError("Please provide atleast 1 image");
                             console.log("image error")
                             // descriptionRef.current.style.borderColor = 'red';
                         }
@@ -199,6 +214,7 @@ const PC = () => {
                 } else {
                     setError(false);
                     console.log("description error")
+                    setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
@@ -208,7 +224,9 @@ const PC = () => {
             }
         } else {
             setError(false);
+            // usecheck(true);
             console.log("title error")
+            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
 
@@ -276,6 +294,7 @@ const PC = () => {
         <>
             <Header />
             <ToastContainer />
+            <MyContainer>
             <h6 className="sub-Categories-Heading text-uppercase">Pc/{newcategory}</h6>
             <div className="container post border p-0">
                 <div className="heading-post-product">
@@ -305,10 +324,13 @@ const PC = () => {
                         }}
                         value={title}
                         ref={titleRef}
-                    /><br />
+                        placeholder="Enter Your Title"
+                    />
+                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                    <br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"     placeholder="Enter Your Description"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -317,14 +339,24 @@ const PC = () => {
                         value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    {/* <br />
-                    <br /> */}
+                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
                     <br />
-
+                    
 
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
+                    <div class="input-group mt-1">
+                        <span class="input-group-text" id="basic-addon1">₹</span>
+                        <input type="number" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username" name="set_price" aria-describedby="basic-addon1"
+                            onChange={(e) => {
+                                setPrice(e.target.value)
+                                priceRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                            }} value={price}
+                            ref={priceRef}
+                            required />
+                    </div>
+                    {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required    placeholder="Amount"
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
@@ -332,7 +364,7 @@ const PC = () => {
                         }}
                         value={price}
                         ref={priceRef}
-                    />
+                    /> */}
 
                 </div>
                 {/* </input> */}
@@ -350,52 +382,74 @@ const PC = () => {
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <ImageUploading
-                            multiple
-                            value={img}
-                            onChange={onChange}
-                            maxNumber={maxNumber}
-                            dataURLKey="data_url"
-                        >
-                            {({
-                                imageList,
-                                onImageUpload,
-                                onImageRemove,
-                                onImageUpdate,
-                            }) => (
-                                // write your building UI
-                                <div className="upload__image-wrapper">
-
-                                    &nbsp;
-                                    <div className="">
-
-                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
-                                            {imageList.map((image, index) => (
-                                                <div key={index} className="image-item mt-4 ms-4 col-2">
-                                                    <img src={image['data_url']} alt="" width="100" />
-                                                    <div className="image-item__btn-wrapper">
-                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
-                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
-                                                    </div>
-                                                </div>
-                                            ))}
+                        <div class="row ">
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
                                         </div>
-                                    </div>
-                                    <div className="setFloat">
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
 
-                                        <button className=" btn btn-sm buttonChoose"
-                                            onClick={onImageUpload}
-                                        //   {...dragProps}
-                                        >
-                                            Choose Images
-                                        </button>
+
                                     </div>
-                                </div>
-                            )}
-                        </ImageUploading>
+                                    <div className="text-danger">{imageError}</div>
 
                     </div>
-                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
+                    {/* <div className="errormsg" style={{ color: "red" }} >{hasError}</div> */}
                 </div>
 
 
@@ -456,7 +510,7 @@ const PC = () => {
 
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required
+                        <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
                             value={city}
                             ref={cityRef}
                             onChange={(e) => {
@@ -467,7 +521,7 @@ const PC = () => {
 
 
                         <label for="pincpde">PINCODE*</label>
-                        <input type="text" name="pincpde" className="form-control set-pd-input-post" required
+                        <input type="text" name="pincpde" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
                             value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
@@ -477,8 +531,8 @@ const PC = () => {
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required
-                            value={neighbourhood}
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required  placeholder="Enter Your Landmark"
+                            value={neighbourhood} 
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
@@ -609,16 +663,16 @@ const PC = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {/* {errors &&
-                        <div className="alert alert-info" role="alert">
-                            {message}
+                    {errors &&
+                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                        {message}
                         </div>
-                    } */}
+                    }
                 </div>
 
 
             </div>
-
+            </MyContainer>
             <Footer />
         </>
     )
@@ -630,4 +684,14 @@ const OTPTAG = styled.div`
     
     padding: 17px;
 }
+`
+const MyContainer = styled.div`
+    input::placeholder{
+        font-size: 12px;
+        padding-left: 10px;
+    }
+    textarea::placeholder{
+        padding-left: 10px;
+        font-size: 12px;
+    }
 `

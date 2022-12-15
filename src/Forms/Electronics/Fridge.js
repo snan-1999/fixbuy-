@@ -15,6 +15,8 @@ import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
+import CropImage2 from "../CropImage2";
+
 const Fridge = () => {
     const { category } = useParams();
     const { latitude, Longitude } = useContext(GlobalVariables)
@@ -73,6 +75,11 @@ const Fridge = () => {
     const pincodeRef = useRef();
     const sellerphoneRef = useRef();
 
+    // const [imageError, setimageError] = useState('');
+    const [cropdata, setCropData] = useState([])
+    const [titleerror, setTitleError] = useState('');
+    const [descriptionerror, setDescriptionError] = useState('');
+
     let newcategory = category.replace(/_/g, ' ')
     console.log(newcategory);
 
@@ -97,11 +104,11 @@ const Fridge = () => {
         };
 
         console.log(title.length);
-        if (title.trim().length > 0) {
+        if (title.trim().length > 0 && title.trim().length <= 60) {
             if (sellername.trim().length >= 0) {
-                if (description.trim().length > 0) {
+                if (description.trim().length > 0 && description.trim().length <= 300) {
                     if (price.trim().length > 0) {
-                        if ((img.length <= 20) && (img.length > 0)) {
+                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
                             if (state.trim().length > 0) {
                                 if (city.trim().length > 0) {
                                     if (pincode.trim().length > 0) {
@@ -119,28 +126,35 @@ const Fridge = () => {
                                             formData.append('latitude', latitude)
                                             formData.append('longitude', Longitude)
                                             let imageStatus = true
-                                            console.log(img);
-                                            img.forEach(imgs => {
-                                                // console.log(imgs.file.type)
-                                                if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                    console.log(imgs.file.type)
-                                                    alert("File does not support .webp extension ");
-                                                    imageStatus = false
-                                                    return false;
+                                            // console.log(img);
 
-
-                                                }
-                                                formData.append("images", imgs.file)
-                                            });
-                                            // formData.append('images', img)
-                                            // if()
-                                            console.log(sellerphone, 'postData')
+                                            // console.log(sellerphone, 'postData')
                                             if (imageStatus) {
                                                 formData.append('state', state)
                                                 formData.append('city', city)
                                                 formData.append('pincode', pincode)
                                                 formData.append('neighbourhood', neighbourhood)
                                                 formData.append('user_id', user_id)
+                                                formData.append('images', cropdata[0])
+                                                formData.append('images', cropdata[1])
+                                                formData.append('images', cropdata[2])
+                                                formData.append('images', cropdata[3])
+                                                formData.append('images', cropdata[4])
+                                                formData.append('images', cropdata[5])
+                                                formData.append('images', cropdata[6])
+                                                formData.append('images', cropdata[7])
+                                                formData.append('images', cropdata[8])
+                                                formData.append('images', cropdata[9])
+                                                formData.append('images', cropdata[10])
+                                                formData.append('images', cropdata[11])
+                                                formData.append('images', cropdata[12])
+                                                formData.append('images', cropdata[13])
+                                                formData.append('images', cropdata[14])
+                                                formData.append('images', cropdata[15])
+                                                formData.append('images', cropdata[16])
+                                                formData.append('images', cropdata[17])
+                                                formData.append('images', cropdata[18])
+                                                formData.append('images', cropdata[19])
                                                 //     formData.append('longitude' , "28.663996")
                                                 // formData.append('latitude' , "77.306843") 
 
@@ -213,6 +227,7 @@ const Fridge = () => {
                 } else {
                     setError(false);
                     console.log("description error")
+                    setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
@@ -222,7 +237,9 @@ const Fridge = () => {
             }
         } else {
             setError(false);
+            // usecheck(true);
             console.log("title error")
+            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
 
@@ -295,6 +312,9 @@ const Fridge = () => {
             <Header />
             <ToastContainer />
             <h6 className="sub-Categories-Heading text-uppercase">Electronics/{newcategory}</h6>
+            <MyContainer>
+
+            
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     POST YOUR ITEMS
@@ -326,11 +346,13 @@ const Fridge = () => {
                         ref={titleRef}
                         required='true'
                     />
+                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+
                     {/* {hasError ? <p style={{ color: 'red' }}>Name is required</p> : null} */}
                     <br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"  placeholder="Add Your Description"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Add Your Description"
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -339,29 +361,23 @@ const Fridge = () => {
                         value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    {/* <br />
-                    <br /> */}
-                    {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
-                    {/* {hasError ? <p style={{ color: 'red' }}>Name is required</p> : null} */}
+                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
 
-                    <br />
+                    {/* <br /> */}
 
                     <label for="price">SET PRICE*</label>
                     <br />
                     <div class="input-group mt-1">
                         <span class="input-group-text" id="basic-addon1">₹</span>
-                        <input type="text" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username"  name="set_price" aria-describedby="basic-addon1" 
-                        onChange={(e) => {
-                            setPrice(e.target.value)
-                            priceRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }} value={price}
-                        ref={priceRef}
-                        required/>
+                        <input type="number" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username" name="set_price" aria-describedby="basic-addon1"
+                            onChange={(e) => {
+                                setPrice(e.target.value)
+                                priceRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                            }} value={price}
+                            ref={priceRef}
+                            required />
                     </div>
-                    {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required
-                        
-                    /> */}
                     {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
 
                 </div>
@@ -380,54 +396,75 @@ const Fridge = () => {
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <ImageUploading
-                            multiple
-                            value={img}
-                            ref={imgRef}
-                            onChange={onChange}
-                            maxNumber={maxNumber}
-                            dataURLKey="data_url"
-                        >
-                            {({
-                                imageList,
-                                onImageUpload,
-                                onImageRemove,
-                                onImageUpdate,
-                            }) => (
-                                // write your building UI
-                                <div className="upload__image-wrapper">
+                        <div class="row ">
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
 
-                                    &nbsp;
-                                    <div className="">
 
-                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
-                                            {imageList.map((image, index) => (
-                                                <div key={index} className="image-item mt-4 ms-4 col-2">
-                                                    <img src={image['data_url']} alt="" width="100" />
-                                                    <div className="image-item__btn-wrapper">
-                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
-                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div className="setFloat">
-
-                                        <button className=" btn btn-sm buttonChoose"
-                                            onClick={onImageUpload}
-                                        //   {...dragProps}
-                                        >
-                                            Choose Images
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </ImageUploading>
+                        </div>
+                        <div className="text-danger">{imageError}</div>
 
                     </div>
-                    <br />
-                    <div className="errormsg" style={{ color: "red" }} >{imageError}</div>
+                    {/* <br /> */}
+                    {/* <div className="errormsg" style={{ color: "red" }} >{imageError}</div> */}
                 </div>
 
 
@@ -487,17 +524,19 @@ const Fridge = () => {
                         <br />
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city}  placeholder="Add Your City"
-                            ref={cityRef}
+                        <input type="text" name="city" className="form-control set-pd-input-post" required value={city}
+                            ref={cityRef} placeholder="Add Your City"
                             onChange={(e) => {
                                 setCity(e.target.value)
                                 cityRef.current.style.borderColor = "#ced4da";
                                 setError("")
-                            }} />
+                            }
+                            }
+                        />
                         <br />
 
                         <label for="pincode">PINCODE*</label>
-                        <input type="number" name="pincode" className="form-control set-pd-input-post" required value={pincode}  placeholder="Add Your Pincode"
+                        <input type="number" name="pincode" className="form-control set-pd-input-post" placeholder="Enter Your Pincode" required value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
                                 setPincode(e.target.value)
@@ -507,7 +546,7 @@ const Fridge = () => {
                         <br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required  placeholder="Add Your Landmark"
+                        <input type="text" name="neighbourhood" placeholder="Enter Your Landmark" className="form-control set-pd-input-post" required
                             value={neighbourhood}
                             ref={neighbourhoodRef}
                             onChange={(e) => {
@@ -642,21 +681,31 @@ const Fridge = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {/* {errors &&
-                        <div className="alert alert-info" role="alert">
+                    {errors &&
+                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                    } */}
+                    }
                 </div>
 
             </div>
-
+            </MyContainer>
             <Footer />
         </>
     )
 }
 
 export default Fridge;
+const MyContainer = styled.div`
+    input::placeholder{
+        font-size: 12px;
+        padding-left: 10px;
+    }
+    textarea::placeholder{
+        padding-left: 10px;
+        font-size: 12px;
+    }
+`
 const OTPTAG = styled.div`
     OTP input {
     

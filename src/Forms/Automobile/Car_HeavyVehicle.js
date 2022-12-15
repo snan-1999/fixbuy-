@@ -348,6 +348,7 @@ const Cars = () => {
             {/* <Header /> */}
             {/* <h1>car/heavy</h1> */}
             <h6 className="sub-Categories-Heading text-uppercase">automobile/{newcategory}</h6>
+            <MyContainer>
             <div className="container post border p-0">
                 <div className="heading-post-product">
                     {/* <input type="text" name='category' value={category2} /> */}
@@ -376,7 +377,7 @@ const Cars = () => {
                         }} value={brand} /><br /> */}
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required
+                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
                         onChange={(e) => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
@@ -388,7 +389,7 @@ const Cars = () => {
                     <br />
 
                     <label for="brand">YEAR*</label>
-                    <input type="text" name="year" className="form-control set-pd-input-post" required
+                    <input type="number" name="year" className="form-control set-pd-input-post" required placeholder="Enter Years"
                         onChange={(e) => {
                             setYear(e.target.value)
                             yearsRef.current.style.borderColor = "#ced4da";
@@ -398,7 +399,7 @@ const Cars = () => {
                     /><br />
 
                     <label for="brand">FUEL*</label>
-                    <input type="text" name="fuel" className="form-control set-pd-input-post" required
+                    <input type="text" name="fuel" className="form-control set-pd-input-post" required placeholder="Enter Fuel Type"
                         onChange={(e) => {
                             setFuel(e.target.value)
                             fuelRef.current.style.borderColor = "#ced4da";
@@ -410,7 +411,7 @@ const Cars = () => {
                     <label for="brand">TRANSMISSION*</label>
                     <div className="radio-button1">
                         <div className="borderClass border ">
-                            <input className="radio" type="radio" name="type" id="inlineRadio1"
+                            <input className="radio" type="radio" name="type" id="inlineRadio1" 
                                 value="Automatic"
                                 checked={transmission === 'Automatic'}
                                 onChange={(e) => {
@@ -438,7 +439,7 @@ const Cars = () => {
                     <br />
 
                     <label for="brand">KILOMETER DRIVEN*</label>
-                    <input type="text" name="kilometer" className="form-control set-pd-input-post" required
+                    <input type="number" name="kilometer" className="form-control set-pd-input-post" required placeholder="Enter Km Driven"
                         onChange={(e) => {
                             setKmDriven(e.target.value)
                             kmDrivenRef.current.style.borderColor = "#ced4da";
@@ -449,7 +450,7 @@ const Cars = () => {
                     /><br />
 
                     <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
+                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Desciption "
                         onChange={(e) => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -462,7 +463,7 @@ const Cars = () => {
                     {/* <br /> */}
 
                     <label for="brand">NUMBER OF OWNERS*</label>
-                    <input type="text" name="owners" className="form-control set-pd-input-post" required
+                    <input type="number" name="owners" className="form-control set-pd-input-post" required placeholder="Enter Owners"
                         onChange={(e) => {
                             setOwner(e.target.value)
                             ownerRef.current.style.borderColor = "#ced4da";
@@ -473,14 +474,25 @@ const Cars = () => {
 
                     <label for="price">SET PRICE*</label>
                     <br />
-                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
+                    <div class="input-group mt-1">
+                        <span class="input-group-text" id="basic-addon1">₹</span>
+                        <input type="number" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username" name="set_price" aria-describedby="basic-addon1"
+                            onChange={(e) => {
+                                setPrice(e.target.value)
+                                priceRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                            }} value={price}
+                            ref={priceRef}
+                            required />
+                    </div>
+                    {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
                             setError("")
                         }} value={price}
                         ref={priceRef}
-                    />
+                    /> */}
 
 
 
@@ -627,7 +639,7 @@ const Cars = () => {
                         <br />
 
                         <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required
+                        <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
                             value={city}
                             ref={cityRef}
                             onChange={(e) => {
@@ -637,7 +649,7 @@ const Cars = () => {
                             }} /><br />
 
                         <label for="city">PINCODE*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required
+                        <input type="number" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
                             value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
@@ -647,7 +659,7 @@ const Cars = () => {
                             }} /><br />
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood}
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood} placeholder="Enter Your Landmark"
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
@@ -687,7 +699,7 @@ const Cars = () => {
 
                                     >
                                         <img
-                                            src={`${baseUrl}/users/profile/image/${ProfileImage}`}
+                                            src={`${ProfileImage}`}
                                             style={{
                                                 width: "100%",
                                                 height: "100%",
@@ -796,7 +808,7 @@ const Cars = () => {
                 </div>
 
             </div>
-
+            </MyContainer>
             {/* <Footer /> */}
         </>
     )
@@ -808,4 +820,14 @@ OTP input {
 
 padding: 17px;
 }
+`
+const MyContainer = styled.div`
+    input::placeholder{
+        font-size: 12px;
+        padding-left: 10px;
+    }
+    textarea::placeholder{
+        padding-left: 10px;
+        font-size: 12px;
+    }
 `

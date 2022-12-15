@@ -15,9 +15,6 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
-import CropImage2 from "../CropImage2";
-
-
 const ForRent = () => {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -26,7 +23,7 @@ const ForRent = () => {
     let ProfileNameForm = JSON.parse(IdData).profileName;
     let PhoneNumber = JSON.parse(IdData).phone;
     let ProfleId = JSON.parse(IdData).token;
-    const Type = JSON.parse(IdData).type;
+    const Type = JSON.parse(IdData).type;   
     // console.log(ProfleId);
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => {
@@ -35,7 +32,7 @@ const ForRent = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
-    const [otp, setOtp] = useState('');
+    const [otp , setOtp] = useState('');
     const [otpError, setotpError] = useState('');
     const [OtpCondition, setOtpCondition] = useState(false);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
@@ -85,11 +82,6 @@ const ForRent = () => {
     const pincodeRef = useRef();
     const sellerphoneRef = useRef();
 
-    const [imageError, setimageError] = useState('');
-    const [cropdata, setCropData] = useState([])
-    const [titleerror, setTitleError] = useState('');
-    const [descriptionerror, setDescriptionError] = useState('');
-
 
     console.log(category2)
 
@@ -132,7 +124,7 @@ const ForRent = () => {
                 'Content-type': 'multipart/form-data',
             },
         };
-        if (title.trim().length > 0 && title.trim().length <= 60) {
+        if (title.trim().length > 0) {
             if (sellername.trim().length > 0) {
                 if (type.trim().length > 0) {
                     if (furnishing.trim().length > 0) {
@@ -143,9 +135,9 @@ const ForRent = () => {
                                         if (maintenance.trim().length > 0) {
                                             if (parking.trim().length > 0) {
                                                 if (project_name.trim().length > 0) {
-                                                    if (description.trim().length > 0 && description.trim().length <= 300) {
+                                                    if (description.trim().length > 0) {
                                                         if (price.trim().length > 0) {
-                                                            if ((cropdata.length <= 20) && (cropdata.length > 0)) {
+                                                            if ((img.length <= 20) && (img.length > 0)) {
                                                                 if (state.trim().length > 0) {
                                                                     if (city.trim().length > 0) {
                                                                         if (pincode.trim().length > 0) {
@@ -163,7 +155,20 @@ const ForRent = () => {
                                                                                     formData.append('price', price)
                                                                                     let imageStatus = true
                                                                                     console.log(img);
+                                                                                    img.forEach(imgs => {
+                                                                                        // console.log(imgs.file.type)
+                                                                                        if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
+                                                                                            console.log(imgs.file.type)
+                                                                                            alert("File does not support .webp extension ");
+                                                                                            imageStatus = false
+                                                                                            return false;
 
+
+                                                                                        }
+                                                                                        formData.append("images", imgs.file)
+                                                                                    });
+                                                                                    // formData.append('images', img)
+                                                                                    // if()
                                                                                     if (imageStatus) {
 
                                                                                         formData.append('state', state)
@@ -184,29 +189,9 @@ const ForRent = () => {
                                                                                         formData.append('latitude', latitude)
                                                                                         formData.append('longitude', Longitude)
                                                                                         formData.append('sellerType', sellerType)
-                                                                                        formData.append('images', cropdata[0])
-                                                                                        formData.append('images', cropdata[1])
-                                                                                        formData.append('images', cropdata[2])
-                                                                                        formData.append('images', cropdata[3])
-                                                                                        formData.append('images', cropdata[4])
-                                                                                        formData.append('images', cropdata[5])
-                                                                                        formData.append('images', cropdata[6])
-                                                                                        formData.append('images', cropdata[7])
-                                                                                        formData.append('images', cropdata[8])
-                                                                                        formData.append('images', cropdata[9])
-                                                                                        formData.append('images', cropdata[10])
-                                                                                        formData.append('images', cropdata[11])
-                                                                                        formData.append('images', cropdata[12])
-                                                                                        formData.append('images', cropdata[13])
-                                                                                        formData.append('images', cropdata[14])
-                                                                                        formData.append('images', cropdata[15])
-                                                                                        formData.append('images', cropdata[16])
-                                                                                        formData.append('images', cropdata[17])
-                                                                                        formData.append('images', cropdata[18])
-                                                                                        formData.append('images', cropdata[19])
 
                                                                                         const api = `${baseUrl}/product/properties/form/create`;
-                                                                                        await axios.post(api, formData, {
+                                                                                        await axios.post(api, formData,  {
                                                                                             headers: {
                                                                                                 'Content-Type': 'multipart/form-data'
                                                                                             }
@@ -233,109 +218,110 @@ const ForRent = () => {
                                                                                             }
                                                                                         })
                                                                                     }
-
+                                                                                    // } else {
+                                                                                    //     setError(false);
+                                                                                    //     console.log("project-name error")
+                                                                                    //     bachelorsRef.current.style.borderColor = 'red';
+                                                                                    // }
                                                                                 } else {
                                                                                     setError(false);
                                                                                     console.log("sellerphone error")
                                                                                     sellerphoneRef.current.style.borderColor = 'red';
                                                                                 }
+                                                                                } else {
+                                                                                    setError(false);
+                                                                                    console.log("landmark error")
+                                                                                    neighbourhoodRef.current.style.borderColor = 'red';
+                                                                                }
                                                                             } else {
                                                                                 setError(false);
-                                                                                console.log("landmark error")
-                                                                                neighbourhoodRef.current.style.borderColor = 'red';
+                                                                                console.log("pincpde error")
+                                                                                pincodeRef.current.style.borderColor = 'red';
                                                                             }
                                                                         } else {
                                                                             setError(false);
-                                                                            console.log("pincpde error")
-                                                                            pincodeRef.current.style.borderColor = 'red';
+                                                                            console.log("city error")
+                                                                            cityRef.current.style.borderColor = 'red';
                                                                         }
                                                                     } else {
                                                                         setError(false);
-                                                                        console.log("city error")
-                                                                        cityRef.current.style.borderColor = 'red';
+                                                                        console.log("state error")
+                                                                        stateRef.current.style.borderColor = 'red';
                                                                     }
                                                                 } else {
-                                                                    setError(false);
-                                                                    console.log("state error")
-                                                                    stateRef.current.style.borderColor = 'red';
+                                                                    setError("Please provide atleast 1 image");
+                                                                    console.log("image error")
+                                                                    // descriptionRef.current.style.borderColor = 'red';
                                                                 }
                                                             } else {
-                                                                setimageError("Please provide atleast 1 image");
-                                                                console.log("image error")
-                                                                // descriptionRef.current.style.borderColor = 'red';
+                                                                setError(false);
+                                                                console.log("price error")
+                                                                priceRef.current.style.borderColor = 'red';
                                                             }
                                                         } else {
                                                             setError(false);
-                                                            console.log("price error")
-                                                            priceRef.current.style.borderColor = 'red';
+                                                            console.log("description error")
+                                                            descriptionRef.current.style.borderColor = 'red';
                                                         }
                                                     } else {
                                                         setError(false);
-                                                        console.log("description error")
-                                                        setDescriptionError("Description should not be more than 300 words !")
-                                                        descriptionRef.current.style.borderColor = 'red';
+                                                        console.log("project-name error")
+                                                        project_nameRef.current.style.borderColor = 'red';
                                                     }
                                                 } else {
                                                     setError(false);
-                                                    console.log("project-name error")
-                                                    project_nameRef.current.style.borderColor = 'red';
+                                                    console.log("parking error")
+                                                    parkingRef.current.style.borderColor = 'red';
                                                 }
                                             } else {
                                                 setError(false);
-                                                console.log("parking error")
-                                                parkingRef.current.style.borderColor = 'red';
+                                                console.log("maintenance error")
+                                                maintenanceRef.current.style.borderColor = 'red';
                                             }
                                         } else {
                                             setError(false);
-                                            console.log("maintenance error")
-                                            maintenanceRef.current.style.borderColor = 'red';
+                                            console.log("floors error")
+                                            floorsRef.current.style.borderColor = 'red';
                                         }
                                     } else {
                                         setError(false);
-                                        console.log("floors error")
-                                        floorsRef.current.style.borderColor = 'red';
+                                        console.log("area error")
+                                        areaRef.current.style.borderColor = 'red';
                                     }
                                 } else {
                                     setError(false);
-                                    console.log("area error")
-                                    areaRef.current.style.borderColor = 'red';
+                                    console.log("bathrooms error")
+                                    bathroomsRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
-                                console.log("bathrooms error")
-                                bathroomsRef.current.style.borderColor = 'red';
+                                console.log("bedrooms error")
+                                bedroomsRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setError(false);
-                            console.log("bedrooms error")
-                            bedroomsRef.current.style.borderColor = 'red';
+                            setError("mandatory field");
+                            console.log("furnishing error")
+                            // furnishingRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError("mandatory field");
-                        console.log("furnishing error")
-                        // furnishingRef.current.style.borderColor = 'red';
+                        console.log("type error")
+                        // typeRef.current.style.borderColor = 'red';
                     }
                 } else {
-                    setError("mandatory field");
-                    console.log("type error")
-                    // typeRef.current.style.borderColor = 'red';
+                    setError(false);
+                    console.log("sellername error")
+                    sellernameRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
-                console.log("sellername error")
-                sellernameRef.current.style.borderColor = 'red';
+                console.log("title error")
+                titleRef.current.style.borderColor = 'red';
             }
-        } else {
-            setError(false);
-            // usecheck(true);
-            console.log("title error")
-            setTitleError("Title should not be more than 60 words !")
-            titleRef.current.style.borderColor = 'red';
+
         }
 
-    }
-
-    const handleChangeOtp = () => { }
+        const handleChangeOtp = () => { }
     const Otpverify = async () => {
         setisOpen(false)
         const api = `${baseUrl}/users/otp/verify/profileUpdate`;
@@ -396,14 +382,13 @@ const ForRent = () => {
 
 
 
-    return (
-        <>
-            <Header />
-            <MyContainer>
+        return (
+            <>
+                <Header />
                 {
                     (category2 == 'for_rent' || category2 == 'for_sales') ?
-                        <>
-                            <h6 className="sub-Categories-Heading text-uppercase">Properties/{newcategory}</h6>
+                    <>
+                    <h6 className="sub-Categories-Heading text-uppercase">Properties/{newcategory}</h6>
                             <div className="container post border p-0">
                                 <div className="heading-post-product">
                                     {/* <input type="text" name='category' value={category2} /> */}
@@ -424,16 +409,14 @@ const ForRent = () => {
                                     <input type="hidden" name='sellerType' value={sellerType} hidden />
 
                                     <label for="brand">TITLE*</label>
-                                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
+                                    <input type="text" name="title" className="form-control set-pd-input-post" required
                                         onChange={(e) => {
                                             setTitle(e.target.value)
                                             titleRef.current.style.borderColor = "#ced4da";
                                             setError("")
                                         }} value={title}
                                         ref={titleRef}
-                                    />
-                                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
-                                    <br />
+                                    /><br />
 
                                     <label for="brand">TYPE*</label><br />
                                     <div className="radio-button">
@@ -523,7 +506,7 @@ const ForRent = () => {
                                     <br />
 
                                     <label for="brand">BEDROOMS*</label>
-                                    <input type="number" name="bedrooms" className="form-control set-pd-input-post" required placeholder="Enter Bedrooms"
+                                    <input type="text" name="bedrooms" className="form-control set-pd-input-post" required
                                         onChange={(e) => {
                                             setBedrooms(e.target.value)
                                             bedroomsRef.current.style.borderColor = "#ced4da";
@@ -533,7 +516,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">BATHROOMS*</label>
-                                    <input type="number" name="bathrooms" className="form-control set-pd-input-post" required placeholder="Enter Bathrooms" onChange={(e) => {
+                                    <input type="text" name="bathrooms" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setBathrooms(e.target.value)
                                         bathroomsRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -542,7 +525,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">BUILT UP AREA*</label>
-                                    <input type="number" name="area" className="form-control set-pd-input-post" required placeholder="Enter Area" onChange={(e) => {
+                                    <input type="text" name="area" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setArea(e.target.value)
                                         areaRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -551,7 +534,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">TOTAL FLOORS*</label>
-                                    <input type="number" name="floors" className="form-control set-pd-input-post" required placeholder="Enter Floors" onChange={(e) => {
+                                    <input type="text" name="floors" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setFloors(e.target.value)
                                         floorsRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -560,7 +543,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">MAINTENANCE*</label>
-                                    <input type="text" name="maintenance" className="form-control set-pd-input-post" required placeholder="Enter Maintenance" onChange={(e) => {
+                                    <input type="text" name="maintenance" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setMaintenance(e.target.value)
                                         maintenanceRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -569,7 +552,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">PARKING*</label>
-                                    <input type="text" name="parking" className="form-control set-pd-input-post" required placeholder="Enter Parking" onChange={(e) => {
+                                    <input type="text" name="parking" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setParking(e.target.value)
                                         parkingRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -578,7 +561,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="brand">PROJECT NAME*</label>
-                                    <input type="text" name="project_name" className="form-control set-pd-input-post" required placeholder="Enter Your Project" onChange={(e) => {
+                                    <input type="text" name="project_name" className="form-control set-pd-input-post" required onChange={(e) => {
                                         setProject_Name(e.target.value)
                                         project_nameRef.current.style.borderColor = "#ced4da";
                                         setError("")
@@ -587,7 +570,7 @@ const ForRent = () => {
                                     /><br />
 
                                     <label for="description">ADD DESCRIPTION*</label>
-                                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Description"
+                                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%"
                                         onChange={(e) => {
                                             setDescription(e.target.value)
                                             descriptionRef.current.style.borderColor = "#ced4da";
@@ -595,23 +578,11 @@ const ForRent = () => {
                                         }} value={description}
                                         ref={descriptionRef}
                                     ></textarea>
-                                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
-                                    {/* <br /> */}
+                                    <br />
 
                                     <label for="price">SET PRICE*</label>
                                     <br />
-                                    <div class="input-group mt-1">
-                                        <span class="input-group-text" id="basic-addon1">₹</span>
-                                        <input type="number" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username" name="set_price" aria-describedby="basic-addon1"
-                                            onChange={(e) => {
-                                                setPrice(e.target.value)
-                                                priceRef.current.style.borderColor = "#ced4da";
-                                                setError("")
-                                            }} value={price}
-                                            ref={priceRef}
-                                            required />
-                                    </div>
-                                    {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
+                                    <input type="text" name="set_price" className="form-control set-pd-input-post" required
                                         onChange={(e) => {
                                             setPrice(e.target.value)
                                             priceRef.current.style.borderColor = "#ced4da";
@@ -619,7 +590,7 @@ const ForRent = () => {
                                         }}
                                         value={price}
                                         ref={priceRef}
-                                    /> */}
+                                    />
                                     <br />
 
                                     <label for="bachelor">BACHELOR'S ALLOWED</label>
@@ -666,74 +637,52 @@ const ForRent = () => {
                                     </div>
                                     <div className="container mt-3 w-100">
                                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                                        <div class="row ">
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
-                                            <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                            </div>
+                                        <ImageUploading
+                                            multiple
+                                            value={img}
+                                            onChange={onChange}
+                                            maxNumber={maxNumber}
+                                            dataURLKey="data_url"
+                                        >
+                                            {({
+                                                imageList,
+                                                onImageUpload,
+                                                onImageRemove,
+                                                onImageUpdate,
+                                            }) => (
+                                                // write your building UI
+                                                <div className="upload__image-wrapper">
 
+                                                    &nbsp;
+                                                    <div className="">
 
-                                        </div>
-                                        <div className="text-danger">{imageError}</div>
+                                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
+                                                            {imageList.map((image, index) => (
+                                                                <div key={index} className="image-item mt-4 ms-4 col-2">
+                                                                    <img src={image['data_url']} alt="" width="100" />
+                                                                    <div className="image-item__btn-wrapper">
+                                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
+                                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    <div className="setFloat">
+
+                                                        <button className=" btn btn-sm buttonChoose"
+                                                            onClick={onImageUpload}
+                                                        //   {...dragProps}
+                                                        >
+                                                            Choose Images
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </ImageUploading>
 
                                     </div>
-                                    {/* <div className="errormsg" style={{ color: "red" }} >{hasError}</div> */}
+                                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                                 </div>
 
 
@@ -793,7 +742,7 @@ const ForRent = () => {
                                         <br />
 
                                         <label for="city">CITY*</label>
-                                        <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
+                                        <input type="text" name="city" className="form-control set-pd-input-post" required
                                             value={city}
                                             ref={cityRef}
                                             onChange={(e) => {
@@ -803,8 +752,8 @@ const ForRent = () => {
                                             }} /><br />
 
 
-                                        <label for="pincode">PINCODE*</label> 
-                                        <input type="number" name="pincode" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
+                                        <label for="pincode">PINCODE*</label>
+                                        <input type="text" name="pincode" className="form-control set-pd-input-post" required
                                             value={pincode}
                                             ref={pincodeRef}
                                             onChange={(e) => {
@@ -815,7 +764,7 @@ const ForRent = () => {
 
 
                                         <label for="neighbour">LANDMARK*</label>
-                                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required placeholder="Enter Your Landmark"
+                                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required
                                             value={neighbourhood}
                                             ref={neighbourhoodRef}
                                             onChange={(e) => {
@@ -882,87 +831,87 @@ const ForRent = () => {
                                     </div>
                                     <br />
                                     <div className="sub-heading-post">
-                                        VERIFICATION
-                                    </div>
-                                    <p>We will send you OTP on your number</p><br />
-                                    <label for="phone">Phone Number*</label>
-                                    <input type="text" name="number" className="form-control set-pd-input-post" required
-                                        onChange={(e) => {
-                                            // setSellerPhone(e.target.value)
-                                            // sellerphoneRef.current.style.borderColor = "#ced4da";
-                                            setError("")
-                                        }}
-                                        value={ModalSellerPhone}
-                                        ref={sellerphoneRef}
-                                        readOnly
-                                    />
-                                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                                    {/* <br /> */}
+                        VERIFICATION
+                    </div>
+                    <p>We will send you OTP on your number</p><br />
+                    <label for="phone">Phone Number*</label>
+                    <input type="text" name="number" className="form-control set-pd-input-post" required 
+                    onChange={(e) => {
+                        // setSellerPhone(e.target.value)
+                        // sellerphoneRef.current.style.borderColor = "#ced4da";
+                        setError("")
+                    }}
+                        value={ModalSellerPhone}
+                        ref={sellerphoneRef}
+                        readOnly
+                    />
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    {/* <br /> */}
+                    {
+                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                    }
+                    <div className="UpdateNum w-100">
+                        {
+                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                        }
+                    </div>
+                    <div className="text" style={{ color: "red" }}>{hasError}</div>
+                    <br />
+                    <OTPTAG>
+
+                        {
+
+                            // (sellerphone.length >= 10) ?
+                            <>
+                                <OtpPop
                                     {
-                                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                                    ...{
+                                        Otpverify,
+                                        Generate,
+                                        otp,
+                                        setOtp,
+                                        OtpCondition, setOtpCondition,
+                                        setModalSellerPhone,
+                                        setSellerPhone,
+                                        sellername,
+                                        sellerphone,
+                                        user_id,
+                                        handleChangeOtp,
+                                        isOpen,
+                                        setisOpen,
+                                        Onclose,
+                                        OnOpen
                                     }
-                                    <div className="UpdateNum w-100">
-                                        {
-                                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
-                                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
-                                        }
-                                    </div>
-                                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                                    <br />
-                                    <OTPTAG>
-
-                                        {
-
-                                            // (sellerphone.length >= 10) ?
-                                            <>
-                                                <OtpPop
-                                                    {
-                                                    ...{
-                                                        Otpverify,
-                                                        Generate,
-                                                        otp,
-                                                        setOtp,
-                                                        OtpCondition, setOtpCondition,
-                                                        setModalSellerPhone,
-                                                        setSellerPhone,
-                                                        sellername,
-                                                        sellerphone,
-                                                        user_id,
-                                                        handleChangeOtp,
-                                                        isOpen,
-                                                        setisOpen,
-                                                        Onclose,
-                                                        OnOpen
-                                                    }
-                                                    }
-                                                />
-                                                <div className="text" style={{ color: "red" }}>{otpError}</div>
-                                                <br />
-
-
-                                            </>
-
-                                        }
-                                    </OTPTAG>
-                                    {
-                                        (PhoneNumber !== null) &&
-                                        // (verify) &&
-                                        <div className="post-pr">
-
-                                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
-                                                onChange={(e) => {
-                                                    setMessage('')
-                                                }} />
-                                        </div>
-
                                     }
-                                    {/* <div >{otpError}</div> */}
+                                />
+                                <div className="text" style={{ color: "red" }}>{otpError}</div>
+                                <br />
 
-                                    {errors &&
-                                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
-                                            {message}
-                                        </div>
-                                    }
+
+                            </>
+
+                        }
+                    </OTPTAG>
+                    {
+                        (PhoneNumber !== null) &&
+                        // (verify) &&
+                        <div className="post-pr">
+
+                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
+                                onChange={(e) => {
+                                    setMessage('')
+                                }} />
+                        </div>
+
+                    }
+                    {/* <div >{otpError}</div> */}
+
+                    {/* {errors &&
+                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                            {message}
+                        </div>
+                    } */}
                                 </div>
 
                             </div>
@@ -970,27 +919,16 @@ const ForRent = () => {
                         :
                         (category2 == 'land_&_plots') ? <Land_Plot /> : ""
                 }
-            </MyContainer>
-            <Footer />
-        </>
+                <Footer />
+            </>
 
-    )
-}
+        )
+    }
 
-export default ForRent;
-const OTPTAG = styled.div`
+    export default ForRent;
+    const OTPTAG = styled.div`
 OTP input {
 
 padding: 17px;
 }
-`
-const MyContainer = styled.div`
-    input::placeholder{
-        font-size: 12px;
-        padding-left: 10px;
-    }
-    textarea::placeholder{
-        padding-left: 10px;
-        font-size: 12px;
-    }
 `
