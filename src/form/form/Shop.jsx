@@ -13,43 +13,44 @@ import Header from './header'
 import shopIcon from '../../assets/images/shopIcon.png'
 import { BsArrowUp, BsArrowDown } from 'react-icons/bs'
 import { MdLocationOn } from 'react-icons/md'
+import load from '../../assets/images/load.gif';
 import { FaHeart } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 export default function Shop() {
-    const { latitude, Longitude, Lmore ,UserId} = useContext(GlobalVariables)
+    const { latitude, Longitude, Lmore, UserId } = useContext(GlobalVariables)
     const [AllData, setAllData] = useState([])
     const [filters, setfilters] = useState(null)
-    const [PageNO, setPageNO] = useState(1) 
-    const [Loading, setLoading] = useState(false) 
+    const [PageNO, setPageNO] = useState(1)
+    const [Loading, setLoading] = useState(false)
     const [TotalPagess, setTotalPagess] = useState('')
     // initial
     const ShopData = async () => {
         try {
-            const { data } = await ShopProductData(latitude, Longitude, PageNO ,UserId)
-            console.log(data , 'shopData')
-            console.log(UserId , 'shopData')
-            if(data.status){
+            const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
+            console.log(data, 'shopData')
+            console.log(UserId, 'shopData')
+            if (data.status) {
                 setLoading(false)
                 setTotalPagess(data.totalPages);
                 setAllData(data.data)
             }
         } catch (error) {
- 
+
         }
     }
     // Load More
     const ShopDataLoadMore = async () => {
         try {
-            const { data } = await ShopProductData(latitude, Longitude, PageNO ,UserId)
-            console.log(data , 'shopData')
-            console.log(UserId , 'shopData')
-            if(data.status){
+            const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
+            console.log(data, 'shopData')
+            console.log(UserId, 'shopData')
+            if (data.status) {
                 setLoading(false)
                 setTotalPagess(data.totalPages);
-                setAllData([...AllData,  ...data.data])
+                setAllData([...AllData, ...data.data])
             }
         } catch (error) {
- 
+
         }
     }
     // const FilterSet = (FilterNumber) => {
@@ -59,7 +60,7 @@ export default function Shop() {
     const ShopDataFIlter = async () => {
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterShopData(latitude, Longitude, PageNO, filters , UserId)
+            const { data } = await FilterShopData(latitude, Longitude, PageNO, filters, UserId)
             console.log(data, 'shopData')
             setAllData(data.data)
         } catch (error) {
@@ -70,9 +71,9 @@ export default function Shop() {
     const ShopDataFIlterLoadMore = async () => {
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterShopData(latitude, Longitude, PageNO, filters , UserId)
+            const { data } = await FilterShopData(latitude, Longitude, PageNO, filters, UserId)
             console.log(data, 'shopData')
-            setAllData([...AllData,  ...data.data])
+            setAllData([...AllData, ...data.data])
         } catch (error) {
 
         }
@@ -120,8 +121,8 @@ export default function Shop() {
                                             Price
                                         </div>
 
-                                        <li className="dropdown-item" onClick={() => setfilters(1)}><BsArrowUp className='me-2'  />Low To High</li>
-                                        <li className="dropdown-item"  onClick={() => setfilters(-1)}><BsArrowDown className='me-2' />High To Low</li>
+                                        <li className="dropdown-item" onClick={() => setfilters(1)}><BsArrowUp className='me-2' />Low To High</li>
+                                        <li className="dropdown-item" onClick={() => setfilters(-1)}><BsArrowDown className='me-2' />High To Low</li>
 
                                     </ul>
                                 </div>
@@ -140,35 +141,35 @@ export default function Shop() {
                                     <div className="col-md-4 col-6 col-lg-3">
                                         <CardHeight>
 
-                                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
+                                            <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
                                                 <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                     {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                     {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
                                                     <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                     <div className="pdt-details">
-                                                    <div className="row d-flex align-items-center">
-                                                        <div className="col-md-6 col-8 ">
-                                                            <div className="price">₹ {automobileProduct.price}</div>
-                                                        </div>
-                                                        <div className="col-md-6 col-4 setHeart">
-                                                            {
-                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
-
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                        {
-                                                        (automobileProduct.title).length > Max_length ?
-                                                            <div className="prd-name">
-                                                                {`${automobileProduct.title.substring(0, Max_length)}...`}
+                                                        <div className="row d-flex align-items-center">
+                                                            <div className="col-md-6 col-8 ">
+                                                                <div className="price">₹ {automobileProduct.price}</div>
                                                             </div>
-                                                            :
-                                                            <div className="prd-name text-capitalize">{automobileProduct.title}</div>
-                                                    }
+                                                            <div className="col-md-6 col-4 setHeart">
+                                                                {
+                                                                    (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        {
+                                                            (automobileProduct.title).length > Max_length ?
+                                                                <div className="prd-name">
+                                                                    {`${automobileProduct.title.substring(0, Max_length)}...`}
+                                                                </div>
+                                                                :
+                                                                <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+                                                        }
                                                         <div className="contain-adrs">
-                                                        <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
-                                                        <span className="year"></span>
-                                                    </div>
+                                                            <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                            <span className="year"></span>
+                                                        </div>
                                                         {/* <div className="row p-0 m-0">
                                                             <div className="col p-0">
                                                                 <div className="buy-bt">
@@ -187,21 +188,24 @@ export default function Shop() {
 
                             })
                         }
-<div className="row m-0 p-0 d-flex justify-content-center">
-                        {
-                            (TotalPagess == PageNO) ?
-                                <></>
-                                :
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>}
-                                    Load More
-                                </ButtonCraete>
-                        }
+                        <div className="row m-0 p-0 d-flex justify-content-center">
+                            {
+                                (TotalPagess == PageNO) ?
+                                    <></>
+                                    :
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                        {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                            :
+                                            <img src={load} />} &nbsp;&nbsp;
 
-                        {/* </div> */}
-                    </div>
+                                        Load More
+                                    </ButtonCraete>
+                            }
+
+                            {/* </div> */}
+                        </div>
                     </div>
 
 
@@ -225,6 +229,12 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    img{
+        rotate: 30px;
+        margin-left: -10px;
+        width: 25px;
+        height: 25px;
+    }
     @media (max-width: 768px) {
         font-size: 13px; 
         width: 32%;

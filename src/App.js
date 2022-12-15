@@ -36,6 +36,7 @@ import SellerProfile from './form/form/SellerProfile';
 import MainProducts from './Forms/SubcategoryProduct/MainProducts';
 import SellCategory from './form/form/SellCategory';
 import MainChatFile from './ChatSeller/MainChatFile';
+import PakagesShowMenu from './form/form/PakagesShowMenu';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -60,6 +61,7 @@ function App() {
           <Route path='/singleproductpage/:id' element={<SingleProductPage />} />
           <Route path='/posteditems' element={<PostedItems />} />
           <Route path='/packages' element={<Packages />} />
+          <Route path='/packages/view' element={<PakagesShowMenu />} />
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/blogs/:SingleBlog/:id' element={<SingleBlog />} />
           <Route path='/:maincategory/:subcategory' element={<SubProduct />} />

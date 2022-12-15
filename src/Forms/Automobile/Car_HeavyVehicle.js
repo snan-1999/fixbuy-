@@ -13,6 +13,8 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
+import CropImage2 from "../CropImage2";
+
 
 const Cars = () => {
     const { category2 } = useParams();
@@ -31,7 +33,7 @@ const Cars = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
-    const [otp , setOtp] = useState('');
+    const [otp, setOtp] = useState('');
     const [otpError, setotpError] = useState('');
     const [OtpCondition, setOtpCondition] = useState(false);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
@@ -73,6 +75,11 @@ const Cars = () => {
     const ownerRef = useRef();
     const sellerphoneRef = useRef();
 
+    const [imageError, setimageError] = useState('');
+    const [cropdata, setCropData] = useState([])
+    const [titleerror, setTitleError] = useState('');
+    const [descriptionerror, setDescriptionError] = useState('');
+
 
     console.log(category2)
 
@@ -103,11 +110,11 @@ const Cars = () => {
                 'Content-type': 'multipart/form-data',
             },
         };
-        if (title.trim().length > 0) {
+        if (title.trim().length > 0 && title.trim().length <= 60) {
             if (sellername.trim().length >= 0) {
-                if (description.trim().length > 0) {
+                if (description.trim().length > 0 && description.trim().length <= 300) {
                     if (price.trim().length > 0) {
-                        if ((img.length <= 20) && (img.length > 0)) {
+                        if ((cropdata.length <= 20) && (cropdata.length > 0)) {
                             if (state.trim().length > 0) {
                                 if (city.trim().length > 0) {
                                     if (neighbourhood.trim().length > 0) {
@@ -128,20 +135,7 @@ const Cars = () => {
                                                                     formData.append('price', price)
                                                                     let imageStatus = true
                                                                     console.log(img);
-                                                                    img.forEach(imgs => {
-                                                                        // console.log(imgs.file.type)
-                                                                        if ((imgs.file.type !== 'image/jpeg') && (imgs.file.type !== 'image/jpg') && (imgs.file.type !== 'image/heic') && (imgs.file.type !== 'image/heif') && (imgs.file.type !== "image/png") && (imgs.file.type == 'image/webp')) {
-                                                                            console.log(imgs.file.type)
-                                                                            alert("File does not support .webp extension ");
-                                                                            imageStatus = false
-                                                                            return false;
 
-
-                                                                        }
-                                                                        formData.append("images", imgs.file)
-                                                                    });
-                                                                    // formData.append('images', img)
-                                                                    // if()
                                                                     if (imageStatus) {
 
                                                                         formData.append('state', state)
@@ -158,6 +152,26 @@ const Cars = () => {
                                                                         formData.append('latitude', latitude)
                                                                         formData.append('longitude', Longitude)
                                                                         formData.append('sellerType', sellerType)
+                                                                        formData.append('images', cropdata[0])
+                                                                        formData.append('images', cropdata[1])
+                                                                        formData.append('images', cropdata[2])
+                                                                        formData.append('images', cropdata[3])
+                                                                        formData.append('images', cropdata[4])
+                                                                        formData.append('images', cropdata[5])
+                                                                        formData.append('images', cropdata[6])
+                                                                        formData.append('images', cropdata[7])
+                                                                        formData.append('images', cropdata[8])
+                                                                        formData.append('images', cropdata[9])
+                                                                        formData.append('images', cropdata[10])
+                                                                        formData.append('images', cropdata[11])
+                                                                        formData.append('images', cropdata[12])
+                                                                        formData.append('images', cropdata[13])
+                                                                        formData.append('images', cropdata[14])
+                                                                        formData.append('images', cropdata[15])
+                                                                        formData.append('images', cropdata[16])
+                                                                        formData.append('images', cropdata[17])
+                                                                        formData.append('images', cropdata[18])
+                                                                        formData.append('images', cropdata[19])
                                                                         const api = `${baseUrl}/product/automobile/form/create`;
                                                                         await axios.post(api, formData, {
                                                                             headers: {
@@ -238,7 +252,7 @@ const Cars = () => {
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
-                            setError("Please provide atleast 1 image");
+                            setimageError("Please provide atleast 1 image");
                             console.log("image error")
                             // descriptionRef.current.style.borderColor = 'red';
                         }
@@ -250,6 +264,7 @@ const Cars = () => {
                 } else {
                     setError(false);
                     console.log("description error")
+                    setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
@@ -259,8 +274,9 @@ const Cars = () => {
             }
         } else {
             setError(false);
-            setxo(true)
+            // usecheck(true);
             console.log("title error")
+            setTitleError("Title should not be more than 60 words !")
             titleRef.current.style.borderColor = 'red';
         }
 
@@ -367,7 +383,9 @@ const Cars = () => {
                             setError("")
                         }} value={title}
                         ref={titleRef}
-                    /><br />
+                    />
+                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                    <br />
 
                     <label for="brand">YEAR*</label>
                     <input type="text" name="year" className="form-control set-pd-input-post" required
@@ -439,7 +457,9 @@ const Cars = () => {
                         }} value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    <br />
+                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+
+                    {/* <br /> */}
 
                     <label for="brand">NUMBER OF OWNERS*</label>
                     <input type="text" name="owners" className="form-control set-pd-input-post" required
@@ -480,49 +500,71 @@ const Cars = () => {
                     </div>
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <ImageUploading
-                            multiple
-                            value={img}
-                            onChange={onChange}
-                            maxNumber={maxNumber}
-                            dataURLKey="data_url"
-                        >
-                            {({
-                                imageList,
-                                onImageUpload,
-                                onImageRemove,
-                                onImageUpdate,
-                            }) => (
-                                // write your building UI
-                                <div className="upload__image-wrapper">
-
-                                    &nbsp;
-                                    <div className="">
-
-                                        <div className="row p-0 m-0 d-flex justify-content-center align-items-center">
-                                            {imageList.map((image, index) => (
-                                                <div key={index} className="image-item mt-4 ms-4 col-2">
-                                                    <img src={image['data_url']} alt="" width="100" />
-                                                    <div className="image-item__btn-wrapper">
-                                                        {/* <button onClick={() => onImageUpdate(index)}>Update</button> */}
-                                                        <FontAwesomeIcon icon="fa-sharp fa-solid fa-circle-xmark" className="icon" onClick={() => onImageRemove(index)}></FontAwesomeIcon>
-                                                    </div>
-                                                </div>
-                                            ))}
+                        <div class="row ">
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
                                         </div>
-                                    </div>
-                                    <div className="setFloat">
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
+                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                        </div>
 
-                                        <button className=" btn btn-sm buttonChoose"
-                                            onClick={onImageUpload}
-                                        //   {...dragProps}
-                                        >
-                                            Choose Images
-                                        </button>
+
                                     </div>
-                                </div>
-                            )}
-                        </ImageUploading>
+                                    <div className="text-danger">{imageError}</div>
 
                     </div>
                     <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
@@ -674,12 +716,12 @@ const Cars = () => {
                     </div>
                     <p>We will send you OTP on your number</p><br />
                     <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required 
-                    onChange={(e) => {
-                        // setSellerPhone(e.target.value)
-                        // sellerphoneRef.current.style.borderColor = "#ced4da";
-                        setError("")
-                    }}
+                    <input type="text" name="number" className="form-control set-pd-input-post" required
+                        onChange={(e) => {
+                            // setSellerPhone(e.target.value)
+                            // sellerphoneRef.current.style.borderColor = "#ced4da";
+                            setError("")
+                        }}
                         value={ModalSellerPhone}
                         ref={sellerphoneRef}
                         readOnly
@@ -746,11 +788,11 @@ const Cars = () => {
                     }
                     {/* <div >{otpError}</div> */}
 
-                    {/* {errors &&
+                    {errors &&
                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                    } */}
+                    }
                 </div>
 
             </div>

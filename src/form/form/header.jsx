@@ -19,11 +19,14 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import { useContext } from "react";
 import { SearchHome } from "../../functions/HomeFun";
 import { FaHeart } from "react-icons/fa";
+import { BsChatQuoteFill } from "react-icons/bs";
 import { BiSearchAlt } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
+import UserDeleteModal from "./Modals/DeleteModal";
+import LogoutModal from "./Modals/LogoutModal";
 
 const Header = () => {
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, UserId, setUserId } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
     console.log(UserLogin, 'userlogin data')
@@ -36,11 +39,11 @@ const Header = () => {
     let userProfileName;
     let userProfileImg;
     IdData = window.localStorage.getItem('token');
-    console.log(userProfileImg, 'userProfileName')
+    // console.log(userProfileImg, 'userProfileName')
     console.log(userProfileName, 'userProfileName')
     if (IdData) {
         userProfileName = JSON.parse(IdData).profileName;
-       userProfileImg = JSON.parse(IdData).profileImg;
+        userProfileImg = JSON.parse(IdData).profileImg;
 
         ProfleId = JSON.parse(IdData).token;
         Type = JSON.parse(IdData).type;
@@ -118,7 +121,7 @@ const Header = () => {
     const [search, setSearch] = useState("")
     const [SearchData, setSearchData] = useState([])
     //search 
-    console.log(search)
+    console.log('jjjjj')
     // const SearchBar = async () => {
     //     const { data } = await SearchHome(Longitude, latitude, search, Lmore)
     //     setSearchData(data.data)
@@ -141,7 +144,7 @@ const Header = () => {
         }, 100)
         console.log(LocalData, 'second')
         console.log('sevcond')
-    }, [Upstate])
+    }, [Upstate, userProfileImg])
 
     const SearchBar = () => { }
 
@@ -173,12 +176,101 @@ const Header = () => {
             // console.log(error.response);
         },)
     }
+    const [ListData, setListData] = useState([])
+    const SubData = [
+        "Machinery",
+        "Component parts",
+        "Major equipment",
+        "Accessories equipment"
+    ]
+    const SubData1 = [
+        "Lithium-ion battery",
+        "Sli batteries",
+        "Hydride battery",
+        "Silver calcium battery"
+    ]
+    let SubMenuEl = document.getElementById('SubMenu')
+    let SubMenuCategroyEl = document.getElementById('subItemss')
+    let SubMenuEl1 = document.getElementById('SubMenu1')
+    let SubMenuCategroyEl1 = document.getElementById('subItemss1')
+    const ShowHide = () => {
+        SubMenuCategroyEl.classList.add('activeAdd')
+        SubMenuCategroyEl1.classList.remove('activeAdd')
+        setListData(
+            SubData.map((res) => {
+                return (
+                    <>
+                        <li className="bghover">{res}</li>
+                    </>
+                )
+            })
+        )
 
+    }
+    const ShowHide1 = () => {
+        SubMenuCategroyEl1.classList.remove('activeAdd')
+        SubMenuCategroyEl1.classList.add('activeAdd')
+        setListData(
+            SubData1.map((res) => {
+                return (
+                    <>
+                        <li className="bghover">{res}</li>
+                    </>
+                )
+            })
+        )
 
+    }
+    // SubMenuCategroyEl1.classList.add('activeAdd')
+    const HideShow = () => {
+        SubMenuCategroyEl.classList.remove('activeAdd')
+        // SubMenuCategroyEl1.classList.remove('activeAdd')
+        // SubMenuCategroyEl.style.display = "none"
+    }
+    if (SubMenuEl) {
+        SubMenuEl.addEventListener('mouseenter', ShowHide)
+        SubMenuEl1.addEventListener('mouseenter', ShowHide1)
+        // SubMenuEl.addEventListener('mouseleave', HideShow)
+        SubMenuCategroyEl.addEventListener('mouseenter', ShowHide)
+        SubMenuCategroyEl.addEventListener('mouseleave', HideShow)
+        // SubMenuEl1.addEventListener('mouseleave', HideShow)
+    }
+    const [ModalOpen, setModalOpen] = useState(false)
+    const [LogoutOpen, setLogoutOpen] = useState(false)
+    const MOdalOpenFun = () => {
+        setModalOpen(true)
+    }
+    const MOdalOpenFunLogout = () => {
+        setLogoutOpen(true);
 
+    }
+    const DeleteData = () => {
+        //   setDelId(id)
+    }
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
+            <UserDeleteModal
+                {
+                ...{
+                    ModalOpen,
+                    setModalOpen,
+                    DeleteData,
+
+                }
+                }
+            />
+            {/* Logout Modal */}
+            <LogoutModal
+                {
+                ...{
+                    LogoutOpen,
+                    setLogoutOpen,
+                    MOdalOpenFunLogout,
+
+                }
+                }
+            />
             <ToastContainer />
             <nav className="navbar navbar-expand-lg headerr">
                 <div className="container-fluid">
@@ -285,7 +377,7 @@ const Header = () => {
                                             <Link to="/packages" className="nav-link">PACKAGES</Link>
                                         </li>
                                         <li className="nav-item aa">
-                                            <Link to='/login' className='nav-link'>{LocalData ? <div onClick={() => window.localStorage.removeItem('token')}>LOGOUT</div> : 'LOGIN'}</Link>
+                                            {LocalData ? <div onClick={MOdalOpenFun}>LOGOUT</div> : 'LOGIN'}
                                         </li>
 
                                     </ul>
@@ -331,7 +423,7 @@ const Header = () => {
                                                 <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
                                                 <Link to="/automobile/heavy vehicle" className="dropdown_sub-category" ><li className="bghover">Heavy Vehicle</li></Link>
                                                 <Link to="/automobile/spare parts" className="dropdown_sub-category" ><li className="bghover">Spare Parts</li></Link>
-                                                <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Others</li></Link>
+                                                <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Other Items</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -360,7 +452,7 @@ const Header = () => {
                                                 <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
                                                 <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
                                                 <Link to="/furnitures/kids furniture" className="dropdown_sub-category "><li className="bghover">Kids Furniture</li></Link>
-                                                <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
+                                                <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -374,7 +466,7 @@ const Header = () => {
                                                 <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
                                                 <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
                                                 <Link to="/Fashions/fashion & beauty" className="dropdown_sub-category "><li className="bghover">Fashion & Beauty Products</li></Link>
-                                                <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
+                                                <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -413,7 +505,7 @@ const Header = () => {
                                                 <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
                                                 <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
                                                 <Link to="/booksAndSports/sports items" className="dropdown_sub-category "><li className="bghover">Sports Items</li></Link>
-                                                <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Others</li></Link>
+                                                <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
                                             </ul>
                                         </div>
                                     </div>
@@ -430,7 +522,7 @@ const Header = () => {
                                                 <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
                                                 <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
                                                 <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
-                                                <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitor</li></Link>
+                                                <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitors</li></Link>
                                                 <Link to="/electronics/games"><li className="bghover">Games</li></Link>
                                                 <Link to="/electronics/speakers"><li className="bghover">Speakers</li></Link>
                                                 <Link to="/electronics/cameras & lens"><li className="bghover">Cameras & Lens</li></Link>
@@ -448,12 +540,29 @@ const Header = () => {
                                         <div className="drop-down">
                                             More
                                             <ul className="dropdown-category catagry-color">
-                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">More</li></Link>
-                                                <Link to="/"><li className="bghover">More</li></Link>
+                                                <Link to="/" id="SubMenu"><li className="bghover drop-down "  >Industrial Goods</li></Link>
+
+                                                <div className="subMenuItem " id="subItemss" >
+                                                    <ul className="catagry-color">
+                                                        {ListData}
+                                                        {/* <Link to="/" className="dropdown_sub-category" ><li className="bghover">Machinery </li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Component Parts </li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Major Equipment</li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Accessories Equipment</li></Link> */}
+                                                    </ul>
+                                                </div>
+
+                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover" id="SubMenu1">EV Batteries</li></Link>
+                                                <div className="subMenuItem " id="subItemss1" >
+                                                    <ul className="catagry-color">
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Lithium-ion battery </li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Sli batteries</li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Hydride battery</li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Silver calcium battery</li></Link>
+                                                    </ul>
+                                                </div>
                                             </ul>
                                         </div>
-
-                                        {/* <!-- end --> */}
                                     </div>
                                 </div>
                                 <div className="profiles">
@@ -503,7 +612,8 @@ const Header = () => {
                                         <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
 
 
-                                        <li><Link to='/packages' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
+                                        <li><Link to='/packages/view' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
+                                        <li><Link to='/mainchatfile' className="dropdown-item"> <BsChatQuoteFill />&nbsp;&nbsp;Chats</Link></li>
 
                                         {
                                             (Type == "user") &&
@@ -516,20 +626,20 @@ const Header = () => {
                                             </li>
                                         }
                                         {/* <Link to="" className="dropdown-item" id="Hov"> */}
-                                            <li className="dropdown-item">
-                                                <FontAwesomeIcon icon="fas fa-sign-out-alt" />
-                                                <GoogleLogout
-                                                    clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                                    buttonText="Logout"
-                                                    onLogoutSuccess={() => {
-                                                        window.localStorage.removeItem('token');
-                                                        nav("/")
-                                                    }}
-                                                    icon={false}
-                                                    className='setGoogleLog'
-                                                />
+                                        <li>
+                                            <Link to="" className="dropdown-item" onClick={MOdalOpenFunLogout}> <FontAwesomeIcon icon="fas fa-sign-out-alt" className=" me-2 "/>Logout</Link>
+                                            {/* <GoogleLogout
+                                                clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                                buttonText="Logout"
+                                                onLogoutSuccess={() => {
+                                                    window.localStorage.removeItem('token');
+                                                    nav("/")
+                                                }}
+                                                icon={false}
+                                                className='setGoogleLog'
+                                            /> */}
 
-                                            </li>
+                                        </li>
                                         {/* </Link> */}
 
                                     </ul>

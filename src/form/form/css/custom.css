@@ -3,15 +3,13 @@
     --secondary-color: #ffffff;
 }
 
-.form-button .ibtn {
+/* .form-button .ibtn {
     color: black !important;
     font-size: 1rem !important;
     font-weight: bold !important;
-}
+} */
 
-.login-bt {
-    background-color: white !important;
-}
+
 
 input.form-control.error-input {
     background: #0999D5;

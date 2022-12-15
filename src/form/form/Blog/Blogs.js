@@ -49,7 +49,7 @@ const Blogs = () => {
 
             <div className="blog-heading">
                 {/* <img src={facebook} alt="img" /> */}
-                <div>BLOGS</div>
+                <div className="setBlog">BLOGS</div>
             </div>
                    </div>
             <div className="service">

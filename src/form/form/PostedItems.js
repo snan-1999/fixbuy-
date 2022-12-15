@@ -5,7 +5,7 @@ import "../form/header.css";
 import "../../index.css";
 import "../../form/form/CopyCss.css";
 import logo from '../../assets/images/logo.png';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./header";
 import Footer from "./Footer";
@@ -13,15 +13,19 @@ import google from '../../assets/images/google.png';
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
 import styled from "styled-components";
+import UserDeleteModal from "./Modals/DeleteModal";
+import { toast, ToastContainer } from "react-toastify";
 
 const PostedItems = () => {
+  
+  // console.log(sellertype , 'sellertype')
   const MAX_LENGTH = 25;
   const IdData = window.localStorage.getItem('token')
   let ProfleId;
   if (IdData) {
     ProfleId = JSON.parse(IdData).token;
   }
-  console.log(ProfleId , 'TokenData')
+  console.log(ProfleId, 'TokenData')
   const [automobile, setAutomobile] = useState([]);
   const [Upstate, setUpstate] = useState(0);
 
@@ -30,7 +34,7 @@ const PostedItems = () => {
   const Myads = async () => {
     const api = (`${baseUrl}/users/listed/items/${ProfleId}`);
     await axios.get(api).then((res) => {
-    
+
       // let date = '0000-00-00T00:00:00.000Z'
       // if (res.data.data[0].createdAt) {
       //   date = res.data.data[0].createdAt.split('T')[0]
@@ -51,18 +55,35 @@ const PostedItems = () => {
   }
 
 
-  const deleteUser = async (idDelete) => {
-    console.log(idDelete);
-    const api = (`${baseUrl}/product/delete/${idDelete}`);
-    console.log(`${baseUrl}/product/delete/${idDelete}`);
+  const [DelId, setDelId] = useState('')
+  const DeleteData = async () => {
+    console.log(DelId);
+    const api = (`${baseUrl}/product/delete/${DelId}`);
+    console.log(`${baseUrl}/product/delete/${DelId}`);
     await axios.delete(api).then((res) => {
       console.log(res.data, 'delete');
+      toast('Product Deleted', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        type: 'success'
+      });
       setUpstate(Upstate + 1)
+      setModalOpen(false)
     })
   }
+  const [ModalOpen, setModalOpen] = useState(false)
 
+  const OpenDelete = (id) => {
+    setModalOpen(true)
+    setDelId(id)
+  }
   useEffect(() => {
-    if(IdData == null || IdData == undefined){
+    if (IdData == null || IdData == undefined) {
       // console.log('yes' , 'tokenData')
       navigate('/login')
     }
@@ -73,6 +94,17 @@ const PostedItems = () => {
   return (
     <>
       <Header />
+      <ToastContainer />
+      <UserDeleteModal
+        {
+        ...{
+          ModalOpen,
+          setModalOpen,
+          DeleteData,
+          DelId
+        }
+        }
+      />
       <div className="container my-cont border">
         {/* <div className="alert alert-success" role="alert">
         your payment has been succesfully done.
@@ -91,11 +123,12 @@ const PostedItems = () => {
                 return (
                   <div className="col-md-4 col-6 col-lg-3">
                     {/* <div className="mob-cardWidth"> */}
-                    <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
+
                     <div className="shadow p-3 mb-4 bg-white maindiv-ads overflow-hidden">
                       {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
-                        <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
-                        <div className="pdt-details">
+                      <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor"> <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div></Link>
+                      <div className="pdt-details">
+                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                           <div className="d-flex" style={{ justifyContent: 'space-between' }}>
                             <div className="price">₹{(automobileProduct.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
                             <div className="status">
@@ -118,43 +151,57 @@ const PostedItems = () => {
                                 {`${automobileProduct.title.substring(0, MAX_LENGTH)}...`}
                               </div>
                               :
-                              <div className="prd-name">{automobileProduct.title}</div>
+                              <div className="prd-name text-capitalize">{automobileProduct.title}</div>
 
                           }
                           <div className="contain-adrs">
                             <span className="adrs">{automobileProduct.location.state}</span>
                             <span className="year"></span>
                           </div>
-                          <div className="row p-0 m-0">
-                            <div className="col p-0">
-                              <div className="d-flex" style={{ justifyContent: "space-between" }}>
-                                <div className="buy-bt">
-                                  {/* <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link> */}
-                                  {
-                                    (automobileProduct.boostPlan.plan === "free")?
-                                    <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
+                        </Link>
+                        {/* </Link> */}
+                        <div className="row p-0 m-0">
+                          <div className="col p-0">
+                            <div className="d-flex" style={{ justifyContent: "space-between" }}>
+                              <div className="buy-bt">
+                                {/* <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link> */}
+                                {
+                                  (automobileProduct.boostPlan.plan === 'free') ?
+                                    (automobileProduct.status === 'approved') ?
+                                      <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
+                                      :
+                                      <Link to='' className="buy-bttn" disabled style={{ opacity: 0.8 }}>Boost Now</Link>
                                     :
-                                    <button className="buy-bttn">Boosted</button>
-                                  }
-                                  {console.log(automobileProduct.categories)}
-                                  {/* <span onClick={()=>handleClickSpan()} className="buy-bttn">Boost Now</span> */}
-                                </div>
-                                {/* <div className="edit" style={{ marginTop: '5%' }} >
+                                    <Link to='' className="buy-bttn" disabled>Boosted</Link>
+                                }
+                                {console.log(automobileProduct.categories)}
+                                {/* <span onClick={()=>handleClickSpan()} className="buy-bttn">Boost Now</span> */}
+                              </div>
+                              {/* <div className="edit" style={{ marginTop: '5%' }} >
                                   <span className="ed"><FontAwesomeIcon icon="fas fa-pen"></FontAwesomeIcon></span>
                                 </div> */}
 
-                                <div className="delete" onClick={() => deleteUser(automobileProduct._id)}>
-                                  <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can" className="iconSize"></FontAwesomeIcon></span>
-                                </div>
+                              <div className="delete" onClick={() => OpenDelete(automobileProduct._id)}>
+                                <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can" className="iconSize"></FontAwesomeIcon></span>
                               </div>
+                            </div>
+                            <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                               <div>
                                 <span className="date">{new Date(automobileProduct.createdAt).toDateString()}</span>
                               </div>
-                            </div>
+
+                              {
+                                (automobileProduct.boostPlan.plan !== 'free') ?
+                                  <span className="date">Expire Date: {new Date(automobileProduct.boostPlan.expireDate).toDateString()}</span>
+                                  :
+                                  ""
+                              }
+
+                            </Link>
                           </div>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                     {/* </div> */}
                   </div>
                 )
@@ -163,7 +210,7 @@ const PostedItems = () => {
             }
           </div>
         </div>
-      </div>
+      </div >
       <Footer />
     </>
   )

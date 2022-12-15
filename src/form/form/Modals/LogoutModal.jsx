@@ -1,17 +1,24 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import { useState } from 'react'
+import { GoogleLogout } from 'react-google-login'
 import { MdDelete } from 'react-icons/md'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-export default function UserDeleteModal({ DelId, ModalOpen, setModalOpen, DeleteData }) {
-    const onclose = () => setModalOpen(false)
+export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpenFunLogout }) {
+    const nav = useNavigate();
+    const onclose = () => setLogoutOpen(false);
+    const Logout = () => {
+        window.localStorage.removeItem('token');
+        setLogoutOpen(false)
+    }
     return (
         <>
             <AnimatePresence>
 
                 {
-                    ModalOpen &&
+                    LogoutOpen &&
                     <BackLight>
 
                         <ModelContainer animate={{ y: "0", scale: '1' }} initial={{ y: '-100vh', scale: '0' }} exit={{ y: '-100vh', scale: '1' }}>
@@ -27,11 +34,23 @@ export default function UserDeleteModal({ DelId, ModalOpen, setModalOpen, Delete
                                 </DeleteDiv>
                                 <ModalBody>
                                     Are You Sure ? <br />
-                                    You Want to Delete?
+                                    You Want to Logout?
                                 </ModalBody>
                                 <ModalFooter>
                                     <Cancelbtn onClick={onclose}>Cancel</Cancelbtn>
-                                    <OKbtn onClick={DeleteData}>Delete</OKbtn>
+                                    <OKbtn >
+                                        <GoogleLogout
+                                            clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                            buttonText="Logout"
+                                            onLogoutSuccess={() => {
+                                                window.localStorage.removeItem('token');
+                                                setLogoutOpen(false)
+                                                nav("/")
+                                            }}
+                                            icon={false}
+                                            className='setGoogleLog'
+                                        />
+                                    </OKbtn>
                                 </ModalFooter>
                             </ModelDiv>
                         </ModelContainer>
@@ -128,4 +147,6 @@ const Cancelbtn = styled.button`
         padding: 7px 12px;
     }
 `
-const OKbtn = styled(Cancelbtn)``
+const OKbtn = styled(Cancelbtn)`
+    
+`

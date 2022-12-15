@@ -336,7 +336,7 @@ li.nav-item {
 
 .maindiv-ads {
     margin-top: 5%;
-    height: 54vh;
+    height: 57vh;
     /* width: 230px; */
     box-shadow: 0 1px 5px 5px rgb(235, 234, 234);
     border-radius: 10px;
@@ -1107,7 +1107,7 @@ input[type=radio] {
 
 .card-body {
     flex: 1 1 auto;
-    padding: 1rem 1rem;
+    padding: 1.7rem 1rem;
     /* font-size: 11px; */
 }
 
@@ -1902,6 +1902,21 @@ box-shadow: none;
     margin-left: 15%;
     /* justify-content: center; */
 }
+#setMargin1_ {
+    padding-top: 10px;
+    width: 60% !important;
+    height: 42vh;
+    margin-left: 30%;
+    /* justify-content: center; */
+}
+
+#setMargin2_ {
+    padding-top: 10px;
+    width: 60% !important;
+    height: 42vh;
+    margin-left: 15%;
+    /* justify-content: center; */
+}
 
 .for-center.package-form {
     width: 100%;
@@ -1913,7 +1928,7 @@ box-shadow: none;
 
 .container-heading.package-form {
     position: absolute;
-    width: 230px;
+    width: 376px;
     height: 55px;
     border-bottom: 3px solid #37577A;
     line-height: 45px;
@@ -2240,7 +2255,7 @@ box-shadow: none;
     text-align: left;
     padding: 0 0 0 10px !important;
     font-weight: 400;
-    font-size: 12px;
+    font-size: 15px;
     width: 100%;
 }
 
@@ -2257,12 +2272,12 @@ box-shadow: none;
 }
 
 .setGoogleLog:hover {
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
     /* background: transparent !important; */
 }
 
 .setGoogleLog span:hover {
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
     /* background: transparent !important; */
 }
 
@@ -2340,8 +2355,18 @@ box-shadow: none;
 .Package-Heading {
     font-size: 20px;
     margin-left: 4%;
+    padding: 10px;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin-bottom: 2rem;
 }
-
+.Package-Heading span{
+    padding-bottom: 12px ;
+    font-size: 1rem ;
+    color: rgb(65, 65, 65);
+   border-bottom: 2px solid grey;
+}
 /* blog categoies */
 
 /* @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap'); */
@@ -2620,11 +2645,43 @@ button.GoogleBtn {
 .col-12.mobileversion {
     display: none;
 }
+/* .subMenuItem{
+    display: none;
+}
+.subMenuItem:hover{
+    display: block;
 
-/* 3 dec */
+} */
+.activeAdd{
+    display: block !important;
+}
+.subMenuItem {
+    position: absolute;
+    top: 30%;
+    z-index: 16;
+    right: 100%;
+    background: linear-gradient(var(--color2) , var(--color1));
+    padding: 10px;
+    line-height: 1.3rem;
+    padding-right: 0 !important;
+    min-width: 200px !important;
+    display: none;
+}
+.subMenuItem1 {
+    position: absolute;
+    top: 40%;
+    z-index: 16;
+    right: 100%;
+    background: linear-gradient(var(--color2) , var(--color1));
+    padding: 10px;
+    line-height: 1.3rem;
+    min-width: 200px !important;
+    display: none;
+}
 
-
-
+.setBlog{
+    color: var(--color1) !important;
+}
 @media screen and (max-width: 600px) {
     .detailsSeller {
         padding-left: 1rem !important;

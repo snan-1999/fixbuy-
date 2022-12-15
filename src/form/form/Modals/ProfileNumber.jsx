@@ -263,12 +263,12 @@ const ModelFooter = styled.div`
 `
 const ApplyBtn = styled.button`
     all: unset;
-    background: grey ;
+    background: grey;
     color: white;
-    padding: 8px 12px;
-    font-size: .9rem;
-    border-radius: .4rem;
-    /* width: 20%; */
+    padding: 10px 16px;
+    border-radius: 50rem;
+    font-size: .7rem;
+    width: 24%;
     text-align: center;
     cursor: pointer;
     
@@ -299,12 +299,15 @@ const ApplyBtn = styled.button`
 `
 
 const ApplyBtn1 = styled.button`
-    all: unset;
-    background:linear-gradient( ${props => props.theme.colors.primary} ,${props => props.theme.colors.secondary} ) ;;
+
+all: unset;
+/* background: grey; */
+background:linear-gradient( ${props => props.theme.colors.primary} ,${props => props.theme.colors.secondary} ) ;;
     color: white;
-    padding: 8px 12px;
-    font-size: .9rem;
-    border-radius: .4rem;
+    padding: 10px 16px;
+    border-radius: 50rem;
+    font-size: .7rem !important;
+    width: 40%;
     text-align: center;
     cursor: pointer;
     

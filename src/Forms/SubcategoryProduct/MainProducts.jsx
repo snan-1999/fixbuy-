@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import load from '../../assets/images/load.gif';
 import { GlobalVariables } from '../../Context/StateProvider';
 import Footer from '../../form/form/Footer';
 import Header from '../../form/form/header';
@@ -269,9 +270,11 @@ export default function MainProducts() {
                     <div className="row m-0 p-0 d-flex justify-content-center">
 
                         <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                            {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
                                 <span className="visually-hidden">Loading...</span>
-                            </div>}
+                            </div>
+                                :
+                                <img src={load} />} &nbsp;&nbsp;
                             Load More
                         </ButtonCraete>
                         {/* </div> */}
@@ -296,6 +299,12 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    img{
+        rotate: 30px;
+        margin-left: -10px;
+        width: 25px;
+        height: 25px;
+    }
     @media (max-width: 768px) {
         font-size: 13px; 
         width: 32%;

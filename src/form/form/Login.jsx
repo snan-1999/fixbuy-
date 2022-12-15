@@ -21,6 +21,10 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import FacebookLogin from 'react-facebook-login';
 import styled from "styled-components";
 import { VscRefresh } from 'react-icons/vsc'
+import logo1 from '../../assets/images/logo1.png'
+import Vector_login from '../../assets/images/Vector_login.png'
+import { BsArrowRight } from "react-icons/bs";
+import UserDeleteModal from "./Modals/DeleteModal";
 function Login() {
 
     const nav = useNavigate();
@@ -108,7 +112,7 @@ function Login() {
                         'status': "logIn"
                     })
                 )
-                window.localStorage.setItem('loginThrough' , JSON.stringify({'loginCome' : 'phone'}))
+                window.localStorage.setItem('loginThrough', JSON.stringify({ 'loginCome': 'phone' }))
             }
             else {
                 setError(res.message);
@@ -142,7 +146,7 @@ function Login() {
                         // 'type' : res.data.data.type  
                     })
                 )
-                window.localStorage.setItem('loginThrough' , JSON.stringify({'loginCome' : 'google'}))
+                window.localStorage.setItem('loginThrough', JSON.stringify({ 'loginCome': 'google' }))
             }
             else {
                 setError(res.message)
@@ -184,7 +188,7 @@ function Login() {
                         "status": "login"
                     })
                 )
-                window.localStorage.setItem('loginThrough' , JSON.stringify({'loginCome' : 'facebook'}))
+                window.localStorage.setItem('loginThrough', JSON.stringify({ 'loginCome': 'facebook' }))
             }
             else {
                 setError(res.message);
@@ -211,6 +215,7 @@ function Login() {
         console.log(data);
         console.log(window)
     }
+ 
 
     // window.FB.getLoginStatus(function (response) {
     //     // statusChangeCallback(response);
@@ -224,130 +229,142 @@ function Login() {
     // }
 
     return (
+        <>
+      
+            <div className="form-body">
 
-        <div className="form-body">
+                <div className="row m-0 p-0 ">
+                    <div className="col-md-7 d-flex justify-content-center align-items-center">
 
-            <div className="row">
-                <div className="form-holder">
-                    <div className="form-content">
-                        <div className="form-items">
-                            <div className="website-logo-inside">
-                                <Link to="/">
-                                    <div className="logo">
-                                        <img className="logo-size" src="images/logo-light.svg" alt="" />
-                                        <h1 className="fw-bold text-white">Welcome to<br/> FixeBuy</h1>
+                        <img src={Vector_login} className='VectorLogo' />
+                    </div>
+                    <div className="col-md-5">
+                        <div className="form-holder">
+                            <div className="form-content">
+                                <div className="form-items">
+                                    <div className="website-logo-inside">
+                                        <Link to="/">
+                                            <div className="logo">
+                                                <img className="logo-size" src={logo1} />
+                                                {/* <h1 className="fw-bold text-white">Welcome to<br/> FixeBuy</h1> */}
+                                            </div>
+                                        </Link>
                                     </div>
-                                </Link>
-                            </div>
-                            <h3 className="text-center">Login </h3>
-                            <div className="page-links">
-                                {/* <Link to="/login" className="active">Login</Link> */}
-                                {/* <Link to='/signup'>Register</Link> */}
+                                    <h3 className="text-center">Login/Sign Up</h3>
+                                    <div className="page-links">
+                                        {/* <Link to="/login" className="active">Login</Link> */}
+                                        {/* <Link to='/signup'>Register</Link> */}
 
-                            </div>
-                            {/* <form method="post"> */}
-                                <input className="form-control text-dark shadow-none" type="text" name="phone_number" placeholder="Phone Number"
-                                    onChange={(e) => {
-                                        console.log(e.target.value)
-                                        setPhone(e.target.value);
-                                        setError("")
-                                    }}
-                                    required />
-
-                                {
-                                    show && <input className="form-control text-dark shadow-none" type="text" name="password" placeholder="Enter Code" required
+                                    </div>
+                                    {/* <form method="post"> */}
+                                    <input className="form-control text-dark shadow-none" type="text" name="phone_number" placeholder="Phone Number"
                                         onChange={(e) => {
-                                            setOtp(e.target.value);
-                                            console.log(e.target.value);
+                                            console.log(e.target.value)
+                                            setPhone(e.target.value);
                                             setError("")
                                         }}
-                                    />
-                                }
-                                <div className="text" style={{ color: "red" }}>{error}</div>
+                                        required />
 
-                                <input type="hidden" name="role" value="0" />
-                                <div className="form-button">
                                     {
-                                        (!show) ?
-                                            <button id="submit" type="button" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={handlePhone} >Get OTP</button>
-                                            :
-                                            <button id="submit" type="button" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={verify} >Login</button>
+                                        show && <input className="form-control text-dark shadow-none" type="text" name="password" placeholder="Enter Code" required
+                                            onChange={(e) => {
+                                                setOtp(e.target.value);
+                                                console.log(e.target.value);
+                                                setError("")
+                                            }}
+                                        />
                                     }
+                                    <div className="text" style={{ color: "red" }}>{error}</div>
 
-
-
-                                </div>
-                                <CountdownBtn>
-
-                                    <div className="countdown-text">
+                                    <input type="hidden" name="role" value="0" />
+                                    <div className="form-button">
                                         {
-                                            TImer &&
-                                            <p>Didn't recieve code?</p>
+                                            (!show) ?
+                                                <button id="submit" type="button" value="true" name="login" className="ibtn  login-bt" onClick={handlePhone} >Get OTP</button>
+                                                :
+                                                <button id="submit" type="button" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={verify} >Login</button>
                                         }
 
 
-                                    </div>
-                                    <div className="set_m-resend flex justify-content-center">
 
-                                        <div>
+                                    </div>
+                                    <CountdownBtn>
+
+                                        <div className="countdown-text">
                                             {
                                                 TImer &&
-                                                <span className="counter" style={{ color: 'white' }}>00:{counter}</span>
+                                                <p>Didn't recieve code?</p>
                                             }
+
+
                                         </div>
-                                        <div>
-                                            {
-                                                (Resend !== false) ?
-                                                    <button className="btn  resendButton"
-                                                        onClick={() => handleResendOtp()}
-                                                    >
-                                                        <VscRefresh /> Resend
-                                                    </button>
-                                                    :
-                                                    ""
-                                            }
+                                        <div className="set_m-resend flex justify-content-center">
+
+                                            <div>
+                                                {
+                                                    TImer &&
+                                                    <span className="counter" style={{ color: 'white' }}>00:{counter}</span>
+                                                }
+                                            </div>
+                                            <div>
+                                                {
+                                                    (Resend !== false) ?
+                                                        <button className="btn  resendButton"
+                                                            onClick={() => handleResendOtp()}
+                                                        >
+                                                            <VscRefresh /> Resend
+                                                        </button>
+                                                        :
+                                                        ""
+                                                }
+                                            </div>
                                         </div>
-                                    </div>
-                                </CountdownBtn>
+                                    </CountdownBtn>
 
-                            {/* </form> */}
-                            <div className="other-links">
+                                    {/* </form> */}
+                                    <div className="other-links">
 
-                                <GoogleLogin
-                                    clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
-                                    onSuccess={(response) => google(response)}
-                                    onFailure={(response) => {
-                                        console.log("on failure");
-                                        console.log(response)
-                                    }}
+                                        <GoogleLogin
+                                            clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
+                                            onSuccess={(response) => google(response)}
+                                            onFailure={(response) => {
+                                                console.log("on failure");
+                                                console.log(response)
+                                            }}
 
-                                    cookiePolicy={"single_host_origin"}
-                                    isSignedIn={true}
-                                    className="GoogleBtn"
-                                />
-                                <FacebookLogin
-                                    appId="2217693241739570"
-                                    autoLoad={false}
-                                    fields="name,email,picture"
-                                    onClick={componentClicked}
-                                    callback={responseFacebook} 
-                                    icon="fa-facebook fbLogo"
-                                    />
-                                {/* <FacebookLogin
+                                            cookiePolicy={"single_host_origin"}
+                                            isSignedIn={true}
+                                            className="GoogleBtn"
+                                        />
+                                        <FacebookLogin
+                                            appId="2217693241739570"
+                                            autoLoad={false}
+                                            fields="name,email,picture"
+                                            onClick={componentClicked}
+                                            callback={responseFacebook}
+                                            icon="fa-facebook fbLogo"
+                                        />
+                                        <Link to="/"><div className="goToweb">
+                                            <p>Go To Our Website <BsArrowRight /></p>
+                                        </div></Link>
+                                        {/* <FacebookLogin
                                     appId='817702366092567'
                                     autoLoad={true}
                                     fields="name,email,picture"
                                      onClick={componentClicked}
-                                    callback={responseFacebook}
-                                     /> */}
-                            </div>
+                                     callback={responseFacebook}
+                                    /> */}
+                                    </div>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </div>
 
+        </>
     )
 }
 

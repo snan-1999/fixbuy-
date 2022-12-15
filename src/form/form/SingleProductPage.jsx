@@ -38,6 +38,7 @@ import { TiLocation } from 'react-icons/ti'
 import ShareProuctsModal from './Modals/ShareProduct';
 import { TbMessageReport } from 'react-icons/tb';
 import { MdLocationOn, MdReport } from 'react-icons/md';
+import load from '../../assets/images/load.gif';
 import ReportAds from './Modals/ReportAds';
 import { BsChatDots } from 'react-icons/bs';
 import { AllDataCategory } from '../../functions/MainCategoryFun';
@@ -60,9 +61,8 @@ export default function SingleProductPage(props) {
     const Token = localStorage.getItem('token');
     const { HomeData, setHomeData, UserId, latitude, Longitude } = useContext(GlobalVariables);
     // console.log(location.state, 'homeData')
-    console.log(latitude, 'ltitude')
+    // console.log(Token, 'Localstorage')
     // const { data, isFetching } = SingleProduct(productid)
-
     const [TokenID, setTokenID] = useState({
         'ID': JSON.parse(Token)?.token,
         'Name': JSON.parse(Token)?.name,
@@ -287,7 +287,13 @@ export default function SingleProductPage(props) {
             console.log(error, 'main')
         }
     }
-
+    const ChatSeller = () => {
+        if (Token !== null) {
+            nav('/mainchatfile')
+        }else{
+            nav('/login')
+        }
+    }
     useEffect(() => {
         SingleData()
         // sellerDetails()
@@ -369,7 +375,7 @@ export default function SingleProductPage(props) {
                                     <div className="col-md-6">
                                         <div className="locations d-flex align-items-center">
                                             <TiLocation />
-                                            <div className='ms-2'>{`${AllData.location?.city} ,${AllData.location?.state}`}</div>
+                                            <div className='ms-2 text-capitalize'>{`${AllData.location?.city} ,${AllData.location?.state}`}</div>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -480,7 +486,9 @@ export default function SingleProductPage(props) {
                     <div className="setMarginDiv">
                         <div className="row">
                             <div className="ChatBtnProduct mt-1">
-                                <Link to='/mainchatfile'><button className='d-flex justify-content-center align-items-center '> <BsChatDots className='fs-5 me-2' />Chat With Seller</button></Link>
+                               {
+                                   AllData.user_id !== TokenID.ID &&  <button className='d-flex justify-content-center align-items-center ' onClick={ChatSeller} disabled={AllData.user_id == TokenID.ID}> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
+                            } 
                             </div>
                         </div><br />
                         <div className="row m-0 p-0">
@@ -577,9 +585,11 @@ export default function SingleProductPage(props) {
                                         <></>
                                         :
                                         <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                            {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
                                                 <span className="visually-hidden">Loading...</span>
-                                            </div>}
+                                            </div>
+                                                :
+                                                <img src={load} />} &nbsp;&nbsp;
                                             Load More
                                         </ButtonCraete>
                                 }
@@ -658,6 +668,12 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    img{
+        rotate: 30px;
+        margin-left: -10px;
+        width: 25px;
+        height: 25px;
+    }
     @media (max-width: 768px) {
         font-size: 13px; 
         width: 32%;

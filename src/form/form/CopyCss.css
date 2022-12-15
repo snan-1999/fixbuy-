@@ -62,6 +62,7 @@
 } */
 
 .delete {
+    z-index: 1 !important;
     margin-top: 3%;
 }
 
@@ -383,8 +384,44 @@ li.footerLink:hover::before {
 .radio-button1 input[type="radio"] {
     display: none;
 }
+.ImagecontainerBorder{
+    width: 9vw ;
+    height: 17vh;
+    border-color: grey ;
+     border-radius: 3vh ;
+     border: 1px solid grey ;
+}
 
+.imagePreviewContainer{
+    height: 16vh; 
+    width: 8vw; 
+    border-Color: black;
+    border: 3px solid grey;
+    border-Radius: 3vh;
+}
+
+.imageafterCrop{
+    height: 15vh;
+    width: 100%;
+    border-Radius: 16% ;
+     margin-Top: -0%;
+}
 @media screen and (max-width: 600px) {
+    .ImagecontainerBorder{
+        width: 31vw;
+        height: 16vh;
+        border-color: grey;
+         border-radius: 3vh ;
+         border: 1px solid grey;
+    }
+    
+    .imagePreviewContainer{
+        height: 16vh; 
+        width: 32vw; 
+        border-Color: black;
+        border: 3px solid grey;
+        border-Radius: 3vh;
+    }
     .setMarginDiv{
         left: 3%;
     }

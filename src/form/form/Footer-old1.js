@@ -27,9 +27,6 @@ const Footer = () => {
                     <div className="row p-0 m-0 w-100 des-footer">
                         {/* <div className="mob-version-footer"> */}
                         <div className="col-md-4 col-12  mob-heading-logo">
-                            <div className="footerlogo">
-                                <Link to=""><img src={logo} alt="logo" className="footer-logo" /></Link>
-                            </div>
                             <div className="pp">
                                 <p><FontAwesomeIcon icon="fa-address-card" />&nbsp;&nbsp;&nbsp;Ghookna, Ghaziabad,<br />
                                     &nbsp;&nbsp;  Uttar Pradesh, 201003</p>
@@ -44,17 +41,20 @@ const Footer = () => {
 
 
                         <div className="col-md-4 col-12 gettouch" >
+                            <div className="footerlogo">
+                                <Link to=""><img src={logo} alt="logo" className="footer-logo" /></Link>
+                            </div>
                             <div className="subhead" >
                                 GET IN TOUCH
                             </div>
                             <div className="social" >
-                                <a href="https://www.instagram.com/fixebuy.official/" target='_blank'><img src={instagram} /></a>
-                                <a href="https://twitter.com/FixebuyOfficial"><img src={twitter} /></a>
-                                <a href="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394"><img src={facebook} /></a>
+                                <Link to="https://www.instagram.com/fixebuy.official/" ><img src={instagram} /></Link>
+                                <Link to="https://twitter.com/FixebuyOfficial"><img src={twitter} /></Link>
+                                <Link to="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394"><img src={facebook} /></Link>
                             </div>
                             <br />
                             <br />
-                            <div className="LinkClass1 d-lg-block d-md-none d-none d-sm-none">
+                            <div className="col-md-4 col-12 LinkClass1 d-lg-block d-md-none d-none d-sm-none">
                                 <div className="d-flex">
                                 <div><Link to="" className="FooterLink">Download App for IOS
                                 </Link></div>&nbsp;&nbsp;
@@ -90,9 +90,9 @@ const Footer = () => {
                             GET IN TOUCH
                         </div> */}
                                             <div className="social1">
-                                                <a href="www.instagram.com/fixebuy.official/"><img src={instagram} /></a>
-                                                <a href="https://twitter.com/FixebuyOfficial"><img src={twitter} /></a>
-                                                <a href="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394"><img src={facebook} /></a>
+                                                <Link to="https://www.instagram.com/fixebuy.official/"><img src={instagram} /></Link>
+                                                <Link to="https://twitter.com/FixebuyOfficial"><img src={twitter} /></Link>
+                                                <Link to="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394"><img src={facebook} /></Link>
                                             </div>
 
                                         </div>

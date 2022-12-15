@@ -21,7 +21,7 @@ const Profile = () => {
 
     const OpenDelete = () => setModalOpen(true)
     const nav = useNavigate();
-    // const {type} = useContext(GlobalVariables);
+    const {ProfileUpdate, setProfileUpdate} = useContext(GlobalVariables);
     // console.log(type , 'check')
     const IdData = localStorage.getItem('token');
     let ProfleId;
@@ -190,6 +190,7 @@ const Profile = () => {
             await axios.put(api, formData).then((response) => {
                 console.log(response.data);
                 if (response.data.status) {
+                    setProfileUpdate(ProfileUpdate+ 1)
                     // setMessage('Profile Updated!');
                     seterrors(true);
                     toast(response.data.message, {
@@ -365,9 +366,9 @@ const Profile = () => {
                                         </div>
                                         <div className="col-sm-9 text-secondary">
                                             <input type="text" className="form-control shadow-none" placeholder="Email" name="user_email" value={ModalEmail} contenteditable='false' />
-                                        {
-                                            !ModalEmail && <div className="text-danger">please add your Email</div>
-                                        }
+                                            {
+                                                !ModalEmail && <div className="text-danger">please add your Email</div>
+                                            }
                                         </div>
                                         <div className="UpdateNum w-100">
                                             {
@@ -383,10 +384,10 @@ const Profile = () => {
                                         <div className="col-sm-9 text-secondary">
                                             <input type="text" className="form-control shadow-none" placeholder="Phone" name="phone" value={ModalSellerPhone} contenteditable='false'
                                             />
-                                        </div>
                                         {
                                             !ModalSellerPhone && <div className="text-danger">please add your number</div>
                                         }
+                                        </div>
                                         <div className="UpdateNum w-100">
                                             {
                                                 !phone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
