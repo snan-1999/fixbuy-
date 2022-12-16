@@ -87,6 +87,16 @@ const Packages = () => {
   // const PakageDesign = {
   //   box-shadow: 0 0.5rem 1rem 0 rgb(0 ,0 ,0/ 30%)
   // }
+  const ConditionCheck = [
+    "car",
+    "for_rent",
+    "for_sale",
+    "land_&_plots",
+    "heavy_vehicle"
+
+  ]
+
+  // alert(ConditionCheck.includes(categories))
   return (
     <>
       <Header />
@@ -97,7 +107,7 @@ const Packages = () => {
           </div>
         </div>
         {
-          (categories == "car" && sellertype == "user")
+          (ConditionCheck.includes(categories) && sellertype == "user")
             ?
             <>
               <div className="Package-Heading">
@@ -111,7 +121,7 @@ const Packages = () => {
                       <div className="card mb-5 mb-lg-0" id='setMargin1'>
                         <div className="card-body">
                           {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                          <h6 className="card-price text-center">₹299<span className="period">+GST</span><span className="period">/5days</span></h6>
+                          <h6 className="card-price text-center">₹299<span className="period">+GST</span><span className="period">/3days</span></h6>
                           <hr />
                           <ul className="fa-ul">
                             {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
@@ -137,7 +147,7 @@ const Packages = () => {
                       <div className="card mb-5 mb-lg-0" id='setMargin2'>
                         <div className="card-body">
                           {/* <h5 className="card-title text-muted text-uppercase text-center">GOLD</h5> */}
-                          <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/12days</span></h6>
+                          <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/5days</span></h6>
                           <hr />
                           <ul className="fa-ul">
                             {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
@@ -166,112 +176,112 @@ const Packages = () => {
               <br />
             </>
             :
-            <>
+            (!ConditionCheck.includes(categories) && sellertype == "user")
+              ?
+              <>
 
-              <div className="Package-Heading">
-                <span><BsArrowRight /> All Other Items </span>
-              </div>
-              <section className="pricing py-2">
-                <div className="container-price">
-                  <div className="row">
-                    {/* //   <!-- Free Tier --> */}
-                    <div className="col-lg-6 ">
-                      <div className="card mb-5 mb-lg-0" id='setMargin1'>
-                        <div className="card-body">
-                          {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                          <h6 className="card-price text-center">₹49<span className="period">+GST</span><span className="period">/5days</span></h6>
-                          <hr />
-                          <ul className="fa-ul">
-                            {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
-                            <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
-                            <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                            <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
-                            {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
+                <div className="Package-Heading">
+                  <span><BsArrowRight /> All Other Items </span>
+                </div>
+                <section className="pricing py-2">
+                  <div className="container-price">
+                    <div className="row">
+                      {/* //   <!-- Free Tier --> */}
+                      <div className="col-lg-6 ">
+                        <div className="card mb-5 mb-lg-0" id='setMargin1'>
+                          <div className="card-body">
+                            {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
+                            <h6 className="card-price text-center">₹49<span className="period">+GST</span><span className="period">/3days</span></h6>
+                            <hr />
+                            <ul className="fa-ul">
+                              {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
+                              {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boost</li> */}
-                            {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
+                              {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
-                          </ul>
-                          <div className="d-grid">
-                            <button style={{ border: "none", backgroundColor: "transparent" }}
-                              onClick={() => checkoutHandler(49, 3)}>
-                              <span className="btn btn-primary text-uppercase" id="rzp-button1" style={{ pointerEvents: "none" }}>Boost Now</span>
-                            </button>
+                            </ul>
+                            <div className="d-grid">
+                              <button style={{ border: "none", backgroundColor: "transparent" }}
+                                onClick={() => checkoutHandler(49, 3)}>
+                                <span className="btn btn-primary text-uppercase" id="rzp-button1" style={{ pointerEvents: "none" }}>Boost Now</span>
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    {/* //   <!-- Plus Tier --> */}
-                    <div className="col-lg-6">
-                      <div className="card mb-5 mb-lg-0" id='setMargin2'>
-                        <div className="card-body">
-                          {/* <h5 className="card-title text-muted text-uppercase text-center">GOLD</h5> */}
-                          <h6 className="card-price text-center">₹99<span className="period">+GST</span><span className="period">/12days</span></h6>
-                          <hr />
-                          <ul className="fa-ul">
-                            {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
-                            <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 5 days</li>
-                            <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                            <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagement</li>
-                            {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
+                      {/* //   <!-- Plus Tier --> */}
+                      <div className="col-lg-6">
+                        <div className="card mb-5 mb-lg-0" id='setMargin2'>
+                          <div className="card-body">
+                            {/* <h5 className="card-title text-muted text-uppercase text-center">GOLD</h5> */}
+                            <h6 className="card-price text-center">₹99<span className="period">+GST</span><span className="period">/5days</span></h6>
+                            <hr />
+                            <ul className="fa-ul">
+                              {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your bikes ads on top</li> --> */}
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 5 days</li>
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagement</li>
+                              {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boosts</li> */}
-                            {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
+                              {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
-                          </ul>
-                          <div className="d-grid">
-                            <button style={{ border: "none", backgroundColor: "transparent" }}
-                              onClick={() => checkoutHandler(99, 5)}>
-                              <span className="btn btn-primary text-uppercase" id="rzp-button1" style={{ pointerEvents: "none" }}>Boost Now</span>
-                            </button>
+                            </ul>
+                            <div className="d-grid">
+                              <button style={{ border: "none", backgroundColor: "transparent" }}
+                                onClick={() => checkoutHandler(99, 5)}>
+                                <span className="btn btn-primary text-uppercase" id="rzp-button1" style={{ pointerEvents: "none" }}>Boost Now</span>
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </section>
-            </>
-        }
-        <br />
-        <br />
-        {
-          (sellertype == 'shop')
-          &&
-          <>        <div className="Package-Heading">
-            <span><BsArrowRight />  For Shop </span>
-          </div>
-            <section className="pricing py-2">
-              <div className="container-price">
-                <div className="row">
-                  {/* //   <!-- Free Tier --> */}
-                  <div className="col-lg-6 ">
-                    <div className="card mb-5 mb-lg-0" id='setMargin1'>
-                      <div className="card-body">
-                        {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                        <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/5days</span></h6>
-                        <hr />
-                        <ul className="fa-ul">
-                          {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
-                          <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
-                          <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
-                          <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
-                          {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
+                </section>
+              </>
+
+              :   (!ConditionCheck.includes(categories) && sellertype == "shop")
+              ?
+              <>        <div className="Package-Heading">
+                <span><BsArrowRight />  For Shop </span>
+              </div>
+                <section className="pricing py-2">
+                  <div className="container-price">
+                    <div className="row">
+                      {/* //   <!-- Free Tier --> */}
+                      <div className="col-lg-6 ">
+                        <div className="card mb-5 mb-lg-0" id='setMargin1'>
+                          <div className="card-body">
+                            {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
+                            <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/3days</span></h6>
+                            <hr />
+                            <ul className="fa-ul">
+                              {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>For 3 days</li>
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>2x more buyers</li>
+                              <li><span className="fa-li"><FontAwesomeIcon icon="fas fa-check"></FontAwesomeIcon></span>Customer engagements</li>
+                              {/* <li><span className="fa-li"><i className="fas fa-check"></i></span>All
                         items boost</li> */}
-                          {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
+                              {/* //       <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Dedicated
                 // technical Support</li> --> */}
-                        </ul>
-                        <div className="d-grid">
-                          <button style={{ border: "none", backgroundColor: "transparent" }}
-                            onClick={() => checkoutHandler(499, 3)}>
-                            <span className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</span>
-                          </button>
+                            </ul>
+                            <div className="d-grid">
+                              <button style={{ border: "none", backgroundColor: "transparent" }}
+                                onClick={() => checkoutHandler(499, 3)}>
+                                <span className="btn btn-primary text-uppercase" id="rzp-button1">Boost Now</span>
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </section>
-          </>
+                </section>
+              </>
+              : ""
 
         }
         <PaymentSuccess showFunction={showFunction} setShowFunction={setShowFunction} />

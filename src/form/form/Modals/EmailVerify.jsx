@@ -14,7 +14,7 @@ export default function EmailVerify({ ModalEmail, setModalEmail, OTP, setOTP, pr
         setOtpCondition(false)
     }
     const emailLocal = localStorage.getItem('token')
-    let EmailSet  = JSON.parse(emailLocal).email;
+    let EmailSet = JSON.parse(emailLocal).email;
     const OtpUpdate = async () => {
         setEmalOpen(false)
         const api = `${baseUrl}/users/otp/verify/profileUpdate`;
@@ -103,7 +103,7 @@ export default function EmailVerify({ ModalEmail, setModalEmail, OTP, setOTP, pr
 
     return (
         <>
-        <ToastContainer />
+            <ToastContainer />
             {
                 EmalOpen &&
                 <AnimatePresence>
@@ -144,16 +144,20 @@ export default function EmailVerify({ ModalEmail, setModalEmail, OTP, setOTP, pr
 }
 const Containermodel = styled(motion.div)`
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
-font-family: 'Lato', sans-serif;
+font-family: 'Lato',sans-serif;
     position: fixed;
     display: grid;
     place-content: center;
     height: 100%;
     place-items: center;
     z-index: 20;
-    top:0;
-    left: 50%;
+    top: 0;
+    left: 50%;  
     transform: translate(-72%);
+    @media screen and (max-width: 600px){
+        
+        transform: translate(-57%);
+    }
     `
 const Modelcontent = styled(motion.div)`
 background: white;
@@ -167,7 +171,8 @@ box-shadow: 0 1px 5px 5px rgb(235 234 234);
     width:25vw;
     margin-left: 15%;
 @media screen and (max-width: 600px){
-    margin-left: 25%;
+    width:70vw;
+    margin-left: 15%;
     padding: 1rem 2rem;
 }
 `
@@ -260,7 +265,7 @@ const ApplyBtn = styled.button`
     background: grey ;
     color: white;
     padding: 8px 12px;
-    font-size: .9rem;
+    font-size: .7rem;
     border-radius: .4rem;
     /* width: 20%; */
     text-align: center;
@@ -274,7 +279,8 @@ const ApplyBtn = styled.button`
     }
     @media screen and (max-width: 600px) {
         all: unset;
-    background: grey ;
+        font-size: .7rem;
+        background: grey ;
     color: white;
     padding: 10px 16px;
     border-radius: 50rem;
@@ -307,5 +313,15 @@ const ApplyBtn1 = styled.button`
         transform:scale(0.9);
         /* box-shadow: 0px 1px 10px #ffffff2b; */
         
+    }
+    @media screen and (max-width: 600px) {
+      
+        font-size: .7rem;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 50rem;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
     }
 `

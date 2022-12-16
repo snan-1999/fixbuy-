@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "./header";
 import Footer from "./Footer";
 import google from '../../assets/images/google.png';
-import { baseUrl } from "../../functions/constant";
+import { baseUrl, ImageView } from "../../functions/constant";
 import axios from 'axios';
 import styled from "styled-components";
 import UserDeleteModal from "./Modals/DeleteModal";
@@ -126,7 +126,7 @@ const PostedItems = () => {
 
                     <div className="shadow p-3 mb-4 bg-white maindiv-ads overflow-hidden">
                       {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
-                      <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor"> <div className="img-wh"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div></Link>
+                      <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor"> <div className="img-wh"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div></Link>
                       <div className="pdt-details">
                         <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                           <div className="d-flex" style={{ justifyContent: 'space-between' }}>

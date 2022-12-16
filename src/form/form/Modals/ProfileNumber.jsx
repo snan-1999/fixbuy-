@@ -280,6 +280,7 @@ const ApplyBtn = styled.button`
     }
     @media screen and (max-width: 600px) {
         all: unset;
+        font-size: .7rem;
     background: grey ;
     color: white;
     padding: 10px 16px;
@@ -307,7 +308,7 @@ background:linear-gradient( ${props => props.theme.colors.primary} ,${props => p
     padding: 10px 16px;
     border-radius: 50rem;
     font-size: .7rem !important;
-    width: 40%;
+    width: 50%;
     text-align: center;
     cursor: pointer;
     

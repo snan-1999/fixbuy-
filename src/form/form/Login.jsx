@@ -234,7 +234,7 @@ function Login() {
             <div className="form-body">
 
                 <div className="row m-0 p-0 ">
-                    <div className="col-md-7 d-flex justify-content-center align-items-center">
+                    <div className="col-md-7  d-none d-md-flex d-lg-flex  justify-content-center align-items-center">
 
                         <img src={Vector_login} className='VectorLogo' />
                     </div>

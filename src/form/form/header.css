@@ -399,8 +399,8 @@ a.buy-bttn {
 
 .pdt-img {
     border-radius: 5px;
-    width: auto !important;
-    height: 26vh;
+    width: 100% !important;
+    height: 100%;
     margin-bottom: 10px;
 }
 
@@ -2683,6 +2683,54 @@ button.GoogleBtn {
     color: var(--color1) !important;
 }
 @media screen and (max-width: 600px) {
+    #setMargin1_ {
+        padding-top: 10px;
+        width: 78% !important;
+        height: 35vh;
+        display: flex;
+        justify-content: center;
+      margin-left: 10%;
+        display: grid;
+        place-content: center;
+        align-items: center;
+        place-items: center;
+    }
+    #setMargin2_ {
+        padding-top: 10px;
+        width: 78% !important;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+      margin-left: 10%;
+        display: grid;
+        place-content: center;
+        align-items: center;
+        place-items: center;
+    }
+    #setMargin1 {
+        padding-top: 10px;
+        width: 78% !important;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+      margin-left: 10%;
+        display: grid;
+        place-content: center;
+        align-items: center;
+        place-items: center;
+    }
+    #setMargin2 {
+        padding-top: 10px;
+        width: 78% !important;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+      margin-left: 10%;
+        display: grid;
+        place-content: center;
+        align-items: center;
+        place-items: center;
+    }
     .detailsSeller {
         padding-left: 1rem !important;
     }
@@ -2929,7 +2977,7 @@ button.GoogleBtn {
     }
 
     .img-wh {
-        height: 14vh !important;
+        height: 100px !important;
         /* height: 100%; */
         /* width: 100%; */
     }
@@ -2984,7 +3032,7 @@ button.GoogleBtn {
     .pdt-img {
         border-radius: 5px;
         width: 100%;
-        height: 13vh;
+        height: 100%;
         margin-bottom: 2px;
     }
 
@@ -3813,8 +3861,8 @@ button.GoogleBtn {
 
     .pdt-img {
         border-radius: 5px;
-        /* width: 100%; */
-        height: 10vh;
+        width: 100% !important;
+        height: 100%;
         margin-bottom: 10px;
     }
 

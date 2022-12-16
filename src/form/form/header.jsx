@@ -374,10 +374,10 @@ const Header = () => {
                                             <Link to="/posteditems" className="nav-link">MY ADS</Link>
                                         </li>
                                         <li className="nav-item aa" onClick={profilefunction}>
-                                            <Link to="/packages" className="nav-link">PACKAGES</Link>
+                                            <Link to="/packages/view" className="nav-link">PACKAGES</Link>
                                         </li>
                                         <li className="nav-item aa">
-                                            {LocalData ? <div onClick={MOdalOpenFun}>LOGOUT</div> : 'LOGIN'}
+                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> :  <Link to="/login">'LOGIN'</Link>}
                                         </li>
 
                                     </ul>
@@ -575,17 +575,26 @@ const Header = () => {
                                                 {
                                                     LoginthroughData === 'facebook' ?
                                                         <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <img src={`${userProfileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
-                                                            {(LocalData == null)
-                                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : userProfileName
-                                                            }
+
+                                                            <div className="d-flex align-items-center ">
+                                                                <div className="profileSmall">
+                                                                    <img src={`${userProfileImg}`}/>
+                                                                </div>
+                                                                {(LocalData == null)
+                                                                    ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : userProfileName
+                                                                }
+                                                            </div>
                                                         </button>
                                                         :
                                                         <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <img src={`${LocalData?.profileImg}`} style={{ width: '14%', borderRadius: '45%', padding: '6px', marginLeft: '-20px' }} />
-                                                            {(LocalData == null)
-                                                                ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
-                                                            }
+                                                            <div className="d-flex align-items-center ">
+                                                                <div className="profileSmall">
+                                                                    <img src={`${LocalData?.profileImg}`} />
+                                                                </div>
+                                                                {(LocalData == null)
+                                                                    ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login</FontAwesomeIcon> : LocalData.profileName
+                                                                }
+                                                            </div>
 
                                                         </button>
                                                 }
@@ -613,7 +622,7 @@ const Header = () => {
 
 
                                         <li><Link to='/packages/view' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
-                                        <li><Link to='/mainchatfile' className="dropdown-item"> <BsChatQuoteFill />&nbsp;&nbsp;Chats</Link></li>
+                                        {/* <li><Link to='/mainchatfile' className="dropdown-item"> <BsChatQuoteFill />&nbsp;&nbsp;Chats</Link></li> */}
 
                                         {
                                             (Type == "user") &&
@@ -627,7 +636,7 @@ const Header = () => {
                                         }
                                         {/* <Link to="" className="dropdown-item" id="Hov"> */}
                                         <li>
-                                            <Link to="" className="dropdown-item" onClick={MOdalOpenFunLogout}> <FontAwesomeIcon icon="fas fa-sign-out-alt" className=" me-2 "/>Logout</Link>
+                                            <Link to="" className="dropdown-item" onClick={MOdalOpenFunLogout}> <FontAwesomeIcon icon="fas fa-sign-out-alt" className=" me-2 " />Logout</Link>
                                             {/* <GoogleLogout
                                                 clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
                                                 buttonText="Logout"

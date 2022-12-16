@@ -15,6 +15,7 @@ import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl, ImageView } from "../../functions/constant";
+import fot from '../../assets/images/fot.png'
 import axios from 'axios';
 import { HomeAllData, SearchHome } from "../../functions/HomeFun";
 import styled from "styled-components";
@@ -25,6 +26,8 @@ import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
+import android from '../../assets/images/android.png'
+import apple from '../../assets/images/apple.png'
 import CategorySlider from "./corousel/CategorySlider";
 import useGeoLocation from "../../hooks/useGeoLoaction";
 // import DownloadModal from "./Modals/DownloadModal";
@@ -116,6 +119,8 @@ const Home = () => {
         }, 5000);
     };
     let Max_length = 27;
+    // const DAte = new Date();
+    // alert(DAte.toDateString().split(' ').slice(1).join(' '))
     useEffect(() => {
         latitude && homeDataAll()
     }, [PageNo, UserId, latitude])
@@ -225,13 +230,13 @@ const Home = () => {
                                                             :
                                                             <div className="prd-name text-capitalize">{automobileProduct.title}</div>
                                                     }
-                                                    <div className="contain-adrs d-flex align-items-left justify-content-left mt-1">
-                                                        <span className="adrs text-capitalize">   <MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
+                                                    <div>
+                                                        <span className="date">{new Date(automobileProduct.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
+                                                    </div>
+                                                    <div className="contain-adrs d-flex align-items-center justify-content-left mt-1">
+                                                        <span className="adrs text-capitalize">   <MdLocationOn className="fs-6 SetLocIcon" />{automobileProduct.location.state}</span>
                                                         <span className="year"></span>
                                                     </div>
-                                                    <div>
-                                <span className="date">Created At : -{new Date(automobileProduct.createdAt).toDateString()}</span>
-                              </div>
                                                     <div className="row p-0 m-0">
                                                         <div className="col p-0">
 
@@ -285,6 +290,32 @@ const Home = () => {
                     </div>
                 </div>
             }
+            <LastSection>
+                <div className="row m-0 p-0">
+                    <div className="col-md-4 col-12">
+                        <div className="imgFot">
+                            <img src={fot} alt="" />
+                        </div>
+                    </div>
+                    <div className="col-md-5 col-12">
+                        <br />
+                        <div className="FotHead">
+                            <h2>TRY THE FIXEBUY APP</h2>
+                            <p>Buy , Sell and find just about anything using the app on your website</p>
+
+                        </div>
+                    </div>
+                    <div className="col-md-3 col-12 setBr">
+                        <div className="android">
+                            <h3>Get our App today</h3>
+                            <div className="heads">
+                                <img src={android} alt="" />
+                                <img src={apple} alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </LastSection>
             <Footer />
             {/* </div> */}
         </>
@@ -292,6 +323,86 @@ const Home = () => {
 }
 
 export default Home;
+const LastSection = styled.div`
+overflow: hidden;
+margin-bottom: -1rem;
+/* .setBr{
+    border-left: 1px solid red;
+} */
+.heads img{
+     padding: 5px 8px;
+     /* gap: 80px; */
+    }
+    .android{
+        text-transform: capitalize;
+        margin-top: 3.2rem;
+        height: 30%;
+        border-left: 1px solid #7a7a7a7a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .android img{
+        width: 10vw;
+    }
+    .android h3{
+        font-size: 1.4rem;
+        color: ${props => props.theme.colors.secondary};
+    }
+    height: 30vh;
+    background-color: #d2e7fc5e;
+    /* margin-bottom: 2rem; */
+    
+    .imgFot img{
+        /* width: 50vw; */
+        margin-top: -6rem;
+        height: 60vh;
+        transform: rotate(-20deg);
+        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    }
+    .FotHead{
+
+        text-transform: capitalize;
+        height: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        margin-top: 2rem;
+
+    }
+    .FotHead h2{
+        color: ${props => props.theme.colors.secondary};
+    }
+    .FotHead p{
+        font-size: .8rem;
+        color: ${props => props.theme.colors.primary};
+    }
+    @media screen and (max-width :600px ){
+        height: 85vh;
+        .imgFot img{
+        /* width: 50vw; */
+        margin-top: -0rem;
+        height: 43vh;
+        transform: rotate(-20deg);
+        /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    }
+    .android{
+        text-transform: capitalize;
+        margin-top: 1rem;
+        height: 30%;
+        border-left: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .android img{
+        width: 40vw;
+    }
+    }
+`
 const ButtonCraete = styled.button`
     display: flex;
     justify-content: center;
@@ -313,8 +424,8 @@ const ButtonCraete = styled.button`
         height: 25px;
     }
     @media (max-width: 768px) {
-        font-size: 13px; 
-        width: 32%;
+        font-size: 12px; 
+        width: 39%;
         // height: 55vh ;
       }
     
@@ -324,6 +435,9 @@ position: relative;
 top: 0;
 @media (max-width: 768px) {
     // height: 55vh ;
+    .date{
+        /* margin-top: 6px; */
+    }
   }
     // height: 60vh ;
     .ShopLogo{

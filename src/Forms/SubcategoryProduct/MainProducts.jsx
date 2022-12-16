@@ -245,6 +245,9 @@ export default function MainProducts() {
                                                             :
                                                             <div className="prd-name text-capitalize">{automobileProduct.title}</div>
                                                     }
+                                                       <div>
+                                                            <span className="date">{new Date(automobileProduct.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
+                                                        </div>
                                                     <div className="contain-adrs">
                                                         <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
                                                         <span className="year"></span>
@@ -306,8 +309,8 @@ const ButtonCraete = styled.button`
         height: 25px;
     }
     @media (max-width: 768px) {
-        font-size: 13px; 
-        width: 32%;
+        font-size: 12px; 
+        width: 39%;
         // height: 55vh ;
       }
     

@@ -817,7 +817,7 @@ const DetailsData = styled.div`
                             `
 const MainSlide = styled.div`
                             width: 100%;
-                            height: 37vh;
+                            height: auto;
                             display: flex;
                             justify-content: center;
                             align-items: center;
@@ -834,7 +834,8 @@ const ImageSetion = styled.div`
                             color: ${props => props.theme.colors.primary};
 } 
                             #img_main{
-                                height: 38vh !important;
+                                width: 100% !important;
+                                height: auto !important;
 }
                             position: relative;
                             top: 1.5rem;
