@@ -290,7 +290,7 @@ export default function SingleProductPage(props) {
     const ChatSeller = () => {
         if (Token !== null) {
             nav('/mainchatfile')
-        }else{
+        } else {
             nav('/login')
         }
     }
@@ -486,9 +486,9 @@ export default function SingleProductPage(props) {
                     <div className="setMarginDiv">
                         <div className="row">
                             <div className="ChatBtnProduct mt-1">
-                               {
-                                   AllData.user_id !== TokenID.ID &&  <button className='d-flex justify-content-center align-items-center ' onClick={ChatSeller} disabled={AllData.user_id == TokenID.ID}> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
-                            } 
+                                {
+                                    AllData.user_id !== TokenID.ID && <button className='d-flex justify-content-center align-items-center ' onClick={ChatSeller} disabled={AllData.user_id == TokenID.ID}> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
+                                }
                             </div>
                         </div><br />
                         <div className="row m-0 p-0">
@@ -832,17 +832,17 @@ const ImageSetion = styled.div`
                             .shareDetails{
                                 font-size: 14px;
                             color: ${props => props.theme.colors.primary};
-} 
+                            } 
                             #img_main{
                                 width: 100% !important;
-                                height: auto !important;
-}
+                                height: 100% !important;
+                            }
                             position: relative;
                             top: 1.5rem;
                             margin-left : 20%;
                             @media screen and (max-width : 600px){
-        margin-left: 0 !important;
-    }
+                            margin-left: 0 !important;
+                            }
                             `
 const ScrollDiv = styled.div`
                             cursor: pointer;

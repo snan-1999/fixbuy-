@@ -1,93 +1,36 @@
-import React, { useState, useRef } from 'react'
+import React, { useState , useRef } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import Footer from "../../src/form/form/Footer"
 import Header from "../../src/form/form/header"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import one from "../../src/assets/images/one.png"
+import two from "../../src/assets/images/two.png"
+import three from "../../src/assets/images/three.png"
+import AdminMessage from '../../src/ChatSeller/adminMessage'
+import UserMessage from '../../src/ChatSeller/UserMessage'
 import { AiOutlineSend } from 'react-icons/ai';
-import { GrGallery } from 'react-icons/gr';
-import MessageScreen from './MessageScreen'
-import MobChatFile from './MobChatFile'
-
+import {GrGallery} from 'react-icons/gr';
 export default function MainChatFile() {
-    let textData;
+    let textData; 
 
     const [sendMess, setsendMess] = useState(false)
-    const [active, setActive] = useState(0);
     const senMessage = (e) => {
         textData = document.getElementById('adminText').value;
         (e.target.value == "") ? setsendMess(true) : setsendMess(false)
         document.getElementById('adminText').value = ""
 
     }
-    const inputFile = useRef(null)
+    const inputFile = useRef(null) 
 
     const onButtonClick = () => {
         // `current` points to the mounted file input element
-        inputFile.current.click();
-    };
-
-
+       inputFile.current.click();
+      };
     return (
         <>
             <Header />
-            <div class="containers deskChat">
-
-                <div class="page-wrapper">
-
-                    <div class="page-content">
-                        <ChatMain className="ChatMain d-flex">
-                            <div className='row m-0'>
-                                <ListAll className='NamesColumn overflow-hidden'>
-                                    <div className='mt-3 px-3'>
-                                        <span className='chatheading'>CHATS</span>
-                                    </div>
-
-                                    <div className='d-flex justify-content-evenly text-center mt-4 sellerBuyer'>
-
-                                        {
-                                            ["Seller", "Buyer"].map((values , i) => {
-                                                return (
-                                                    <TabButton active={active == i} className='seller' onClick={()=> setActive(i)}>{values}</TabButton>
-                                                )
-                                            })
-                                        }
-                                        
-                                    </div>
-
-                                    <div className='mt-3'>
-                                        <ul class="list-group list-group-flush">
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 1
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 2
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 3
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 4
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 5
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </ListAll>
-                            </div>
-                            <MessageScreen />
-                        </ChatMain>
-                    </div>
-                </div>
-            </div>
-            {/* <ChatMain>
+            <ChatMain>
                 <Tabs variant='solid-rounded' colorScheme='blue' className="overflow-auto" orientation='vertical'>
                     <div className="row m-0 ">
                         <Width30>
@@ -99,8 +42,7 @@ export default function MainChatFile() {
                                         <FaSearch />
                                     </ChatSearchIcon>
                                 </SearchBAr>
-                            
-
+                                {/* tab panel chkra */}
                                 <TabList display='flex' flexDirection='column'> 
                                     <Tab className="border-0 mt-3 m-1 p-2">
                                         <ParentList className="d-flex align-items-center ">
@@ -221,33 +163,11 @@ export default function MainChatFile() {
 
                 </Tabs>
 
-            </ChatMain> */}
-            <div className='mobViewChat'>
-                <MobChatFile />
-            </div>
+            </ChatMain>
             <Footer />
         </>
     )
 }
-
-const TabButton = styled.button`
-all: unset;
-gap:10px;
-width: 30%;
-padding: 1% 10%;
-height: 6vh;
-border: none;
-border-radius: 15px;
-color:black;
-// margin: ;
-${({active})=> active && css `
-background: linear-gradient( #345276 ,100%,#497993 ,100% ,transparent);
-color:white;
-
-`
-
-    }
-`
 const ArrowLeft = styled.div`
       content: " ";
   position: absolute;
@@ -342,7 +262,7 @@ color: white;
 const ChatMain = styled.div`
   margin: 10px 5px;
   box-shadow: 1px 1px 10px #8080807a;
-  height: 84vh;
+  height: 81vh;
   border-radius: 5px;
   padding: 10px;
   overflow: auto;
@@ -350,11 +270,9 @@ const ChatMain = styled.div`
 const ListAll = styled.div`
      margin: 10px 5px;
   box-shadow: 1px 1px 10px #8080807a;
-  height: 78vh;
-  width: 25vw;
+  height: 75vh;
   border-radius: 5px;
   padding: 10px;
-  margin-left: 4%;
 `
 const SearchBAr = styled.div``
 const ChatInput = styled.input`

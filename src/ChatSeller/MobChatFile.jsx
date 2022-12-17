@@ -1,20 +1,22 @@
 import React, { useState, useRef } from 'react'
 import { FaSearch } from 'react-icons/fa'
-import styled, { css } from 'styled-components'
+import styled, {css} from 'styled-components'
 import Footer from "../../src/form/form/Footer"
 import Header from "../../src/form/form/header"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import one from "../../src/assets/images/one.png"
 import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
+import { Link } from "react-router-dom"; 
 import MessageScreen from './MessageScreen'
-import MobChatFile from './MobChatFile'
+// import styled, { css } from 'styled-components'
 
-export default function MainChatFile() {
+
+export default function MobChatFile() {
     let textData;
 
     const [sendMess, setsendMess] = useState(false)
-    const [active, setActive] = useState(0);
+    const [active , setActive] = useState(0);
     const senMessage = (e) => {
         textData = document.getElementById('adminText').value;
         (e.target.value == "") ? setsendMess(true) : setsendMess(false)
@@ -28,11 +30,11 @@ export default function MainChatFile() {
         inputFile.current.click();
     };
 
-
+    
     return (
         <>
-            <Header />
-            <div class="containers deskChat">
+            {/* <Header /> */}
+            <div class="containers ">
 
                 <div class="page-wrapper">
 
@@ -40,7 +42,7 @@ export default function MainChatFile() {
                         <ChatMain className="ChatMain d-flex">
                             <div className='row m-0'>
                                 <ListAll className='NamesColumn overflow-hidden'>
-                                    <div className='mt-3 px-3'>
+                                    <div className='mt-3 px-3 text-center'>
                                         <span className='chatheading'>CHATS</span>
                                     </div>
 
@@ -58,31 +60,31 @@ export default function MainChatFile() {
 
                                     <div className='mt-3'>
                                         <ul class="list-group list-group-flush">
+                                            
+                                            <li class="list-group-item mt-2">
+                                            <Link to ='/messagescreen' style={{textDecoration:"none" , color:"black"}} > <img src={one} style={{width:'15%' , height:'15%'}} /> User 1</Link>
+                                                </li>
+                                           
+                                            <li class="list-group-item mt-2">
+                                                <img src={one} style={{width:'15%' , height:'15%'}} /> User 2
+                                                </li>
 
                                             <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 1
-                                            </li>
+                                                <img src={one} style={{width:'15%' , height:'15%'}} /> User 3
+                                                </li>
 
                                             <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 2
-                                            </li>
+                                                <img src={one} style={{width:'15%' , height:'15%'}} /> User 4
+                                                </li>
 
                                             <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 3
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 4
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 5
-                                            </li>
+                                                <img src={one} style={{width:'15%' , height:'15%'}} /> User 5
+                                                </li>
                                         </ul>
                                     </div>
                                 </ListAll>
                             </div>
-                            <MessageScreen />
+            {/* <MessageScreen/> */}
                         </ChatMain>
                     </div>
                 </div>
@@ -222,10 +224,7 @@ export default function MainChatFile() {
                 </Tabs>
 
             </ChatMain> */}
-            <div className='mobViewChat'>
-                <MobChatFile />
-            </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
@@ -248,6 +247,7 @@ color:white;
 
     }
 `
+
 const ArrowLeft = styled.div`
       content: " ";
   position: absolute;
@@ -351,10 +351,21 @@ const ListAll = styled.div`
      margin: 10px 5px;
   box-shadow: 1px 1px 10px #8080807a;
   height: 78vh;
-  width: 25vw;
+  width: 85vw;
   border-radius: 5px;
   padding: 10px;
   margin-left: 4%;
+
+  @media screen and (max-width: 600px) {
+    margin: 10px 5px;
+  box-shadow: 1px 1px 10px #8080807a;
+  height: 69vh;
+  max-height: 70vh;
+  width: 90vw;
+  border-radius: 5px;
+  padding: 10px;
+//   margin-left: 4%;
+  }
 `
 const SearchBAr = styled.div``
 const ChatInput = styled.input`
