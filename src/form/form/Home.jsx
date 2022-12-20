@@ -100,6 +100,7 @@ const Home = () => {
         return () =>
             window.removeEventListener("scroll", listenToScroll);
     }, [])
+    let PriceLenght = 5;
 
     const listenToScroll = () => {
         let heightToHideFrom = 1800;
@@ -121,6 +122,9 @@ const Home = () => {
     let Max_length = 27;
     // const DAte = new Date();
     // alert(DAte.toDateString().split(' ').slice(1).join(' '))
+    const numberWithCommas = price => {
+        return parseInt(price).toLocaleString('en-US');
+    };
     useEffect(() => {
         latitude && homeDataAll()
     }, [PageNo, UserId, latitude])
@@ -211,7 +215,12 @@ const Home = () => {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
-                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}...</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart">
                                                             {
@@ -297,7 +306,7 @@ const Home = () => {
                             <img src={fot} alt="" />
                         </div>
                     </div>
-                    <div className="col-md-5 col-12">
+                    <div className="col-md-5 col-12"> 
                         <br />
                         <div className="FotHead">
                             <h2>TRY THE FIXEBUY APP</h2>

@@ -311,7 +311,18 @@ background:linear-gradient( ${props => props.theme.colors.primary} ,${props => p
     width: 50%;
     text-align: center;
     cursor: pointer;
-    
+    width: 36%;
+    @media screen and (max-width: 600px) {
+        all: unset;
+    background: linear-gradient( #487792 ,#37577A );
+    color: white;
+    padding: 10px 16px;
+    border-radius: 50rem;
+    font-size: .7rem !important;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    }
     &:hover{
         transition: all 500ms ease ;
         transform:scale(0.9);

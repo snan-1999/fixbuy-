@@ -14,7 +14,7 @@ import { AllDataCategory, FilterMainCategoryData } from '../../functions/MainCat
 import { FaHeart } from 'react-icons/fa';
 import { FiHeart } from 'react-icons/fi';
 import { MdLocationOn } from 'react-icons/md';
-import { baseUrl } from '../../functions/constant';
+import { baseUrl, ImageView } from '../../functions/constant';
 import axios from 'axios'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import useGeoLocation from '../../hooks/useGeoLoaction';
@@ -172,6 +172,13 @@ export default function MainProducts() {
                             <span>CATEGORY PRODUCTS</span>
                         </div>
                     </div>
+                    <div className="inline-block mr-auto pt-1">
+                {
+                    Location.loaded &&
+                    JSON.stringify(Location)
+
+                }
+            </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
                         <div className=" pt-4">
                             <div className="col-md-6 position-relative ">
@@ -224,7 +231,7 @@ export default function MainProducts() {
                                             <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
@@ -319,9 +326,9 @@ const CardHeight = styled.div`
 position: relative;
 top: 0;
 /* @media (max-width: 768px) {
-    display: none;
+    display: none; 
   } */
-    height: 70vh ;
+    /* height: 70vh ; */
     @media (max-width :600px){
         height: auto ;
     }

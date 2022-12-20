@@ -54,7 +54,7 @@ font-family: 'Lato', sans-serif;
     display: grid;
     place-content: center;
     height: 100%;
-    place-items: center;
+    /* place-items: center; */
     z-index: 20;
     top:0;
     left: 50%;
@@ -75,6 +75,7 @@ box-shadow: 0 1px 5px 5px rgb(235 234 234);
 
 
 @media screen and (max-width: 600px){
+    width: 70vw;
     margin-left: 25%;
     padding: 1rem 2rem;
 }
@@ -186,23 +187,24 @@ const ApplyBtn = styled.button`
 
     @media screen and (max-width: 600px) {
         all: unset;
-    background: grey ;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 50rem;
-    width: 30%;
-    text-align: center;
-    cursor: pointer;
-    
-    
-    &:hover{
-        transition: all 500ms ease ;
-        transform:scale(0.9);
-        /* box-shadow: 0px 1px 10px #ffffff2b; */
+        background: grey ;
+        color: white;
+        font-size: .7rem !important;
+        padding: 10px 16px;
+        border-radius: 50rem;
+        width: 30%;
+        text-align: center;
+        cursor: pointer;
         
+        
+        &:hover{
+            transition: all 500ms ease ;
+            transform:scale(0.9);
+            /* box-shadow: 0px 1px 10px #ffffff2b; */
+            
+        }
     }
-    }
-`
+    `
 
 const ApplyBtn1 = styled.button`
     all: unset;
@@ -213,12 +215,23 @@ const ApplyBtn1 = styled.button`
     border-radius: .4rem;
     text-align: center;
     cursor: pointer;
-    
+    width: 36%;
+    @media screen and (max-width: 600px) {
+        all: unset;
+    background: linear-gradient( #487792 ,#37577A );
+    color: white;
+    padding: 10px 16px;
+    border-radius: 50rem;
+    font-size: .7rem !important;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    }
     &:hover{
         transition: all 500ms ease ;
         transform:scale(0.9);
         /* box-shadow: 0px 1px 10px #ffffff2b; */
         
     }
-`
+    `
 // const FormControl styled

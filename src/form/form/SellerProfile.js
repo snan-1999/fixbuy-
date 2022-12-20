@@ -272,9 +272,9 @@ const SellerProfile = () => {
                             </div>
                             <div className="second-box">
                                 <div className="col box2">
-                                    <span className="ads-head">Ads Posted by this user()</span>
                                 </div>
                                 <div class="container" id="card_box">
+                                    <span className="ads-head">Ads Posted by this user()</span>
                                     <div className="row">
                                         {
                                             postedproduct?.map((ProductDetails, key) => {

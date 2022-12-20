@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@600&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,800&display=swap');
 
 /* @import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@600&display=swap'); */
 * {
@@ -165,7 +165,7 @@ div.logo {
 .drop-down {
     color: white;
     /* font-size: 18px; */
-    font-weight: 100;
+    font-weight: 500;
     width: 100%;
     margin-top: 3px;
     margin-left: 0px;
@@ -253,6 +253,7 @@ li.nav-item {
 
 .menu a {
     color: black;
+    font-weight: 500;
 }
 
 .login-pd {
@@ -314,7 +315,7 @@ li.nav-item {
 
 .maindiv {
     margin-top: 5%;
-    height: 50vh;
+    height: auto;
     /* width: 230px; */
     box-shadow: 0 1px 5px 5px rgb(235, 234, 234);
     border-radius: 10px;
@@ -1048,6 +1049,7 @@ input[type=radio] {
     background-color: transparent;
     text-align: center;
     text-decoration: none;
+    font-weight: 500;
     /* width: 100%; */
 }
 
@@ -3011,7 +3013,7 @@ button.GoogleBtn {
 
     .maindiv {
         margin-top: 5%;
-        height: 34vh;
+        height: auto;
         width: 43vw;
         box-shadow: 0 1px 5px 5px rgb(235 234 234);
         border-radius: 10px;
@@ -3022,7 +3024,7 @@ button.GoogleBtn {
 
     .maindiv-ads {
         margin-top: 5%;
-        height: 40vh;
+        height: auto;
         width: 43vw;
         box-shadow: 0 1px 5px 5px rgb(235 234 234);
         border-radius: 10px;
@@ -3947,7 +3949,7 @@ button.GoogleBtn {
     /* 5 dec */
     .maindiv-ads {
         margin-top: 5%;
-        height: 47vh;
+        height: auto !important;
         max-height: 50vh;
         /* width: 43vw; */
         box-shadow: 0 1px 5px 5px rgb(235 234 234);

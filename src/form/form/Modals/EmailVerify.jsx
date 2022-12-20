@@ -307,7 +307,7 @@ const ApplyBtn1 = styled.button`
     border-radius: .4rem;
     text-align: center;
     cursor: pointer;
-    
+    /* width: 36%; */
     &:hover{
         transition: all 500ms ease ;
         transform:scale(0.9);

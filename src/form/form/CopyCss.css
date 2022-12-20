@@ -425,7 +425,7 @@ li.footerLink:hover::before {
     width: 100%;
     height: 100%;
 }
-[4:41 pm, 17/12/2022] Nandita Ofc: /* chat start */
+ /* chat start */
 .chatheading {
     font-size: 25px;
     color: #37577A;
@@ -532,8 +532,17 @@ li.footerLink:hover::before {
         /* background: gray; */
         overflow: hidden !important;
         /* /* margin-top: -15%; */
+    } 
+    .container-heading.service-form span:before {
+        position: absolute;
+        content: "";
+        width: 80%;
+        /*height: 8%;*/
+        height: 100%;
+        background: linear-gradient(var(--color1), var(--color2)) !important;
+        z-index: -1;
+        transform: rotate(45deg);
     }
-
     .container.my-cont {
         margin-bottom: 100px;
         margin-top: 35px;
@@ -542,11 +551,25 @@ li.footerLink:hover::before {
     }
 
     .dl {
+        padding: 0;
         margin-left: -30%;
     }
+    .dl:hover {
+        
+        /* margin-left: -100%; */
+        width: 100%;
+        background-color: transparent;
+        padding: 0;
+        color:  black;
+        /* font-size: 0.4rem; */
+        border-radius: 50%;
+        transition: all 400ms ease-out;
 
+    }
     .delete {
         margin-top: 8%;
+        display: flex;
+        justify-content: center;
     }
 
     .date {
@@ -589,9 +612,13 @@ li.footerLink:hover::before {
     }
 
     .status {
+        display: flex;
         text-align: right;
-        margin-top: 8%;
+        margin-top: 0%;
+        align-items: center;
     }
+    
+    
 
     /*my ads end*/
 
@@ -682,17 +709,17 @@ li.footerLink:hover::before {
         background-color: #365679;
         border-radius: 5%;
         border: none;
-        padding: 6px 20px 6px;
+        padding: 3px 20px 3px;
         margin-top: -1%;
         color: white;
         margin-left: 4%;
-        width: 30vw;
+        width: 34vw;
         /* margin-right: 6%; */
     }
-
+  
     .report-button1 {
         /* margin-left: 18%; */
-        color: #4C8AAF;
+        color: #4C8AAF; 
         margin-top: -2%;
         margin-bottom: 6%;
     }
@@ -707,7 +734,7 @@ li.footerLink:hover::before {
     }
 
     .subscribe-color1 {
-        font-size: 15px;
+        font-size: 13px;
         padding-bottom: 0px;
     }
 

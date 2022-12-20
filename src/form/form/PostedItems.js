@@ -17,9 +17,9 @@ import UserDeleteModal from "./Modals/DeleteModal";
 import { toast, ToastContainer } from "react-toastify";
 
 const PostedItems = () => {
-  
+
   // console.log(sellertype , 'sellertype')
-  const MAX_LENGTH = 25;
+  const MAX_LENGTH = 15;
   const IdData = window.localStorage.getItem('token')
   let ProfleId;
   if (IdData) {
@@ -130,7 +130,7 @@ const PostedItems = () => {
                       <div className="pdt-details">
                         <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                           <div className="d-flex" style={{ justifyContent: 'space-between' }}>
-                            <div className="price">₹{(automobileProduct.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                            <div className="price">₹ {(automobileProduct.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
                             <div className="status">
                               {
                                 (automobileProduct.status == 'pending') ?
@@ -139,7 +139,7 @@ const PostedItems = () => {
                                     <span className="sts" style={{ backgroundColor: 'red' }}>{automobileProduct.status}</span>
                                     : (automobileProduct.status == 'approved') ?
                                       <span className="sts" style={{ backgroundColor: 'green' }}>{automobileProduct.status}</span>
-                                      :
+                                      : 
                                       ""
                               }
                             </div>
@@ -187,15 +187,19 @@ const PostedItems = () => {
                             </div>
                             <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                               <div>
-                                <span className="date">{new Date(automobileProduct.createdAt).toDateString()}</span>
+                                {
+                                  (automobileProduct.boostPlan.expireDate) ?
+                                    <span className="date">Expire : {new Date(automobileProduct.boostPlan.expireDate).toDateString()}</span>
+                                    :
+                                    <span className="date">{new Date(automobileProduct.createdAt).toDateString()}</span>
+                                }
                               </div>
 
-                              {
+                              {/* {
                                 (automobileProduct.boostPlan.plan !== 'free') ?
-                                  <span className="date">Expire Date: {new Date(automobileProduct.boostPlan.expireDate).toDateString()}</span>
                                   :
                                   ""
-                              }
+                              } */}
 
                             </Link>
                           </div>

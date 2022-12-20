@@ -121,7 +121,7 @@ export default function SingleProductPage(props) {
                             <div className='col-md-3 col-5'>
 
                                 <p className="setKeys w-100 text-capitalize">
-                                    {i}
+                                {i.replace(/_/g, ' ')}
                                 </p>
                             </div>
                             <div className='col-md-9 col-7 text-capitalize setKeysVal'>
@@ -297,7 +297,7 @@ export default function SingleProductPage(props) {
     useEffect(() => {
         SingleData()
         // sellerDetails()
-    }, [0, latitude, PageNO])
+    }, [0, latitude, PageNO , id])
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
