@@ -10,7 +10,7 @@ import Footer from "./Footer";
 import sellerIcon from '../../assets/images/sellerIcon.png';
 import locationIcon from '../../assets/images/locationIcon.png';
 // import facebook from '../../assets/images/facebook.png';
-import { baseUrl } from "../../functions/constant";
+import { baseUrl, ImageView } from "../../functions/constant";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios'
@@ -283,7 +283,7 @@ const SellerProfile = () => {
                                                         {/* <CardHeight> */}
                                                         <div class="shadow p-2 mb-4 bg-white maindiv">
                                                             <div >
-                                                                <div class="img-wh overflow-hidden"><img src={`${baseUrl}/allcategories/get/productImage/${ProductDetails.images[0]}`} class="pdt-img" /></div>
+                                                                <div class="img-wh overflow-hidden"><img src={`${ImageView}${ProductDetails.images[0]}`} class="pdt-img" /></div>
                                                                 <div class="pdt-details">
                                                                     <div class="price">₹{(ProductDetails.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
                                                                     {/* <div class="font-weight-light desc">{ProductDetails.description}</div> */}

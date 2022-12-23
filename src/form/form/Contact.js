@@ -10,6 +10,7 @@ import { baseUrl } from "../../functions/constant";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import styled from "styled-components";
 
 
 const Contact = () => {
@@ -21,6 +22,7 @@ const Contact = () => {
     const [email, setEmail] = useState('');
     const [mobile, setMobile] = useState('');
     const [message, setMessage] = useState('');
+    const [Loader, setLoader] = useState(false);
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const EmailRef = useRef();
@@ -28,8 +30,18 @@ const Contact = () => {
     const MessageRef = useRef();
 
 
-    const contactApi = async () => {
+    const Validations = [
+        firstName,
+        lastName,
+        email,
+        mobile,
+        message
 
+    ]
+    const contactApi = async () => {
+        Validations.map((val) => {
+            return val
+        }) !== "" && setLoader(true)
         const api = `${baseUrl}/contact/form/create`;
         await axios.post(api, {
             firstName: firstName,
@@ -40,6 +52,7 @@ const Contact = () => {
         }).then((response) => {
             console.log(response.data);
             if (response.data) {
+                setLoader(false)
                 // setMessages('Your message has been sent !');
                 toast('Your message has been sent.', {
                     position: "bottom-right",
@@ -57,16 +70,19 @@ const Contact = () => {
                 setEmail('')
                 setMobile('')
                 setMessage('')
+            } else {
+                setLoader(true)
             }
         }, error => {
             console.log(error.response.data);
         },)
     }
+    // setLoader(false)
 
 
     return (
         <>
-        <ToastContainer />
+            <ToastContainer />
             <Header />
             <div className="container">
                 <div className="for-center-contact">
@@ -144,12 +160,12 @@ const Contact = () => {
                 <div className="d-flex">
                     <input type="submit" name="submit" value="submit" className="btn contact-btnn text-uppercase" onClick={contactApi} />
 
-                    {errors &&
-                        <div className="contactMessage" role="alert" style={{ color: 'green' }}>
-                            {messages}
-                        </div>
-                    }
                 </div>
+                    {Loader &&
+                       <div class=" ms-4 mt-4 alert alert-danger" role="alert">
+                      Invalid Fields
+                     </div>
+                    }
             </div>
 
             {/* </form> */}
@@ -186,3 +202,6 @@ const Contact = () => {
 }
 
 export default Contact;
+const ErrorMsg = styled.div`
+
+`

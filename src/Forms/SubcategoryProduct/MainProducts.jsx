@@ -90,6 +90,7 @@ export default function MainProducts() {
             setLoading(false)
             if (Diffrence == maincategory) {
                 console.log(true, 'run')
+                setAllData(data.data)
             } else {
                 setAllData(data.data)
                 console.log(false, 'run')

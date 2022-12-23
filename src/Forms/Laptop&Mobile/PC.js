@@ -15,9 +15,11 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import CropImage2 from "../CropImage2";
+import { Spinner } from "@chakra-ui/react";
 
 
 const PC = () => {
+    const [Loader, setLoader] = useState(false)
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -146,12 +148,14 @@ const PC = () => {
                                                     formData.append('images', cropdata[18])
                                                     formData.append('images', cropdata[19])
                                                     const api = `${baseUrl}/product/mobiles/form/create`;
+                                                    setLoader(true)
                                                     await axios.post(api, formData, {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
                                                     }).then((response) => {
                                                         if (response.data.status) {
+                                                            setLoader(false)
                                                             toast('Successfully Created', {
                                                                 position: "bottom-right",
                                                                 autoClose: 5000,
@@ -521,7 +525,7 @@ const PC = () => {
 
 
                         <label for="pincpde">PINCODE*</label>
-                        <input type="text" name="pincpde" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
+                        <input type="number" name="pincpde" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
                             value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
@@ -587,6 +591,7 @@ const PC = () => {
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                     value={sellername}
                                     ref={sellernameRef}
+                                    readOnly
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
@@ -658,6 +663,7 @@ const PC = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
+                                   {  Loader &&  <Spinner className="ChkraSpin"/>}
                         </div>
 
                     }

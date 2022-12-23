@@ -16,9 +16,11 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
+import { Spinner } from "@chakra-ui/react";
 
 
 const ForRent = () => {
+    const [Loader, setLoader] = useState(false)
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -198,7 +200,7 @@ const ForRent = () => {
                                                                                         formData.append('images', cropdata[11])
                                                                                         formData.append('images', cropdata[12])
                                                                                         formData.append('images', cropdata[13])
-                                                                                        formData.append('images', cropdata[14])
+                                                                                         formData.append('images', cropdata[14])
                                                                                         formData.append('images', cropdata[15])
                                                                                         formData.append('images', cropdata[16])
                                                                                         formData.append('images', cropdata[17])
@@ -206,12 +208,14 @@ const ForRent = () => {
                                                                                         formData.append('images', cropdata[19])
 
                                                                                         const api = `${baseUrl}/product/properties/form/create`;
+                                                                                        setLoader(true)
                                                                                         await axios.post(api, formData, {
                                                                                             headers: {
                                                                                                 'Content-Type': 'multipart/form-data'
                                                                                             }
                                                                                         }).then((response) => {
                                                                                             if (response.data.status) {
+                                                                                                setLoader(false)
                                                                                                 toast('Successfully Created', {
                                                                                                     position: "bottom-right",
                                                                                                     autoClose: 5000,
@@ -871,6 +875,7 @@ const ForRent = () => {
                                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                                     value={sellername}
                                                     ref={sellernameRef}
+                                                    readOnly
                                                     onChange={(e) => {
                                                         setSellerName(e.target.value)
                                                         sellernameRef.current.style.borderColor = "#ced4da";
@@ -953,6 +958,7 @@ const ForRent = () => {
                                                 onChange={(e) => {
                                                     setMessage('')
                                                 }} />
+                                                     {  Loader &&  <Spinner className="ChkraSpin"/>}
                                         </div>
 
                                     }

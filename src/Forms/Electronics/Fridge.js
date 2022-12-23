@@ -17,7 +17,7 @@ import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import CropImage2 from "../CropImage2";
 import { Stack, Text } from "@chakra-ui/react";
-
+import { Spinner } from '@chakra-ui/react'
 const Fridge = () => {
     const { category } = useParams();
     const { latitude, Longitude } = useContext(GlobalVariables)
@@ -63,6 +63,7 @@ const Fridge = () => {
     const [hasError, setError] = useState('')
     const [imageError, setimageError] = useState('');
     const [AllErrors, setAllErrors] = useState(false)
+    const [Loader, setLoader] = useState(false)
 
     const [verify, setverify] = useState(false);
     const maxNumber = 20;
@@ -162,15 +163,16 @@ const Fridge = () => {
 
 
                                                 const api = `${baseUrl}/product/electronics/form/create`;
-
+                                                setLoader(true)
                                                 await axios.post(api, formData,
                                                     {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
                                                     }
-                                                ).then((response) => {
-                                                    if (response.data.status) {
+                                                    ).then((response) => {
+                                                        if (response.data.status) {
+                                                        setLoader(false)
                                                         toast('Successfully Created', {
                                                             position: "bottom-right",
                                                             autoClose: 5000,
@@ -316,6 +318,7 @@ const Fridge = () => {
 
     return (
         <>
+       
             <Header />
             <ToastContainer />
             <h6 className="sub-Categories-Heading text-uppercase">Electronics/{newcategory}</h6>
@@ -614,6 +617,7 @@ const Fridge = () => {
                                     <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                         value={sellername}
                                         ref={sellernameRef}
+                                        readOnly
                                         onChange={(e) => {
                                             setSellerName(e.target.value)
                                             sellernameRef.current.style.borderColor = "#ced4da";
@@ -687,6 +691,7 @@ const Fridge = () => {
                                     onChange={(e) => {
                                         setMessage('')
                                     }} />
+                                 {  Loader &&  <Spinner className="ChkraSpin"/>}
                             </div>
 
                         }

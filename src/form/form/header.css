@@ -117,13 +117,13 @@ div.logo {
     justify-content: space-between;
     align-items: center;
     color: #fff;
-    gap: 7%;
+    gap: 4%;
 }
 
 .profiles {
     display: flex;
     position: relative;
-    right: 4% !important;
+    right: 3% !important;
 }
 
 .dropdown-category {
@@ -337,7 +337,7 @@ li.nav-item {
 
 .maindiv-ads {
     margin-top: 5%;
-    height: 57vh;
+    /* height: 57vh; */
     /* width: 230px; */
     box-shadow: 0 1px 5px 5px rgb(235, 234, 234);
     border-radius: 10px;
@@ -882,6 +882,9 @@ iframe.whmap {
     /* padding: 10px 20px; */
     /* font-size: 19px; */
     border-radius: 6px !important;
+    display: flex;
+    align-items: center;
+    transition: all 500ms ease;
 }
 
 .container.tab-set {
@@ -2340,6 +2343,7 @@ box-shadow: none;
 
 .ContentClass {
     padding-right: 3rem;
+    align-items: flex-start !important;
     /* margin-top: 2%; */
     /* margin-left: 8%; */
 }
@@ -2685,6 +2689,25 @@ button.GoogleBtn {
     color: var(--color1) !important;
 }
 @media screen and (max-width: 600px) {
+    .reactEasyCrop_Container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        user-select: none;
+        touch-action: none;
+        cursor: move;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 64vw !important;
+        margin-left: 0% !important;
+        position: fixed !important;
+        left: 18% !important;
+        translate: transform(-50% , -50%) !important;
+    }
     #setMargin1_ {
         padding-top: 10px;
         width: 78% !important;
@@ -3024,7 +3047,7 @@ button.GoogleBtn {
 
     .maindiv-ads {
         margin-top: 5%;
-        height: auto;
+        /* height: auto; */
         width: 43vw;
         box-shadow: 0 1px 5px 5px rgb(235 234 234);
         border-radius: 10px;
@@ -3950,7 +3973,7 @@ button.GoogleBtn {
     .maindiv-ads {
         margin-top: 5%;
         height: auto !important;
-        max-height: 50vh;
+        /* max-height: 50vh; */
         /* width: 43vw; */
         box-shadow: 0 1px 5px 5px rgb(235 234 234);
         border-radius: 10px;

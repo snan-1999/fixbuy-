@@ -14,9 +14,10 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
-
+import { Spinner } from '@chakra-ui/react'
 
 const Cars = () => {
+    const [Loader, setLoader] = useState(false)
     const { category2 } = useParams();
     const { latitude, Longitude } = useContext(GlobalVariables)
     const IdData = localStorage.getItem('token');
@@ -173,11 +174,13 @@ const Cars = () => {
                                                                         formData.append('images', cropdata[18])
                                                                         formData.append('images', cropdata[19])
                                                                         const api = `${baseUrl}/product/automobile/form/create`;
+                                                                        setLoader(true)
                                                                         await axios.post(api, formData, {
                                                                             headers: {
                                                                                 'Content-Type': 'multipart/form-data'
                                                                             }
                                                                         }).then((response) => {
+                                                                            setLoader(false)
                                                                             if (response.data.status) {
                                                                                 toast('Successfully Created', {
                                                                                     position: "bottom-right",
@@ -713,6 +716,7 @@ const Cars = () => {
                                 <label for="name" >NAME*</label>
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
                                     ref={sellernameRef}
+                                    readOnly
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
@@ -795,6 +799,7 @@ const Cars = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
+                                   {  Loader &&  <Spinner className="ChkraSpin"/>}
                         </div>
 
                     }

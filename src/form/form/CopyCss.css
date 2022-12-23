@@ -31,7 +31,7 @@
 .price {
     color: var(--color1);
     margin-left: -3%;
-    font-weight: 600;
+    font-weight: 700 !important;
     margin-top: 15px;
     font-weight: 500;
     font-size: 17px !important;
@@ -476,6 +476,11 @@ li.footerLink:hover::before {
 }
 
   
+.ChkraSpin{
+    height: 20px !important;
+    width: 20px !important;
+    margin-right: 14px;
+}
 @media screen and (max-width: 600px) {
     .mobViewChat{
         display: block;
@@ -1127,7 +1132,7 @@ li.footerLink:hover::before {
 
     .maindiv-ads {
         margin-top: 5%;
-        height: 30vh;
+        /* height: 30vh; */
         /* width: 230px; */
         box-shadow: 0 1px 5px 5px rgb(235 234 234);
         border-radius: 10px;

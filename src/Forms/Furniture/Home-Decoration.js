@@ -15,8 +15,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import CropImage2 from "../CropImage2";
+import { Spinner } from "@chakra-ui/react";
 
 const HomeDecoration = () => {
+    const [Loader, setLoader] = useState(false)
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -143,12 +145,14 @@ const HomeDecoration = () => {
                                                     formData.append('images', cropdata[18])
                                                     formData.append('images', cropdata[19])
                                                     const api = `${baseUrl}/product/furnitures/form/create`;
+                                                    setLoader(true)
                                                     await axios.post(api, formData, {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
                                                     }).then((response) => {
                                                         if (response.data.status) {
+                                                            setLoader(false)
                                                             toast('Successfully Created', {
                                                                 position: "bottom-right",
                                                                 autoClose: 5000,
@@ -576,6 +580,7 @@ const HomeDecoration = () => {
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                     value={sellername}
                                     ref={sellernameRef}
+                                    readOnly
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
@@ -647,6 +652,7 @@ const HomeDecoration = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
+                                {  Loader &&  <Spinner className="ChkraSpin"/>}
                         </div>
 
                     }

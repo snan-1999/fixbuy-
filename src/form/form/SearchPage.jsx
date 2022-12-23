@@ -7,7 +7,7 @@ import { GlobalVariables } from '../../Context/StateProvider';
 import { SearchHome } from '../../functions/HomeFun';
 import Header from './header'
 import shopIcon from '../../assets/images/shopIcon.png'
-import { baseUrl } from '../../functions/constant';
+import { baseUrl, ImageView } from '../../functions/constant';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { MdLocationOn } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
@@ -98,7 +98,7 @@ function SearchPage() {
                                             <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">

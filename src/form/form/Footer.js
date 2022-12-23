@@ -201,7 +201,7 @@ const Footer = () => {
                                     Uttar Pradesh, 201003
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
-                                    <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
+                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
                                     8527720760
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>

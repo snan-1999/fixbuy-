@@ -15,6 +15,7 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
+import { Spinner } from "@chakra-ui/react";
 
 const Service = () => {
     const { latitude, Longitude } = useContext(GlobalVariables)
@@ -65,7 +66,7 @@ const Service = () => {
     const pincodeRef = useRef();
     const sellerphoneRef = useRef();
     const maxNumber = 20;
-
+    const [Loader, setLoader] = useState(false)
     const [imageError, setimageError] = useState('');
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
@@ -145,12 +146,14 @@ const Service = () => {
                                                     formData.append('images', cropdata[18])
                                                     formData.append('images', cropdata[19])
                                                     const api = `${baseUrl}/product/services/form/create`;
+                                                    setLoader(true)
                                                     await axios.post(api, formData, {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
                                                     }).then((response) => {
                                                         if (response.data.status) {
+                                                            setLoader(false)
                                                             toast('Successfully Created', {
                                                                 position: "bottom-right",
                                                                 autoClose: 5000,
@@ -558,6 +561,7 @@ const Service = () => {
                                 <label for="name" >NAME*</label>
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required
                                     value={sellername}
+                                    readOnly
                                     ref={sellernameRef}
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
@@ -641,6 +645,7 @@ const Service = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
+                                   {  Loader &&  <Spinner className="ChkraSpin"/>}
                         </div>
 
                     }

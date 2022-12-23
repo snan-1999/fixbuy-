@@ -59,11 +59,11 @@ const Support = () => {
                                 })
                             } */}
                                     <AdminDiv>
-                                        <AdminMessage data={'hey whtsapp'} />
+                                    <AdminMessage data={'Let connect to our executive'} />
                                     </AdminDiv>
-                                    <UserDiv>
+                                    {/* <UserDiv>
                                         <UserMessage />
-                                    </UserDiv>
+                                    </UserDiv> */}
                                 </ReactScrollToBottom>
 
                             </ChatBody>
@@ -167,27 +167,40 @@ const ChatIcon = styled.div`
     border-radius: 50px;
     `
 const ChatBox = styled(motion.div)`
-    height: 58vh;
-    width: 22vw;
+height: 58vh;
+width: auto ;
+background-color: white;
+position: fixed;
+top: 30%;
+left: 76.3%;
+border-radius: 10px;
+-webkit-transition: all 100ms ease;
+transition: all 100ms ease;
+box-shadow: 1px 1px 10px grey;
+overflow: hidden;
+z-index: 10;
+@media screen and (max-width:600px){
+    height: 48vh;
+    width: 62vw;
     background-color: white;
     position: fixed;
-    top: 30%;
-    left: 76.3%;
-    border-radius: 10px;
-    -webkit-transition: all 100ms ease;
-    transition: all 100ms ease;
-    box-shadow: 1px 1px 10px grey;
-    overflow: hidden;
-    z-index: 10;
-    @media screen and (max-width:600px){
-        height: 48vh;
-        width: 62vw;
-        background-color: white;
-        position: fixed;
-        top: 41%;
-        left: 35.3%;
-    }
-    `
+    top: 41%;
+    left: 35.3%;
+}
+
+@media screen and (min-width: 601px) and (max-width : 900px){
+    height: 30vh;
+    width: 30vw;
+    left : 68%;
+    top: 58%;
+}
+/* @media (orientation: landscape) {
+    height: 40vh;
+    width: 28vw;
+    left: 70.3%;
+    top: 48%;
+} */
+`
 
 const ChatHeader = styled.div`
 border-radius: 10px 10px 30px 30px;

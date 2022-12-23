@@ -14,8 +14,9 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { GlobalVariables } from "../../Context/StateProvider";
 // import { Link } from "react-router-dom";
 import CropImage2 from "../CropImage2";
-
+import { Spinner } from "@chakra-ui/react";
 const Fashion = () => {
+    const [Loader, setLoader] = useState(false)
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
     const IdData = localStorage.getItem('token');
@@ -146,12 +147,14 @@ const Fashion = () => {
                                                 formData.append('images', cropdata[18])
                                                 formData.append('images', cropdata[19])
                                                 const api = `${baseUrl}/product/fashions/form/create`;
+                                                setLoader(true)
                                                 await axios.post(api, formData, {
                                                     headers: {
                                                         'Content-Type': 'multipart/form-data'
                                                     }
                                                 }).then((response) => {
                                                     if (response.data.status) {
+                                                        setLoader(false)
                                                         console.log(response.data);
                                                         toast('Successfully Created', {
                                                             position: "bottom-right",
@@ -572,6 +575,7 @@ const Fashion = () => {
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required readOnly
                                     value={sellername}
                                     ref={sellernameRef}
+                                    readOnly
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
@@ -654,6 +658,7 @@ const Fashion = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
+                                {  Loader &&  <Spinner className="ChkraSpin"/>}
                         </div>
 
                     }

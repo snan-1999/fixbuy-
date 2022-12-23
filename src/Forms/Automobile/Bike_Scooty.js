@@ -18,8 +18,10 @@ import { GlobalVariables } from "../../Context/StateProvider";
 // import CropImage2 from '../CropImage2'
 import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
+import { Spinner } from "@chakra-ui/react";
 // import { Link } from "react-router-dom";
 const Bike = () => {
+    const [Loader, setLoader] = useState(false)
     const location = useGeoLocation();
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -174,6 +176,7 @@ const Bike = () => {
                                                             formData.append('images', cropdata[19])
                                                             // console.log(sellerphone)
                                                             const api = `${baseUrl}/product/automobile/form/create`;
+                                                            setLoader(true)
                                                             await axios.post(api, formData, {
                                                                 headers: {
                                                                     'Content-Type': 'multipart/form-data'
@@ -181,6 +184,7 @@ const Bike = () => {
                                                             }).then((response) => {
                                                                 console.log(response.data.status);
                                                                 if (response.data.status) {
+                                                                    setLoader(false)
                                                                     toast('Successfully Created', {
                                                                         position: "bottom-right",
                                                                         autoClose: 5000,
@@ -806,6 +810,7 @@ const Bike = () => {
                                                 onChange={(e) => {
                                                     setMessage('')
                                                 }} />
+                                                     {  Loader &&  <Spinner className="ChkraSpin"/>}
                                         </div>
 
                                     }

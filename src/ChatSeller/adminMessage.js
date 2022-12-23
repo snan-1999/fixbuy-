@@ -6,15 +6,15 @@ export default function AdminMessage({ data }) {
         <Messages>{data}</Messages>
     )
 }
-
 const Messages = styled.div`
     
-    background-color: #59c3f0;
-    width: 30%; 
-    margin:10px 20px; 
-    padding: 5px 10px 5px 10px; 
-    border-radius: 3px;
-    font-size: 0.9rem;
+    background: linear-gradient(${props => props.theme.colors.primary} , ${props => props.theme.colors.secondary});
+    width: 80%; 
+    color: #fff;
+    margin:15px 20px; 
+    padding: 8px 10px 8px 15px; 
+    border-radius: 25px;
+    font-size: 0.8rem;
     /* &::before{
         border-color: #59c3f0;
         border-color: #59c3f0;

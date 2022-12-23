@@ -16,8 +16,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-
+import { Spinner } from "@chakra-ui/react";
 const Books = () => {
+    const [Loader, setLoader] = useState(false)
     const location = useGeoLocation();
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -147,12 +148,14 @@ const Books = () => {
                                                     formData.append('images', cropdata[18])
                                                     formData.append('images', cropdata[19])
                                                     const api = `${baseUrl}/product/booksAndSports/form/create`;
+                                                    setLoader(true)
                                                     await axios.post(api, formData, {
                                                         headers: {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
                                                     }).then((response) => {
                                                         if (response.data.status) {
+                                                            setLoader(false)
                                                             toast('Successfully Created', {
                                                                 position: "bottom-right",
                                                                 autoClose: 5000,
@@ -585,6 +588,7 @@ const Books = () => {
                                 <label for="name" >NAME*</label>
                                 <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername} 
                                     ref={sellernameRef}
+                                    readOnly
                                     onChange={(e) => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
@@ -667,6 +671,7 @@ const Books = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
+                                     {  Loader &&  <Spinner className="ChkraSpin"/>}
                         </div>
 
                     }

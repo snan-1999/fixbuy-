@@ -2,14 +2,14 @@ import React from "react";
 import "./css/custom.css";
 import "./css/iofrm-style.css";
 import "../form/header.css";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SellMob = () => {
 
     const Automobile = [
         {
-            name:'Bike',
+            name:'Bike', 
             to:'/sell/automobile/bikes'
         },
         {
@@ -227,23 +227,21 @@ const SellMob = () => {
         <>
         <div class="container">
   <div class="row row-cols-2 ">
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Automobile}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-car" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Automobile</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Automobile}><div class="col border text-center py-5">Automobile</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Electronics}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-tv" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Electronics</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Electronics}><div class="col border text-center py-5">Electronics</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Furniture}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-tv" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Furniture</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Furniture}><div class="col border text-center py-5">Furniture</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Fashion}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-shirt" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Fashion</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Fashion}><div class="col border text-center py-5">Fashion</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={services}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-bell-concierge" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Services</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={services}><div class="col border text-center py-5">Services</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Properties}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-tv" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Properties</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Properties}><div class="col border text-center py-5">Properties</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={books_sports}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-medal" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Books</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={books_sports}><div class="col border text-center py-5">Books</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Laptop}><div class="col border text-center py-5">
-        <FontAwesomeIcon icon="fa-laptop" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Laptop
-        </div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Laptop}><div class="col border text-center py-5">Laptop</div></Link>
     
   </div>
 </div>

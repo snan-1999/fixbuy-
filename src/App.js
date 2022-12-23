@@ -38,13 +38,24 @@ import SellCategory from './form/form/SellCategory';
 import MainChatFile from './ChatSeller/MainChatFile';
 import PakagesShowMenu from './form/form/PakagesShowMenu';
 import MessageScreen from './ChatSeller/MessageScreen';
+import useGeoLocation from './hooks/useGeoLoaction';
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
 
 function App() {
+  const location = useGeoLocation();
   return (
     <>
+      {/* GeoLocation start */}
+      <div className="inline-block mr-auto pt-1">
+        {
+          location.loaded &&
+          JSON.stringify(location)
+
+        }
+      </div>
+      {/* Geolocation end */}
       <Router>
         {/* <Login /> */}
         <Routes>
@@ -88,8 +99,8 @@ function App() {
           {/* mobile */}
           <Route path='/sell/automobile/SellCategory' element={<SellCategory />} />
           <Route path='/packages/:id/:categories/:sellertype' element={<Packages />} />
-          <Route path='/mainchatfile' element={<MainChatFile/>} />
-          <Route path='/messagescreen' element={<MessageScreen/>} />
+          <Route path='/mainchatfile' element={<MainChatFile />} />
+          <Route path='/messagescreen' element={<MessageScreen />} />
 
 
           {/* <Route exact path='/' element={</>/> */}

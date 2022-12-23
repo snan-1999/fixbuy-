@@ -110,7 +110,7 @@ button.navbar-toggler {
 
 .drop-down {
   color: white;
-  font-size: 14px;
+  font-size: 13px !important;
   font-weight: 100;
   width: 100%;
   margin-top: 2px;

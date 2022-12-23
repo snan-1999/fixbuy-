@@ -16,7 +16,9 @@ import { MdLocationOn } from 'react-icons/md'
 import load from '../../assets/images/load.gif';
 import { FaHeart } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
+import useGeoLocation from '../../hooks/useGeoLoaction'
 export default function Shop() {
+    const location = useGeoLocation();
     const { latitude, Longitude, Lmore, UserId } = useContext(GlobalVariables)
     const [AllData, setAllData] = useState([])
     const [filters, setfilters] = useState(null)
@@ -24,6 +26,7 @@ export default function Shop() {
     const [Loading, setLoading] = useState(false)
     const [TotalPagess, setTotalPagess] = useState('')
     // initial
+    console.log(latitude , 'lat')
     const ShopData = async () => {
         try {
             const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
@@ -91,14 +94,23 @@ export default function Shop() {
         ShopDataFIlterLoadMore()
     }, [PageNO])
     useEffect(() => {
-        ShopData()
-    }, [0])
+        latitude && ShopData()
+    }, [latitude])
     const Max_length = 26;
 
     return (
         <>
             <Header />
             <br />
+                   {/* GeoLocation start */}
+                   <div className="inline-block mr-auto pt-1">
+                {
+                    location.loaded &&
+                    JSON.stringify(location)
+
+                }
+            </div>
+            {/* Geolocation end */}
             <div className="overflow-hidden">
 
 
@@ -251,7 +263,7 @@ top: 0;
 /* @media (max-width: 768px) {
     display: none;
   } */
-    height: 70vh ;
+    /* height: 70vh ; */
     @media (max-width :600px){
         height: auto ;
     }

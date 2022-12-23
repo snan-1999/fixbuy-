@@ -215,9 +215,9 @@ const Home = () => {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
-                                                        {
+                                                            {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
-                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}...</div>
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
                                                                     :
                                                                     <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
                                                             }
@@ -306,7 +306,7 @@ const Home = () => {
                             <img src={fot} alt="" />
                         </div>
                     </div>
-                    <div className="col-md-5 col-12"> 
+                    <div className="col-md-5 col-12">
                         <br />
                         <div className="FotHead">
                             <h2>TRY THE FIXEBUY APP</h2>
@@ -485,6 +485,26 @@ const Ribbon = styled.div`
     width: 120px;
     background-color: #3D6182;
     color: #fff;
+    @media (max-width: 768px) {
+    
+    font: 8px sans-serif;
+    color: #3D6182;
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    position: relative;
+    padding: 2px 0;
+    top: 10px;
+    left: -42px;
+    width: 146px;
+    background-color: #3D6182;
+    color: #fff;
+    padding-right: 35px;
+
+    }
   
 `
 const RefreshBtn = styled.div`

@@ -123,6 +123,20 @@ const Profile = () => {
             setGstNumber(response.data.data[0].gst_no);
             setAddress(response.data.data[0].shop_address);
             // console.log(new ,"date");
+            window.localStorage.setItem(
+                'token',
+                JSON.stringify({
+                    'token':response.data.data[0]._id,
+                    'profileName':response.data.data[0].name,
+                    'email':response.data.data[0].email,
+                    'profileImg':response.data.data[0].profileImg,
+                    'profileImg':response.data.profileImg,
+                    'name':response.data.data[0].name,
+                    'type':response.data.data[0].type,
+                    'phone':response.data.data[0].phone,
+                    'status': 'login'
+                })
+            )
             if (response.data.data[0].date_of_birth) {
 
                 let date = new Date(response.data.data[0].date_of_birth).getDate();
@@ -203,6 +217,7 @@ const Profile = () => {
                         theme: "colored",
                         type: 'success'
                     });
+                    handleProfileData()
                 }
             }, error => {
                 console.log(error.response.data);

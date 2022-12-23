@@ -298,13 +298,13 @@ const Header = () => {
                                         <Link to="/about" className="nav-link">ABOUT US</Link>
                                     </li>
                                     <li className="nav-item aa">
-                                        <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                    </li>
-                                    <li className="nav-item aa">
                                         <Link to="/faq" className="nav-link">F.A.Q</Link>
                                     </li>
                                     <li className="nav-item aa">
                                         <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                    </li>
+                                    <li className="nav-item aa">
+                                        <Link to="/contact" className="nav-link">CONTACT US</Link>
                                     </li>
                                     <li className=" nav-item aa mob-login">
                                     </li>
@@ -350,13 +350,13 @@ const Header = () => {
                                             <Link to="/about" className="nav-link">ABOUT US</Link>
                                         </li>
                                         <li className="nav-item aa">
-                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                        </li>
-                                        <li className="nav-item aa">
                                             <Link to="/faq" className="nav-link">F.A.Q</Link>
                                         </li>
                                         <li className="nav-item aa">
                                             <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                        </li>
+                                        <li className="nav-item aa">
+                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
                                         </li>
                                         <li className="nav-item aa" onClick={profilefunction}>
                                             <Link to="/profile" className="nav-link" >PROFILE</Link>
@@ -459,7 +459,7 @@ const Header = () => {
 
                                     <div className="disp">
                                         <div className="drop-down">
-                                            Fashions
+                                            Fashion&nbsp;&&nbsp;Clothes
                                             <ul className="dropdown-category">
                                                 <Link to="/Fashions/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                                 <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>

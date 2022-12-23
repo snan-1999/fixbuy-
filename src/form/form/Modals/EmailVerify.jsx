@@ -81,9 +81,9 @@ export default function EmailVerify({ ModalEmail, setModalEmail, OTP, setOTP, pr
                 // Otpverify()
                 // setverify(true);
                 // setOtp(res.data.otp)
-                alert(res.data.otp)
+                // alert(res.data.otp)
                 // console.log(verify, 'var')
-                console.log(res.data, 'Otp');
+                // console.log(res.data, 'Otp');
             }
             // }
         })
