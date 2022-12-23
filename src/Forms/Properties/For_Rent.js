@@ -16,7 +16,7 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, Stack, Text } from "@chakra-ui/react";
 
 
 const ForRent = () => {
@@ -36,6 +36,7 @@ const ForRent = () => {
         setisOpen(false)
         setOtpCondition(false)
     }
+    const [AllErrors, setAllErrors] = useState(false)
     const OnOpen = () => setisOpen(true)
     const [otp, setOtp] = useState('');
     const [otpError, setotpError] = useState('');
@@ -200,7 +201,7 @@ const ForRent = () => {
                                                                                         formData.append('images', cropdata[11])
                                                                                         formData.append('images', cropdata[12])
                                                                                         formData.append('images', cropdata[13])
-                                                                                         formData.append('images', cropdata[14])
+                                                                                        formData.append('images', cropdata[14])
                                                                                         formData.append('images', cropdata[15])
                                                                                         formData.append('images', cropdata[16])
                                                                                         formData.append('images', cropdata[17])
@@ -240,97 +241,116 @@ const ForRent = () => {
 
                                                                                 } else {
                                                                                     setError(false);
+                                                                                    setAllErrors(true)
                                                                                     console.log("sellerphone error")
                                                                                     sellerphoneRef.current.style.borderColor = 'red';
                                                                                 }
                                                                             } else {
                                                                                 setError(false);
+                                                                                setAllErrors(true)
                                                                                 console.log("landmark error")
                                                                                 neighbourhoodRef.current.style.borderColor = 'red';
                                                                             }
                                                                         } else {
                                                                             setError(false);
+                                                                            setAllErrors(true)
                                                                             console.log("pincpde error")
                                                                             pincodeRef.current.style.borderColor = 'red';
                                                                         }
                                                                     } else {
                                                                         setError(false);
+                                                                        setAllErrors(true)
                                                                         console.log("city error")
                                                                         cityRef.current.style.borderColor = 'red';
                                                                     }
                                                                 } else {
                                                                     setError(false);
+                                                                    setAllErrors(true)
                                                                     console.log("state error")
                                                                     stateRef.current.style.borderColor = 'red';
                                                                 }
                                                             } else {
+                                                                setAllErrors(true)
                                                                 setimageError("Please provide atleast 1 image");
                                                                 console.log("image error")
                                                                 // descriptionRef.current.style.borderColor = 'red';
                                                             }
                                                         } else {
                                                             setError(false);
+                                                            setAllErrors(true)
                                                             console.log("price error")
                                                             priceRef.current.style.borderColor = 'red';
                                                         }
                                                     } else {
                                                         setError(false);
+                                                        setAllErrors(true)
                                                         console.log("description error")
                                                         setDescriptionError("Description should not be more than 300 words !")
                                                         descriptionRef.current.style.borderColor = 'red';
                                                     }
                                                 } else {
                                                     setError(false);
+                                                    setAllErrors(true)
                                                     console.log("project-name error")
                                                     project_nameRef.current.style.borderColor = 'red';
                                                 }
                                             } else {
                                                 setError(false);
+                                                setAllErrors(true)
                                                 console.log("parking error")
                                                 parkingRef.current.style.borderColor = 'red';
                                             }
                                         } else {
                                             setError(false);
+                                            setAllErrors(true)
                                             console.log("maintenance error")
                                             maintenanceRef.current.style.borderColor = 'red';
                                         }
                                     } else {
                                         setError(false);
+                                        setAllErrors(true)
                                         console.log("floors error")
                                         floorsRef.current.style.borderColor = 'red';
                                     }
                                 } else {
                                     setError(false);
+                                    setAllErrors(true)
                                     console.log("area error")
                                     areaRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
+                                setAllErrors(true)
                                 console.log("bathrooms error")
                                 bathroomsRef.current.style.borderColor = 'red';
                             }
                         } else {
                             setError(false);
+                            setAllErrors(true)
                             console.log("bedrooms error")
                             bedroomsRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError("mandatory field");
+                        setAllErrors(true)
                         console.log("furnishing error")
                         // furnishingRef.current.style.borderColor = 'red';
                     }
                 } else {
+                    setAllErrors(true)
                     setError("mandatory field");
                     console.log("type error")
                     // typeRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
+                setAllErrors(true)
                 console.log("sellername error")
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
             setError(false);
+            setAllErrors(true)
             // usecheck(true);
             console.log("title error")
             setTitleError("Title should not be more than 60 words !")
@@ -433,10 +453,14 @@ const ForRent = () => {
                                             setTitle(e.target.value)
                                             titleRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }} value={title}
                                         ref={titleRef}
                                     />
-                                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                                    {
+                                        title.length > 60 &&
+                                        <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                                    }
                                     <br />
 
                                     <label for="brand">TYPE*</label><br />
@@ -449,6 +473,7 @@ const ForRent = () => {
                                                     handleType(e)
                                                     // typeRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }}
                                             />
                                             <label className="form-check-label" for="inlineRadio1">Appartments</label>
@@ -461,6 +486,7 @@ const ForRent = () => {
                                                     handleType(e)
                                                     // typeRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }}
                                             />
                                             <label className="form-check-label" for="inlineRadio2">Houses & Villas</label>
@@ -473,6 +499,7 @@ const ForRent = () => {
                                                     handleType(e)
                                                     // typeRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }}
                                             />
                                             <label className="form-check-label" for="inlineRadio3">Farm Houses</label>
@@ -491,6 +518,7 @@ const ForRent = () => {
                                                     // console.log(setFurnishing);
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }} value='well furnished'
                                                 checked={furnishing === 'well furnished'}
                                             />
@@ -504,6 +532,7 @@ const ForRent = () => {
                                                     // console.log(setFurnishing);
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }} value='semi furnished'
                                                 checked={furnishing === 'semi furnished'}
                                             />
@@ -517,6 +546,7 @@ const ForRent = () => {
 
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }} value='Unfurnished'
                                                 checked={furnishing === 'Unfurnished'}
                                             />
@@ -532,6 +562,7 @@ const ForRent = () => {
                                             setBedrooms(e.target.value)
                                             bedroomsRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }} value={bedrooms}
                                         ref={bedroomsRef}
                                     /><br />
@@ -541,6 +572,7 @@ const ForRent = () => {
                                         setBathrooms(e.target.value)
                                         bathroomsRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={bathrooms}
                                         ref={bathroomsRef}
                                     /><br />
@@ -550,6 +582,7 @@ const ForRent = () => {
                                         setArea(e.target.value)
                                         areaRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={area}
                                         ref={areaRef}
                                     /><br />
@@ -559,6 +592,7 @@ const ForRent = () => {
                                         setFloors(e.target.value)
                                         floorsRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={floors}
                                         ref={floorsRef}
                                     /><br />
@@ -568,6 +602,7 @@ const ForRent = () => {
                                         setMaintenance(e.target.value)
                                         maintenanceRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={maintenance}
                                         ref={maintenanceRef}
                                     /><br />
@@ -577,6 +612,7 @@ const ForRent = () => {
                                         setParking(e.target.value)
                                         parkingRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={parking}
                                         ref={parkingRef}
                                     /><br />
@@ -586,6 +622,7 @@ const ForRent = () => {
                                         setProject_Name(e.target.value)
                                         project_nameRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={project_name}
                                         ref={project_nameRef}
                                     /><br />
@@ -596,10 +633,14 @@ const ForRent = () => {
                                             setDescription(e.target.value)
                                             descriptionRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }} value={description}
                                         ref={descriptionRef}
                                     ></textarea>
-                                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                                    {
+                                        description.length > 300 &&
+                                        <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                                    }
                                     {/* <br /> */}
 
                                     <label for="price">SET PRICE*</label>
@@ -611,6 +652,7 @@ const ForRent = () => {
                                                 setPrice(e.target.value)
                                                 priceRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} value={price}
                                             ref={priceRef}
                                             required />
@@ -620,6 +662,7 @@ const ForRent = () => {
                                             setPrice(e.target.value)
                                             priceRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }}
                                         value={price}
                                         ref={priceRef}
@@ -634,6 +677,7 @@ const ForRent = () => {
                                                     handleBachelor(e)
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }} value='Allowed'
                                                 checked={bachelors === 'Allowed'}
                                             />
@@ -645,6 +689,7 @@ const ForRent = () => {
                                                     handleBachelor(e)
                                                     // furnishingRef.current.style.borderColor = "#ced4da";
                                                     setError("")
+                                                    setAllErrors("")
                                                 }} value='Not Allowed'
                                                 checked={bachelors === 'Not Allowed'}
                                             />
@@ -755,6 +800,7 @@ const ForRent = () => {
                                                 setState(e.target.value)
                                                 stateRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }}>
                                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -804,10 +850,11 @@ const ForRent = () => {
                                                 setCity(e.target.value)
                                                 cityRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} /><br />
 
 
-                                        <label for="pincode">PINCODE*</label> 
+                                        <label for="pincode">PINCODE*</label>
                                         <input type="number" name="pincode" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
                                             value={pincode}
                                             ref={pincodeRef}
@@ -815,6 +862,7 @@ const ForRent = () => {
                                                 setPincode(e.target.value)
                                                 pincodeRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} /><br />
 
 
@@ -826,6 +874,7 @@ const ForRent = () => {
                                                 setNeighbourhood(e.target.value)
                                                 neighbourhoodRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} />
                                     </div>
                                 </div>
@@ -880,6 +929,7 @@ const ForRent = () => {
                                                         setSellerName(e.target.value)
                                                         sellernameRef.current.style.borderColor = "#ced4da";
                                                         setError("")
+                                                        setAllErrors("")
                                                     }} />
                                             </div>
 
@@ -896,6 +946,7 @@ const ForRent = () => {
                                             // setSellerPhone(e.target.value)
                                             // sellerphoneRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }}
                                         value={ModalSellerPhone}
                                         ref={sellerphoneRef}
@@ -958,17 +1009,19 @@ const ForRent = () => {
                                                 onChange={(e) => {
                                                     setMessage('')
                                                 }} />
-                                                     {  Loader &&  <Spinner className="ChkraSpin"/>}
+                                            {Loader && <Spinner className="ChkraSpin" />}
                                         </div>
 
                                     }
                                     {/* <div >{otpError}</div> */}
-
-                                    {errors &&
+                                    <Stack spacing={3}>
+                                        {AllErrors && <Text color='tomato' fontSize='13px' mt='5'>Invalid Field </Text>}
+                                    </Stack>
+                                    {/* {errors &&
                                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                                             {message}
                                         </div>
-                                    }
+                                    } */}
                                 </div>
 
                             </div>

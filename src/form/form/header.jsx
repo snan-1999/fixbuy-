@@ -377,7 +377,7 @@ const Header = () => {
                                             <Link to="/packages/view" className="nav-link">PACKAGES</Link>
                                         </li>
                                         <li className="nav-item aa">
-                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> :  <Link to="/login">'LOGIN'</Link>}
+                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> :  <Link to="/login">LOGIN/SIGNUP</Link>}
                                         </li>
 
                                     </ul>
@@ -581,7 +581,7 @@ const Header = () => {
                                                                     <img src={`${userProfileImg}`}/>
                                                                 </div>
                                                                 {(LocalData == null)
-                                                                    ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : userProfileName
+                                                                    ? 'Login/SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/SIGNUP </FontAwesomeIcon> : userProfileName
                                                                 }
                                                             </div>
                                                         </button>
@@ -592,7 +592,7 @@ const Header = () => {
                                                                     <img src={`${LocalData?.profileImg}`} />
                                                                 </div>
                                                                 {(LocalData == null)
-                                                                    ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login</FontAwesomeIcon> : LocalData.profileName
+                                                                    ? 'Login/SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/SIGNUP</FontAwesomeIcon> : LocalData.profileName
                                                                 }
                                                             </div>
 
@@ -604,7 +604,7 @@ const Header = () => {
 
                                             <Link to="/login" className="secondary dropdown btn-dProfile">
                                                 {(LocalData == null)
-                                                    ? 'Login' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">'Login '</FontAwesomeIcon> : LocalData.profileName
+                                                    ? 'Login/Signup' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/SIGNUP</FontAwesomeIcon> : LocalData.profileName
                                                 }
                                             </Link>
 

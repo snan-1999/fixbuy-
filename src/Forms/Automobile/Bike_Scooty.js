@@ -18,7 +18,7 @@ import { GlobalVariables } from "../../Context/StateProvider";
 // import CropImage2 from '../CropImage2'
 import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, Stack, Text } from "@chakra-ui/react";
 // import { Link } from "react-router-dom";
 const Bike = () => {
     const [Loader, setLoader] = useState(false)
@@ -80,7 +80,7 @@ const Bike = () => {
     const pincodeRef = useRef();
     const ownerRef = useRef();
     const sellerphoneRef = useRef();
-
+    const [AllErrors, setAllErrors] = useState(false)
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
     const [descriptionerror, setDescriptionError] = useState('');
@@ -210,62 +210,74 @@ const Bike = () => {
 
                                                     } else {
                                                         setError(false);
+                                                        setAllErrors(true)
                                                         console.log("landmark error")
                                                         neighbourhoodRef.current.style.borderColor = 'red';
                                                     }
                                                 } else {
                                                     setError(false);
+                                                    setAllErrors(true)
                                                     console.log("pincode error")
                                                     pincodeRef.current.style.borderColor = 'red';
                                                 }
                                             } else {
                                                 setError(false);
+                                                setAllErrors(true)
                                                 console.log("city error")
                                                 cityRef.current.style.borderColor = 'red';
                                             }
                                         } else {
                                             setError(false);
+                                            setAllErrors(true)
                                             console.log("state error")
                                             stateRef.current.style.borderColor = 'red';
                                         }
                                     } else {
+                                        setAllErrors(true)
                                         setimageError("Please provide atleast 1 image");
                                         console.log("image error")
                                         // descriptionRef.current.style.borderColor = 'red';
                                     }
                                 } else {
                                     setError(false);
+                                    setAllErrors(true)
                                     console.log("price error")
                                     priceRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
+                                setAllErrors(true)
                                 console.log("owner error")
                                 ownerRef.current.style.borderColor = 'red';
                             }
                         } else {
                             setError(false);
+                            setAllErrors(true)
                             console.log("kilometer error")
                             kilometerRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError(false);
+                        setAllErrors(true)
                         console.log("year error")
                         yearRef.current.style.borderColor = 'red';
                     }
                 } else {
                     setError(false);
+                    setAllErrors(true)
                     console.log("description error")
                     setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
+                setAllErrors(true)
                 console.log("title error")
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
             setError(false);
+            setAllErrors(true)
             // usecheck(true);
             console.log("title error")
             setTitleError("Title should not be more than 60 words !")
@@ -375,10 +387,16 @@ const Bike = () => {
                                             setTitle(e.target.value)
                                             titleRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }} value={title}
                                         ref={titleRef}
                                     />
-                                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                                    {
+
+                                        title.length > 60 &&
+                                        <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+
+                                    }
                                     <br />
 
                                     <label for="brand">YEAR*</label>
@@ -386,6 +404,7 @@ const Bike = () => {
                                         setYear(e.target.value)
                                         yearRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={year}
                                         ref={yearRef}
                                     /><br />
@@ -395,6 +414,7 @@ const Bike = () => {
                                         setKilometer(e.target.value)
                                         kilometerRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={kilometer}
                                         ref={kilometerRef}
                                     /><br />
@@ -404,10 +424,15 @@ const Bike = () => {
                                         setDescription(e.target.value)
                                         titleRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={description}
                                         ref={descriptionRef}
                                     ></textarea>
-                                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                                    {
+                                        description.length > 300 &&
+                                        <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                                    }
+
                                     {/* <br /> */}
 
                                     <label for="brand">NUMBER OF OWNERS*</label>
@@ -415,16 +440,18 @@ const Bike = () => {
                                         setOwner(e.target.value)
                                         ownerRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={owner}
                                         ref={ownerRef}
                                     /><br />
 
                                     <label for="price">SET PRICE*</label>
                                     <br />
-                                    <input type="number" name="set_price" className="form-control set-pd-input-post" required  placeholder="Amount" onChange={(e) => {
+                                    <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount" onChange={(e) => {
                                         setPrice(e.target.value)
                                         priceRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} value={price}
                                         ref={priceRef}
                                     />
@@ -614,6 +641,7 @@ const Bike = () => {
                                                 setState(e.target.value)
                                                 stateRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }}>
                                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -661,6 +689,7 @@ const Bike = () => {
                                                 setCity(e.target.value)
                                                 cityRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} /><br />
 
                                         <label for="city">PINCODE*</label>
@@ -670,6 +699,7 @@ const Bike = () => {
                                                 setPincode(e.target.value)
                                                 pincodeRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} /><br />
 
                                         <label for="neighbour">LANDMARK*</label>
@@ -679,6 +709,7 @@ const Bike = () => {
                                                 setNeighbourhood(e.target.value)
                                                 neighbourhoodRef.current.style.borderColor = "#ced4da";
                                                 setError("")
+                                                setAllErrors("")
                                             }} />
                                     </div>
                                 </div>
@@ -732,6 +763,7 @@ const Bike = () => {
                                                         setSellerName(e.target.value)
                                                         sellernameRef.current.style.borderColor = "#ced4da";
                                                         setError("")
+                                                        setAllErrors("")
                                                     }} />
                                             </div>
 
@@ -748,6 +780,7 @@ const Bike = () => {
                                             // setSellerPhone(e.target.value)
                                             // sellerphoneRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }}
                                         value={ModalSellerPhone}
                                         ref={sellerphoneRef}
@@ -810,17 +843,20 @@ const Bike = () => {
                                                 onChange={(e) => {
                                                     setMessage('')
                                                 }} />
-                                                     {  Loader &&  <Spinner className="ChkraSpin"/>}
+                                            {Loader && <Spinner className="ChkraSpin" />}
                                         </div>
 
                                     }
+                                    <Stack spacing={3}>
+                                        {AllErrors && <Text color='tomato' fontSize='13px' mt='5'>Invalid Field </Text>}
+                                    </Stack>
                                     {/* <div >{otpError}</div> */}
 
-                                    {errors &&
+                                    {/* {errors &&
                                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                                             {message}
                                         </div>
-                                    }
+                                    } */}
                                 </div>
 
                             </div>

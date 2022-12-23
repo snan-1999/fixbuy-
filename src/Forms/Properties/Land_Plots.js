@@ -15,7 +15,7 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, Stack, Text } from "@chakra-ui/react";
 
 
 const Land_Plot = () => {
@@ -56,6 +56,7 @@ const Land_Plot = () => {
     const [type, setType] = useState('');
     const [length, setLength] = useState('');
     const [breath, setBreath] = useState('');
+    const [AllErrors, setAllErrors] = useState(false)
     const [area, setArea] = useState('');
     const [project_name, setProject_Name] = useState('');
     const [message, setMessage] = useState('');
@@ -211,82 +212,99 @@ const Land_Plot = () => {
 
                                                                     } else {
                                                                         setError(false);
+                                                                        setAllErrors(true)
                                                                         console.log("landmark error")
                                                                         sellerphoneRef.current.style.borderColor = 'red';
                                                                     }
                                                                 } else {
                                                                     setError(false);
+                                                                    setAllErrors(true)
                                                                     console.log("landmark error")
                                                                     neighbourhoodRef.current.style.borderColor = 'red';
                                                                 }
                                                             } else {
                                                                 setError(false);
+                                                                setAllErrors(true)
                                                                 console.log("pincode error")
                                                                 pincodeRef.current.style.borderColor = 'red';
                                                             }
                                                         } else {
                                                             setError(false);
+                                                            setAllErrors(true)
                                                             console.log("city error")
                                                             cityRef.current.style.borderColor = 'red';
                                                         }
                                                     } else {
                                                         setError(false);
+                                                        setAllErrors(true)
                                                         console.log("state error")
                                                         stateRef.current.style.borderColor = 'red';
                                                     }
                                                 } else {
+                                                    setAllErrors(true)
                                                     setimageError("Please provide atleast 1 image");
                                                     console.log("image error")
                                                     // descriptionRef.current.style.borderColor = 'red';
                                                 }
                                             } else {
                                                 setError(false);
+                                                setAllErrors(true)
                                                 console.log("price error")
                                                 priceRef.current.style.borderColor = 'red';
                                             }
                                         } else {
                                             setError(false);
+                                            setAllErrors(true)
                                             console.log("description error")
                                             setDescriptionError("Description should not be more than 300 words !")
                                             descriptionRef.current.style.borderColor = 'red';
                                         }
                                     } else {
                                         setError(false);
+                                        setAllErrors(true)
                                         console.log("project-name error")
                                         project_nameRef.current.style.borderColor = 'red';
                                     }
                                 } else {
                                     setError(false);
+                                    setAllErrors(true)
                                     console.log("breath error")
                                     breathRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
+                                setAllErrors(true)
                                 console.log("length error")
                                 lengthRef.current.style.borderColor = 'red';
                             }
                         } else {
                             setError(false);
+                            setAllErrors(true)
                             console.log("area error")
                             areaRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError("mandatory field");
+                        setAllErrors(true)
                         console.log("furnishing error")
                         // furnishingRef.current.style.borderColor = 'red';
                     }
                 } else {
                     setError("mandatory field");
+                    setAllErrors(true)
+
                     console.log("type error")
                     // typeRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
+                setAllErrors(true)
                 console.log("sellername error")
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
             setError(false);
+            setAllErrors(true)
             // usecheck(true);
             console.log("title error")
             setTitleError("Title should not be more than 60 words !")
@@ -388,20 +406,24 @@ const Land_Plot = () => {
                     <input type="hidden" name='sellerType' value={Type} hidden />
 
                     <label for="brand">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required  placeholder="Enter Your Title"
+                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
                         onChange={(e) => {
                             setTitle(e.target.value)
                             titleRef.current.style.borderColor = "#ced4da";
                             setError("")
+                            setAllErrors("")
                         }} value={title}
                         ref={titleRef}
                     />
-                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                    {
+                        title.length > 60 &&
+                        <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                    }
                     <br />
 
                     <label for="brand">TYPE*</label><br />
                     <div className="radio-button1">
-                        <div className="borderClass border "> 
+                        <div className="borderClass border ">
                             <input className="radio" type="radio" name="type" id="inlineRadio1"
                                 value="For Rent"
                                 checked={type === 'For Rent'}
@@ -409,6 +431,7 @@ const Land_Plot = () => {
                                     handleType(e)
                                     // typeRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }}
                             />
                             <label className="form-check-label" for="inlineRadio1">For Rent</label>
@@ -421,6 +444,7 @@ const Land_Plot = () => {
                                     handleType(e)
                                     // typeRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }}
                             />
                             <label className="form-check-label" for="inlineRadio2">For Sale</label>
@@ -430,38 +454,42 @@ const Land_Plot = () => {
                     <br />
 
                     <label for="area">PLOT AREA*</label>
-                    <input type="number" name="area" className="form-control set-pd-input-post" required  placeholder="Enter Plot Area"
-                        onChange={(e) => { 
+                    <input type="number" name="area" className="form-control set-pd-input-post" required placeholder="Enter Plot Area"
+                        onChange={(e) => {
                             setArea(e.target.value)
                             areaRef.current.style.borderColor = "#ced4da";
                             setError("")
+                            setAllErrors("")
                         }} value={area}
                         ref={areaRef}
                     /><br />
 
                     <label for="length">LENGTH*</label>
-                    <input type="number" name="length" className="form-control set-pd-input-post" required  placeholder="Enter Length" onChange={(e) => {
+                    <input type="number" name="length" className="form-control set-pd-input-post" required placeholder="Enter Length" onChange={(e) => {
                         setLength(e.target.value)
                         lengthRef.current.style.borderColor = "#ced4da";
                         setError("")
+                        setAllErrors("")
                     }} value={length}
                         ref={lengthRef}
                     /><br />
 
                     <label for="breadth">BREADTH*</label>
-                    <input type="number" name="breadth" className="form-control set-pd-input-post" required  placeholder="Enter Breadth" onChange={(e) => {
+                    <input type="number" name="breadth" className="form-control set-pd-input-post" required placeholder="Enter Breadth" onChange={(e) => {
                         setBreath(e.target.value)
                         breathRef.current.style.borderColor = "#ced4da";
                         setError("")
+                        setAllErrors("")
                     }} value={breath}
                         ref={breathRef}
                     /><br />
 
                     <label for="project_name">PROJECT NAME*</label>
-                    <input type="text" name="projec_name" className="form-control set-pd-input-post"  placeholder="Enter Your Project" required onChange={(e) => {
+                    <input type="text" name="projec_name" className="form-control set-pd-input-post" placeholder="Enter Your Project" required onChange={(e) => {
                         setProject_Name(e.target.value)
                         project_nameRef.current.style.borderColor = "#ced4da";
                         setError("")
+                        setAllErrors("")
                     }} value={project_name}
                         ref={project_nameRef}
                     /><br />
@@ -472,11 +500,15 @@ const Land_Plot = () => {
                             setDescription(e.target.value)
                             descriptionRef.current.style.borderColor = "#ced4da";
                             setError("")
+                            setAllErrors("")
                         }}
                         value={description}
                         ref={descriptionRef}
                     ></textarea>
-                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                    {
+                        description.length > 300 &&
+                        <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                    }
                     {/* <br /> */}
 
                     <label for="price">SET PRICE*</label>
@@ -488,6 +520,7 @@ const Land_Plot = () => {
                                 setPrice(e.target.value)
                                 priceRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }} value={price}
                             ref={priceRef}
                             required />
@@ -497,6 +530,7 @@ const Land_Plot = () => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
                             setError("")
+                            setAllErrors("")
                         }}
                         value={price}
                         ref={priceRef}
@@ -515,70 +549,70 @@ const Land_Plot = () => {
                     <div className="container mt-3 w-100">
                         <div className="imageAlert">Note:- only 20 images will be uploaded</div>
                         <div class="row ">
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
+                            <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                            </div>
 
 
-                                    </div>
-                                    <div className="text-danger">{imageError}</div>
+                        </div>
+                        <div className="text-danger">{imageError}</div>
 
                     </div>
                     {/* <div className="errormsg" style={{ color: "red" }} >{hasError}</div> */}
@@ -599,6 +633,7 @@ const Land_Plot = () => {
                                 setState(e.target.value)
                                 stateRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }}>
                             <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                             <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -641,36 +676,39 @@ const Land_Plot = () => {
                         <br />
 
 
-                        <label for="city">CITY*</label> 
-                        <input type="text" name="city" className="form-control set-pd-input-post" required  placeholder="Enter Your City"
+                        <label for="city">CITY*</label>
+                        <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
                             value={city}
                             ref={cityRef}
                             onChange={(e) => {
                                 setCity(e.target.value)
                                 cityRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }} /><br />
 
 
-                        <label for="pincode">PINCODE*</label> 
-                        <input type="text" name="pincode" className="form-control set-pd-input-post" required  placeholder="Enter Your Pincode"
+                        <label for="pincode">PINCODE*</label>
+                        <input type="text" name="pincode" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
                             value={pincode}
                             ref={pincodeRef}
                             onChange={(e) => {
                                 setPincode(e.target.value)
                                 pincodeRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }} /><br />
 
 
                         <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required  placeholder="Enter Your Landmark"
+                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required placeholder="Enter Your Landmark"
                             value={neighbourhood}
                             ref={neighbourhoodRef}
                             onChange={(e) => {
                                 setNeighbourhood(e.target.value)
                                 neighbourhoodRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }} />
                     </div>
                 </div>
@@ -725,6 +763,7 @@ const Land_Plot = () => {
                                         setSellerName(e.target.value)
                                         sellernameRef.current.style.borderColor = "#ced4da";
                                         setError("")
+                                        setAllErrors("")
                                     }} />
                             </div>
 
@@ -741,6 +780,7 @@ const Land_Plot = () => {
                             // setSellerPhone(e.target.value)
                             // sellerphoneRef.current.style.borderColor = "#ced4da";
                             setError("")
+                            setAllErrors("")
                         }}
                         value={ModalSellerPhone}
                         ref={sellerphoneRef}
@@ -803,17 +843,19 @@ const Land_Plot = () => {
                                 onChange={(e) => {
                                     setMessage('')
                                 }} />
-                                 {  Loader &&  <Spinner className="ChkraSpin"/>}
+                            {Loader && <Spinner className="ChkraSpin" />}
                         </div>
 
                     }
                     {/* <div >{otpError}</div> */}
-                    
-                    {errors &&
+                    <Stack spacing={3}>
+                        {AllErrors && <Text color='tomato' fontSize='13px' mt='5'>Invalid Field </Text>}
+                    </Stack>
+                    {/* {errors &&
                         <div className="messageClass" role="alert" style={{ color: 'green' }}>
                             {message}
                         </div>
-                    }
+                    } */}
                 </div>
 
             </div>

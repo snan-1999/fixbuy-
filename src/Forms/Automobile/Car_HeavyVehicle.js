@@ -14,7 +14,7 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Stack, Text } from '@chakra-ui/react'
 
 const Cars = () => {
     const [Loader, setLoader] = useState(false)
@@ -34,6 +34,7 @@ const Cars = () => {
         setOtpCondition(false)
     }
     const OnOpen = () => setisOpen(true)
+    const [AllErrors, setAllErrors] = useState(false)
     const [otp, setOtp] = useState('');
     const [otpError, setotpError] = useState('');
     const [OtpCondition, setOtpCondition] = useState(false);
@@ -205,16 +206,19 @@ const Cars = () => {
                                                                     }
                                                                 } else {
                                                                     setError(false);
+                                                                    setAllErrors(true)
                                                                     console.log("sellerphone error")
                                                                     sellerphoneRef.current.style.borderColor = 'red';
                                                                 }
                                                             } else {
                                                                 setError(false);
+                                                                setAllErrors(true)
                                                                 console.log("pincode error")
                                                                 pincodeRef.current.style.borderColor = 'red';
                                                             }
                                                         } else {
                                                             setError(false);
+                                                            setAllErrors(true)
                                                             console.log("fuel error")
                                                             fuelRef.current.style.borderColor = 'red';
                                                         }
@@ -225,58 +229,69 @@ const Cars = () => {
                                                     }
                                                 } else {
                                                     setError(false);
+                                                    setAllErrors(true)
 
                                                     console.log("years error")
                                                     yearsRef.current.style.borderColor = 'red';
                                                 }
                                             } else {
                                                 setError(false);
+                                                setAllErrors(true)
                                                 console.log("owner error")
                                                 ownerRef.current.style.borderColor = 'red';
                                             }
                                         } else {
                                             setError(false);
+                                            setAllErrors(true)
                                             console.log("kmDriven error")
                                             kmDrivenRef.current.style.borderColor = 'red';
                                         }
                                     } else {
                                         setError(false);
+                                        setAllErrors(true)
                                         console.log("landmark error")
                                         neighbourhoodRef.current.style.borderColor = 'red';
                                     }
                                 } else {
                                     setError(false);
+                                    setAllErrors(true)
                                     console.log("city error")
                                     cityRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
+                                setAllErrors(true)
                                 console.log("state error")
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
+                            setAllErrors(true)
                             setimageError("Please provide atleast 1 image");
                             console.log("image error")
                             // descriptionRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError(false);
+                        setAllErrors(true)
                         console.log("price error")
                         priceRef.current.style.borderColor = 'red';
                     }
                 } else {
                     setError(false);
+                    setAllErrors(true)
                     console.log("description error")
                     setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
                 }
             } else {
                 setError(false);
+                setAllErrors(true)
                 console.log("sellerName error")
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
             setError(false);
+            setAllErrors(true)
             // usecheck(true);
             console.log("title error")
             setTitleError("Title should not be more than 60 words !")
@@ -352,26 +367,26 @@ const Cars = () => {
             {/* <h1>car/heavy</h1> */}
             <h6 className="sub-Categories-Heading text-uppercase">automobile/{newcategory}</h6>
             <MyContainer>
-            <div className="container post border p-0">
-                <div className="heading-post-product">
-                    {/* <input type="text" name='category' value={category2} /> */}
-                    {/* <h3>hello</h3> */}
-                    POST YOUR ITEMS
-                    {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
-                </div>
-                <hr />
-                <div className="container set-pd-post">
-                    <div className="sub-heading-post">
-                        Put Some Details
+                <div className="container post border p-0">
+                    <div className="heading-post-product">
+                        {/* <input type="text" name='category' value={category2} /> */}
+                        {/* <h3>hello</h3> */}
+                        POST YOUR ITEMS
+                        {/* <h6 className="sub-Categories-Heading">{newcategory}</h6> */}
                     </div>
-                    {/* <br /> */}
-                    {/* <form action="<?php echo $server_name; ?>/api-call/car-product-api-call.php" method="post" enctype="multipart/form-data"> */}
+                    <hr />
+                    <div className="container set-pd-post">
+                        <div className="sub-heading-post">
+                            Put Some Details
+                        </div>
+                        {/* <br /> */}
+                        {/* <form action="<?php echo $server_name; ?>/api-call/car-product-api-call.php" method="post" enctype="multipart/form-data"> */}
 
-                    <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
-                    <input type="hidden" name='category' value={category2} hidden />
-                    <input type="hidden" name='sellerType' value={Type} hidden />
+                        <input type="hidden" name="user_id" value={user_id} onChange={(e) => setUser_id(e.target.value)} /><br />
+                        <input type="hidden" name='category' value={category2} hidden />
+                        <input type="hidden" name='sellerType' value={Type} hidden />
 
-                    {/* <label for="brand">BRAND*</label>
+                        {/* <label for="brand">BRAND*</label>
                     <input type="text" name="brand" className="form-control set-pd-input-post" required
                         onChange={(e) => {
                             setBrand(e.target.value)
@@ -379,309 +394,329 @@ const Cars = () => {
                             setError("")
                         }} value={brand} /><br /> */}
 
-                    <label for="brand">TITLE*</label>
-                    <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
-                        onChange={(e) => {
-                            setTitle(e.target.value)
-                            titleRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }} value={title}
-                        ref={titleRef}
-                    />
-                    <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
-                    <br />
-
-                    <label for="brand">YEAR*</label>
-                    <input type="number" name="year" className="form-control set-pd-input-post" required placeholder="Enter Years"
-                        onChange={(e) => {
-                            setYear(e.target.value)
-                            yearsRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }} value={years}
-                        ref={yearsRef}
-                    /><br />
-
-                    <label for="brand">FUEL*</label>
-                    <input type="text" name="fuel" className="form-control set-pd-input-post" required placeholder="Enter Fuel Type"
-                        onChange={(e) => {
-                            setFuel(e.target.value)
-                            fuelRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }} value={fuel}
-                        ref={fuelRef}
-                    /><br />
-
-                    <label for="brand">TRANSMISSION*</label>
-                    <div className="radio-button1">
-                        <div className="borderClass border ">
-                            <input className="radio" type="radio" name="type" id="inlineRadio1" 
-                                value="Automatic"
-                                checked={transmission === 'Automatic'}
-                                onChange={(e) => {
-                                    handleType(e)
-                                    // typeRef.current.style.borderColor = "#ced4da";
-                                    setError("")
-                                }}
-                            />
-                            <label className="form-check-label" for="inlineRadio1">Automatic</label>
-                        </div>
-                        <div className="borderClass border ">
-                            <input className="radio" type="radio" name="type" id="inlineRadio2"
-                                value="Manual"
-                                checked={transmission === 'Manual'}
-                                onChange={(e) => {
-                                    handleType(e)
-                                    // typeRef.current.style.borderColor = "#ced4da";
-                                    setError("")
-                                }}
-                            />
-                            <label className="form-check-label" for="inlineRadio2">Manual</label>
-                        </div>
-                    </div>
-                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
-                    <br />
-
-                    <label for="brand">KILOMETER DRIVEN*</label>
-                    <input type="number" name="kilometer" className="form-control set-pd-input-post" required placeholder="Enter Km Driven"
-                        onChange={(e) => {
-                            setKmDriven(e.target.value)
-                            kmDrivenRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}
-                        value={kmDriven}
-                        ref={kmDrivenRef}
-                    /><br />
-
-                    <label for="description">ADD DESCRIPTION*</label>
-                    <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Desciption "
-                        onChange={(e) => {
-                            setDescription(e.target.value)
-                            descriptionRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }} value={description}
-                        ref={descriptionRef}
-                    ></textarea>
-                    <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
-
-                    {/* <br /> */}
-
-                    <label for="brand">NUMBER OF OWNERS*</label>
-                    <input type="number" name="owners" className="form-control set-pd-input-post" required placeholder="Enter Owners"
-                        onChange={(e) => {
-                            setOwner(e.target.value)
-                            ownerRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }} value={owner}
-                        ref={ownerRef}
-                    /><br />
-
-                    <label for="price">SET PRICE*</label>
-                    <br />
-                    <div class="input-group mt-1">
-                        <span class="input-group-text" id="basic-addon1">₹</span>
-                        <input type="number" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username" name="set_price" aria-describedby="basic-addon1"
+                        <label for="brand">TITLE*</label>
+                        <input type="text" name="title" className="form-control set-pd-input-post" required placeholder="Enter Your Title"
                             onChange={(e) => {
-                                setPrice(e.target.value)
-                                priceRef.current.style.borderColor = "#ced4da";
+                                setTitle(e.target.value)
+                                titleRef.current.style.borderColor = "#ced4da";
                                 setError("")
-                            }} value={price}
-                            ref={priceRef}
-                            required />
-                    </div>
-                    {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
+                                setAllErrors("")
+                            }} value={title}
+                            ref={titleRef}
+                        />
+                        {
+                            title.length > 60 &&
+                            <div className="titleerrormsg" style={{ color: "red" }} >{titleerror}</div>
+                        }
+                        <br />
+
+                        <label for="brand">YEAR*</label>
+                        <input type="number" name="year" className="form-control set-pd-input-post" required placeholder="Enter Years"
+                            onChange={(e) => {
+                                setYear(e.target.value)
+                                yearsRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                                setAllErrors("")
+                            }} value={years}
+                            ref={yearsRef}
+                        /><br />
+
+                        <label for="brand">FUEL*</label>
+                        <input type="text" name="fuel" className="form-control set-pd-input-post" required placeholder="Enter Fuel Type"
+                            onChange={(e) => {
+                                setFuel(e.target.value)
+                                fuelRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                                setAllErrors("")
+                            }} value={fuel}
+                            ref={fuelRef}
+                        /><br />
+
+                        <label for="brand">TRANSMISSION*</label>
+                        <div className="radio-button1">
+                            <div className="borderClass border ">
+                                <input className="radio" type="radio" name="type" id="inlineRadio1"
+                                    value="Automatic"
+                                    checked={transmission === 'Automatic'}
+                                    onChange={(e) => {
+                                        handleType(e)
+                                        // typeRef.current.style.borderColor = "#ced4da";
+                                        setError("")
+                                        setAllErrors("")
+                                    }}
+                                />
+                                <label className="form-check-label" for="inlineRadio1">Automatic</label>
+                            </div>
+                            <div className="borderClass border ">
+                                <input className="radio" type="radio" name="type" id="inlineRadio2"
+                                    value="Manual"
+                                    checked={transmission === 'Manual'}
+                                    onChange={(e) => {
+                                        handleType(e)
+                                        // typeRef.current.style.borderColor = "#ced4da";
+                                        setError("")
+                                        setAllErrors("")
+                                    }}
+                                />
+                                <label className="form-check-label" for="inlineRadio2">Manual</label>
+                            </div>
+                        </div>
+                        <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
+                        <br />
+
+                        <label for="brand">KILOMETER DRIVEN*</label>
+                        <input type="number" name="kilometer" className="form-control set-pd-input-post" required placeholder="Enter Km Driven"
+                            onChange={(e) => {
+                                setKmDriven(e.target.value)
+                                kmDrivenRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                                setAllErrors("")
+                            }}
+                            value={kmDriven}
+                            ref={kmDrivenRef}
+                        /><br />
+
+                        <label for="description">ADD DESCRIPTION*</label>
+                        <textarea name="description" id="" className="form-control" cols="30" rows="10" width="100%" placeholder="Enter Your Desciption "
+                            onChange={(e) => {
+                                setDescription(e.target.value)
+                                descriptionRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                                setAllErrors("")
+                            }} value={description}
+                            ref={descriptionRef}
+                        ></textarea>
+                        {
+                            description.length > 300 &&
+                            <div className="titleerrormsg" style={{ color: "red" }} >{descriptionerror}</div>
+                        }
+
+                        {/* <br /> */}
+
+                        <label for="brand">NUMBER OF OWNERS*</label>
+                        <input type="number" name="owners" className="form-control set-pd-input-post" required placeholder="Enter Owners"
+                            onChange={(e) => {
+                                setOwner(e.target.value)
+                                ownerRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                                setAllErrors("")
+                            }} value={owner}
+                            ref={ownerRef}
+                        /><br />
+
+                        <label for="price">SET PRICE*</label>
+                        <br />
+                        <div class="input-group mt-1">
+                            <span class="input-group-text" id="basic-addon1">₹</span>
+                            <input type="number" class="form-control set-pd-input-post" placeholder="Amount" aria-label="Username" name="set_price" aria-describedby="basic-addon1"
+                                onChange={(e) => {
+                                    setPrice(e.target.value)
+                                    priceRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }} value={price}
+                                ref={priceRef}
+                                required />
+                        </div>
+                        {/* <input type="number" name="set_price" className="form-control set-pd-input-post" required placeholder="Amount"
                         onChange={(e) => {
                             setPrice(e.target.value)
                             priceRef.current.style.borderColor = "#ced4da";
                             setError("")
+                            setAllErrors("")
                         }} value={price}
                         ref={priceRef}
                     /> */}
 
 
 
-                </div>
-                {/* </input> */}
-                {/* <hr /> */}
-                {/* <div className="container set-pd-post">
+                    </div>
+                    {/* </input> */}
+                    {/* <hr /> */}
+                    {/* <div className="container set-pd-post">
                 <label for="description">SET PRICE</label>
                     <br />
                     <input type="text" name="set_price" className="form-control set-pd-input-post" placeholder="PRICE*" required />
                 </div> */}
-                <hr />
-                {/* <br /> */}
-                <div className="container set-pd-post">
-                    <div className="sub-heading-post">
-                        UPLOAD SOME PHOTOS
+                    <hr />
+                    {/* <br /> */}
+                    <div className="container set-pd-post">
+                        <div className="sub-heading-post">
+                            UPLOAD SOME PHOTOS
+                        </div>
+                        <div className="container mt-3 w-100">
+                            <div className="imageAlert">Note:- only 20 images will be uploaded</div>
+                            <div class="row ">
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+                                <div class="col-md-2 mt-3 col-6 col-lg-2">
+                                    <CropImage2 cropdata={cropdata} setCropData={setCropData} />
+                                </div>
+
+
+                            </div>
+                            <div className="text-danger">{imageError}</div>
+
+                        </div>
+                        <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
                     </div>
-                    <div className="container mt-3 w-100">
-                        <div className="imageAlert">Note:- only 20 images will be uploaded</div>
-                        <div class="row ">
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
-                                        <div class="col-md-2 mt-3 col-6 col-lg-2">
-                                            <CropImage2 cropdata={cropdata} setCropData={setCropData} />
-                                        </div>
 
 
-                                    </div>
-                                    <div className="text-danger">{imageError}</div>
+                    <hr />
+                    <div className="container set-pd-post">
+                        <div className="sub-heading-post">
+                            YOUR LOCATION
+                        </div><br />
+                        <div className="select-loaction">
+                            <label for="state">STATE*</label>
+                            <select id="State" name="location" className="form-control set-pd-input-post" required
+                                value={state}
+                                ref={stateRef}
+                                onChange={(e) => {
+                                    setState(e.target.value)
+                                    stateRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }}>
+                                <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
+                                <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                <option value="Assam">Assam</option>
+                                <option value="Bihar">Bihar</option>
+                                <option value="Chandigarh">Chandigarh</option>
+                                <option value="Chhattisgarh">Chhattisgarh</option>
+                                <option value="Dadra & Nagar Haveli">Dadra &amp; Nagar Haveli</option>
+                                <option value="Daman & Diu">Daman &amp; Diu</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Goa">Goa</option>
+                                <option value="Gujarat">Gujarat</option>
+                                <option value="Haryana">Haryana</option>
+                                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                <option value="Jammu & Kashmir">Jammu &amp; Kashmir</option>
+                                <option value="Jharkhand">Jharkhand</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Lakshadweep">Lakshadweep</option>
+                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Manipur">Manipur</option>
+                                <option value="Meghalaya">Meghalaya</option>
+                                <option value="Mizoram">Mizoram</option>
+                                <option value="Nagaland">Nagaland</option>
+                                <option value="Odisha">Odisha</option>
+                                <option value="Pondicherry">Pondicherry</option>
+                                <option value="Punjab">Punjab</option>
+                                <option value="Rajasthan">Rajasthan</option>
+                                <option value="Sikkim">Sikkim</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Tripura">Tripura</option>
+                                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                <option value="Uttaranchal">Uttaranchal</option>
+                                <option value="West Bengal">West Bengal</option>
+                            </select>
+                            <br />
 
+                            <label for="city">CITY*</label>
+                            <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
+                                value={city}
+                                ref={cityRef}
+                                onChange={(e) => {
+                                    setCity(e.target.value)
+                                    cityRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }} /><br />
+
+                            <label for="city">PINCODE*</label>
+                            <input type="number" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
+                                value={pincode}
+                                ref={pincodeRef}
+                                onChange={(e) => {
+                                    setPincode(e.target.value)
+                                    pincodeRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }} /><br />
+
+                            <label for="neighbour">LANDMARK*</label>
+                            <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood} placeholder="Enter Your Landmark"
+                                ref={neighbourhoodRef}
+                                onChange={(e) => {
+                                    setNeighbourhood(e.target.value)
+                                    neighbourhoodRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }} />
+                        </div>
                     </div>
-                    <div className="errormsg" style={{ color: "red" }} >{hasError}</div>
-                </div>
-
-
-                <hr />
-                <div className="container set-pd-post">
-                    <div className="sub-heading-post">
-                        YOUR LOCATION
-                    </div><br />
-                    <div className="select-loaction">
-                        <label for="state">STATE*</label>
-                        <select id="State" name="location" className="form-control set-pd-input-post" required
-                            value={state}
-                            ref={stateRef}
-                            onChange={(e) => {
-                                setState(e.target.value)
-                                stateRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }}>
-                            <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
-                            <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
-                            <option value="Andhra Pradesh">Andhra Pradesh</option>
-                            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                            <option value="Assam">Assam</option>
-                            <option value="Bihar">Bihar</option>
-                            <option value="Chandigarh">Chandigarh</option>
-                            <option value="Chhattisgarh">Chhattisgarh</option>
-                            <option value="Dadra & Nagar Haveli">Dadra &amp; Nagar Haveli</option>
-                            <option value="Daman & Diu">Daman &amp; Diu</option>
-                            <option value="Delhi">Delhi</option>
-                            <option value="Goa">Goa</option>
-                            <option value="Gujarat">Gujarat</option>
-                            <option value="Haryana">Haryana</option>
-                            <option value="Himachal Pradesh">Himachal Pradesh</option>
-                            <option value="Jammu & Kashmir">Jammu &amp; Kashmir</option>
-                            <option value="Jharkhand">Jharkhand</option>
-                            <option value="Karnataka">Karnataka</option>
-                            <option value="Kerala">Kerala</option>
-                            <option value="Lakshadweep">Lakshadweep</option>
-                            <option value="Madhya Pradesh">Madhya Pradesh</option>
-                            <option value="Maharashtra">Maharashtra</option>
-                            <option value="Manipur">Manipur</option>
-                            <option value="Meghalaya">Meghalaya</option>
-                            <option value="Mizoram">Mizoram</option>
-                            <option value="Nagaland">Nagaland</option>
-                            <option value="Odisha">Odisha</option>
-                            <option value="Pondicherry">Pondicherry</option>
-                            <option value="Punjab">Punjab</option>
-                            <option value="Rajasthan">Rajasthan</option>
-                            <option value="Sikkim">Sikkim</option>
-                            <option value="Tamil Nadu">Tamil Nadu</option>
-                            <option value="Telangana">Telangana</option>
-                            <option value="Tripura">Tripura</option>
-                            <option value="Uttar Pradesh">Uttar Pradesh</option>
-                            <option value="Uttaranchal">Uttaranchal</option>
-                            <option value="West Bengal">West Bengal</option>
-                        </select>
-                        <br />
-
-                        <label for="city">CITY*</label>
-                        <input type="text" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your City"
-                            value={city}
-                            ref={cityRef}
-                            onChange={(e) => {
-                                setCity(e.target.value)
-                                cityRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }} /><br />
-
-                        <label for="city">PINCODE*</label>
-                        <input type="number" name="city" className="form-control set-pd-input-post" required placeholder="Enter Your Pincode"
-                            value={pincode}
-                            ref={pincodeRef}
-                            onChange={(e) => {
-                                setPincode(e.target.value)
-                                pincodeRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }} /><br />
-
-                        <label for="neighbour">LANDMARK*</label>
-                        <input type="text" name="neighbourhood" className="form-control set-pd-input-post" required value={neighbourhood} placeholder="Enter Your Landmark"
-                            ref={neighbourhoodRef}
-                            onChange={(e) => {
-                                setNeighbourhood(e.target.value)
-                                neighbourhoodRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }} />
-                    </div>
-                </div>
-                <hr />
-                <div className="container set-pd-post">
-                    <div className="sub-heading-post">
-                        PUT YOUR DETAILS
-                    </div><br />
-                    <div className="myi">
-                        <div className=" nameTextClass">
-                            <div className=" d-flex text-align-left m-2 p-1">
-                                <div className="preview-container shadow shadowclass">
-                                    <span className="fileName d-block my-2"></span>
-                                    {/* <input
+                    <hr />
+                    <div className="container set-pd-post">
+                        <div className="sub-heading-post">
+                            PUT YOUR DETAILS
+                        </div><br />
+                        <div className="myi">
+                            <div className=" nameTextClass">
+                                <div className=" d-flex text-align-left m-2 p-1">
+                                    <div className="preview-container shadow shadowclass">
+                                        <span className="fileName d-block my-2"></span>
+                                        {/* <input
                                         type="file"
                                         accept="image/*"
                                         onChange={handleImageUpload}
@@ -690,129 +725,134 @@ const Cars = () => {
                                             display: "none"
                                         }}
                                     />*/}
-                                    <div
-                                        style={{
-                                            height: "80px",
-                                            width: "80px",
-                                            borderRadius: "50%",
-                                            overflow: 'hidden'
-
-                                        }}
-                                    // onClick={() => imageUploader.current.click()}
-
-                                    >
-                                        <img
-                                            src={`${ProfileImage}`}
+                                        <div
                                             style={{
-                                                width: "100%",
-                                                height: "100%",
+                                                height: "80px",
+                                                width: "80px",
                                                 borderRadius: "50%",
+                                                overflow: 'hidden'
+
                                             }}
-                                        />
+                                        // onClick={() => imageUploader.current.click()}
+
+                                        >
+                                            <img
+                                                src={`${ProfileImage}`}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    borderRadius: "50%",
+                                                }}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="nameControl">
+                                    <label for="name" >NAME*</label>
+                                    <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
+                                        ref={sellernameRef}
+                                        readOnly
+                                        onChange={(e) => {
+                                            setSellerName(e.target.value)
+                                            sellernameRef.current.style.borderColor = "#ced4da";
+                                            setError("")
+                                            setAllErrors("")
+                                        }} />
+                                </div>
+
                             </div>
-                            <div className="nameControl">
-                                <label for="name" >NAME*</label>
-                                <input type="text" name="name" className="form-control set-pd-input-post nameField" required value={sellername}
-                                    ref={sellernameRef}
-                                    readOnly
+                        </div>
+                        <br />
+                        <div className="sub-heading-post">
+                            VERIFICATION
+                        </div>
+                        <p>We will send you OTP on your number</p><br />
+                        <label for="phone">Phone Number*</label>
+                        <input type="text" name="number" className="form-control set-pd-input-post" required
+                            onChange={(e) => {
+                                // setSellerPhone(e.target.value)
+                                // sellerphoneRef.current.style.borderColor = "#ced4da";
+                                setError("")
+                                setAllErrors("")
+                            }}
+                            value={ModalSellerPhone}
+                            ref={sellerphoneRef}
+                            readOnly
+                        />
+                        <div className="text" style={{ color: "red" }}>{hasError}</div>
+                        {/* <br /> */}
+                        {
+                            !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                        }
+                        <div className="UpdateNum w-100">
+                            {
+                                !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                    <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                            }
+                        </div>
+                        <div className="text" style={{ color: "red" }}>{hasError}</div>
+                        <br />
+                        <OTPTAG>
+
+                            {
+
+                                // (sellerphone.length >= 10) ?
+                                <>
+                                    <OtpPop
+                                        {
+                                        ...{
+                                            Otpverify,
+                                            Generate,
+                                            otp,
+                                            setOtp,
+                                            OtpCondition, setOtpCondition,
+                                            setModalSellerPhone,
+                                            setSellerPhone,
+                                            sellername,
+                                            sellerphone,
+                                            user_id,
+                                            handleChangeOtp,
+                                            isOpen,
+                                            setisOpen,
+                                            Onclose,
+                                            OnOpen
+                                        }
+                                        }
+                                    />
+                                    <div className="text" style={{ color: "red" }}>{otpError}</div>
+                                    <br />
+
+
+                                </>
+
+                            }
+                        </OTPTAG>
+                        {
+                            (PhoneNumber !== null) &&
+                            // (verify) &&
+                            <div className="post-pr">
+
+                                <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
                                     onChange={(e) => {
-                                        setSellerName(e.target.value)
-                                        sellernameRef.current.style.borderColor = "#ced4da";
-                                        setError("")
+                                        setMessage('')
                                     }} />
+                                {Loader && <Spinner className="ChkraSpin" />}
                             </div>
 
-                        </div>
-                    </div>
-                    <br />
-                    <div className="sub-heading-post">
-                        VERIFICATION
-                    </div>
-                    <p>We will send you OTP on your number</p><br />
-                    <label for="phone">Phone Number*</label>
-                    <input type="text" name="number" className="form-control set-pd-input-post" required
-                        onChange={(e) => {
-                            // setSellerPhone(e.target.value)
-                            // sellerphoneRef.current.style.borderColor = "#ced4da";
-                            setError("")
-                        }}
-                        value={ModalSellerPhone}
-                        ref={sellerphoneRef}
-                        readOnly
-                    />
-                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                    {/* <br /> */}
-                    {
-                        !ModalSellerPhone && <div className="text-danger">please add your number</div>
-                    }
-                    <div className="UpdateNum w-100">
-                        {
-                            !ModalSellerPhone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
-                                <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
                         }
+                        <Stack spacing={3}>
+                            {AllErrors && <Text color='tomato' fontSize='13px' mt='5'>Invalid Field </Text>}
+                        </Stack>
+                        {/* <div >{otpError}</div> */}
+
+                        {/* {errors &&
+                            <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                                {message}
+                            </div>
+                        } */}
                     </div>
-                    <div className="text" style={{ color: "red" }}>{hasError}</div>
-                    <br />
-                    <OTPTAG>
 
-                        {
-
-                            // (sellerphone.length >= 10) ?
-                            <>
-                                <OtpPop
-                                    {
-                                    ...{
-                                        Otpverify,
-                                        Generate,
-                                        otp,
-                                        setOtp,
-                                        OtpCondition, setOtpCondition,
-                                        setModalSellerPhone,
-                                        setSellerPhone,
-                                        sellername,
-                                        sellerphone,
-                                        user_id,
-                                        handleChangeOtp,
-                                        isOpen,
-                                        setisOpen,
-                                        Onclose,
-                                        OnOpen
-                                    }
-                                    }
-                                />
-                                <div className="text" style={{ color: "red" }}>{otpError}</div>
-                                <br />
-
-
-                            </>
-
-                        }
-                    </OTPTAG>
-                    {
-                        (PhoneNumber !== null) &&
-                        // (verify) &&
-                        <div className="post-pr">
-
-                            <input type="submit" name="submit" value="POST NOW" onClick={() => sumbit()}
-                                onChange={(e) => {
-                                    setMessage('')
-                                }} />
-                                   {  Loader &&  <Spinner className="ChkraSpin"/>}
-                        </div>
-
-                    }
-                    {/* <div >{otpError}</div> */}
-
-                    {errors &&
-                        <div className="messageClass" role="alert" style={{ color: 'green' }}>
-                            {message}
-                        </div>
-                    }
                 </div>
-
-            </div>
             </MyContainer>
             {/* <Footer /> */}
         </>

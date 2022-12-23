@@ -200,36 +200,43 @@ const Fridge = () => {
 
                                         } else {
                                             setError(false);
+                                            setAllErrors(true)
                                             console.log("landmark error")
                                             neighbourhoodRef.current.style.borderColor = 'red';
                                         }
                                     } else {
                                         setError(false);
+                                        setAllErrors(true)
                                         console.log("pincode error")
                                         pincodeRef.current.style.borderColor = 'red';
                                     }
                                 } else {
                                     setError(false);
+                                    setAllErrors(true)
                                     console.log("city error")
                                     cityRef.current.style.borderColor = 'red';
                                 }
                             } else {
                                 setError(false);
+                                setAllErrors(true)
                                 console.log("state error")
                                 stateRef.current.style.borderColor = 'red';
                             }
                         } else {
+                            setAllErrors(true)
                             setimageError("Please provide atleast 1 image");
                             console.log("image error")
                             //     descriptionRef.current.style.borderColor = 'red';
                         }
                     } else {
                         setError(false);
+                        setAllErrors(true)
                         console.log("price error")
                         priceRef.current.style.borderColor = 'red';
                     }
                 } else {
                     setError(false);
+                    setAllErrors(true)
                     console.log("description error")
                     setDescriptionError("Description should not be more than 300 words !")
                     descriptionRef.current.style.borderColor = 'red';
@@ -237,12 +244,14 @@ const Fridge = () => {
                 }
             } else {
                 setError(false);
+                setAllErrors(true)
                 console.log("sellername error")
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
-            setAllErrors(true)
+          
             setError(false);
+            setAllErrors(true)
             // usecheck(true);
             console.log("title error")
             setTitleError("Title should not be more than 60 words !")
@@ -350,6 +359,7 @@ const Fridge = () => {
                                 setTitle(e.target.value)
                                 titleRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }
                             }
                             value={title}
@@ -370,6 +380,7 @@ const Fridge = () => {
                                 setDescription(e.target.value)
                                 descriptionRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }}
                             value={description}
                             ref={descriptionRef}
@@ -388,6 +399,7 @@ const Fridge = () => {
                                     setPrice(e.target.value)
                                     priceRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }} value={price}
                                 ref={priceRef}
                                 required />
@@ -495,6 +507,7 @@ const Fridge = () => {
                                     setState(e.target.value)
                                     stateRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }} required>
                                 <option value="" disabled selected hidden>SELECT YOUR STATE*</option>
                                 <option value="Andaman & Nicobar Islands">Andaman &amp; Nicobar Islands</option>
@@ -544,6 +557,7 @@ const Fridge = () => {
                                     setCity(e.target.value)
                                     cityRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }
                                 }
                             />
@@ -556,6 +570,7 @@ const Fridge = () => {
                                     setPincode(e.target.value)
                                     pincodeRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }} />
                             <br />
 
@@ -567,6 +582,7 @@ const Fridge = () => {
                                     setNeighbourhood(e.target.value)
                                     neighbourhoodRef.current.style.borderColor = "#ced4da";
                                     setError("")
+                                    setAllErrors("")
                                 }} />
                             {/* <div className="errormsg" style={{ color: "red" }} >{error}</div> */}
                         </div>
@@ -622,6 +638,7 @@ const Fridge = () => {
                                             setSellerName(e.target.value)
                                             sellernameRef.current.style.borderColor = "#ced4da";
                                             setError("")
+                                            setAllErrors("")
                                         }}
                                         readonly="readonly" />
                                 </div>
@@ -643,6 +660,7 @@ const Fridge = () => {
 
                                 // sellerphoneRef.current.style.borderColor = "#ced4da";
                                 setError("")
+                                setAllErrors("")
                             }}
                             // value={sellerphone}
                             value={ModalSellerPhone}
