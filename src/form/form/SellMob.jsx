@@ -4,6 +4,8 @@ import "./css/iofrm-style.css";
 import "../form/header.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { GiSofa } from "react-icons/gi";
 
 const SellMob = () => {
 
@@ -231,13 +233,13 @@ const SellMob = () => {
 
     <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Electronics}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-tv" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Electronics</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Furniture}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-tv" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Furniture</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Furniture}><div class="col border text-center py-5"><GiSofa className="sell-icon-res fs-5" />&nbsp; &nbsp; Furniture</div></Link>
 
     <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Fashion}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-shirt" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Fashion</div></Link>
 
     <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={services}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-bell-concierge" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Services</div></Link>
 
-    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Properties}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-tv" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Properties</div></Link>
+    <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={Properties}><div class="col border text-center py-5"><MdOutlineRealEstateAgent className="sell-icon-res fs-5" />&nbsp; &nbsp; Properties</div></Link>
 
     <Link to='/sell/automobile/SellCategory' style={{textDecoration : 'none' , color :'black' , padding : '0'}} state={books_sports}><div class="col border text-center py-5"><FontAwesomeIcon icon="fa-medal" className="sell-icon-res"></FontAwesomeIcon>&nbsp; &nbsp; Books</div></Link>
 

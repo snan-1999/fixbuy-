@@ -46,6 +46,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     flex: 1 1;
     font-size: 1rem !important;
     font-weight: 300;
+    text-transform: capitalize;
 }
 
 /* swiper in header index page */
@@ -1666,7 +1667,7 @@ box-shadow: none;
     position: absolute;
     /*	top: 50%;
 	            left: 50%;*/
-    width: 645px;
+    width: 613px;
     height: 60px;
     border-bottom: 3px solid #37577A;
     line-height: 50px;
@@ -2493,6 +2494,7 @@ box-shadow: none;
 }
 
 .blog-title {
+    color: #37577A  ;
     font-size: 27px;
     font-weight: 600;
     line-height: 36px;

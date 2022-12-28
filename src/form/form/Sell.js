@@ -7,7 +7,8 @@ import "../form/header.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SellMob from "./SellMob";
-
+import { GiSofa } from 'react-icons/gi';
+import { MdOutlineRealEstateAgent } from "react-icons/md";
 const Sell = () => {
     // console.log(ElectronicId)
     return (
@@ -81,7 +82,7 @@ const Sell = () => {
                                         <div className="dropThree">
                                             <div className="btn-group dropend" style={{ width: "100%" }}>
                                                 <button type="button" className="setBtn_drop p-4 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <FontAwesomeIcon icon="fa-tv" className="sell-icon"></FontAwesomeIcon>Furniture
+                                                    <GiSofa className="sell-icon  fs-5" />Furniture
                                                 </button>
                                                 <ul className="UlSet w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                     <Link to='/sell/furniture/home_decoration' className="textLine"><li className="w-100">Home Decoration</li></Link>
@@ -152,7 +153,7 @@ const Sell = () => {
                                         <div className="dropEight">
                                             <div className="btn-group dropend MyDrop" style={{ width: "100%" }}>
                                                 <button type="button" className="setBtn_drop p-3 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <FontAwesomeIcon icon="fa-tv" className="sell-icon"></FontAwesomeIcon> Properties
+                                                    <MdOutlineRealEstateAgent  className="sell-icon fs-5" /> Properties
                                                 </button>
                                                 <ul className="UlSet3 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                     <Link to='/sell/properties/for_rent' className="textLine"><li className="w-100">For Rent</li></Link>

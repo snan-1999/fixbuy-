@@ -46,6 +46,8 @@ export default function MainProducts() {
             const { data } = await FilterMainCategoryData(GetMainCatogery, latitude, Longitude, FIlterPageNO, filters, UserId)
             console.log(data, 'shopData')
             // setFIlterPageNO(1)
+            setLoading(false)
+
             setAllData(data.data)
             // if(Diffrence == maincategory) {
             //     console.log(true , 'run')
@@ -64,6 +66,8 @@ export default function MainProducts() {
         try {
             const { data } = await FilterMainCategoryData(GetMainCatogery, latitude, Longitude, FIlterPageNO, filters, UserId)
             console.log(data, 'shopData')
+            setLoading(false)
+
             setAllData([...AllData, ...data.data])
             // if(Diffrence == maincategory) {
             //     console.log(true , 'run')

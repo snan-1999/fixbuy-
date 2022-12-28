@@ -396,7 +396,7 @@ const Land_Plot = () => {
                 <hr />
                 <div className="container set-pd-post">
                     <div className="sub-heading-post">
-                        Put Some Details
+                         Put Some Details
                     </div>
                     {/* <br /> */}
                     {/* <form action="<?php echo $server_name; ?>/api-call/car-product-api-call.php" method="post" enctype="multipart/form-data"> */}

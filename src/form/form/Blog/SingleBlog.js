@@ -54,14 +54,14 @@ const SingleBlog = () => {
                 <div><?php echo $value['title'] ?></div>
             </div> --> */}
                     <div className="full-blog-content row">
-
+                    <div className="blog-title text-capitalize d-block  d-md-none d-lg-none">{title}</div>
                         <div className="blog-preview-image col-md-6 col-12">
                             {/* <img src={`${baseUrl}/blogs/getimage/${image}`} /> */}
                             <img src={`${ImageView}${image}`} />
                         </div>
                         <div className="blog-preview-image col-md-6 col-12">
                             {/* <div className="id" hidden>{id}</div> */}
-                            <div className="blog-title text-capitalize">{title}</div>
+                            <div className="blog-title text-capitalize d-none d-md-block d-lg-block">{title}</div>
                             {
                                 (text).length > MAX_LENGTH ?
                                     <div className="blog-content-description">

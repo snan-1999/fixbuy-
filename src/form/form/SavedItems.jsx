@@ -41,8 +41,8 @@ export default function SavedItems() {
                 <div className="for-center flex-row justify-content-center align-items-center">
 
                     <div className="col-md-12">
-                        <div className="container-heading">
-                            <span>Saved Items. </span>
+                        <div className="container-heading-savedItem">
+                            <span>Saved Items </span>
                         </div>
                     </div>
 

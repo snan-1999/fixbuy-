@@ -306,6 +306,7 @@ const PC = () => {
 
     return (
         <>
+           <div className="overflow-hidden">
             <Header />
             <ToastContainer />
             <MyContainer>
@@ -710,6 +711,7 @@ const PC = () => {
 
                 </div>
             </MyContainer>
+            </div>
             <Footer />
         </>
     )

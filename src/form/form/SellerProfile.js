@@ -91,7 +91,7 @@ const SellerProfile = () => {
 
     // Subscribe api
     const Subscribe = async () => {
-        if(Type){
+        if (Type) {
 
             const api = `${baseUrl}/subscriber/add/NewSubscriber`;
             await axios.post(api, {
@@ -102,22 +102,22 @@ const SellerProfile = () => {
                     toast(res.data.message, {
                         position: "bottom-right",
                         autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored",
-                    type: 'success'
-                });
-                // CheckSubscribe()
-                setShow(true)
-                setUpstate(Upstate + 1)
-                console.log(res, 'subscribe');
-            }
-        })
-    }else{
-        nav('/login')
-    }
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        type: 'success'
+                    });
+                    // CheckSubscribe()
+                    setShow(true)
+                    setUpstate(Upstate + 1)
+                    console.log(res, 'subscribe');
+                }
+            })
+        } else {
+            nav('/login')
+        }
 
     }
 
@@ -200,7 +200,7 @@ const SellerProfile = () => {
                     theme: "colored",
                     type: 'success'
                 });
-                console.log(res.data , 'Report');
+                console.log(res.data, 'Report');
                 setreason("")
             }
         })
@@ -280,38 +280,46 @@ const SellerProfile = () => {
                                             postedproduct?.map((ProductDetails, key) => {
                                                 return (
                                                     <div class="col-md-4 col-6 col-lg-3">
-                                                        {/* <CardHeight> */}
-                                                        <div class="shadow p-2 mb-4 bg-white maindiv">
-                                                            <div >
-                                                                <div class="img-wh overflow-hidden"><img src={`${ImageView}${ProductDetails.images[0]}`} class="pdt-img" /></div>
-                                                                <div class="pdt-details">
-                                                                    <div class="price">₹{(ProductDetails.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
-                                                                    {/* <div class="font-weight-light desc">{ProductDetails.description}</div> */}
-                                                                    {
-                                                                        (ProductDetails.title).length > MAX_LENGTH ?
-                                                                            <div class="prd-name" style={{ overflow: 'hidden' }}>
-                                                                                {`${ProductDetails.title.substring(0, MAX_LENGTH)}...`}</div>
-                                                                            :
-                                                                            <div className="'prd-name" style={{ overflow: 'hidden' }}>{ProductDetails.title}</div>
-                                                                    }
-                                                                    <div>
-                                                                        <span className="date">{new Date(ProductDetails.createdAt).toDateString()}</span>
-                                                                    </div>
-                                                                    <div className="contain-adrs">
-                                                                        <span className="adrs fs-6"><MdLocationOn className="fs-6" />{ProductDetails.location.state}</span>
-                                                                        <span className="year"></span>
-                                                                    </div>
-                                                                    <div class="row p-0 m-0">
-                                                                        <div class="col p-0">
-                                                                            <div class="buy-bt">
+                                                        <CardHeight>
+
+                                                            <Link to={`/singleproductpage/${ProductDetails._id}`} state={{ ProductDetails, key }} className="text-decor">
+                                                                <div class="shadow p-2 mb-4 bg-white maindiv">
+                                                                    <div class="img-wh overflow-hidden"><img src={`${ImageView}${ProductDetails.images[0]}`} class="pdt-img" /></div>
+                                                                    <div class="pdt-details p-3">
+                                                                        <div className="row d-flex align-items-center">
+                                                                            <div className="col-md-12 col-8 ">
+
+                                                                                <div class="price">₹{(ProductDetails.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                                                                                {/* <div class="font-weight-light desc">{ProductDetails.description}</div> */}
+                                                                                {
+                                                                                    (ProductDetails.title).length > MAX_LENGTH ?
+                                                                                        <div class="prd-name" style={{ overflow: 'hidden' }}>
+                                                                                            {`${ProductDetails.title.substring(0, MAX_LENGTH)}...`}</div>
+                                                                                        :
+                                                                                        <div className="prd-name" style={{ overflow: 'hidden' }}>{ProductDetails.title}</div>
+                                                                                }
                                                                             </div>
                                                                         </div>
+                                                                        <div>
+                                                                        <span className="date">{new Date(ProductDetails.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
+                                                                           
+                                                                        </div>
+                                                                        <div className="contain-adrs">
+                                                                            <span className="adrs fs-6"><MdLocationOn className="fs-6" />{ProductDetails.location.state}</span>
+                                                                            <span className="year"></span>
+                                                                        </div>
+                                                                        <div class="row p-0 m-0">
+                                                                            <div class="col p-0">
+                                                                                <div class="buy-bt">
+                                                                                </div>
+                                                                            </div>
 
+                                                                        </div>
                                                                     </div>
+
                                                                 </div>
-                                                            </div>
-                                                            {/* </CardHeight> */}
-                                                        </div>
+                                                            </Link>
+                                                        </CardHeight>
                                                     </div>
                                                 )
 
@@ -348,32 +356,32 @@ const SellerProfile = () => {
 
                                                 {
                                                     // (Type == 'user' || Type == 'shop') ?
-                                                        <div className="subc-button1">
-                                                            {
-                                                                (show == false) ?
-                                                                    <Button
-                                                                        className="subscribe-button1"
-                                                                        onClick={() =>
-                                                                            Subscribe()
-                                                                        }
-                                                                    >
+                                                    <div className="subc-button1">
+                                                        {
+                                                            (show == false) ?
+                                                                <Button
+                                                                    className="subscribe-button1"
+                                                                    onClick={() =>
+                                                                        Subscribe()
+                                                                    }
+                                                                >
 
-                                                                        <span className="subscribe-color1">Subscribe</span>
-                                                                        {/* <button 
+                                                                    <span className="subscribe-color1">Subscribe</span>
+                                                                    {/* <button 
                                                                    >
                                                                 </button> */}
-                                                                    </Button>
+                                                                </Button>
+                                                                :
+                                                                (show == true) ?
+                                                                    <button className="subscribe-button1" onClick={() => Unsubscribe()}>
+                                                                        <span className="subscribe-color1">UnSubscribe</span>
+                                                                    </button>
                                                                     :
-                                                                    (show == true) ?
-                                                                        <button className="subscribe-button1" onClick={() => Unsubscribe()}>
-                                                                            <span className="subscribe-color1">UnSubscribe</span>
-                                                                        </button>
-                                                                        :
-                                                                        ""
-                                                            }
-                                                        </div>
-                                                        // :
-                                                        // ''
+                                                                    ""
+                                                        }
+                                                    </div>
+                                                    // :
+                                                    // ''
                                                     //    nav()
                                                 }
 
@@ -411,7 +419,7 @@ const SellerProfile = () => {
                                                                                 <div className="'prd-name" style={{ overflow: 'hidden' }}>{ProductDetails.title}</div>
                                                                         }
                                                                         <div>
-                                                                            <span className="date">{new Date(ProductDetails.createdAt).toDateString()}</span>
+                                                                        <span className="date">{new Date(ProductDetails.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
                                                                         </div>
 
                                                                         <div className="contain-adrs">

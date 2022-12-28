@@ -24,7 +24,7 @@ import { BiSearchAlt } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
 import UserDeleteModal from "./Modals/DeleteModal";
 import LogoutModal from "./Modals/LogoutModal";
-
+import { IoIosRocket } from 'react-icons/io';
 const Header = () => {
     const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
@@ -401,12 +401,12 @@ const Header = () => {
 
             {/* mobile  nav end*/}
             <div className="mob-version search-box col-12">
-                <form className="form-inline my-2 my-lg-0" action="search-result.php" method="get">
+                <div className="form-inline my-2 my-lg-0" >
                     <div className="mob-search">
-                        <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
+                        <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch}  aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
                         <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
                     </div>
-                </form>
+                </div>
                 {/* <div className="row p-0 m-0 mob-version">
                     <div className="col-12 mobileversion">
                         <button className="btnSell" onClick={sellLog}> + SELL</button>
@@ -633,8 +633,9 @@ const Header = () => {
                                         <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
 
 
-                                        <li><Link to='/packages/view' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;Packages</Link></li>
+                                        <li><Link to='/packages/view' className="dropdown-item"> <IoIosRocket className="fs-6" />&nbsp;&nbsp;Packages</Link></li>
                                         {/* <li><Link to='/mainchatfile' className="dropdown-item"> <BsChatQuoteFill />&nbsp;&nbsp;Chats</Link></li> */}
+                                    
 
                                         {
                                             (Type == "user") &&

@@ -50,7 +50,7 @@ export default function SubProduct() {
             const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters)
             console.log(data, 'location')
             setAllData(data.data)
-
+            setLoading(false)
             // if(Diffrence == maincategory) {
             //     console.log(true , 'run')
             // }else{
@@ -69,6 +69,7 @@ export default function SubProduct() {
             const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters)
             console.log(data, 'shopData')
             setAllData([...AllData, ...data.data])
+            setLoading(false)
             // if(Diffrence == maincategory) {
             //     console.log(true , 'run')
             // }else{

@@ -422,6 +422,7 @@ const ForRent = () => {
 
     return (
         <>
+              <div className="overflow-hidden">
             <Header />
             <MyContainer>
                 {
@@ -1032,6 +1033,7 @@ const ForRent = () => {
                         (category2 == 'land_&_plots') ? <Land_Plot /> : ""
                 }
             </MyContainer>
+            </div>
             <Footer />
         </>
 

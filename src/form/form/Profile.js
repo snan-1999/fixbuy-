@@ -267,238 +267,240 @@ const Profile = () => {
 
     return (
         <>
-            <Header />
-            <UserDeleteModal
-                {
-                ...{
-                    ModalOpen,
-                    setModalOpen,
-                    DeleteData
-                }
-                }
-            />
-            <ProfileNumber  {
-                ...{
-                    email,
-                    OTP,
-                    setOTP,
-                    otp,
-                    setOtp,
-                    OtpCondition, setOtpCondition,
-                    setModalSellerPhone,
-                    profileImg,
-                    setPhone,
-                    name,
-                    phone,
-                    id,
-                    isOpen,
-                    setisOpen,
-                    Onclose,
-                    OnOpen
-                }
-            } />
-            <EmailVerify  {
-                ...{
-                    email,
-                    OTP,
-                    setOTP,
-                    otp,
-                    setOtp,
-                    OtpCondition, setOtpCondition,
-                    ModalEmail,
-                    setModalEmail,
-                    profileImg,
-                    setEmail,
-                    name,
-                    phone,
-                    id,
-                    EmalOpen,
-                    setEmalOpen,
-                    EmailModalOpen
-                }
-            } />
-            <ToastContainer />
+            <div className="overflow-hidden">
+                <Header />
+                <UserDeleteModal
+                    {
+                    ...{
+                        ModalOpen,
+                        setModalOpen,
+                        DeleteData
+                    }
+                    }
+                />
+                <ProfileNumber  {
+                    ...{
+                        email,
+                        OTP,
+                        setOTP,
+                        otp,
+                        setOtp,
+                        OtpCondition, setOtpCondition,
+                        setModalSellerPhone,
+                        profileImg,
+                        setPhone,
+                        name,
+                        phone,
+                        id,
+                        isOpen,
+                        setisOpen,
+                        Onclose,
+                        OnOpen
+                    }
+                } />
+                <EmailVerify  {
+                    ...{
+                        email,
+                        OTP,
+                        setOTP,
+                        otp,
+                        setOtp,
+                        OtpCondition, setOtpCondition,
+                        ModalEmail,
+                        setModalEmail,
+                        profileImg,
+                        setEmail,
+                        name,
+                        phone,
+                        id,
+                        EmalOpen,
+                        setEmalOpen,
+                        EmailModalOpen
+                    }
+                } />
+                <ToastContainer />
 
-            <div className="container">
+                <div className="container">
 
-                <div className="page-wrapper">
+                    <div className="page-wrapper">
 
-                    <div className="page-content ">
-                        <br />
-                        <h5 className="my-2 text-capitalize">{Type} Profile</h5>
-                        <div className="card">
-                            <form method="post" enctype="multipart/form-data">
-                                <div className="card-body">
-                                    <div className="myi">
-                                        <div className="row">
-                                            <div className="col d-flex align-items-center justify-content-center m-4 p-2">
-                                                <div className="preview-container shadow shadowclass">
-                                                    <span className="fileName d-block my-2"></span>
-                                                    <input
-                                                        type="file"
-                                                        accept="image/*"
-                                                        onChange={handleImageUpload}
-                                                        ref={imageUploader}
-                                                        style={{
-                                                            display: "none"
-                                                        }}
-                                                        dataURLKey="data_url"
-                                                    />
-                                                    <div
-                                                        style={{
-                                                            height: "180px",
-                                                            width: "180px",
-                                                            borderRadius: "50%",
-
-                                                        }}
-                                                        onClick={() => imageUploader.current.click()}
-
-                                                    >
-                                                        <img
-                                                            src={profileImg}
-                                                            name={profileImg}
-                                                            value={profileImg}
-                                                            // ref={uploadedImage}
-
+                        <div className="page-content ">
+                            <br />
+                            <h5 className="my-2 text-capitalize">{Type} Profile</h5>
+                            <div className="card">
+                                <form method="post" enctype="multipart/form-data">
+                                    <div className="card-body">
+                                        <div className="myi">
+                                            <div className="row">
+                                                <div className="col d-flex align-items-center justify-content-center m-4 p-2">
+                                                    <div className="preview-container shadow shadowclass">
+                                                        <span className="fileName d-block my-2"></span>
+                                                        <input
+                                                            type="file"
+                                                            accept="image/*"
+                                                            onChange={handleImageUpload}
+                                                            ref={imageUploader}
                                                             style={{
-                                                                width: "100%",
-                                                                height: "100%",
-                                                                borderRadius: "50%"
-                                                                //   position: "absolute"
+                                                                display: "none"
                                                             }}
+                                                            dataURLKey="data_url"
                                                         />
+                                                        <div
+                                                            style={{
+                                                                height: "180px",
+                                                                width: "180px",
+                                                                borderRadius: "50%",
+
+                                                            }}
+                                                            onClick={() => imageUploader.current.click()}
+
+                                                        >
+                                                            <img
+                                                                src={profileImg}
+                                                                name={profileImg}
+                                                                value={profileImg}
+                                                                // ref={uploadedImage}
+
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                    borderRadius: "50%"
+                                                                    //   position: "absolute"
+                                                                }}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div className="row mb-3">
+                                            <div className="col-sm-3 ">
+                                                <h6 className="mb-0">Full Name</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary">
+                                                <input type="text" className="form-control shadow-none text-capitalize" placeholder="Full Name" contenteditable="true" name="username" value={name} onChange={(e) => setName(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <div className="row mb-3">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Email</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary" onClick={LogCome !== 'email' && EmailModalOpen}>
+                                                <input type="text" className="form-control shadow-none" readOnly placeholder="Email" name="user_email" value={ModalEmail} contenteditable='false' />
+                                                {
+                                                    (!ModalEmail && LogCome == 'email')
+                                                    && <div className="text-danger">please add your Email</div>
+                                                }
+                                            </div>
+                                            <div className="UpdateNum w-100">
+                                                {
+                                                    (LogCome !== 'email') ?
+                                                        !phone ? <p className="fs-6 float-end text-primary" onClick={EmailModalOpen}>Add Your Email</p> :
+                                                            <p className=" float-end text-primary" onClick={EmailModalOpen}>Update Your Email</p>
+                                                        : <></>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="row mb-1">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Phone</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary" onClick={OnOpen}>
+                                                <input type="text" readOnly className="form-control shadow-none" placeholder="Phone" name="phone" value={ModalSellerPhone} contenteditable='false'
+                                                />
+                                                {
+                                                    !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                                                }
+                                            </div>
+                                            <div className="UpdateNum w-100">
+                                                {
+                                                    !phone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
+                                                        <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="row mb-3">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Date Of Birth</h6>
+                                            </div>
+                                            <div className="col-sm-9 text-secondary overflow-hidden position-relative">
+                                                <input type="date" className="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
                                             </div>
 
                                         </div>
-                                    </div>
-
-                                    <div className="row mb-3">
-                                        <div className="col-sm-3 ">
-                                            <h6 className="mb-0">Full Name</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none text-capitalize" placeholder="Full Name" contenteditable="true" name="username" value={name} onChange={(e) => setName(e.target.value)} />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Email</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary" onClick={LogCome !== 'email' && EmailModalOpen}>
-                                            <input type="text" className="form-control shadow-none" readOnly placeholder="Email" name="user_email" value={ModalEmail} contenteditable='false' />
-                                            {
-                                                (!ModalEmail && LogCome == 'email')
-                                                && <div className="text-danger">please add your Email</div>
-                                            }
-                                        </div>
-                                        <div className="UpdateNum w-100">
-                                            {
-                                                (LogCome !== 'email') ?
-                                                    !phone ? <p className="fs-6 float-end text-primary" onClick={EmailModalOpen}>Add Your Email</p> :
-                                                        <p className=" float-end text-primary" onClick={EmailModalOpen}>Update Your Email</p>
-                                                    : <></>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="row mb-1">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Phone</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary" onClick={OnOpen}>
-                                            <input type="text" readOnly className="form-control shadow-none" placeholder="Phone" name="phone" value={ModalSellerPhone} contenteditable='false'
-                                            />
-                                            {
-                                                !ModalSellerPhone && <div className="text-danger">please add your number</div>
-                                            }
-                                        </div>
-                                        <div className="UpdateNum w-100">
-                                            {
-                                                !phone ? <p className="fs-6 float-end text-primary" onClick={OnOpen}>Add Your Number</p> :
-                                                    <p className=" float-end text-primary" onClick={OnOpen}>Update Your Number</p>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Date Of Birth</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary overflow-hidden position-relative">
-                                            <input type="date" className="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
-                                        </div>
-                                        
-                                    </div>
-                                    <div className="row mb-3">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Gender</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary ">
-                                            <div style={{ color: "red" }} >{gendererror}</div>
-                                            {/* <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => { setGender(e.target.value); setGenderError('') }} /> */}
-                                            <Select className="form-control" onChange={(e) => { setGender(e.target.value); setGenderError('')   }}>
-                                                <option value={gender} disabled selected>{gender}</option>
-                                                <option value='Male'  >Male</option>
-                                                <option value='Female' >Female</option>
-                                            </Select>
-                                        </div>
-                                    </div>
-
-                                    {
-                                        (Type == 'shop') &&
-
-                                        <>
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Shop Address</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <input type="text" className="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
-                                                </div>
+                                        <div className="row mb-3">
+                                            <div className="col-sm-3">
+                                                <h6 className="mb-0">Gender</h6>
                                             </div>
-                                            <div className="row mb-3">
-                                                <div className="col-sm-3">
-                                                    <h6 className="mb-0">Gst Number</h6>
-                                                </div>
-                                                <div className="col-sm-9 text-secondary">
-                                                    <input type="text" className="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
-                                                </div>
+                                            <div className="col-sm-9 text-secondary ">
+                                                <div style={{ color: "red" }} >{gendererror}</div>
+                                                {/* <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => { setGender(e.target.value); setGenderError('') }} /> */}
+                                                <Select className="form-control" onChange={(e) => { setGender(e.target.value); setGenderError('') }}>
+                                                    <option value={gender} disabled selected>{gender}</option>
+                                                    <option value='Male'  >Male</option>
+                                                    <option value='Female' >Female</option>
+                                                </Select>
                                             </div>
-
-                                        </>
-                                    }
-
-                                    <div className="row">
-                                        <div className="col-sm-3"></div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <div className="d-flex justify-content-between">
-                                                <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update"
-                                                    onClick={() => {
-                                                        UpadateUser()
-                                                    }} />
-                                                <input type="button" name="Delete" className="btn btn-color  px-4 DeletBtnUser text-uppercase" value="Delete Account"
-                                                    onClick={() => {
-                                                        OpenDelete()
-                                                    }} />
-                                            </div>
-                                            <br />
-
-                                            {errors &&
-                                                <div className="messageClass" role="alert" style={{ color: 'green' }}>
-                                                    {message}
-                                                </div>
-                                            }
                                         </div>
-                                    </div>
 
-                                </div>
-                            </form>
+                                        {
+                                            (Type == 'shop') &&
+
+                                            <>
+                                                <div className="row mb-3">
+                                                    <div className="col-sm-3">
+                                                        <h6 className="mb-0">Shop Address</h6>
+                                                    </div>
+                                                    <div className="col-sm-9 text-secondary">
+                                                        <input type="text" className="form-control shadow-none" placeholder="Full address" contenteditable="true" name="shop_address" value={shop_address} onChange={(e) => setAddress(e.target.value)} />
+                                                    </div>
+                                                </div>
+                                                <div className="row mb-3">
+                                                    <div className="col-sm-3">
+                                                        <h6 className="mb-0">Gst Number</h6>
+                                                    </div>
+                                                    <div className="col-sm-9 text-secondary">
+                                                        <input type="text" className="form-control shadow-none" placeholder="Gst Number" contenteditable="true" name="gst_no" value={gst_no} onChange={(e) => setGstNumber(e.target.value)} />
+                                                    </div>
+                                                </div>
+
+                                            </>
+                                        }
+
+                                        <div className="row">
+                                            <div className="col-sm-3"></div>
+                                            <div className="col-sm-9 text-secondary">
+                                                <div className="d-flex justify-content-between">
+                                                    <input type="button" name="update" className="btn btn-color  px-4 submitBtn text-uppercase" value="Update"
+                                                        onClick={() => {
+                                                            UpadateUser()
+                                                        }} />
+                                                    <input type="button" name="Delete" className="btn btn-color  px-4 DeletBtnUser text-uppercase" value="Delete Account"
+                                                        onClick={() => {
+                                                            OpenDelete()
+                                                        }} />
+                                                </div>
+                                                <br />
+
+                                                {errors &&
+                                                    <div className="messageClass" role="alert" style={{ color: 'green' }}>
+                                                        {message}
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+
+                            {/* <!-- end row --> */}
                         </div>
-
-                        {/* <!-- end row --> */}
                     </div>
-                </div>
 
+                </div>
             </div>
             <Footer />
         </>

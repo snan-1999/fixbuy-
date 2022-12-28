@@ -175,7 +175,7 @@ const Footer = () => {
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    About Us
+                                    <Link to="/about" className="text-decoration-none" style={{ color: '#37577A' }}>About Us</Link> 
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />

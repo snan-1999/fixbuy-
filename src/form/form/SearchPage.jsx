@@ -56,7 +56,11 @@ function SearchPage() {
     // useEffect(() => {
     //     OneTImeData()
     // }, [0])
-
+    let PriceLenght = 5;
+    const numberWithCommas = price => {
+        console.log(price , 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     useEffect(() => {
         setsearchWord(searchData.state)
         // check()
@@ -109,7 +113,13 @@ function SearchPage() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
-                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
+                                                            {/* <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div> */}
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart">
                                                             {

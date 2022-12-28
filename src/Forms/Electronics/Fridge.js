@@ -327,10 +327,12 @@ const Fridge = () => {
 
     return (
         <>
+              <div className="overflow-hidden">
 
             <Header />
             <ToastContainer />
             <h6 className="sub-Categories-Heading text-uppercase">Electronics/{newcategory}</h6>
+             
             <MyContainer>
 
 
@@ -730,6 +732,7 @@ const Fridge = () => {
 
                 </div>
             </MyContainer>
+            </div>
             <Footer />
         </>
     )
