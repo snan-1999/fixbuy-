@@ -20,7 +20,7 @@ import { TbPoint } from "react-icons/tb";
 import { useMediaQuery } from '@chakra-ui/media-query'
 
 const Footer = () => {
-    const [isMobile] = useMediaQuery("(max-width : 400px)");
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     console.log(isMobile, 'yes')
     return (
         <>
@@ -177,13 +177,13 @@ const Footer = () => {
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
                                     About Us
                                 </ListItem>
-                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
+                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    <Link to="/privacy" className="text-decoration-none" style={{color :'#37577A'}}>Legal & Privacy</Link>
+                                    <Link to="/privacy" className="text-decoration-none" style={{ color: '#37577A' }}>Legal & Privacy</Link>
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    <Link to="/terms" className="text-decoration-none" style={{color :'#37577A'}}>Term & Condition</Link>
+                                    <Link to="/terms" className="text-decoration-none" style={{ color: '#37577A' }}>Term & Condition</Link>
                                 </ListItem>
                             </List>
                         </Stack>
@@ -192,16 +192,16 @@ const Footer = () => {
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'}>Support</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
+                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
+                                    <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
+                                    Ghookna, Ghaziabad,<br />
+                                    <Text p='0' m='0' ms={!isMobile ? '18' : '0'}> Uttar Pradesh, 201003</Text>
+                                </ListItem>
+                                {/* <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
+                                    <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
+                                </ListItem> */}
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    Ghookna, Ghaziabad,
-                                </ListItem>
-                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
-                                    <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    Uttar Pradesh, 201003
-                                </ListItem>
-                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
-                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
                                     8527720760
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
@@ -211,25 +211,25 @@ const Footer = () => {
                             </List>
                         </Stack>
                     </div>
-                    <div className="col-md-2 SetCols">
-                        <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
+                    <div className="col-md-2 SetCols" >
+                        <Stack direction='column' display={isMobile ? 'none' : 'flex'} alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'} textTransform='capitalize'>Mobile app</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
                                 <ListItem fontSize='12px' display='flex' flexDirection='column' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} >
                                     {/* <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' /> */}
                                     <Image src={android} width='100px' />
-                                  
+
                                 </ListItem>
                                 <ListItem fontSize='12px' display='flex' flexDirection='column' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} >
                                     {/* <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' /> */}
                                     <Image src={apple} width='100px' />
-                                  
-                                </ListItem>
+
+                                </ListItem> 
                             </List>
                         </Stack>
                     </div>
                     <div className="col-md-4 SetCols">
-                        <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}> 
+                        <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'} textTransform='capitalize'>social media  </Heading>
                             <List spacing='5 ' marginTop={!isMobile ? 'auto' : '0px'} display='flex' flexDirection={isMobile ? 'row' : 'column'} alignItems={isMobile ? 'center' : 'center'} w='100%' justifyContent={isMobile ? 'space-around' : 'center'}>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
@@ -242,9 +242,9 @@ const Footer = () => {
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <a href="https://twitter.com/FixebuyOfficial">
-                                        <Image 
+                                        <Image
                                             boxSize='25px'
-                                            objectFit='cover'
+                                            objectFit='cover' 
                                             src={twitter}
                                             alt='twitter'
                                         /></a>
@@ -263,15 +263,18 @@ const Footer = () => {
                     </div>
                 </div>
                 <Support />
-                <Stack mt={10}>
+                <Stack mt={10}> 
                     <Box w='100%' h='40px' style={{
                         backgroundImage: "linear-gradient(#487792,#37577A)"
-                    }} display='flex' justifyContent='center' alignItems='center' textTransform='capitalize'>
+                    }} display='flex' justifyContent='center' alignItems='center' textTransform='capitalize' flexDirection='column' >
+                        <Text color="#fff" fontSize='10px' fontWeight='light' m={0} mb='3' display={!isMobile ? 'none' : 'block'}>
+                            <Link to="/privacy" className="text-white text-decoration-none" style={{ color: '#37577A' }}>Legal & Privacy</Link>
+                        </Text>
                         <Text color="#fff" fontSize='12px' fontWeight='light' m={0}>
                             All rights reserved ©2022 FixeBuy
                         </Text>
                     </Box>
-                </Stack>
+                </Stack> 
             </Footers>
         </>
     )

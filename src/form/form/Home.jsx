@@ -117,15 +117,18 @@ const Home = () => {
     window.onload = function () {
         setTimeout(function () {
             OnOpen()
-        }, 5000);
-    };
+        }, 5000); 
+    }; 
     let Max_length = 27;
     // const DAte = new Date();
     // alert(DAte.toDateString().split(' ').slice(1).join(' '))
     const numberWithCommas = price => {
+        console.log(price , 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
+    
     useEffect(() => {
+        // numberWithCommas()
         latitude && homeDataAll()
     }, [PageNo, UserId, latitude])
     return (

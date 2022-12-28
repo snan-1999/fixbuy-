@@ -26,7 +26,7 @@ export default function UserDeleteModal({ DelId, ModalOpen, setModalOpen, Delete
                                     </lord-icon>
                                 </DeleteDiv>
                                 <ModalBody>
-                                    Are You Sure ? <br />
+                                    Are You Sure  <br />
                                     You Want to Delete?
                                 </ModalBody>
                                 <ModalFooter>

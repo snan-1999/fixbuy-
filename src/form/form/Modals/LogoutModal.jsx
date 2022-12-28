@@ -44,6 +44,7 @@ export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpe
                                             buttonText="Logout"
                                             onLogoutSuccess={() => {
                                                 window.localStorage.removeItem('token');
+                                                window.localStorage.removeItem('loginThrough');
                                                 setLogoutOpen(false)
                                                 nav("/")
                                             }}

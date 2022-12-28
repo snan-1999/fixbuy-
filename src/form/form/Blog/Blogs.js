@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../header";
 import Footer from "../Footer";
-import { baseUrl } from "../../../functions/constant";
+import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
 
 const Blogs = () => {
@@ -64,7 +64,7 @@ const Blogs = () => {
                         <div className="main-blog-container">
                             <div className="blog-image">
                                 {/* <img src={`${baseUrl}/blogs/getimage/${data.contentImage}`} alt="img" /> */}
-                                <img src={sunset} />
+                                <img src={`${ImageView}${data.contentImage}`} alt="img" />
                             </div>
                             
                             <div className="blog-card-headings">
@@ -76,11 +76,13 @@ const Blogs = () => {
                             <div className="blog-content-text">
                                 {
                                  (data.contentText).length > MAX_LENGTH ?
-                                <div>
-                                    {`${data.contentText.substring(0 , MAX_LENGTH)}...`}
+                                <div  dangerouslySetInnerHTML={{ __html: data.contentText.substring(0 , MAX_LENGTH) }}>
+                                    {/* {`${data.contentText.substring(0 , MAX_LENGTH)}...`} */}
                                     </div>
                                     :
-                                    <div>{data.contentText}</div>
+                        //             <div dangerouslySetInnerHTML={{ __html: text }}
+                        // ></div>
+                                    <div  dangerouslySetInnerHTML={{ __html: data.contentText }}></div>
                                 }
                                 <Link to={`/blogs/SingleBlog/${data._id}`} onClick={() => getBlog(data._id)}>Read more</Link>
                             </div>

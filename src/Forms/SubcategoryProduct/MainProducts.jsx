@@ -3,7 +3,7 @@ import React from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import load from '../../assets/images/load.gif';
 import { GlobalVariables } from '../../Context/StateProvider';
@@ -22,10 +22,14 @@ export default function MainProducts() {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
     const Loacation = useGeoLocation()
     console.log(Loacation, 'latitudes')
+    const ParamLocate  = useLocation()
+    console.log(ParamLocate.pathname , 'statttte')
     const Max_length = 26;
     const [AllData, setAllData] = useState([]);
     const [Loading, setLoading] = useState(false);
     const [PageNO, setPageNO] = useState(1);
+    const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
+   
     const [NOData, setNOData] = useState(false)
     const [Diffrence, setDiffrence] = useState(null)
     const [filters, setfilters] = useState(null)
@@ -35,11 +39,13 @@ export default function MainProducts() {
     // filter one time
     console.log(latitude, 'latituds')
     const MainCategoryDataFIlter = async () => {
+        setFIlterPageNO(1)
         setAllData([])
-        console.log(filters, 'filter')
+        console.log(FIlterPageNO, 'filter')
         try {
-            const { data } = await FilterMainCategoryData(GetMainCatogery, latitude, Longitude, PageNO, filters, UserId)
+            const { data } = await FilterMainCategoryData(GetMainCatogery, latitude, Longitude, FIlterPageNO, filters, UserId)
             console.log(data, 'shopData')
+            // setFIlterPageNO(1)
             setAllData(data.data)
             // if(Diffrence == maincategory) {
             //     console.log(true , 'run')
@@ -56,7 +62,7 @@ export default function MainProducts() {
         // setAllData([])
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterMainCategoryData(GetMainCatogery, latitude, Longitude, PageNO, filters, UserId)
+            const { data } = await FilterMainCategoryData(GetMainCatogery, latitude, Longitude, FIlterPageNO, filters, UserId)
             console.log(data, 'shopData')
             setAllData([...AllData, ...data.data])
             // if(Diffrence == maincategory) {
@@ -115,6 +121,11 @@ export default function MainProducts() {
         setLoading(true)
 
     }
+    const LoadMOreFIlter = async () => {
+        setFIlterPageNO(FIlterPageNO + 1)
+        setLoading(true)
+
+    }
     const LoadMoreDataMain = async () => {
         const { data } = await AllDataCategory(GetMainCatogery, latitude, Longitude, PageNO, UserId)
         setTotalPagess(data.totalPages)
@@ -144,6 +155,11 @@ export default function MainProducts() {
             // alert('There is no Data')
         }
     }
+    let PriceLenght = 5;
+    const numberWithCommas = price => {
+        console.log(price , 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     useEffect(() => {
         LoadMoreDataMain()
     }, [PageNO])
@@ -152,12 +168,12 @@ export default function MainProducts() {
     }, [filters])
     useEffect(() => {
         MainCategoryDataFIlterLoad()
-    }, [PageNO])
+    }, [FIlterPageNO])
     useEffect(() => {
-        // MainCategoryDataFIlter()
+        if(ParamLocate !== '/automobile/all/all-product'){
+            setFIlterPageNO(1)
+        }
 
-        // MainCategoryDataFIlter()
-        setPageNO(1)
         MainData()
         console.log('run')
     }, [0, maincategory, latitude])
@@ -174,12 +190,12 @@ export default function MainProducts() {
                         </div>
                     </div>
                     <div className="inline-block mr-auto pt-1">
-                {
-                    Location.loaded &&
-                    JSON.stringify(Location)
+                        {
+                            Location.loaded &&
+                            JSON.stringify(Location)
 
-                }
-            </div>
+                        }
+                    </div>
                     <div className="col-6 d-flex justify-content-center align-items-center">
                         <div className=" pt-4">
                             <div className="col-md-6 position-relative ">
@@ -236,7 +252,12 @@ export default function MainProducts() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
-                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart">
                                                             {
@@ -253,9 +274,9 @@ export default function MainProducts() {
                                                             :
                                                             <div className="prd-name text-capitalize">{automobileProduct.title}</div>
                                                     }
-                                                       <div>
-                                                            <span className="date">{new Date(automobileProduct.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
-                                                        </div>
+                                                    <div>
+                                                        <span className="date">{new Date(automobileProduct.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
+                                                    </div>
                                                     <div className="contain-adrs">
                                                         <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
                                                         <span className="year"></span>
@@ -279,15 +300,28 @@ export default function MainProducts() {
                         })
                     }
                     <div className="row m-0 p-0 d-flex justify-content-center">
+                        {
+                            filters == 1 || filters == -1 ?
 
-                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                            {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
+
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == PageNO}>
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                        :
+                                        <img src={load} />} &nbsp;&nbsp;
+                                    Load More
+                                </ButtonCraete>
                                 :
-                                <img src={load} />} &nbsp;&nbsp;
-                            Load More
-                        </ButtonCraete>
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                        :
+                                        <img src={load} />} &nbsp;&nbsp;
+                                    Load More
+                                </ButtonCraete>
+                        }
                         {/* </div> */}
                     </div>
                 </div>

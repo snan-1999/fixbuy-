@@ -49,7 +49,7 @@ const Contact = () => {
             email: email,
             mobile: mobile,
             message: message
-        }).then((response) => {
+        }).then((response) => { 
             console.log(response.data);
             if (response.data) {
                 setLoader(false)

@@ -18,13 +18,13 @@ export const AllDataCategory = async (MainCategory,  latitude, Longitude, PageNO
     }
 }
 // filter Main
-export const FilterMainCategoryData = async (MainCategory, latitude, Longitude, PageNO, filters, UserId) => {
+export const FilterMainCategoryData = async (MainCategory, latitude, Longitude, FIlterPageNO, filters, UserId) => {
     try {
         let api;
         if (UserId == undefined || UserId == null) {
-             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${latitude}/${Longitude}/${filters}/${PageNO}`
+             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${latitude}/${Longitude}/${filters}/${FIlterPageNO}`
         } else {
-             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${latitude}/${Longitude}/${filters}/${PageNO}?user_id=${UserId}`
+             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${latitude}/${Longitude}/${filters}/${FIlterPageNO}?user_id=${UserId}`
 
         }
         const Data = await axios.get(api);
@@ -52,13 +52,13 @@ export const SubDataCategoryFun = async (maincategory, GetSubCatogery, latitude,
     }
 }
 // filter sub
-export const FilterSubCategoryData = async (MainCategory, GetSubCatogery, latitude, Longitude, PageNO, filters, UserId) => {
+export const FilterSubCategoryData = async (MainCategory, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters, UserId) => {
     try {
         let api;
         if (UserId == undefined || UserId == null) {
-             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${GetSubCatogery}/${latitude}/${Longitude}/${filters}/${PageNO}`
+             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${GetSubCatogery}/${latitude}/${Longitude}/${filters}/${FIlterPageNO}`
         } else {
-             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${GetSubCatogery}/${latitude}/${Longitude}/${filters}/${PageNO}?user_id=${UserId}`
+             api = `${baseUrl}/product/fetchFilter/${MainCategory}/${GetSubCatogery}/${latitude}/${Longitude}/${filters}/${FIlterPageNO}?user_id=${UserId}`
         }
         const Data = await axios.get(api);
         console.log(api, 'location')

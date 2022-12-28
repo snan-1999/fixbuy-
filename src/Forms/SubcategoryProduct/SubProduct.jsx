@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import Header from '../../form/form/header'
 import { baseUrl, ImageView } from '../../functions/constant'
@@ -24,6 +24,7 @@ import useGeoLocation from '../../hooks/useGeoLoaction'
 export default function SubProduct() {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, latitude, Longitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
     const Token = localStorage.getItem('token');
+    const ParamLocate = useLocation()
     const TokenData = JSON.parse(Token)
     const Loacation = useGeoLocation()
     const [AllData, setAllData] = useState([]);
@@ -31,6 +32,7 @@ export default function SubProduct() {
     const [PageNO, setPageNO] = useState(1);
     const [filters, setfilters] = useState(null)
     const [NOData, setNOData] = useState(false);
+    const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
     // const [UserID, setUserID] = useState(null);
     const { maincategory, subcategory } = useParams();
     const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase()
@@ -41,12 +43,14 @@ export default function SubProduct() {
     const [Name, setName] = useState('Category');
     console.log(latitude, 'latituds')
     const MainCategoryDataFIlter = async () => {
+        setFIlterPageNO(1)
         setAllData([])
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, PageNO, filters)
+            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters)
             console.log(data, 'location')
             setAllData(data.data)
+
             // if(Diffrence == maincategory) {
             //     console.log(true , 'run')
             // }else{
@@ -62,7 +66,7 @@ export default function SubProduct() {
         // setAllData([])
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, PageNO, filters)
+            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters)
             console.log(data, 'shopData')
             setAllData([...AllData, ...data.data])
             // if(Diffrence == maincategory) {
@@ -102,7 +106,7 @@ export default function SubProduct() {
 
         const { data } = await axios.get(api);
         setLoading(true)
-        console.log(data, 'load')
+        console.log(data, 'location')
         console.log(api, 'location')
         if (data.status) {
             setLoading(false)
@@ -134,36 +138,37 @@ export default function SubProduct() {
     }
     const LoadMOre = () => {
         setPageNO(PageNO + 1)
-        // setLmore(Lmore + 1)
-        // console.log(PageNO, 'load')
-
-        // const Condition = `${maincategory}/${subcategory}` == `${maincategory}/all`;
-        // console.log(Condition,"co");
-        // if (Condition) {
-        // MainData()
-        //     console.log('main')
-        // } else {
-        //     SubDataCategory()
-        //     console.log('Sub')
-        // }
         setLoading(true)
     }
+    const LoadMOreFIlter = async () => {
+        setFIlterPageNO(FIlterPageNO + 1)
+        setLoading(true)
+
+    }
+    let PriceLenght = 5;
+    const numberWithCommas = price => {
+        console.log(price , 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     useEffect(() => {
-        setPageNO(1)
+        // setPageNO(1)
         MainCategoryDataFIlter()
     }, [filters])
     useEffect(() => {
         MainCategoryDataFIlterLoad()
-    }, [PageNO])
+    }, [FIlterPageNO])
     useEffect(() => {
         LoadSubData()
     }, [PageNO])
     const Max_length = 26;
     useEffect(() => {
-        setPageNO(1)
+        if (ParamLocate !== `/automobile/${GetSubCatogery}`) {
+            setFIlterPageNO(1)
+        }
+        // setPageNO(1)
         SubDataCategory()
         console.log('run');
-    }, [subcategory, latitude])
+    }, [0, subcategory, latitude])
     // const SHare = () => {
 
     // }
@@ -235,7 +240,12 @@ export default function SubProduct() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
-                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart">
                                                             {
@@ -251,9 +261,9 @@ export default function SubProduct() {
                                                             :
                                                             <div className="prd-name text-capitalize">{automobileProduct.title}</div>
                                                     }
-                                                       <div>
-                                                            <span className="date">{new Date(automobileProduct.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
-                                                        </div>
+                                                    <div>
+                                                        <span className="date">{new Date(automobileProduct.createdAt).toDateString().split(' ').slice(1).join(' ')}</span>
+                                                    </div>
                                                     <div className="contain-adrs">
                                                         <span className="adrs fs-6"><MdLocationOn className="fs-6" />{automobileProduct.location.state}</span>
                                                         <span className="year"></span>
@@ -277,14 +287,30 @@ export default function SubProduct() {
                         })
                     }
                     <div className="row m-0 p-0 d-flex justify-content-center">
-                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                            {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>
+                        {
+                            filters == 1 || filters == -1 ?
+                                TotalPagess == FIlterPageNO ?
+                                    <>
+                                    </>
+                                    :
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                        {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                            :
+                                            <img src={load} />} &nbsp;&nbsp;
+                                         Load More
+                                    </ButtonCraete>
                                 :
-                                <img src={load} />} &nbsp;&nbsp;
-                            Load More
-                        </ButtonCraete>
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                        :
+                                        <img src={load} />} &nbsp;&nbsp;
+                                    Load More
+                                </ButtonCraete>
+                        }
                     </div>
                 </div>
             </div>
@@ -325,7 +351,7 @@ const CardHeight = styled.div`
                /* @media (max-width: 768px) {
                    display: none;
                  } */
-                   height: 70vh ;
+                   height: auto ;
                    @media (max-width :600px){
                        height: auto ;
                    }

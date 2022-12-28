@@ -23,6 +23,7 @@ function SearchPage() {
     const [searchWord, setsearchWord] = useState(null)
 
     console.log(searchData.state, 'dataSearch')
+    console.log(PageNO, 'dataSearch')
     const OneTImeData = async () => {
         setLoading(true, 'dataSearch')
         const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
@@ -35,8 +36,9 @@ function SearchPage() {
             console.log(AllData, 'hello1')
         }
     }
+
     const LoadDataFun = async () => {
-        const { data } = await SearchHome(Longitude, latitude, searchData.state, setPageNO)
+        const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
         console.log(data, 'hello')
         setLoading(true, 'dataSearch')
 
@@ -51,6 +53,10 @@ function SearchPage() {
         setPageNO(PageNO + 1)
         setLoading(true)
     }
+    // useEffect(() => {
+    //     OneTImeData()
+    // }, [0])
+
     useEffect(() => {
         setsearchWord(searchData.state)
         // check()
@@ -68,20 +74,21 @@ function SearchPage() {
         <>
             <div className="overflow-hidden">
                 <Header />
-            </div>
-            <div className="row m-0 p-0 overflow-hidden">
-                <div className="for-center flex-row justify-content-center align-items-center">
 
-                    <div className="col-md-6">
-                        <div className="container-heading-homeSearch">
-                            <span>Search PRODUCTS</span>
+                <div className="row m-0 p-0 overflow-hidden">
+                    <div className="for-center flex-row justify-content-center align-items-center">
+
+                        <div className="col-md-6">
+                            <div className="container-heading-homeSearch">
+                                <span>Search PRODUCTS</span>
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-md-6 d-flex justify-content-center align-items-center">
-                        <div className=" pt-4">
-                            {/* <RefreshBtn>
+                        <div className="col-md-6 d-flex justify-content-center align-items-center">
+                            <div className=" pt-4">
+                                {/* <RefreshBtn>
                                 <abbr title="Refresh Data"><BiRefresh className='ref' onClick={() => { RefTog() }} /></abbr>
                             </RefreshBtn> */}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,13 +149,17 @@ function SearchPage() {
                         })
                     }
                     <div className="row m-0 p-0 d-flex justify-content-center">
-
-                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == setPageNO}>
-                            {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
-                                <span className="visually-hidden">Loading...</span>
-                            </div>}
-                            Load More
-                        </ButtonCraete>
+                        {
+                            TotalPagess == PageNO ?
+                                <></>
+                                :
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>}
+                                    Load More
+                                </ButtonCraete>
+                        }
                     </div>
                 </div>
             </div>

@@ -985,6 +985,7 @@ ul.sub_category_list li {
 .dropdown-item:hover i {
   color: #0999d5 !important;
   background-color: #ffffff !important;
+  cursor: pointer !important;
 }
 
 .dropdown-item:active,

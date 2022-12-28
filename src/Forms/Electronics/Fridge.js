@@ -170,8 +170,8 @@ const Fridge = () => {
                                                             'Content-Type': 'multipart/form-data'
                                                         }
                                                     }
-                                                    ).then((response) => {
-                                                        if (response.data.status) {
+                                                ).then((response) => {
+                                                    if (response.data.status) {
                                                         setLoader(false)
                                                         toast('Successfully Created', {
                                                             position: "bottom-right",
@@ -249,7 +249,7 @@ const Fridge = () => {
                 sellernameRef.current.style.borderColor = 'red';
             }
         } else {
-          
+
             setError(false);
             setAllErrors(true)
             // usecheck(true);
@@ -327,7 +327,7 @@ const Fridge = () => {
 
     return (
         <>
-       
+
             <Header />
             <ToastContainer />
             <h6 className="sub-Categories-Heading text-uppercase">Electronics/{newcategory}</h6>
@@ -654,18 +654,21 @@ const Fridge = () => {
 
 
                         <label for="phone">Phone Number*</label>
-                        <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
-                            onChange={(e) => {
-                                // setPhoneLocal(e.target.value)
+                        <div className="UpdateNum" onClick={OnOpen}>
 
-                                // sellerphoneRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                                setAllErrors("")
-                            }}
-                            // value={sellerphone}
-                            value={ModalSellerPhone}
-                            ref={sellerphoneRef}
-                        />
+                            <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
+                                onChange={(e) => {
+                                    // setPhoneLocal(e.target.value)
+
+                                    // sellerphoneRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }}
+                                // value={sellerphone}
+                                value={ModalSellerPhone}
+                                ref={sellerphoneRef}
+                            />
+                        </div>
                         {
                             !ModalSellerPhone && <div className="text-danger">please add your number</div>
                         }
@@ -709,7 +712,7 @@ const Fridge = () => {
                                     onChange={(e) => {
                                         setMessage('')
                                     }} />
-                                 {  Loader &&  <Spinner className="ChkraSpin"/>}
+                                {Loader && <Spinner className="ChkraSpin" />}
                             </div>
 
                         }

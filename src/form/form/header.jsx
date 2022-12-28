@@ -121,7 +121,7 @@ const Header = () => {
     const [search, setSearch] = useState("")
     const [SearchData, setSearchData] = useState([])
     //search 
-    console.log('jjjjj')
+    console.log('jjjjj')  
     // const SearchBar = async () => {
     //     const { data } = await SearchHome(Longitude, latitude, search, Lmore)
     //     setSearchData(data.data)
@@ -129,7 +129,16 @@ const Header = () => {
     //     console.log(search, 'search')
 
     // }
-    // console.log(profileImg);   
+    // console.log(profileImg);
+    const AutoSearch = (e) => {
+        // SearchEl.addEventListener("keyup", async (e) => {
+          console.log(e.keyCode  , 'keyVal')
+        if (e.keyCode == 13) {
+          console.log("enter is pressed", 'serachData')
+          nav('/search-home-result' , {state : search})
+        }
+        // })
+      }
     useEffect(() => {
         // setLocalData(JSON.parse(profileName));
         (id !== null) && Update()
@@ -178,12 +187,14 @@ const Header = () => {
     }
     const [ListData, setListData] = useState([])
     const SubData = [
+        "All",
         "Machinery",
         "Component parts",
         "Major equipment",
         "Accessories equipment"
     ]
     const SubData1 = [
+        "All",
         "Lithium-ion battery",
         "Sli batteries",
         "Hydride battery",
@@ -311,7 +322,7 @@ const Header = () => {
                                 </ul>
                             </div>
                             <div className="form-inline my-2 my-lg-0 desk-version">
-                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onChange={(e) => setSearch(e.target.value)} />
+                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
                                 <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0" id="Search" onClick={SearchBar}>Search</button></Link>
                             </div>
                             <div className="row p-0 m-0 mob-cen">
@@ -555,6 +566,7 @@ const Header = () => {
                                                 <Link to="/" className="dropdown_sub-category" ><li className="bghover" id="SubMenu1">EV Batteries</li></Link>
                                                 <div className="subMenuItem " id="subItemss1" >
                                                     <ul className="catagry-color">
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">All </li></Link>
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover">Lithium-ion battery </li></Link>
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover">Sli batteries</li></Link>
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover">Hydride battery</li></Link>
@@ -581,7 +593,7 @@ const Header = () => {
                                                                     <img src={`${userProfileImg}`}/>
                                                                 </div>
                                                                 {(LocalData == null)
-                                                                    ? 'Login/SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/SIGNUP </FontAwesomeIcon> : userProfileName
+                                                                    ? 'Login/ SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP </FontAwesomeIcon> : userProfileName
                                                                 }
                                                             </div>
                                                         </button>
@@ -592,7 +604,7 @@ const Header = () => {
                                                                     <img src={`${LocalData?.profileImg}`} />
                                                                 </div>
                                                                 {(LocalData == null)
-                                                                    ? 'Login/SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/SIGNUP</FontAwesomeIcon> : LocalData.profileName
+                                                                    ? 'Login/ SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP</FontAwesomeIcon> : LocalData.profileName
                                                                 }
                                                             </div>
 
@@ -604,7 +616,7 @@ const Header = () => {
 
                                             <Link to="/login" className="secondary dropdown btn-dProfile">
                                                 {(LocalData == null)
-                                                    ? 'Login/Signup' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/SIGNUP</FontAwesomeIcon> : LocalData.profileName
+                                                    ? 'Login / Signup' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP</FontAwesomeIcon> : LocalData.profileName
                                                 }
                                             </Link>
 

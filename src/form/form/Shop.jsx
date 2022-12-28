@@ -23,6 +23,7 @@ export default function Shop() {
     const [AllData, setAllData] = useState([])
     const [filters, setfilters] = useState(null)
     const [PageNO, setPageNO] = useState(1)
+    const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
     const [Loading, setLoading] = useState(false)
     const [TotalPagess, setTotalPagess] = useState('')
     // initial
@@ -59,12 +60,15 @@ export default function Shop() {
     // const FilterSet = (FilterNumber) => {
     //     console.log(FilterNumber, 'fil')
     // }
+    let PriceLenght = 5;
     // Simple Load
     const ShopDataFIlter = async () => {
+        setFIlterPageNO(1)
+        setAllData([])
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterShopData(latitude, Longitude, PageNO, filters, UserId)
-            console.log(data, 'shopData')
+            const { data } = await FilterShopData(latitude, Longitude, FIlterPageNO, filters, UserId)
+            console.log(data, 'shopData initial')
             setAllData(data.data)
         } catch (error) {
 
@@ -74,16 +78,25 @@ export default function Shop() {
     const ShopDataFIlterLoadMore = async () => {
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterShopData(latitude, Longitude, PageNO, filters, UserId)
+            const { data } = await FilterShopData(latitude, Longitude, FIlterPageNO, filters, UserId)
             console.log(data, 'shopData')
             setAllData([...AllData, ...data.data])
         } catch (error) {
 
         }
     }
+    const numberWithCommas = price => {
+        console.log(price , 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     const LoadMOre = () => {
         setPageNO(PageNO + 1)
         console.log(TotalPagess, PageNO, "HomeData")
+        setLoading(true)
+    }
+    const LoadMOreFIlter = () => {
+        setFIlterPageNO(FIlterPageNO + 1)
+        console.log(TotalPagess, FIlterPageNO, "HomeData")
         setLoading(true)
     }
     useEffect(() => {
@@ -91,8 +104,12 @@ export default function Shop() {
     }, [filters])
     useEffect(() => {
         ShopDataLoadMore()
-        ShopDataFIlterLoadMore()
+        
     }, [PageNO])
+    useEffect(() => {
+      
+        ShopDataFIlterLoadMore()
+    }, [FIlterPageNO])
     useEffect(() => {
         latitude && ShopData()
     }, [latitude])
@@ -161,7 +178,12 @@ export default function Shop() {
                                                     <div className="pdt-details">
                                                         <div className="row d-flex align-items-center">
                                                             <div className="col-md-6 col-8 ">
-                                                                <div className="price">₹ {automobileProduct.price}</div>
+                                                            {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
                                                             </div>
                                                             <div className="col-md-6 col-4 setHeart">
                                                                 {
@@ -204,21 +226,31 @@ export default function Shop() {
                             })
                         }
                         <div className="row m-0 p-0 d-flex justify-content-center">
-                            {
-                                (TotalPagess == PageNO) ?
-                                    <></>
+                        {
+                            filters == 1 || filters == -1 ?
+                                TotalPagess == FIlterPageNO ?
+                                    <>
+                                    </>
                                     :
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    // Filter Loadmore
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
                                         {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
                                             :
                                             <img src={load} />} &nbsp;&nbsp;
-
-                                        Load More
+                                          Load More 
                                     </ButtonCraete>
-                            }
-
+                                :
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                        :
+                                        <img src={load} />} &nbsp;&nbsp;
+                                    Load More
+                                </ButtonCraete>
+                        }
                             {/* </div> */}
                         </div>
                     </div>

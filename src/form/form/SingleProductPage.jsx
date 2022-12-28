@@ -121,18 +121,16 @@ export default function SingleProductPage(props) {
                             <div className='col-md-3 col-5'>
 
                                 <p className="setKeys w-100 text-capitalize">
-                                {i.replace(/_/g, ' ')}
+                                    {i.replace(/_/g, ' ')}
                                 </p>
                             </div>
                             <div className='col-md-9 col-7 text-capitalize setKeysVal'>
                                 {
-                                    (data.data[i]) == (data.data['title'])
+                                    (data.data[i]) == (data.data['price'])
                                         ?
-                                        (data.data['title']).length > Max_length
-                                            ?
-                                            (data.data['title'].substring(0, Max_length))
-                                            :
-                                            (data.data['title'])
+                                        <>
+                                            ₹ { numberWithCommas(data.data['price'])}
+                                        </>
                                         :
                                         String(data.data[i])
                                 }
@@ -294,10 +292,15 @@ export default function SingleProductPage(props) {
             nav('/login')
         }
     }
+    const numberWithCommas = price => {
+        console.log(price, 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     useEffect(() => {
         SingleData()
+        window.scrollTo(0, 0);
         // sellerDetails()
-    }, [0, latitude, PageNO , id])
+    }, [0, latitude, PageNO, id])
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
@@ -375,7 +378,7 @@ export default function SingleProductPage(props) {
                                     <div className="col-md-6">
                                         <div className="locations d-flex align-items-center">
                                             <TiLocation />
-                                            <div className='ms-2 text-capitalize'>{`${AllData.location?.city} ,${AllData.location?.state}`}</div>
+                                            <div className='ms-2 text-capitalize'>{`${AllData.location?.city}, ${AllData.location?.state}`}</div>
                                         </div>
                                     </div>
                                     <div className="col-md-4">
@@ -386,7 +389,7 @@ export default function SingleProductPage(props) {
                                         </div>
                                     </div>
                                     <div className="col-md-2">
-                                        <div className="ReportAds d-flex align-items-center justify-content-end" >
+                                        <div className="ReportAdss d-flex align-items-center justify-content-end" >
                                             <MdReport className='fs-4' />
                                             <div className='ms-1' onClick={OnOpen}>Report</div>
                                         </div>
@@ -535,7 +538,11 @@ export default function SingleProductPage(props) {
                                                         <div className="pdt-details">
                                                             <div className="row d-flex align-items-center">
                                                                 <div className="col-md-6 col-8 ">
-                                                                    <div className="price">₹ {automobileProduct.price}</div>
+                                                                    {
+                                                                        // <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                        // :
+                                                                        <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                                    }
                                                                 </div>
                                                                 <div className="col-md-6 col-4 setHeart">
                                                                     {
@@ -829,6 +836,9 @@ const SmallImg = styled.div`
                             margin-top: 4%
                             `
 const ImageSetion = styled.div`
+.ReportAdss{
+    cursor: pointer;
+}
                             .shareDetails{
                                 font-size: 14px;
                             color: ${props => props.theme.colors.primary};

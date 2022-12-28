@@ -22,7 +22,7 @@ export const SearchHome = async (Longitude, latitude, searchBar, PageNo) => {
     try {
         const api = `${baseUrl}/product/search/allads/${latitude}/${Longitude}/${searchBar}/${PageNo}`
         const data = await axios.get(api)
-        console.log(api)
+        console.log(api , 'search')
         console.log(searchBar, 'search')
         return data
     } catch (error) {

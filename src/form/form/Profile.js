@@ -15,15 +15,22 @@ import ProfileNumber from "./Modals/ProfileNumber";
 import UserDeleteModal from "./Modals/DeleteModal";
 import EmailVerify from "./Modals/EmailVerify";
 import { ToastContainer, toast } from 'react-toastify';
+import { Select } from "@chakra-ui/react";
 
 const Profile = () => {
     const [ModalOpen, setModalOpen] = useState(false)
 
     const OpenDelete = () => setModalOpen(true)
     const nav = useNavigate();
-    const {ProfileUpdate, setProfileUpdate} = useContext(GlobalVariables);
+    const { ProfileUpdate, setProfileUpdate } = useContext(GlobalVariables);
     // console.log(type , 'check')
     const IdData = localStorage.getItem('token');
+    const loginThr = localStorage.getItem('loginThrough');
+    let LogCome;
+    if (loginThr) {
+        LogCome = JSON.parse(loginThr).loginCome;
+    }
+    console.log(LogCome, 'lgcome')
     let ProfleId;
     let PhoneNumber;
     let Type;
@@ -126,14 +133,14 @@ const Profile = () => {
             window.localStorage.setItem(
                 'token',
                 JSON.stringify({
-                    'token':response.data.data[0]._id,
-                    'profileName':response.data.data[0].name,
-                    'email':response.data.data[0].email,
-                    'profileImg':response.data.data[0].profileImg,
-                    'profileImg':response.data.profileImg,
-                    'name':response.data.data[0].name,
-                    'type':response.data.data[0].type,
-                    'phone':response.data.data[0].phone,
+                    'token': response.data.data[0]._id,
+                    'profileName': response.data.data[0].name,
+                    'email': response.data.data[0].email,
+                    'profileImg': response.data.data[0].profileImg,
+                    'profileImg': response.data.profileImg,
+                    'name': response.data.data[0].name,
+                    'type': response.data.data[0].type,
+                    'phone': response.data.data[0].phone,
                     'status': 'login'
                 })
             )
@@ -204,7 +211,7 @@ const Profile = () => {
             await axios.put(api, formData).then((response) => {
                 console.log(response.data);
                 if (response.data.status) {
-                    setProfileUpdate(ProfileUpdate+ 1)
+                    setProfileUpdate(ProfileUpdate + 1)
                     // setMessage('Profile Updated!');
                     seterrors(true);
                     toast(response.data.message, {
@@ -379,16 +386,19 @@ const Profile = () => {
                                         <div className="col-sm-3">
                                             <h6 className="mb-0">Email</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Email" name="user_email" value={ModalEmail} contenteditable='false' />
+                                        <div className="col-sm-9 text-secondary" onClick={LogCome !== 'email' && EmailModalOpen}>
+                                            <input type="text" className="form-control shadow-none" readOnly placeholder="Email" name="user_email" value={ModalEmail} contenteditable='false' />
                                             {
-                                                !ModalEmail && <div className="text-danger">please add your Email</div>
+                                                (!ModalEmail && LogCome == 'email')
+                                                && <div className="text-danger">please add your Email</div>
                                             }
                                         </div>
                                         <div className="UpdateNum w-100">
                                             {
-                                                !phone ? <p className="fs-6 float-end text-primary" onClick={EmailModalOpen}>Add Your Number</p> :
-                                                    <p className=" float-end text-primary" onClick={EmailModalOpen}>Update Your Number</p>
+                                                (LogCome !== 'email') ?
+                                                    !phone ? <p className="fs-6 float-end text-primary" onClick={EmailModalOpen}>Add Your Email</p> :
+                                                        <p className=" float-end text-primary" onClick={EmailModalOpen}>Update Your Email</p>
+                                                    : <></>
                                             }
                                         </div>
                                     </div>
@@ -396,12 +406,12 @@ const Profile = () => {
                                         <div className="col-sm-3">
                                             <h6 className="mb-0">Phone</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Phone" name="phone" value={ModalSellerPhone} contenteditable='false'
+                                        <div className="col-sm-9 text-secondary" onClick={OnOpen}>
+                                            <input type="text" readOnly className="form-control shadow-none" placeholder="Phone" name="phone" value={ModalSellerPhone} contenteditable='false'
                                             />
-                                        {
-                                            !ModalSellerPhone && <div className="text-danger">please add your number</div>
-                                        }
+                                            {
+                                                !ModalSellerPhone && <div className="text-danger">please add your number</div>
+                                            }
                                         </div>
                                         <div className="UpdateNum w-100">
                                             {
@@ -412,19 +422,25 @@ const Profile = () => {
                                     </div>
                                     <div className="row mb-3">
                                         <div className="col-sm-3">
-                                            <h6 className="mb-0">D.O.B</h6>
+                                            <h6 className="mb-0">Date Of Birth</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
+                                        <div className="col-sm-9 text-secondary overflow-hidden position-relative">
                                             <input type="date" className="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
                                         </div>
+                                        
                                     </div>
                                     <div className="row mb-3">
                                         <div className="col-sm-3">
                                             <h6 className="mb-0">Gender</h6>
                                         </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => { setGender(e.target.value); setGenderError('') }} />
+                                        <div className="col-sm-9 text-secondary ">
                                             <div style={{ color: "red" }} >{gendererror}</div>
+                                            {/* <input type="text" className="form-control shadow-none" placeholder="Gender" name="gender" id="" contenteditable="true" value={gender} onChange={(e) => { setGender(e.target.value); setGenderError('') }} /> */}
+                                            <Select className="form-control" onChange={(e) => { setGender(e.target.value); setGenderError('')   }}>
+                                                <option value={gender} disabled selected>{gender}</option>
+                                                <option value='Male'  >Male</option>
+                                                <option value='Female' >Female</option>
+                                            </Select>
                                         </div>
                                     </div>
 
@@ -460,7 +476,7 @@ const Profile = () => {
                                                     onClick={() => {
                                                         UpadateUser()
                                                     }} />
-                                                <input type="button" name="Delete" className="btn btn-color  px-4 DeletBtnUser text-uppercase" value="Delete"
+                                                <input type="button" name="Delete" className="btn btn-color  px-4 DeletBtnUser text-uppercase" value="Delete Account"
                                                     onClick={() => {
                                                         OpenDelete()
                                                     }} />

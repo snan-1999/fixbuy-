@@ -634,18 +634,20 @@ const PC = () => {
 
 
                         <label for="phone">Phone Number*</label>
-                        <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
-                            onChange={(e) => {
-                                // setPhoneLocal(e.target.value)
+                        <div className="UpdateNum" onClick={OnOpen}>
+                            <input type="text" name="number" className="form-control set-pd-input-post" required readOnly
+                                onChange={(e) => {
+                                    // setPhoneLocal(e.target.value)
 
-                                // sellerphoneRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                                setAllErrors("")
-                            }}
-                            // value={sellerphone}
-                            value={ModalSellerPhone}
-                            ref={sellerphoneRef}
-                        />
+                                    // sellerphoneRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                    setAllErrors("")
+                                }}
+                                // value={sellerphone}
+                                value={ModalSellerPhone}
+                                ref={sellerphoneRef}
+                            />
+                        </div>
                         {
                             !ModalSellerPhone && <div className="text-danger">please add your number</div>
                         }
@@ -693,7 +695,7 @@ const PC = () => {
                             </div>
 
                         }
-                         <Stack spacing={3}>
+                        <Stack spacing={3}>
                             {AllErrors && <Text color='tomato' fontSize='13px' mt='5'>Invalid Field </Text>}
                         </Stack>
                         {/* <div >{otpError}</div> */}
