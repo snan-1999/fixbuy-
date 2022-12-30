@@ -152,7 +152,7 @@ const Footer = () => {
                 </div> */}
 
                 <div className="row mt-4 mx-0 pt-4">
-                    <div className="col-md-2 SetCols">
+                    <div className=" col-lg-2 col-md-2 SetCols">
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'}>POPULAR LOCATIONS</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
@@ -179,7 +179,7 @@ const Footer = () => {
                             </List>
                         </Stack>
                     </div>
-                    <div className="col-md-2 SetCols ">
+                    <div className="col-lg-2 col-md-2 SetCols ">
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'}>Fixebuy</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
@@ -198,7 +198,7 @@ const Footer = () => {
                             </List>
                         </Stack>
                     </div>
-                    <div className="col-md-2 SetCols">
+                    <div className="col-lg-2 col-md-4  SetCols">
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'}>Support</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
@@ -221,7 +221,7 @@ const Footer = () => {
                             </List>
                         </Stack>
                     </div>
-                    <div className="col-md-2 SetCols" >
+                    <div className=" col-lg-2 col-md-2 SetCols" >
                         <Stack direction='column' display={isMobile ? 'none' : 'flex'} alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'} textTransform='capitalize'>Mobile app</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
@@ -238,7 +238,7 @@ const Footer = () => {
                             </List>
                         </Stack>
                     </div>
-                    <div className="col-md-4 SetCols">
+                    <div className="col-lg-4 col-md-2 SetCols SetCols">
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'} textTransform='capitalize'>social media  </Heading>
                             <List spacing='5 ' marginTop={!isMobile ? 'auto' : '0px'} display='flex' flexDirection={isMobile ? 'row' : 'column'} alignItems={isMobile ? 'center' : 'center'} w='100%' justifyContent={isMobile ? 'space-around' : 'center'}>

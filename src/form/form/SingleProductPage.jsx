@@ -143,7 +143,7 @@ export default function SingleProductPage(props) {
                 return (<>
                     {/* <table className="table table-striped table-hover"  >
                         <tbody> */}
-                    <div>
+                    <div className='tabresClass'>
 
                         {arr}
                     </div>
@@ -311,17 +311,8 @@ export default function SingleProductPage(props) {
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
-    // useEffect(() => {
-    //     setUseData(location.state)
-    // }, [SavedItem])
-    // if (Loader) {
-    //     return <ButtonCraete size='lg' variant='outline' colorScheme='teal' >
-    //         <div className="spinner-border spinner-border-sm me-2" role="status">
-    //             <span className="visually-hidden">Loading...</span>
-    //         </div>
-    //         Load More
-    //     </ButtonCraete>
-    // }
+    let PriceLenght = 5;
+    
     return (
         <>
             <div className="overflow-hidden">
@@ -382,7 +373,7 @@ export default function SingleProductPage(props) {
                                     </ScrollDiv>
                                 </SmallImg>
                                 <div className="shareDetails d-flex align-items-center mt-4">
-                                    <div className="col-md-6 col-6">
+                                    <div className="col-md-6 col- tabLocationClass">
                                         <div className="locations d-flex align-items-center">
                                             <TiLocation />
                                             <div className='ms-2 text-capitalize'>{`${AllData.location?.city}, ${AllData.location?.state}`}</div>
@@ -544,12 +535,13 @@ export default function SingleProductPage(props) {
                                                         <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                         <div className="pdt-details">
                                                             <div className="row d-flex align-items-center">
-                                                                <div className="col-md-6 col-8 ">
-                                                                    {
-                                                                        // <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
-                                                                        // :
-                                                                        <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
-                                                                    }
+                                                                <div className="col-md-6 col-8 setMobPadingProduct">
+                                                                {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
                                                                 </div>
                                                                 <div className="col-md-6 col-4 setHeart">
                                                                     {
@@ -688,10 +680,14 @@ const ButtonCraete = styled.button`
         width: 25px;
         height: 25px;
     }
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
         font-size: 13px; 
         width: 32%;
         // height: 55vh ;
+      } */
+      @media screen and (min-width: 601px) and (max-width: 900px) {
+        width: 25%;
+        font-size: 12px;
       }
     
 `

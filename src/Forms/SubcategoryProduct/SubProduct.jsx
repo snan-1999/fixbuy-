@@ -339,10 +339,14 @@ const ButtonCraete = styled.button`
         width: 25px;
         height: 25px;
     }
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
+      } */
+      @media screen and (min-width: 601px) and (max-width: 900px) {
+        width: 25%;
+        font-size: 12px;
       }
     
 `
@@ -356,6 +360,9 @@ const CardHeight = styled.div`
                    @media (max-width :600px){
                        height: auto ;
                    }
+                   @media screen and (min-width: 601px) and (max-width: 900px) {
+                    height: auto;
+                   }
                    .ShopLogo{
                        height: 7vh;
                        position: absolute;
@@ -367,6 +374,12 @@ const CardHeight = styled.div`
                            top: 2%;
                            right: 10%;
                        }
+                       @media screen and (min-width: 601px) and (max-width: 900px) {
+            height: 3vh;
+            position: absolute;
+            top: 3%;
+            right: 8%;
+        }
                    }
                `
 const Ribbon = styled.div`

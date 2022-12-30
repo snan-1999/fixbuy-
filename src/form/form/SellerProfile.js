@@ -205,8 +205,11 @@ const SellerProfile = () => {
             }
         })
     }
-
-
+    let PriceLenght = 5;
+    const numberWithCommas = price => {
+        console.log(price , 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     return (
         <>
             <Header />
@@ -218,7 +221,7 @@ const SellerProfile = () => {
                     <div class="page-content ">
                         {/* <h1>Seller Profile</h1> */}
                         <div className="desk-view">
-                            <div className="d-flex justify-content-center heading-box">
+                            <div className="d-flex justify-content-center heading-boxSeller">
                                 <div className="row w-100" style={{ overflow: 'hidden' }}>
                                     <div className="col-md-4 col-4 h-100">
                                         <div className="d-flex h-100 justify-content-center align-items-center text-end">
@@ -289,7 +292,12 @@ const SellerProfile = () => {
                                                                         <div className="row d-flex align-items-center">
                                                                             <div className="col-md-12 col-8 ">
 
-                                                                                <div class="price">₹{(ProductDetails.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                                                                            {
+                                                                (ProductDetails.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(ProductDetails.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(ProductDetails.price)}</div>
+                                                            }
                                                                                 {/* <div class="font-weight-light desc">{ProductDetails.description}</div> */}
                                                                                 {
                                                                                     (ProductDetails.title).length > MAX_LENGTH ?
@@ -471,6 +479,6 @@ export default SellerProfile;
 const CardHeight = styled.div`
 position: relative;
 top: 0;
-    height: 50vh ;
+    height: auto ;
     
 `

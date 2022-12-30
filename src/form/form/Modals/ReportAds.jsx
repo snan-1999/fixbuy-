@@ -98,6 +98,10 @@ width: 100%;
 const Nandita = styled.button`
 `
 const Modelcontent = styled(motion.div)`
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+
+    width: 40vw;
+}
 width: 28vw;
 background: white;
 box-shadow: 0 1px 5px 5px rgb(235 234 234);
@@ -143,6 +147,13 @@ const MyModal = styled.div`
     }
 `
 const Modalheader = styled.div`
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem 0rem 2rem;
+
+}
     width: 100%;
     display: flex;
    justify-content: space-between;

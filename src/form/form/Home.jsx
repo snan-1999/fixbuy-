@@ -100,7 +100,7 @@ const Home = () => {
         return () =>
             window.removeEventListener("scroll", listenToScroll);
     }, [])
-    let PriceLenght = 6;
+    let PriceLenght = 5;
 
     const listenToScroll = () => {
         let heightToHideFrom = 1800;
@@ -223,14 +223,13 @@ const Home = () => {
                                                                     :
                                                                     <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
                                                             }
-                                                        </div>
+                                                        </div>    
                                                         <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {
                                                                 (automobileProduct.saved) ? <FaHeart className="text-danger fs-6 fs-md-5 fs-lg-5" /> : <FiHeart className="fs-6 fs-md-5 fs-lg-5" />
                                                             }
                                                         </div>
                                                     </div>
-
                                                     {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
 
                                                     {
@@ -434,10 +433,14 @@ const ButtonCraete = styled.button`
         width: 25px;
         height: 25px;
     }
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
+      } */
+      @media screen and (min-width: 601px) and (max-width: 900px) {
+        width: 25%;
+        font-size: 12px;
       }
     
 `

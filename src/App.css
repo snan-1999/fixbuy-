@@ -182,6 +182,37 @@
   transform: rotate(45deg);
 }
 /* Realed products */
+.container-heading-related-blog {
+  position: absolute;
+  width: 500px;
+  height: 60px;
+  border-bottom: 3px solid #37577A;
+  /* background: linear-gradient(var(--color1) , var(--color2)) !important; */
+  line-height: 50px;
+  /* background: gray; */
+  overflow: hidden !important;
+}
+
+.container-heading-related-blog span {
+  font-size: 30px;
+  color: whitesmoke;
+  background: linear-gradient(var(--color1), var(--color2)) !important;
+  display: inline-block;
+  padding: 8px 20px 10px 25px;
+  text-transform: uppercase;
+}
+
+.container-heading-related-blog span:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  /* height: 8%; */
+  height: 100%;
+  background: linear-gradient(var(--color1), var(--color2)) !important;
+  z-index: -1;
+  transform: rotate(45deg);
+}
+/* Realed products */
 .container-heading-related {
   position: absolute;
   width: 620px;
@@ -299,6 +330,39 @@ button#dropdownMenuButton1 {
 }
 
 .container-heading-related span:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  /* height: 8%; */
+  height: 100%;
+  background: linear-gradient(var(--color1), var(--color2)) !important;
+  z-index: -1;
+  transform: rotate(45deg);
+}
+
+  /* // end  */
+  /* Realed blog */
+.container-heading-related-blog {
+  position: absolute;
+  width: 250px;
+  height: 60px;
+  border-bottom: 3px solid #37577A;
+  /* background: linear-gradient(var(--color1) , var(--color2)) !important; */
+  line-height: 50px;
+  /* background: gray; */
+  overflow: hidden !important;
+}
+
+.container-heading-related-blog span {
+  font-size: 16px;
+  color: whitesmoke;
+  background: linear-gradient(var(--color1), var(--color2)) !important;
+  display: inline-block;
+  padding: 8px 0px 10px 15px;
+  text-transform: uppercase;
+}
+
+.container-heading-related-blog span:before {
   position: absolute;
   content: "";
   width: 100%;

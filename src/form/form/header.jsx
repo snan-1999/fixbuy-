@@ -425,6 +425,8 @@ const Header = () => {
                                                         </li>
                                                     </li>
                                                 }
+                                                   <li className="nav-item aa" onClick={profilefunction}>
+                                                    <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
                                                 <li className="nav-item aa" onClick={profilefunction}>
                                                     <Link to="/posteditems" className="nav-link">MY ADS</Link>
                                                 </li>

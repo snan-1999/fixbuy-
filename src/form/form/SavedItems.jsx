@@ -27,6 +27,11 @@ export default function SavedItems() {
             console.log(error.message, 'saved')
         }
     }
+    let PriceLenght = 5;
+    const numberWithCommas = price => {
+        console.log(price , 'commaa')
+        return parseInt(price).toLocaleString('en-US');
+    };
     const Max_length = 26;
     useEffect(() => {
         SavedItem()
@@ -65,8 +70,13 @@ export default function SavedItems() {
                                                 <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
-                                                        <div className="col-md-6 col-8 ">
-                                                            <div className="price">₹ {automobileProduct.price}</div>
+                                                        <div className="col-md-6 col-8 setMobPadingProduct">
+                                                        {
+                                                                (automobileProduct.price).toString().length > PriceLenght ?
+                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                    :
+                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                            }
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {

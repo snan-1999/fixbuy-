@@ -86,6 +86,11 @@ z-index: 15;
         top: 30% !important;
         left: 10% !important;
     }
+    @media screen and (min-width: 601px) and (max-width: 1000px) {
+        top: 35% !important;
+        left: 25% !important;
+
+    }
     `
 const ModelDiv = styled(motion.div)`
 box-shadow: 1px 1px 10px #dadada;

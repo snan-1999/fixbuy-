@@ -131,14 +131,14 @@
 
 .image-box {
     position: relative;
-    width: 6vw;
+    width: 100px;
     border-radius: 50%;
     border: 1px solid;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    height: 12vh;
+    height: 100px;
     outline: none;
     border: none;
     /* border: 1px solid red;
@@ -1010,8 +1010,11 @@ li.footerLink:hover::before {
         background: white;
     }
     .extraSpace {
-        height: 14vh !important;
+        height: 8vh !important;
     }
+    /* .setHeart{
+        padding: 0 !important;
+    } */
     .inline-menu {
         display: none;
     }
@@ -1138,7 +1141,7 @@ li.footerLink:hover::before {
     }
 
     .maindiv {
-        height: 32vh;
+        height: auto;
     }
 
     .pdt-img {

@@ -280,13 +280,17 @@ const ButtonCraete = styled.button`
     img{
         rotate: 30px;
         margin-left: -10px;
-        width: 25px;
+        width: 25px; 
         height: 25px;
     }
-    @media (max-width: 768px) {
+    /* @media (max-width: 768px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
+      } */
+      @media screen and (min-width: 601px) and (max-width: 900px) {
+        width: 25%;
+        font-size: 12px;
       }
     
 `
@@ -302,6 +306,9 @@ top: 0;
     justify-content: center !important;
         height: auto ;
     }
+    @media screen and (min-width:601px) and (max-width: 900px){
+        height: auto;
+    }
     .ShopLogo{
         height: 7vh;
         position: absolute;
@@ -312,6 +319,12 @@ top: 0;
             position: absolute;
             top: 2%;
             right: 10%;
+        }
+        @media screen and (min-width: 601px) and (max-width: 900px){
+            height: 3vh;
+            position: absolute;
+            top: 3%;
+            right: 8%;
         }
     }
 `
