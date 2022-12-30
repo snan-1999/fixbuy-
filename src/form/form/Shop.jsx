@@ -19,7 +19,7 @@ import { FiHeart } from 'react-icons/fi'
 import useGeoLocation from '../../hooks/useGeoLoaction'
 export default function Shop() {
     const location = useGeoLocation();
-    const { latitude, Longitude, Lmore, UserId } = useContext(GlobalVariables)
+    const { latitude, Longitude, setHomeData, UserId } = useContext(GlobalVariables)
     const [AllData, setAllData] = useState([])
     const [filters, setfilters] = useState(null)
     const [PageNO, setPageNO] = useState(1)
@@ -27,7 +27,7 @@ export default function Shop() {
     const [Loading, setLoading] = useState(false)
     const [TotalPagess, setTotalPagess] = useState('')
     // initial
-    console.log(latitude , 'lat')
+    console.log(latitude, 'lat')
     const ShopData = async () => {
         try {
             const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
@@ -35,6 +35,7 @@ export default function Shop() {
             console.log(UserId, 'shopData')
             if (data.status) {
                 setLoading(false)
+                setHomeData(data.data)
                 setTotalPagess(data.totalPages);
                 setAllData(data.data)
             }
@@ -60,7 +61,7 @@ export default function Shop() {
     // const FilterSet = (FilterNumber) => {
     //     console.log(FilterNumber, 'fil')
     // }
-    let PriceLenght = 5;
+    let PriceLenght = 6;
     // Simple Load
     const ShopDataFIlter = async () => {
         setFIlterPageNO(1)
@@ -86,7 +87,7 @@ export default function Shop() {
         }
     }
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     const LoadMOre = () => {
@@ -104,10 +105,10 @@ export default function Shop() {
     }, [filters])
     useEffect(() => {
         ShopDataLoadMore()
-        
+
     }, [PageNO])
     useEffect(() => {
-      
+
         ShopDataFIlterLoadMore()
     }, [FIlterPageNO])
     useEffect(() => {
@@ -117,18 +118,18 @@ export default function Shop() {
 
     return (
         <>
-            <Header />
-            <br />
-                   {/* GeoLocation start */}
-                   <div className="inline-block mr-auto pt-1">
-                {
-                    location.loaded &&
-                    JSON.stringify(location)
-
-                }
-            </div>
-            {/* Geolocation end */}
             <div className="overflow-hidden">
+                <Header />
+                <br />
+                {/* GeoLocation start */}
+                <div className="inline-block mr-auto">
+                    {
+                        location.loaded &&
+                        JSON.stringify(location)
+
+                    }
+                </div>
+                {/* Geolocation end */}
 
 
                 <div className="row m-0 p-0 ">
@@ -167,7 +168,7 @@ export default function Shop() {
                         {
                             AllData?.map((automobileProduct, key) => {
                                 return (
-                                    <div className="col-md-4 col-6 col-lg-3">
+                                    <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                         <CardHeight>
 
                                             <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
@@ -177,15 +178,15 @@ export default function Shop() {
                                                     <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                     <div className="pdt-details">
                                                         <div className="row d-flex align-items-center">
-                                                            <div className="col-md-6 col-8 ">
-                                                            {
-                                                                (automobileProduct.price).toString().length > PriceLenght ?
-                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
-                                                                    :
-                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
-                                                            }
+                                                            <div className="col-md-6 col-8 setMobPadingProduct">
+                                                                {
+                                                                    (automobileProduct.price).toString().length > PriceLenght ?
+                                                                        <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                        :
+                                                                        <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                                }
                                                             </div>
-                                                            <div className="col-md-6 col-4 setHeart">
+                                                            <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                                 {
                                                                     (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
 
@@ -226,31 +227,31 @@ export default function Shop() {
                             })
                         }
                         <div className="row m-0 p-0 d-flex justify-content-center">
-                        {
-                            filters == 1 || filters == -1 ?
-                                TotalPagess == FIlterPageNO ?
-                                    <>
-                                    </>
+                            {
+                                filters == 1 || filters == -1 ?
+                                    TotalPagess == FIlterPageNO ?
+                                        <>
+                                        </>
+                                        :
+                                        // Filter Loadmore
+                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                            {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                                :
+                                                <img src={load} />} &nbsp;&nbsp;
+                                            Load More
+                                        </ButtonCraete>
                                     :
-                                    // Filter Loadmore
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
                                         {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
                                             :
                                             <img src={load} />} &nbsp;&nbsp;
-                                          Load More 
+                                        Load More
                                     </ButtonCraete>
-                                :
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                        :
-                                        <img src={load} />} &nbsp;&nbsp;
-                                    Load More
-                                </ButtonCraete>
-                        }
+                            }
                             {/* </div> */}
                         </div>
                     </div>
@@ -297,6 +298,8 @@ top: 0;
   } */
     /* height: 70vh ; */
     @media (max-width :600px){
+        display: flex;
+    justify-content: center !important;
         height: auto ;
     }
     .ShopLogo{

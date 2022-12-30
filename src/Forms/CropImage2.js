@@ -103,7 +103,7 @@ function CropImage2({cropdata,setCropData}) {
       {currentPage === "choose-img" ? (
    imgAfterCrop === '' ?
    <div >
-     <div className="ImagecontainerBorder">
+     <div className="ImagecontainerBorder" onClick={onChooseImg} style={{cursor : 'pointer'}}>
        <input
          type="file"
          accept="image/*"
@@ -114,7 +114,7 @@ function CropImage2({cropdata,setCropData}) {
        <img src={camera} className="material-symbols-outlined" onClick={onChooseImg} style={{width:'28%' , marginTop:'32%' }} />
      </div>
    </div> :
-   <div className="imagePreviewContainer">
+   <div className="imagePreviewContainer" >
      <div className="d-flex">
        {console.log(imgAfterCrop , "showing image")}
      <img src={imgAfterCrop} className="imageafterCrop" />

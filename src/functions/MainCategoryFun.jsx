@@ -44,7 +44,7 @@ export const SubDataCategoryFun = async (maincategory, GetSubCatogery, latitude,
         } else {
             api = `${baseUrl}/product/fetch/${maincategory}/${GetSubCatogery}/${latitude}/${Longitude}/${PageNO}?user_id=${UserId}`
         }
-        console.log(api, 'load')
+        console.log(api, 'loaddd')
         const data = await axios.get(api);
         return data
     } catch (error) {

@@ -36,7 +36,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     min-height: 6vh !important;
     font-size: 1rem !important;
 }
-
+.Toastify__toast-theme--colored.Toastify__toast--success{
+    margin-top: 10px !important;
+    height: 8vh !important;
+    margin: 0;
+}
+button.Toastify__close-button.Toastify__close-button--colored {
+    all: unset;
+}       
 .Toastify__toast-icon {
     width: 16px !important;
 }
@@ -1763,6 +1770,7 @@ box-shadow: none;
     font-size: 30px;
     color: whitesmoke;
     background: linear-gradient(var(--color1), var(--color2)) !important;
+    background : #3b6086 !important;
     display: inline-block;
     padding: 8px 20px 10px 25px;
     text-transform: uppercase;
@@ -1775,6 +1783,7 @@ box-shadow: none;
     /*height: 8%;*/
     height: 100%;
     background: linear-gradient(var(--color1), var(--color2)) !important;
+    background : #3b6086 !important;
     z-index: -1;
     transform: rotate(45deg);
 }
@@ -2701,7 +2710,46 @@ button.GoogleBtn {
 .setBlog{
     color: var(--color1) !important;
 }
+.mobnvfixedWork {
+    position: fixed;
+    width: 100%;
+    z-index: 10;
+}
+.extraSpace {
+    height: 12vh !important;
+}
 @media screen and (max-width: 600px) {
+    .Toastify__toast {
+        min-height: 6vh !important;
+        font-size: 1rem !important;
+    }
+    .Toastify__toast-theme--colored.Toastify__toast--success{
+        margin-top: 10px !important;
+        height: 8vh !important;
+        margin: 0;
+        width: 70%;
+    }
+    .Toastify__toast-container {
+        width: 100vw;
+        padding: 0;
+        right: 0;
+        margin: 0;
+        bottom: 3px !important;
+        display: flex !important;
+        justify-content: end !important;
+    }
+    
+    
+    .setMobPadingProduct{
+        padding-right: 0;
+    }
+    .navbar{
+        padding-bottom: 0 !important;
+    }
+    div.logo {
+       
+        margin-left: 0px;
+    }
     .reactEasyCrop_Container {
         position: absolute;
         top: 0;
@@ -2900,6 +2948,8 @@ button.GoogleBtn {
         align-items: center;
         width: 100%;
         flex-direction: column;
+        background: white;
+        /* padding-bottom: 10px; */
     }
 
     .inline-menu {
@@ -3597,6 +3647,9 @@ button.GoogleBtn {
     .mob-version.search-box {
         display: block;
         width: 100%;
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
     }
 
 

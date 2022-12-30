@@ -121,7 +121,7 @@ const Header = () => {
     const [search, setSearch] = useState("")
     const [SearchData, setSearchData] = useState([])
     //search 
-    console.log('jjjjj')  
+    console.log('jjjjj')
     // const SearchBar = async () => {
     //     const { data } = await SearchHome(Longitude, latitude, search, Lmore)
     //     setSearchData(data.data)
@@ -132,13 +132,13 @@ const Header = () => {
     // console.log(profileImg);
     const AutoSearch = (e) => {
         // SearchEl.addEventListener("keyup", async (e) => {
-          console.log(e.keyCode  , 'keyVal')
+        console.log(e.keyCode, 'keyVal')
         if (e.keyCode == 13) {
-          console.log("enter is pressed", 'serachData')
-          nav('/search-home-result' , {state : search})
+            console.log("enter is pressed", 'serachData')
+            nav('/search-home-result', { state: search })
         }
         // })
-      }
+    }
     useEffect(() => {
         // setLocalData(JSON.parse(profileName));
         (id !== null) && Update()
@@ -258,6 +258,48 @@ const Header = () => {
     const DeleteData = () => {
         //   setDelId(id)
     }
+    //    if( window.scrollTo('10px',"10px")){
+    //         alert(true)
+    //     } 
+    // let scrollHeight = Math.max(
+    //     document.body.scrollHeight, document.documentElement.scrollHeight,
+    //     document.body.offsetHeight, document.documentElement.offsetHeight,
+    //     document.body.clientHeight, document.documentElement.clientHeight
+    // );
+    // console.log(window.pageYOffset, 'scrollHeight')
+    // const [NavHideShow, setNavHideShow] = useState(false)
+    // console.log(document.body.scrollTop, 'fjfj')
+    // const listenToScroll = () => {
+        
+    //     console.log(document.documentElement.scrollTop, 'fjfj')
+    //     if(document.documentElement.scrollTop > 20){
+    //         setNavHideShow(true)  
+    //         console.log('yesss')
+    //     }else{
+    //         setNavHideShow(false)  
+    //         console.log('yess1')
+    //     }
+    // }
+    // useEffect(() => {
+    
+    //     window.addEventListener("scroll", listenToScroll);
+            
+    // }, [])
+    
+    // useEffect(() => {
+
+    // }, [document.documentElement.scrollTop])
+
+    // useEffect(() => { 
+
+    //     if (window.pageYOffset == 100) {
+    //         setNavHideShow(true)
+
+    //     } else { 
+    //         setNavHideShow(false)
+
+    //     }
+    // } , [window.pageYOffset])
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
@@ -282,375 +324,381 @@ const Header = () => {
                 }
                 }
             />
-            <ToastContainer />
-            <nav className="navbar navbar-expand-lg headerr">
-                <div className="container-fluid">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
-                        <i className="fas fa-bars"></i>
-                    </button>
-                    <div className="logo">
-                        <Link to="/" className="navbar-brand" >
-                            <img src={logo} alt="logo" /></Link>
-                    </div>
+            <ToastContainer /> 
+            <div className="FullMain">
+                <div className="mobnvfixedWork">
+                    <nav className="navbar navbar-expand-lg headerr" >
+                        <div className="container-fluid">
+                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
+                                <i className="fas fa-bars"></i>
+                            </button>
+                            <div className="logo">
+                                <Link to="/" className="navbar-brand" >
+                                    <img src={logo} alt="logo" /></Link>
+                            </div>
 
 
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <div className="inline-menu">
-                            <div className="setmnu">
-                                <ul className="navbar-nav menu">
-                                    <li className="nav-item aa">
-                                        <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
-                                    </li>
-                                    <li className="nav-item aa">
-                                        <Link to="/shop" className="nav-link">SHOP</Link>
-                                    </li>
-                                    <li className="nav-item aa">
-                                        <Link to="/about" className="nav-link">ABOUT US</Link>
-                                    </li>
-                                    <li className="nav-item aa">
-                                        <Link to="/faq" className="nav-link">F.A.Q</Link>
-                                    </li>
-                                    <li className="nav-item aa">
-                                        <Link to="/blogs" className="nav-link">BLOGS</Link>
-                                    </li>
-                                    <li className="nav-item aa">
-                                        <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                    </li>
-                                    <li className=" nav-item aa mob-login">
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="form-inline my-2 my-lg-0 desk-version">
-                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
-                                <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0" id="Search" onClick={SearchBar}>Search</button></Link>
-                            </div>
-                            <div className="row p-0 m-0 mob-cen">
-                                <div className="col-12 mainbutton">
-                                    <button className="btn btn-primary" onClick={sellLog}> + SELL</button>
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <div className="inline-menu">
+                                    <div className="setmnu">
+                                        <ul className="navbar-nav menu">
+                                            <li className="nav-item aa">
+                                                <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                            </li>
+                                            <li className="nav-item aa">
+                                                <Link to="/shop" className="nav-link">SHOP</Link>
+                                            </li>
+                                            <li className="nav-item aa">
+                                                <Link to="/about" className="nav-link">ABOUT US</Link>
+                                            </li>
+                                            <li className="nav-item aa">
+                                                <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                            </li>
+                                            <li className="nav-item aa">
+                                                <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                            </li>
+                                            <li className="nav-item aa">
+                                                <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                            </li>
+                                            <li className=" nav-item aa mob-login">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div className="form-inline my-2 my-lg-0 desk-version">
+                                        <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
+                                        <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0" id="Search" onClick={SearchBar}>Search</button></Link>
+                                    </div>
+                                    <div className="row p-0 m-0 mob-cen">
+                                        <div className="col-12 mainbutton">
+                                            <button className="btn btn-primary" onClick={sellLog}> + SELL</button>
+                                        </div>
+                                    </div>
+
                                 </div>
+
+
                             </div>
 
                         </div>
 
-
-                    </div>
-
-                </div>
-
-            </nav>
-            {/* mobile  nav*/}
-            <nav>
-                <div className="inline-menu1">
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+                    </nav>
+                    {/* mobile  nav*/}
+                    <nav>
+                        <div className="inline-menu1">
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent" >
 
 
-                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-                            <div className="inline-menu1">
-                                <div className="setmnu">
-                                    <ul className="navbar-nav menu">
-                                        <li className="nav-item aa">
-                                            <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
-                                        </li>
-                                        <li className="nav-item aa">
-                                            <Link to="/shop" className="nav-link">SHOP</Link>
-                                        </li>
-                                        <li className="nav-item aa">
-                                            <Link to="/about" className="nav-link">ABOUT US</Link>
-                                        </li>
-                                        <li className="nav-item aa">
-                                            <Link to="/faq" className="nav-link">F.A.Q</Link>
-                                        </li>
-                                        <li className="nav-item aa">
-                                            <Link to="/blogs" className="nav-link">BLOGS</Link>
-                                        </li>
-                                        <li className="nav-item aa">
-                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                        </li>
-                                        <li className="nav-item aa" onClick={profilefunction}>
-                                            <Link to="/profile" className="nav-link" >PROFILE</Link>
-                                        </li>
-                                        {
-                                            (Type == "user" || Type == "shop") &&
-
-                                            <li onClick={OnOpen}>
+                                    <div className="inline-menu1">
+                                        <div className="setmnu">
+                                            <ul className="navbar-nav menu">
+                                                <li className="nav-item aa">
+                                                    <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                                </li>
                                                 <li className="nav-item aa">
                                                     <Link to="/shop" className="nav-link">SHOP</Link>
                                                 </li>
-                                            </li>
-                                        }
-                                        <li className="nav-item aa" onClick={profilefunction}>
-                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
-                                        </li>
-                                        <li className="nav-item aa" onClick={profilefunction}>
-                                            <Link to="/packages/view" className="nav-link">PACKAGES</Link>
-                                        </li>
-                                        <li className="nav-item aa">
-                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> :  <Link to="/login">LOGIN/SIGNUP</Link>}
-                                        </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/about" className="nav-link">ABOUT US</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                                </li>
+                                                <li className="nav-item aa" onClick={profilefunction}>
+                                                    <Link to="/profile" className="nav-link" >PROFILE</Link>
+                                                </li>
+                                                {
+                                                    (Type == "user" || Type == "shop") &&
 
-                                    </ul>
+                                                    <li onClick={OnOpen}>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/shop" className="nav-link">SHOP</Link>
+                                                        </li>
+                                                    </li>
+                                                }
+                                                <li className="nav-item aa" onClick={profilefunction}>
+                                                    <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                                </li>
+                                                <li className="nav-item aa" onClick={profilefunction}>
+                                                    <Link to="/packages/view" className="nav-link">PACKAGES</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </nav>
                 </div>
-            </nav>
+                <div className="extraSpace">
 
-            {/* mobile  nav end*/}
-            <div className="mob-version search-box col-12">
-                <div className="form-inline my-2 my-lg-0" >
-                    <div className="mob-search">
-                        <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch}  aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
-                        <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
-                    </div>
                 </div>
-                {/* <div className="row p-0 m-0 mob-version">
+                <div className="setMainHead">
+                    {/* mobile  nav end*/}
+                    <div className="mob-version search-box col-12">
+                        <div className="form-inline my-2 my-lg-0" >
+                            <div className="mob-search">
+                                <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
+                                <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
+                            </div>
+                        </div>
+                        {/* <div className="row p-0 m-0 mob-version">
                     <div className="col-12 mobileversion">
                         <button className="btnSell" onClick={sellLog}> + SELL</button>
                     </div>
                 </div> */}
-            </div>
+                    </div>
 
-            {/* <!-- category --> */}
-            <div className="desk-category">
-                <div className="row m-0 p-0">
-                    <div className="col  p-0">
-                        <div className="catagry ">
+                    {/* <!-- category --> */}
+                    <div className="desk-category">
+                        <div className="row m-0 p-0">
+                            <div className="col  p-0">
+                                <div className="catagry ">
 
-                            {/* <div className="row catagry-color p-0 m-0"> */}
-                            <div className="category-section">
-                                <div className="d-flex gap-3">
-                                    {/* <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div> */}
-                                    <div className=" disp">
-                                        <div className="drop-down">
-                                            Automobiles
-                                            <ul className="dropdown-category dropdown-category-bikes">
-                                                <Link to="/automobile/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
-                                                <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
-                                                <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
-                                                <Link to="/automobile/heavy vehicle" className="dropdown_sub-category" ><li className="bghover">Heavy Vehicle</li></Link>
-                                                <Link to="/automobile/spare parts" className="dropdown_sub-category" ><li className="bghover">Spare Parts</li></Link>
-                                                <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Other Items</li></Link>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    {/* <div className="row catagry-color p-0 m-0"> */}
+                                    <div className="category-section">
+                                        <div className="d-flex gap-3">
+                                            {/* <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div> */}
+                                            <div className=" disp">
+                                                <div className="drop-down">
+                                                    Automobiles
+                                                    <ul className="dropdown-category dropdown-category-bikes">
+                                                        <Link to="/automobile/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/automobile/bikes" className="dropdown_sub-category" ><li className="bghover"> Bikes</li></Link>
+                                                        <Link to="/automobile/car" className="dropdown_sub-category" ><li className="bghover"> Cars</li></Link>
+                                                        <Link to="/automobile/scooty" className="dropdown_sub-category" ><li className="bghover">Scooty</li></Link>
+                                                        <Link to="/automobile/heavy vehicle" className="dropdown_sub-category" ><li className="bghover">Heavy Vehicle</li></Link>
+                                                        <Link to="/automobile/spare parts" className="dropdown_sub-category" ><li className="bghover">Spare Parts</li></Link>
+                                                        <Link to="/automobile/other items" className="dropdown_sub-category" ><li className="bghover">Other Items</li></Link>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Laptop&nbsp;&&nbsp;Mobiles
-                                            <ul className="dropdown-category ">
-                                                <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
-                                                <Link to="/mobiles/tablets" className="dropdown_sub-category "><li className="bghover">Tablets</li></Link>
-                                                <Link to="/mobiles/laptops" className="dropdown_sub-category "><li className="bghover">Laptops</li></Link>
-                                                <Link to="/mobiles/computers" className="dropdown_sub-category "><li className="bghover">Computers</li></Link>
-                                                <Link to="/mobiles/accessories" className="dropdown_sub-category "><li className="bghover">Accessories</li></Link>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Laptop&nbsp;&&nbsp;Mobiles
+                                                    <ul className="dropdown-category ">
+                                                        <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
+                                                        <Link to="/mobiles/tablets" className="dropdown_sub-category "><li className="bghover">Tablets</li></Link>
+                                                        <Link to="/mobiles/laptops" className="dropdown_sub-category "><li className="bghover">Laptops</li></Link>
+                                                        <Link to="/mobiles/computers" className="dropdown_sub-category "><li className="bghover">Computers</li></Link>
+                                                        <Link to="/mobiles/accessories" className="dropdown_sub-category "><li className="bghover">Accessories</li></Link>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Furniture
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Furniture
 
-                                            <ul className="dropdown-category">
-                                                <Link to="/furnitures/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/furnitures/home decoration" className="dropdown_sub-category "><li className="bghover">Home Decoration</li></Link>
-                                                <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
-                                                <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
-                                                <Link to="/furnitures/kids furniture" className="dropdown_sub-category "><li className="bghover">Kids Furniture</li></Link>
-                                                <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                                    <ul className="dropdown-category">
+                                                        <Link to="/furnitures/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/furnitures/home decoration" className="dropdown_sub-category "><li className="bghover">Home Decoration</li></Link>
+                                                        <Link to="/furnitures/sofa & beds" className="dropdown_sub-category "><li className="bghover">Sofa & Beds</li></Link>
+                                                        <Link to="/furnitures/chairs & tables" className="dropdown_sub-category "><li className="bghover">Chairs & Tables</li></Link>
+                                                        <Link to="/furnitures/kids furniture" className="dropdown_sub-category "><li className="bghover">Kids Furniture</li></Link>
+                                                        <Link to="/furnitures/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Fashion&nbsp;&&nbsp;Clothes
-                                            <ul className="dropdown-category">
-                                                <Link to="/Fashions/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>
-                                                <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
-                                                <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
-                                                <Link to="/Fashions/fashion & beauty" className="dropdown_sub-category "><li className="bghover">Fashion & Beauty Products</li></Link>
-                                                <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Fashion&nbsp;&&nbsp;Clothes
+                                                    <ul className="dropdown-category">
+                                                        <Link to="/Fashions/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/Fashions/men" className="dropdown_sub-category "><li className="bghover">Men</li></Link>
+                                                        <Link to="/Fashions/women" className="dropdown_sub-category "><li className="bghover">Women</li></Link>
+                                                        <Link to="/Fashions/kids" className="dropdown_sub-category "><li className="bghover">Kids</li></Link>
+                                                        <Link to="/Fashions/fashion & beauty" className="dropdown_sub-category "><li className="bghover">Fashion & Beauty Products</li></Link>
+                                                        <Link to="/Fashions/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Services
-                                            <ul className="dropdown-category">
-                                                <Link to="/Services/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/Services/education & classes" className="dropdown_sub-category "><li className="bghover">Educations & classes</li></Link>
-                                                <Link to="/Services/electronics & computers" className="dropdown_sub-category "><li className="bghover">Electronics & Computers</li></Link>
-                                                <Link to="/Services/accountancy services" className="dropdown_sub-category "><li className="bghover">Accountancy Services</li></Link>
-                                                <Link to="/Services/software services" className="dropdown_sub-category "><li className="bghover">Software Services</li></Link>
-                                                <Link to="/Services/other services" className="dropdown_sub-category "><li className="bghover">Other Services</li></Link>
-                                            </ul>
-                                        </div></div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Services
+                                                    <ul className="dropdown-category">
+                                                        <Link to="/Services/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/Services/education & classes" className="dropdown_sub-category "><li className="bghover">Educations & classes</li></Link>
+                                                        <Link to="/Services/electronics & computers" className="dropdown_sub-category "><li className="bghover">Electronics & Computers</li></Link>
+                                                        <Link to="/Services/accountancy services" className="dropdown_sub-category "><li className="bghover">Accountancy Services</li></Link>
+                                                        <Link to="/Services/software services" className="dropdown_sub-category "><li className="bghover">Software Services</li></Link>
+                                                        <Link to="/Services/other services" className="dropdown_sub-category "><li className="bghover">Other Services</li></Link>
+                                                    </ul>
+                                                </div></div>
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Properties
-                                            <ul className="dropdown-category">
-                                                <Link to="/properties/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/properties/for rent" className="dropdown_sub-category "><li className="bghover">For Rent</li></Link>
-                                                <Link to="/properties/for sale" className="dropdown_sub-category "><li className="bghover">For Sale</li></Link>
-                                                <Link to="/properties/land & plots" className="dropdown_sub-category "><li className="bghover">Land & Plots</li></Link>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Properties
+                                                    <ul className="dropdown-category">
+                                                        <Link to="/properties/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/properties/for rent" className="dropdown_sub-category "><li className="bghover">For Rent</li></Link>
+                                                        <Link to="/properties/for sale" className="dropdown_sub-category "><li className="bghover">For Sale</li></Link>
+                                                        <Link to="/properties/land & plots" className="dropdown_sub-category "><li className="bghover">Land & Plots</li></Link>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Books&nbsp;&&nbsp;Sports
-                                            <ul className="dropdown-category">
-                                                <Link to="/booksAndSports/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/booksAndSports/books" className="dropdown_sub-category "><li className="bghover">Books</li></Link>
-                                                <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
-                                                <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
-                                                <Link to="/booksAndSports/sports items" className="dropdown_sub-category "><li className="bghover">Sports Items</li></Link>
-                                                <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Books&nbsp;&&nbsp;Sports
+                                                    <ul className="dropdown-category">
+                                                        <Link to="/booksAndSports/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/booksAndSports/books" className="dropdown_sub-category "><li className="bghover">Books</li></Link>
+                                                        <Link to="/booksAndSports/gym" className="dropdown_sub-category "><li className="bghover">Gym</li></Link>
+                                                        <Link to="/booksAndSports/musical instruments" className="dropdown_sub-category "><li className="bghover">Musical Instruments</li></Link>
+                                                        <Link to="/booksAndSports/sports items" className="dropdown_sub-category "><li className="bghover">Sports Items</li></Link>
+                                                        <Link to="/booksAndSports/other items" className="dropdown_sub-category "><li className="bghover">Other Items</li></Link>
+                                                    </ul>
+                                                </div>
+                                            </div>
 
 
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            Electronics&nbsp;&&nbsp;Appliances
-                                            <ul className="dropdown-category catagry-color">
-                                                <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
-                                                <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>
-                                                <Link to="/electronics/cooler"><li className="bghover">Cooler</li></Link>
-                                                <Link to="/electronics/fan"><li className="bghover">Fan</li></Link>
-                                                <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
-                                                <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
-                                                <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
-                                                <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitors</li></Link>
-                                                <Link to="/electronics/games"><li className="bghover">Games</li></Link>
-                                                <Link to="/electronics/speakers"><li className="bghover">Speakers</li></Link>
-                                                <Link to="/electronics/cameras & lens"><li className="bghover">Cameras & Lens</li></Link>
-                                                <Link to="/electronics/kitchen & others"><li className="bghover">Kitchen & Others</li></Link>
-                                                <Link to="/electronics/computer accessories"><li className="bghover">Computers Accessories</li></Link>
-                                                <Link to="/electronics/air purifiers"><li className="bghover">Air Purifiers</li></Link>
-                                                <Link to="/electronics/water purifiers"><li className="bghover">Water Purifiers</li></Link>
-                                                <Link to="/electronics/other items"><li className="bghover">Other Items</li></Link>
-                                            </ul>
-                                        </div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    Electronics&nbsp;&&nbsp;Appliances
+                                                    <ul className="dropdown-category catagry-color">
+                                                        <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
+                                                        <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>
+                                                        <Link to="/electronics/cooler"><li className="bghover">Cooler</li></Link>
+                                                        <Link to="/electronics/fan"><li className="bghover">Fan</li></Link>
+                                                        <Link to="/electronics/ac"><li className="bghover">A/C</li></Link>
+                                                        <Link to="/electronics/television & led"><li className="bghover">Television & Led</li></Link>
+                                                        <Link to="/electronics/washing machine"><li className="bghover">Washing Machine</li></Link>
+                                                        <Link to="/electronics/hard disks printer"><li className="bghover">Hard Disks, Printer & Monitors</li></Link>
+                                                        <Link to="/electronics/games"><li className="bghover">Games</li></Link>
+                                                        <Link to="/electronics/speakers"><li className="bghover">Speakers</li></Link>
+                                                        <Link to="/electronics/cameras & lens"><li className="bghover">Cameras & Lens</li></Link>
+                                                        <Link to="/electronics/kitchen & others"><li className="bghover">Kitchen & Others</li></Link>
+                                                        <Link to="/electronics/computer accessories"><li className="bghover">Computers Accessories</li></Link>
+                                                        <Link to="/electronics/air purifiers"><li className="bghover">Air Purifiers</li></Link>
+                                                        <Link to="/electronics/water purifiers"><li className="bghover">Water Purifiers</li></Link>
+                                                        <Link to="/electronics/other items"><li className="bghover">Other Items</li></Link>
+                                                    </ul>
+                                                </div>
 
-                                        {/* <!-- end --> */}
-                                    </div>
-                                    <div className="disp">
-                                        <div className="drop-down">
-                                            More
-                                            <ul className="dropdown-category catagry-color">
-                                                <Link to="/" id="SubMenu"><li className="bghover drop-down "  >Industrial Goods</li></Link>
+                                                {/* <!-- end --> */}
+                                            </div>
+                                            <div className="disp">
+                                                <div className="drop-down">
+                                                    More
+                                                    <ul className="dropdown-category catagry-color">
+                                                        <Link to="/" id="SubMenu"><li className="bghover drop-down "  >Industrial Goods</li></Link>
 
-                                                <div className="subMenuItem " id="subItemss" >
-                                                    <ul className="catagry-color">
-                                                        {ListData}
-                                                        {/* <Link to="/" className="dropdown_sub-category" ><li className="bghover">Machinery </li></Link>
+                                                        <div className="subMenuItem " id="subItemss" >
+                                                            <ul className="catagry-color">
+                                                                {ListData}
+                                                                {/* <Link to="/" className="dropdown_sub-category" ><li className="bghover">Machinery </li></Link>
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover">Component Parts </li></Link>
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover">Major Equipment</li></Link>
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover">Accessories Equipment</li></Link> */}
-                                                    </ul>
-                                                </div>
+                                                            </ul>
+                                                        </div>
 
-                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover" id="SubMenu1">EV Batteries</li></Link>
-                                                <div className="subMenuItem " id="subItemss1" >
-                                                    <ul className="catagry-color">
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">All </li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Lithium-ion battery </li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Sli batteries</li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Hydride battery</li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Silver calcium battery</li></Link>
+                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover" id="SubMenu1">EV Batteries</li></Link>
+                                                        <div className="subMenuItem " id="subItemss1" >
+                                                            <ul className="catagry-color">
+                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">All </li></Link>
+                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Lithium-ion battery </li></Link>
+                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Sli batteries</li></Link>
+                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Hydride battery</li></Link>
+                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Silver calcium battery</li></Link>
+                                                            </ul>
+                                                        </div>
                                                     </ul>
                                                 </div>
-                                            </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="profiles">
+                                        <div className="profiles">
 
 
 
-                                    {
-                                        (profileName) ?
-                                            <>
+                                            {
+                                                (profileName) ?
+                                                    <>
+                                                        {
+                                                            LoginthroughData === 'facebook' ?
+                                                                <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                                                    <div className="d-flex align-items-center ">
+                                                                        <div className="profileSmall">
+                                                                            <img src={`${userProfileImg}`} />
+                                                                        </div>
+                                                                        {(LocalData == null)
+                                                                            ? 'Login/ SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP </FontAwesomeIcon> : userProfileName
+                                                                        }
+                                                                    </div>
+                                                                </button>
+                                                                :
+                                                                <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                    <div className="d-flex align-items-center ">
+                                                                        <div className="profileSmall">
+                                                                            <img src={`${LocalData?.profileImg}`} />
+                                                                        </div>
+                                                                        {(LocalData == null)
+                                                                            ? 'Login/ SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP</FontAwesomeIcon> : LocalData.profileName
+                                                                        }
+                                                                    </div>
+
+                                                                </button>
+                                                        }
+
+                                                    </>
+                                                    :
+
+                                                    <Link to="/login" className="secondary dropdown btn-dProfile">
+                                                        {(LocalData == null)
+                                                            ? 'Login / Signup' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP</FontAwesomeIcon> : LocalData.profileName
+                                                        }
+                                                    </Link>
+
+
+
+                                            }
+
+
+                                            <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                                <li><Link to="/profile" className="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
+
+                                                <li><Link to='/posteditems' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
+                                                {/* <li><Link to='/demo' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;demo</Link></li> */}
+                                                <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
+
+
+                                                <li><Link to='/packages/view' className="dropdown-item"> <IoIosRocket className="fs-6" />&nbsp;&nbsp;Packages</Link></li>
+                                                {/* <li><Link to='/mainchatfile' className="dropdown-item"> <BsChatQuoteFill />&nbsp;&nbsp;Chats</Link></li> */}
+
+
                                                 {
-                                                    LoginthroughData === 'facebook' ?
-                                                        <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    (Type == "user") &&
 
-                                                            <div className="d-flex align-items-center ">
-                                                                <div className="profileSmall">
-                                                                    <img src={`${userProfileImg}`}/>
-                                                                </div>
-                                                                {(LocalData == null)
-                                                                    ? 'Login/ SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP </FontAwesomeIcon> : userProfileName
-                                                                }
-                                                            </div>
-                                                        </button>
-                                                        :
-                                                        <button className="btn-secondary dropdown btn-dProfile" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <div className="d-flex align-items-center ">
-                                                                <div className="profileSmall">
-                                                                    <img src={`${LocalData?.profileImg}`} />
-                                                                </div>
-                                                                {(LocalData == null)
-                                                                    ? 'Login/ SIGNUP' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP</FontAwesomeIcon> : LocalData.profileName
-                                                                }
-                                                            </div>
-
-                                                        </button>
+                                                    <li onClick={OnOpen}>
+                                                        <Link to="" className="dropdown-item">
+                                                            <FcShop />
+                                                            <span className=" ms-2 ">Shop</span>
+                                                        </Link>
+                                                    </li>
                                                 }
-
-                                            </>
-                                            :
-
-                                            <Link to="/login" className="secondary dropdown btn-dProfile">
-                                                {(LocalData == null)
-                                                    ? 'Login / Signup' : (LocalData === undefined) ? <FontAwesomeIcon icon="fas-solid fa-right-from-bracket">Login/ SIGNUP</FontAwesomeIcon> : LocalData.profileName
-                                                }
-                                            </Link>
-
-
-
-                                    }
-
-
-                                    <ul className="Menu dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                        <li><Link to="/profile" className="dropdown-item "> <FontAwesomeIcon icon="fas fa-user"></FontAwesomeIcon>&nbsp;&nbsp;Profile</Link></li>
-
-                                        <li><Link to='/posteditems' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
-                                        {/* <li><Link to='/demo' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;demo</Link></li> */}
-                                        <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
-
-
-                                        <li><Link to='/packages/view' className="dropdown-item"> <IoIosRocket className="fs-6" />&nbsp;&nbsp;Packages</Link></li>
-                                        {/* <li><Link to='/mainchatfile' className="dropdown-item"> <BsChatQuoteFill />&nbsp;&nbsp;Chats</Link></li> */}
-                                    
-
-                                        {
-                                            (Type == "user") &&
-
-                                            <li onClick={OnOpen}>
-                                                <Link to="" className="dropdown-item">
-                                                    <FcShop />
-                                                    <span className=" ms-2 ">Shop</span>
-                                                </Link>
-                                            </li>
-                                        }
-                                        {/* <Link to="" className="dropdown-item" id="Hov"> */}
-                                        <li>
-                                            <Link to="" className="dropdown-item" onClick={MOdalOpenFunLogout}> <FontAwesomeIcon icon="fas fa-sign-out-alt" className=" me-2 " />Logout</Link>
-                                            {/* <GoogleLogout
+                                                {/* <Link to="" className="dropdown-item" id="Hov"> */}
+                                                <li>
+                                                    <Link to="" className="dropdown-item" onClick={MOdalOpenFunLogout}> <FontAwesomeIcon icon="fas fa-sign-out-alt" className=" me-2 " />Logout</Link>
+                                                    {/* <GoogleLogout
                                                 clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
                                                 buttonText="Logout"
                                                 onLogoutSuccess={() => {
@@ -661,17 +709,19 @@ const Header = () => {
                                                 className='setGoogleLog'
                                             /> */}
 
-                                        </li>
-                                        {/* </Link> */}
+                                                </li>
+                                                {/* </Link> */}
 
-                                    </ul>
+                                            </ul>
 
+                                        </div>
+
+
+                                        <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
+
+                                        {/* </div> */}
+                                    </div>
                                 </div>
-
-
-                                <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
-
-                                {/* </div> */}
                             </div>
                         </div>
                     </div>

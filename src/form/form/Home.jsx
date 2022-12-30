@@ -93,20 +93,19 @@ const Home = () => {
 
 
     const [isVisible, setIsVisible] = useState(true);
-    const [height, setHeight] = useState(0)
+    // const [height, setHeight] = useState(0)
 
     useEffect(() => {
         window.addEventListener("scroll", listenToScroll);
         return () =>
             window.removeEventListener("scroll", listenToScroll);
     }, [])
-    let PriceLenght = 5;
+    let PriceLenght = 6;
 
     const listenToScroll = () => {
         let heightToHideFrom = 1800;
-        const winScroll = document.body.scrollTop ||
-            document.documentElement.scrollTop;
-        setHeight(winScroll);
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        // setHeight(winScroll);
 
         if (winScroll > heightToHideFrom) {
             isVisible && setIsVisible(false);
@@ -177,7 +176,7 @@ const Home = () => {
                 <CategorySlider />
             </div>
             {/* GeoLocation start */}
-            <div className="inline-block mr-auto pt-1">
+            <div className="inline-block mr-auto">
                 {
                     location.loaded &&
                     JSON.stringify(location)
@@ -217,7 +216,7 @@ const Home = () => {
                                                 <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
-                                                        <div className="col-md-6 col-8 ">
+                                                        <div className="col-md-6 col-8 setMobPadingProduct">
                                                             {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
                                                                     <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
@@ -225,7 +224,7 @@ const Home = () => {
                                                                     <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
                                                             }
                                                         </div>
-                                                        <div className="col-md-6 col-4 setHeart">
+                                                        <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {
                                                                 (automobileProduct.saved) ? <FaHeart className="text-danger fs-6 fs-md-5 fs-lg-5" /> : <FiHeart className="fs-6 fs-md-5 fs-lg-5" />
                                                             }
@@ -446,6 +445,8 @@ const CardHeight = styled.div`
 position: relative;
 top: 0;
 @media (max-width: 768px) {
+    display: flex;
+    justify-content: center !important;
     // height: 55vh ;
     .date{
         /* margin-top: 6px; */

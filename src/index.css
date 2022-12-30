@@ -20,20 +20,7 @@
   background-size: cover;
 }
 
-.swiper-slide#poster1 {
-  /* background-image: url(image/slider/Poster1Car.jpg); */
-}
 
-.swiper-slide#poster2 {
-  /* background-image: url(image/slider/Poster3Bike.jpg); */
-}
-
-.swiper-slide#poster3 {
-  /* background-image: url(image/slider/Poster2Mobile.jpg); */
-}
-/* .swiper-slide:nth-child(4) {
-background-image: url(image/slider/poster1.jpg);
-} */
 /* nav bar */
 
 .navbar-toggler-icon {
@@ -169,7 +156,7 @@ li.nav-item {
 }
 
 .mob-version.search-box {
-  display: none;
+  display: block;
 }
 /* catagory */
 

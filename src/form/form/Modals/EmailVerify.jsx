@@ -210,7 +210,7 @@ const Modalheader = styled.div`
     width: 100%;
     display: flex;
    justify-content: space-between;
-   padding: 2rem 5rem 0rem 2rem;
+   padding: 2rem 3rem 0rem 2rem;
    
     
    @media screen and (max-width :600px){
@@ -266,7 +266,7 @@ const ApplyBtn = styled.button`
     color: white;
     padding: 8px 12px;
     font-size: .7rem;
-    border-radius: .4rem;
+    border-radius: 50rem;
     /* width: 20%; */
     text-align: center;
     cursor: pointer;
@@ -304,7 +304,7 @@ const ApplyBtn1 = styled.button`
     color: white;
     padding: 8px 12px;
     font-size: .9rem;
-    border-radius: .4rem;
+    border-radius: 50rem;
     text-align: center;
     cursor: pointer;
     /* width: 36%; */

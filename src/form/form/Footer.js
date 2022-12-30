@@ -141,6 +141,16 @@ const Footer = () => {
                         <Link to="/terms" className="col-md-6 col-6 ">Term & Condition</Link>
                     </div> 
                 </div> */}
+                {/* <div onClick={() => {
+                    window.scrollTo({
+                        top : 0,
+                        left :0,
+                        behavior : 'smooth'
+                    })
+                }}>
+                    kjlk
+                </div> */}
+
                 <div className="row mt-4 mx-0 pt-4">
                     <div className="col-md-2 SetCols">
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'}>
@@ -175,7 +185,7 @@ const Footer = () => {
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    <Link to="/about" className="text-decoration-none" style={{ color: '#37577A' }}>About Us</Link> 
+                                    <Link to="/about" className="text-decoration-none" style={{ color: '#37577A' }}>About Us</Link>
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
@@ -224,7 +234,7 @@ const Footer = () => {
                                     {/* <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' /> */}
                                     <Image src={apple} width='100px' />
 
-                                </ListItem> 
+                                </ListItem>
                             </List>
                         </Stack>
                     </div>
@@ -244,7 +254,7 @@ const Footer = () => {
                                     <a href="https://twitter.com/FixebuyOfficial">
                                         <Image
                                             boxSize='25px'
-                                            objectFit='cover' 
+                                            objectFit='cover'
                                             src={twitter}
                                             alt='twitter'
                                         /></a>
@@ -263,7 +273,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <Support />
-                <Stack mt={10}> 
+                <Stack mt={10}>
                     <Box w='100%' h='40px' style={{
                         backgroundImage: "linear-gradient(#487792,#37577A)"
                     }} display='flex' justifyContent='center' alignItems='center' textTransform='capitalize' flexDirection='column' >
@@ -274,7 +284,7 @@ const Footer = () => {
                             All rights reserved ©2022 FixeBuy
                         </Text>
                     </Box>
-                </Stack> 
+                </Stack>
             </Footers>
         </>
     )

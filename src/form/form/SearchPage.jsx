@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalVariables } from '../../Context/StateProvider';
 import { SearchHome } from '../../functions/HomeFun';
+import load from '../../assets/images/load.gif';
 import Header from './header'
 import shopIcon from '../../assets/images/shopIcon.png'
 import { baseUrl, ImageView } from '../../functions/constant';
@@ -33,13 +34,13 @@ function SearchPage() {
         if (data.status) {
             setTotalPagess(data.totalPages);
             setAllData(data.data);
-            console.log(AllData, 'hello1')
+            // console.log(AllData, 'hello1')
         }
     }
 
     const LoadDataFun = async () => {
         const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
-        console.log(data, 'hello')
+        console.log(data, 'helloLoad')
         setLoading(true, 'dataSearch')
 
         if (data.status) {
@@ -58,7 +59,7 @@ function SearchPage() {
     // }, [0])
     let PriceLenght = 5;
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     useEffect(() => {
@@ -113,7 +114,7 @@ function SearchPage() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
-                                                        {
+                                                            {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
                                                                     <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
                                                                     :
@@ -164,9 +165,11 @@ function SearchPage() {
                                 <></>
                                 :
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading && <div className="spinner-border spinner-border-sm me-2" role="status">
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
                                         <span className="visually-hidden">Loading...</span>
-                                    </div>}
+                                    </div>
+                                        :
+                                        <img src={load} />} &nbsp;&nbsp;
                                     Load More
                                 </ButtonCraete>
                         }
@@ -193,9 +196,15 @@ const ButtonCraete = styled.button`
     padding: 0.5rem 1.2rem;
     margin: 1rem;
     width: 15%;
+    img{
+        rotate: 30px;
+        margin-left: -10px;
+        width: 25px;
+        height: 25px;
+    }
     @media (max-width: 768px) {
-        font-size: 13px; 
-        width: 32%;
+        font-size: 12px; 
+        width: 39%;
         // height: 55vh ;
       }
     

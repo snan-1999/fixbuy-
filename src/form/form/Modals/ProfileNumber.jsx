@@ -211,7 +211,7 @@ const Modalheader = styled.div`
     width: 100%;
     display: flex;
    justify-content: space-between;
-   padding: 2rem 5rem 0rem 2rem;
+   padding: 2rem 3rem 0rem 2rem;
    
     
    @media screen and (max-width :600px){

@@ -41,7 +41,7 @@ import { MdLocationOn, MdReport } from 'react-icons/md';
 import load from '../../assets/images/load.gif';
 import ReportAds from './Modals/ReportAds';
 import { BsChatDots } from 'react-icons/bs';
-import { AllDataCategory } from '../../functions/MainCategoryFun';
+import { AllDataCategory, SubDataCategoryFun } from '../../functions/MainCategoryFun';
 import useGeoLocation from '../../hooks/useGeoLoaction';
 export default function SingleProductPage(props) {
     const { id } = useParams()
@@ -95,7 +95,7 @@ export default function SingleProductPage(props) {
             const { data } = await axios.get(api);
             setLoader(true)
             if (data.status) {
-                { latitude && await RelatedProducts(data.data.mainCategories) }
+                { latitude && await RelatedProducts(data.data.mainCategories, data.data.categories) }
                 console.log(data.data, 'slkfsdjflksd')
                 setAllData(data.data)
                 setHEart(HomeData)
@@ -129,7 +129,7 @@ export default function SingleProductPage(props) {
                                     (data.data[i]) == (data.data['price'])
                                         ?
                                         <>
-                                            ₹ { numberWithCommas(data.data['price'])}
+                                            ₹ {numberWithCommas(data.data['price'])}
                                         </>
                                         :
                                         String(data.data[i])
@@ -189,6 +189,7 @@ export default function SingleProductPage(props) {
             console.log(HomeData, 'homeData')
         }
     }
+    const [SavedToast, setSavedToast] = useState(false)
     const Run = async () => {
         const api = `${baseUrl}/users/savedItems/${TokenID.ID}`
         const { data } = await axios.post(api, SendData);
@@ -196,19 +197,25 @@ export default function SingleProductPage(props) {
         if (data.status) {
             setHEart(!HEart)
             setHomeData(!HomeData)
-            toast(data.message, {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                type: 'success'
-            });
+            setSavedToast(data.message)
+
         }
         console.log(data, 'homeData')
     }
+    useEffect(() => {
+        toast(SavedToast, {
+            position: "bottom-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            draggable: false,
+            progress: undefined,
+            theme: "colored",
+            type: 'success'
+        });
+        console.log('workk')
+    }, [SavedToast])
+
     const SnedReportData = {
 
         "user_id": TokenID.ID,
@@ -233,10 +240,10 @@ export default function SingleProductPage(props) {
             setisOpen(false)
             toast(data.message, {
                 position: "bottom-right",
-                autoClose: 5000,
+                autoClose: 3000,
                 hideProgressBar: false,
-                closeOnClick: true,
-                draggable: true,
+                // closeOnClick: true,
+                // draggable: true,
                 progress: undefined,
                 theme: "colored",
                 type: 'success'
@@ -271,10 +278,10 @@ export default function SingleProductPage(props) {
         setPageNO(PageNO + 1)
         setLoading(true)
     }
-    const RelatedProducts = async (MainCategory) => {
+    const RelatedProducts = async (MainCategory, GetSubCatogery) => {
         console.log('run', 'main')
         try {
-            const { data } = await AllDataCategory(MainCategory, latitude, Longitude, PageNO, UserId);
+            const { data } = await SubDataCategoryFun(MainCategory, GetSubCatogery, latitude, Longitude, PageNO, UserId);
             if (data.status) {
                 setTotalPagess(data.totalPages)
                 setRelatedData([...RelatedData, ...data.data])
@@ -331,7 +338,7 @@ export default function SingleProductPage(props) {
                     }
                 } />
                 {/* GeoLocation start */}
-                <div className="inline-block mr-auto pt-1">
+                <div className="inline-block mr-auto">
                     {
                         Geolocation.loaded &&
                         JSON.stringify(Geolocation)
@@ -375,21 +382,15 @@ export default function SingleProductPage(props) {
                                     </ScrollDiv>
                                 </SmallImg>
                                 <div className="shareDetails d-flex align-items-center mt-4">
-                                    <div className="col-md-6">
+                                    <div className="col-md-6 col-6">
                                         <div className="locations d-flex align-items-center">
                                             <TiLocation />
                                             <div className='ms-2 text-capitalize'>{`${AllData.location?.city}, ${AllData.location?.state}`}</div>
                                         </div>
                                     </div>
-                                    <div className="col-md-4">
-                                        <div className="Shareset d-flex align-items-center" >
-                                            <FiShare2 />
-                                            <div className='ms-2' >Share</div>
-                                            <ShareLink ShareLinkParam={ShareLinkParam} />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <div className="ReportAdss d-flex align-items-center justify-content-end" >
+
+                                    <div className="col-md-6 col-6">
+                                        <div className="ReportAdss d-flex align-items-center justify-content-center" >
                                             <MdReport className='fs-4' />
                                             <div className='ms-1' onClick={OnOpen}>Report</div>
                                         </div>
@@ -505,7 +506,13 @@ export default function SingleProductPage(props) {
                             <div className="col-md-6 col-12">
 
                             </div>
-
+                            <div className="col-12">
+                                <div className="Shareset d-flex align-items-center mt-4" >
+                                    <FiShare2 />
+                                    <div className='ms-2 me-2' >Share</div>
+                                    <ShareLink ShareLinkParam={ShareLinkParam} />
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -586,7 +593,7 @@ export default function SingleProductPage(props) {
                             }
                             {/* <div className="d-grid place-items-center"> */}
                             <br />
-                            <div className="row m-0 p-0 d-flex justify-content-center">
+                            {/* <div className="row m-0 p-0 d-flex justify-content-center">
                                 {
                                     (TotalPagess == PageNO) ?
                                         <></>
@@ -600,9 +607,7 @@ export default function SingleProductPage(props) {
                                             Load More
                                         </ButtonCraete>
                                 }
-
-                                {/* </div> */}
-                            </div>
+                            </div> */}
                         </div>
 
 
@@ -620,6 +625,8 @@ const CardHeight = styled.div`
 position: relative;
 top: 0;
 @media (max-width: 768px) {
+    display: flex;
+    justify-content: center !important;
     // height: 55vh ;
   }
     // height: 60vh ;
@@ -815,6 +822,9 @@ const DetailsData = styled.div`
         }
                             width: 80%;
                             @media screen and (max-width : 600px){
+                                .SellerImgSingle{
+                                    margin-left : -8px;
+                                }
                                 .mob-Edit{
                                     // margin-left:1rem ;
                                 }
@@ -864,7 +874,18 @@ const ScrollDiv = styled.div`
                             height: 80px;
                             margin: 10px;
                             border-radius: 10px;
+
     }
+    ::-webkit-scrollbar {
+    display: block !important;
+    width: 1px !important;
+    height: 0.3em !important;
+    background-color: transparent !important; 
+    color: red !important;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(${props => props.theme.colors.primary} ,${props => props.theme.colors.secondary}) !important;
+}
     /* @media screen and (max-width : 600px){
         margin-left: 0 !important;
     } */

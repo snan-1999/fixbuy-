@@ -38,7 +38,13 @@ export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpe
                                 </ModalBody>
                                 <ModalFooter>
                                     <Cancelbtn onClick={onclose}>Cancel</Cancelbtn>
-                                    <OKbtn >
+                                    <OKbtn onClick={()=>{
+                                                window.localStorage.removeItem('token');
+                                                window.localStorage.removeItem('loginThrough');
+                                                setLogoutOpen(false);
+                                                nav("/")
+
+                                    }}>
                                         <GoogleLogout
                                             clientId="1027005252783-c1bgr9lhfnosk72js31lokbia3356jk0.apps.googleusercontent.com"
                                             buttonText="Logout"
@@ -47,10 +53,12 @@ export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpe
                                                 window.localStorage.removeItem('loginThrough');
                                                 setLogoutOpen(false)
                                                 nav("/")
+                                                window.location.reload();
                                             }}
                                             icon={false}
                                             className='setGoogleLog'
                                         />
+                                        {/* Logout */}
                                     </OKbtn>
                                 </ModalFooter>
                             </ModelDiv>
@@ -63,17 +71,17 @@ export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpe
     )
 }
 const BackLight = styled.div`
-z-index: 10;
+z-index: 20;
 /* background-color: red; */
 
 `
 const ModelContainer = styled(motion.div)`
-z-index: 10;
+z-index: 15;
     position: fixed;
     top: 30%;
     left: 40%;
     @media screen and (max-width :600px){
-        z-index: 10;
+        z-index: 15;
         position: fixed;
         top: 30% !important;
         left: 10% !important;

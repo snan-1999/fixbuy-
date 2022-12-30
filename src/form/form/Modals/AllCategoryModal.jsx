@@ -43,14 +43,14 @@ export default function AllCategoryModal({ Onclose, OnOpen, setisOpen, isOpen, T
 
                                 <MyModal>
 
-                                    <div>
+                                    <div className='setOver'>
 
                                         <ul class="list-group ">
                                             {
                                                 categories?.map((value, key) => {
                                                     return (
                                                         <Link to={value.to} style={{ textDecoration: "none" }}>
-                                                            <li class="list-group-item row text-center" style={{width: '100%'}}>{value.name}</li>
+                                                            <li class="list-group-item row text-center" style={{ width: '100%' }}>{value.name}</li>
                                                         </Link>
                                                     )
                                                 })
@@ -107,9 +107,9 @@ width:85%;
 margin-left: 15%;
 
 @media screen and (max-width: 600px){
-    margin-left: 23rem;
+    margin-left: 21rem;
     // justify-content : center;
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     overflow: hidden;
     position: fixed;
     width : 75%;
@@ -128,9 +128,20 @@ margin-left: 15%;
 
 `
 const MyModal = styled.div`
+
      margin-left: 5%;
      @media screen and (max-width: 600px) {
+        .list-group{
+            margin-left: 1.7rem;
+        }
         margin-left:-8%;
+        li{
+            font-size: .7rem;
+        }
+        .setOver{
+            height: 35vh;
+    overflow: auto;
+        }
      }
     .MyInput{
         width: 3%;

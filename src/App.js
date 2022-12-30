@@ -48,7 +48,7 @@ function App() {
   return (
     <>
       {/* GeoLocation start */}
-      <div className="inline-block mr-auto pt-1">
+      <div className="inline-block mr-auto">
         {
           location.loaded &&
           JSON.stringify(location)

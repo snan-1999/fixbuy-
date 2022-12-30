@@ -58,6 +58,7 @@ export default function ShareLink({ ShareLinkParam }) {
 
                 <div className="Demo__some-network">
                     <FacebookShareButton
+                    style={{all : 'unset'}}
                         // url={window.location.href}
                         url={ShareLinkParam}
                         quote={titl}
@@ -66,6 +67,7 @@ export default function ShareLink({ ShareLinkParam }) {
                         <FacebookIcon size={20} round />
                     </FacebookShareButton>
                     <WhatsappShareButton
+                    style={{all : 'unset'}}
                         // url={window.location.href}
                         url={ShareLinkParam}
                         quote={titl}
@@ -113,6 +115,9 @@ export default function ShareLink({ ShareLinkParam }) {
 }
 const ShareDiv = styled.div`
     .Demo__some-network {
+       
+        cursor: pointer;
+    color : ${props => props.theme.colors.primary};
     display: flex;
     align-items: center;
     justify-content: space-evenly;

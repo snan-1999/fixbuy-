@@ -356,7 +356,7 @@ const Bike = () => {
                         (category2 == "bikes" || category2 == "scooty") ?
                             <>
                                 {/* <h1>Bike</h1> */}
-                                <div className="inline-block mr-auto pt-1">
+                                <div className="inline-block mr-auto">
                                     {
                                         location.loaded &&
                                         JSON.stringify(location)

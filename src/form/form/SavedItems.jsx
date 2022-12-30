@@ -6,7 +6,7 @@ import { FiHeart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { GlobalVariables } from '../../Context/StateProvider';
-import { baseUrl } from '../../functions/constant'
+import { baseUrl, ImageView } from '../../functions/constant'
 import Header from './header';
 import shopIcon from '../../assets/images/shopIcon.png'
 import { useState } from 'react';
@@ -62,13 +62,13 @@ export default function SavedItems() {
                                             <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
                                                 {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
                                                 {(automobileProduct.sellerType == "user") ? "" : <img className="ShopLogo" src={shopIcon} />}
-                                                <div className="img-wh overflow-hidden"><img src={`${baseUrl}/product/get/productImage/${automobileProduct.images[0]}`} className="pdt-img" /></div>
+                                                <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 ">
                                                             <div className="price">₹ {automobileProduct.price}</div>
                                                         </div>
-                                                        <div className="col-md-6 col-4 setHeart">
+                                                        <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {
                                                                 (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
                                                             }
@@ -121,9 +121,9 @@ const CardHeight = styled.div`
 position: relative;
 top: 0;
 @media (max-width: 768px) {
-    height: 55vh ;
+    /* height: 55vh ; */
   }
-    height: 60vh ;
+    /* height: 60vh ; */
     .ShopLogo{
         height: 5vh;
         position: absolute;

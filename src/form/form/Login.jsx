@@ -67,6 +67,15 @@ function Login() {
         // }
 
     }
+    const OTPEnter = (e) => {
+        // SearchEl.addEventListener("keyup", async (e) => {
+        console.log(e.keyCode, 'keyVal')
+        if (e.keyCode == 13) {
+            console.log("enter is pressed", 'serachData')
+            handlePhone()
+        }
+        // })
+    }
 
     const handleResendOtp = async () => {
         const EnterResponse = await generateOtp(phone);
@@ -121,7 +130,15 @@ function Login() {
             console.log(type, 'type');
         });
     }
-
+    const LoginENter = (e) => {
+        // SearchEl.addEventListener("keyup", async (e) => {
+        console.log(e.keyCode, 'keyVal')
+        if (e.keyCode == 13) {
+            console.log("enter is pressed", 'serachData')
+            verify()
+        }
+        // })
+    }
     const google = async (respon) => {
         await googleAuth(JSON.stringify(respon)).then((res) => {
             console.log(respon, 'this is res');
@@ -263,6 +280,7 @@ function Login() {
                                             setPhone(e.target.value);
                                             setError("")
                                         }}
+                                        onKeyUp={OTPEnter}
                                         required />
 
                                     {
@@ -272,6 +290,7 @@ function Login() {
                                                 console.log(e.target.value);
                                                 setError("")
                                             }}
+                                            onKeyUp={LoginENter}
                                         />
                                     }
                                     <div className="text" style={{ color: "red" }}>{error}</div>
@@ -280,7 +299,7 @@ function Login() {
                                     <div className="form-button">
                                         {
                                             (!show) ?
-                                                <button id="submit" type="button" value="true" name="login" className="ibtn  login-bt" onClick={handlePhone} >Get OTP</button>
+                                                <button id="submit" type="button" value="true" name="login" className="ibtn  login-bt" onClick={handlePhone}>Get OTP</button>
                                                 :
                                                 <button id="submit" type="button" value="true" name="login" className="ibtn w-100 p-2 login-bt" onClick={verify} >Login</button>
                                         }

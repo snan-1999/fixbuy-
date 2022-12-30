@@ -159,7 +159,7 @@ export default function MainProducts() {
             // alert('There is no Data')
         }
     }
-    let PriceLenght = 5;
+    let PriceLenght = 6;
     const numberWithCommas = price => {
         console.log(price , 'commaa')
         return parseInt(price).toLocaleString('en-US');
@@ -193,7 +193,7 @@ export default function MainProducts() {
                             <span>CATEGORY PRODUCTS</span>
                         </div>
                     </div>
-                    <div className="inline-block mr-auto pt-1">
+                    <div className="inline-block mr-auto">
                         {
                             Location.loaded &&
                             JSON.stringify(Location)
@@ -255,7 +255,7 @@ export default function MainProducts() {
                                                 <div className="img-wh overflow-hidden"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div>
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
-                                                        <div className="col-md-6 col-8 ">
+                                                        <div className="col-md-6 col-8 setMobPadingProduct">
                                                         {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
                                                                     <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
@@ -263,7 +263,7 @@ export default function MainProducts() {
                                                                     <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
                                                             }
                                                         </div>
-                                                        <div className="col-md-6 col-4 setHeart">
+                                                        <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {
                                                                 (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
 
