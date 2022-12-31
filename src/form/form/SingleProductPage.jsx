@@ -23,6 +23,8 @@ import {
     TableContainer,
     useToast,
     Button,
+    Stack,
+    Spinner,
 
 } from '@chakra-ui/react'
 
@@ -44,6 +46,10 @@ import { BsChatDots } from 'react-icons/bs';
 import { AllDataCategory, SubDataCategoryFun } from '../../functions/MainCategoryFun';
 import useGeoLocation from '../../hooks/useGeoLoaction';
 export default function SingleProductPage(props) {
+    useEffect(() => {
+        setLoading(true)
+    }, [0])
+    
     const { id } = useParams()
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => setisOpen(false)
@@ -305,18 +311,34 @@ export default function SingleProductPage(props) {
     };
     useEffect(() => {
         SingleData()
-        window.scrollTo(0, 0);
+        setLoading(true)
+        window.scroll({
+            top : 0,
+            left :0,
+            behavior :"instant"
+        });
+
+        // document.body.scrollTo(0, 0);/
+
+
         // sellerDetails()
+        console.log(window.offsetTop, 'offf')
     }, [0, latitude, PageNO, id])
     let ShareLinkParam = window.location.href
 
     console.log(window.location.href, 'copy')
     let PriceLenght = 5;
-    
+
     return (
         <>
             <div className="overflow-hidden">
                 <Header />
+                {/* {
+                    Loader &&
+                    <Stack direction='row' className='sethhh' display='grid' placeContent='center'>
+                        <Spinner size='xs' width='25px' height='25px' />
+                    </Stack>
+                } */}
                 <ToastContainer />
                 <ReportAds {
                     ...{
@@ -525,8 +547,8 @@ export default function SingleProductPage(props) {
                             {
                                 RelatedData?.map((automobileProduct, key) => {
                                     return (
-                                        <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
-                                            <CardHeight>
+                                        <div className="col-md-4 col-6 col-lg-3" onClick={() => {setLoading(true) ;setHomeData(automobileProduct.saved)}}>
+                                            <CardHeight onClick={() => setLoading(true)}>
 
                                                 <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
                                                     <div className="shadow p-3 mb-4 bg-white maindiv overflow-hidden">
@@ -536,12 +558,12 @@ export default function SingleProductPage(props) {
                                                         <div className="pdt-details">
                                                             <div className="row d-flex align-items-center">
                                                                 <div className="col-md-6 col-8 setMobPadingProduct">
-                                                                {
-                                                                (automobileProduct.price).toString().length > PriceLenght ?
-                                                                    <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
-                                                                    :
-                                                                    <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
-                                                            }
+                                                                    {
+                                                                        (automobileProduct.price).toString().length > PriceLenght ?
+                                                                            <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                                                            :
+                                                                            <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                                                                    }
                                                                 </div>
                                                                 <div className="col-md-6 col-4 setHeart">
                                                                     {

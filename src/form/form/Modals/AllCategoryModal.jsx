@@ -36,7 +36,7 @@ export default function AllCategoryModal({ Onclose, OnOpen, setisOpen, isOpen, T
                         <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                             <Modalheader>
                                 <Headingsetting>Category</Headingsetting>
-                                <ImCross onClick={Onclose} style={{ cursor: 'pointer', color: 'black' }} />
+                                <ImCross onClick={Onclose} style={{ cursor: 'pointer',     color: '#487792' }} />
                             </Modalheader>
                             {/* <hr style={{ margin: '0rem -1.5rem 0px' }} /> */}
                             <Modalbody>
@@ -87,7 +87,12 @@ height: 100%;
         
     }
     @media screen and (max-width : 600px) {
-        height :100vh
+        right: 45%;
+        height :100vh;
+        width: 100%;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
     
 
@@ -113,6 +118,11 @@ margin-left: 15%;
     overflow: hidden;
     position: fixed;
     width : 75%;
+    /* left: ; */
+    /* left: -77%;
+    top: 25%; */
+    box-shadow: 1px 1px 10px grey;
+    transform: translate('-50%' ,'-50%');
 }
 
 @media screen and (min-width: 601px) and (max-width: 1000px) {
@@ -136,7 +146,8 @@ const MyModal = styled.div`
         }
         margin-left:-8%;
         li{
-            font-size: .7rem;
+            font-size: .8rem;
+            font-weight: 500;
         }
         .setOver{
             height: 35vh;
@@ -158,6 +169,7 @@ const Modalheader = styled.div`
     width: 100%;
     display: flex;
    justify-content: space-between;
+   align-items: center;
    padding: 2rem 5rem 0rem 2rem;
    
     
@@ -174,7 +186,7 @@ const Modalheader = styled.div`
 }
     `
 const Headingsetting = styled.h2`
-       
+        color: #487792;
         font-weight: 600;
 `
 const Modalbody = styled.div`
