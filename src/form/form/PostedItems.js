@@ -82,6 +82,11 @@ const PostedItems = () => {
     setModalOpen(true)
     setDelId(id)
   }
+  let PriceLenght = 5;
+  const numberWithCommas = price => {
+      console.log(price , 'commaa')
+      return parseInt(price).toLocaleString('en-US');
+  };
   useEffect(() => {
     if (IdData == null || IdData == undefined) {
       // console.log('yes' , 'tokenData')
@@ -130,7 +135,12 @@ const PostedItems = () => {
                       <div className="pdt-details">
                         <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
                           <div className="d-flex" style={{ justifyContent: 'space-between' }}>
-                            <div className="price">₹ {(automobileProduct.price).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                            {
+                              (automobileProduct.price).toString().length > PriceLenght ?
+                                <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                :
+                                <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
+                            }
                             <div className="status">
                               {
                                 (automobileProduct.status == 'pending') ?
@@ -139,7 +149,7 @@ const PostedItems = () => {
                                     <span className="sts" style={{ backgroundColor: 'red' }}>{automobileProduct.status}</span>
                                     : (automobileProduct.status == 'approved') ?
                                       <span className="sts" style={{ backgroundColor: 'green' }}>{automobileProduct.status}</span>
-                                      : 
+                                      :
                                       ""
                               }
                             </div>

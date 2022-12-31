@@ -1788,7 +1788,7 @@ box-shadow: none;
     /*height: 8%;*/
     height: 100%;
     background: linear-gradient(var(--color1), var(--color2)) !important;
-    background: #3b6086 !important;
+    /* background: #3b6086 !important; */
     z-index: -1;
     transform: rotate(45deg);
 }
@@ -2733,6 +2733,10 @@ button.GoogleBtn {
 }
 
 @media screen and (max-width: 600px) {
+    
+    .extraSpace {
+        height: 10vh !important;
+    }
     .Toastify__toast {
         min-height: 6vh !important;
         font-size: 1rem !important;
@@ -3107,9 +3111,9 @@ button.GoogleBtn {
     }
 
     .sts {
-        padding: 2px 9px;
+        padding: 2px 7px;
         margin-left: 9%;
-        font-size: 9px;
+        font-size: 7px;
     }
 
     .price {
@@ -3119,6 +3123,7 @@ button.GoogleBtn {
 
     .pdt-details {
         margin-top: 1rem;
+        padding: 0 ;
     }
 
     .maindiv {
@@ -4253,7 +4258,7 @@ button.GoogleBtn {
         margin-bottom: 50px;
     }
     .for-center-contact {
-        /* position: relative; */
+        position: relative;
         width: 100%;
         display: flex;
         /* justify-content: space-around; */

@@ -51,9 +51,9 @@ export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpe
                                             onLogoutSuccess={() => {
                                                 window.localStorage.removeItem('token');
                                                 window.localStorage.removeItem('loginThrough');
+                                                window.location.reload(true );
                                                 setLogoutOpen(false)
                                                 nav("/")
-                                                window.location.reload();
                                             }}
                                             icon={false}
                                             className='setGoogleLog'

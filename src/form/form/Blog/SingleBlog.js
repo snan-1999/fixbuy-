@@ -18,7 +18,7 @@ const SingleBlog = () => {
     const [image, setImage] = useState('')
     const [title, setTitle] = useState('')
     const [date, setDate] = useState('')
-    // const [id , setID] = useState()
+    const [Upstate , setUpstate] = useState(0)
     console.log(id, 'singleid')
     const getSingleBlog = async () => {
         const api = `${baseUrl}/blogs/get/singleBlog/${id}`;
@@ -53,10 +53,11 @@ const SingleBlog = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getBlog()
         getSingleBlog();
 
-    }, [0])
+    }, [0 ,Upstate])
 
 
     return (
@@ -134,7 +135,7 @@ const SingleBlog = () => {
                                                             // ></div>
                                                             <div dangerouslySetInnerHTML={{ __html: data.contentText }}></div>
                                                     }
-                                                    <Link to={`/blogs/SingleBlog/${data._id}`} onClick={() => getBlog(data._id)}>Read more</Link>
+                                                    <Link to={`/blogs/SingleBlog/${data._id}`} onClick={() => {getBlog(data._id); setUpstate(Upstate + 1)} }>Read more</Link>
                                                 </div>
                                             </div>
                                         </div>

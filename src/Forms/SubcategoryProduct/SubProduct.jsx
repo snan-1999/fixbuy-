@@ -146,7 +146,7 @@ export default function SubProduct() {
         setLoading(true)
 
     }
-    let PriceLenght = 6;
+    let PriceLenght = 5;
     const numberWithCommas = price => {
         console.log(price , 'commaa')
         return parseInt(price).toLocaleString('en-US');
@@ -339,11 +339,11 @@ const ButtonCraete = styled.button`
         width: 25px;
         height: 25px;
     }
-    /* @media (max-width: 768px) {
+    @media (max-width: 600px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
-      } */
+      }
       @media screen and (min-width: 601px) and (max-width: 900px) {
         width: 25%;
         font-size: 12px;

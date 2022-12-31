@@ -305,6 +305,37 @@ button#dropdownMenuButton1 {
   display: none !important;
 }
 @media screen and (max-width: 600px) {
+  .container-heading-savedItem {
+    position: absolute;
+    width: 230px;
+    height: 60px;
+    border-bottom: 3px solid #37577A;
+    /* background: linear-gradient(var(--color1) , var(--color2)) !important; */
+    line-height: 50px;
+    /* background: gray; */
+    overflow: hidden !important;
+  }
+  
+  .container-heading-savedItem span {
+    font-size: 16px;
+    color: whitesmoke;
+    background: linear-gradient(var(--color1), var(--color2)) !important;
+    display: inline-block;
+    padding: 8px 20px 10px 25px;
+    text-transform: uppercase;
+  }
+  
+  .container-heading-savedItem span:before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    /* height: 8%; */
+    height: 100%;
+    background: linear-gradient(var(--color1), var(--color2)) !important;
+    z-index: -1;
+    transform: rotate(45deg);
+  }
+  
   .seller-name1 h4 {
     font-size: 1.1rem !important;
 }
@@ -375,7 +406,7 @@ button#dropdownMenuButton1 {
 
   /* // end  */
 .container-heading-pr {
-  margin-left: -14px;
+  margin-left: -19px;
   position: absolute;
   width: 310px;
   height: 60px;

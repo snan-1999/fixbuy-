@@ -116,16 +116,16 @@ const Home = () => {
     window.onload = function () {
         setTimeout(function () {
             OnOpen()
-        }, 5000); 
-    }; 
+        }, 5000);
+    };
     let Max_length = 27;
     // const DAte = new Date();
     // alert(DAte.toDateString().split(' ').slice(1).join(' '))
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
-    
+
     useEffect(() => {
         // numberWithCommas()
         latitude && homeDataAll()
@@ -223,7 +223,7 @@ const Home = () => {
                                                                     :
                                                                     <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
                                                             }
-                                                        </div>    
+                                                        </div>
                                                         <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {
                                                                 (automobileProduct.saved) ? <FaHeart className="text-danger fs-6 fs-md-5 fs-lg-5" /> : <FiHeart className="fs-6 fs-md-5 fs-lg-5" />
@@ -433,11 +433,11 @@ const ButtonCraete = styled.button`
         width: 25px;
         height: 25px;
     }
-    /* @media (max-width: 768px) {
+    @media (max-width: 600px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
-      } */
+      }
       @media screen and (min-width: 601px) and (max-width: 900px) {
         width: 25%;
         font-size: 12px;

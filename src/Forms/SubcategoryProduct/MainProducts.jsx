@@ -159,7 +159,7 @@ export default function MainProducts() {
             // alert('There is no Data')
         }
     }
-    let PriceLenght = 6;
+    let PriceLenght = 5;
     const numberWithCommas = price => {
         console.log(price , 'commaa')
         return parseInt(price).toLocaleString('en-US');
@@ -306,7 +306,7 @@ export default function MainProducts() {
                     <div className="row m-0 p-0 d-flex justify-content-center">
                         {
                             filters == 1 || filters == -1 ?
-
+                            
 
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == PageNO}>
                                     {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
@@ -354,12 +354,12 @@ const ButtonCraete = styled.button`
         width: 25px;
         height: 25px;
     }
-    /* @media (max-width: 768px) {
+    @media (max-width: 600px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
       }
-     */
+    
       @media screen and (min-width: 601px) and (max-width: 900px) {
         width: 25%;
         font-size: 12px;

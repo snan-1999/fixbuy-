@@ -39,9 +39,11 @@ const Contact = () => {
 
     ]
     const contactApi = async () => {
-        Validations.map((val) => {
-            return val
-        }) !== "" && setLoader(true)
+        // console.log(mobile , 'errorrs')
+        // Validations.map((val) => {
+        //     console.log(val , 'errorr')
+        //     return val
+        // }) !== "" ?  seterrors(true) : seterrors(false) ;console.log(errors , 'errorr')
         const api = `${baseUrl}/contact/form/create`;
         await axios.post(api, {
             firstName: firstName,
@@ -50,11 +52,11 @@ const Contact = () => {
             mobile: mobile,
             message: message
         }).then((response) => { 
-            console.log(response.data);
+            console.log(response.data , 'erere');
             if (response.data) {
                 setLoader(false)
                 // setMessages('Your message has been sent !');
-                toast('Your message has been sent.', {
+                toast('Message Sent.', {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -64,7 +66,7 @@ const Contact = () => {
                     theme: "colored",
                     type: 'success'
                 });
-                seterrors(true);
+                seterrors(false)
                 setFirstName('')
                 setLastName('')
                 setEmail('')
@@ -74,7 +76,8 @@ const Contact = () => {
                 setLoader(true)
             }
         }, error => {
-            console.log(error.response.data);
+            seterrors(true)
+            console.log(error.response.data , 'check');
         },)
     }
     // setLoader(false)
@@ -161,7 +164,7 @@ const Contact = () => {
                     <input type="submit" name="submit" value="submit" className="btn contact-btnn text-uppercase" onClick={contactApi} />
 
                 </div>
-                    {Loader &&
+                    {errors &&
                        <div class=" ms-4 mt-4 alert alert-danger" role="alert">
                       Invalid Fields
                      </div>

@@ -61,7 +61,7 @@ export default function Shop() {
     // const FilterSet = (FilterNumber) => {
     //     console.log(FilterNumber, 'fil')
     // }
-    let PriceLenght = 6;
+    let PriceLenght = 5;
     // Simple Load
     const ShopDataFIlter = async () => {
         setFIlterPageNO(1)
@@ -283,11 +283,11 @@ const ButtonCraete = styled.button`
         width: 25px; 
         height: 25px;
     }
-    /* @media (max-width: 768px) {
+    @media (max-width: 600px) {
         font-size: 12px; 
         width: 39%;
         // height: 55vh ;
-      } */
+      }
       @media screen and (min-width: 601px) and (max-width: 900px) {
         width: 25%;
         font-size: 12px;
