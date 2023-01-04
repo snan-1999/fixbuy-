@@ -3,7 +3,7 @@ import "./css/custom.css";
 import "./css/iofrm-style.css";
 import "../form/header.css";
 import logo from '../../assets/images/logo.png';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { localStorage } from "../../functions/Local";
 import { VerifyOtp } from "../../functions/VerifyOtp";
@@ -19,13 +19,15 @@ import { GlobalVariables } from "../../Context/StateProvider";
 import { useContext } from "react";
 import { SearchHome } from "../../functions/HomeFun";
 import { FaHeart } from "react-icons/fa";
-import { BsChatQuoteFill } from "react-icons/bs";
+import { BsChatQuoteFill, BsFillChatRightDotsFill } from "react-icons/bs";
 import { BiSearchAlt } from "react-icons/bi";
 import { ToastContainer, toast } from 'react-toastify';
 import UserDeleteModal from "./Modals/DeleteModal";
 import LogoutModal from "./Modals/LogoutModal";
 import { IoIosRocket } from 'react-icons/io';
+
 const Header = () => {
+    
     const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
@@ -300,6 +302,69 @@ const Header = () => {
 
     //     }
     // } , [window.pageYOffset])
+  
+    // const[sellerid,setSellerid] = useState(null)
+    // const Token = localStorage.getItem('token');
+    // var userid;
+    // if(Token){
+    //  userid=JSON.parse(Token).token
+    // } 
+    // const [TokenID, setTokenID] = useState({
+    //     'ID': JSON.parse(Token)?.token,
+    //     'Name': JSON.parse(Token)?.name,
+    //     'Email': JSON.parse(Token)?.email,
+    //     'Phone': JSON.parse(Token)?.phone,
+    // })
+    // const ChatSeller = async() => {
+    //     if (Token === null) {
+    //         nav('/login')
+    //     } else {
+
+            
+    //         const api =` ${baseUrl}/room/initiate`;
+    //         // console.log(chatRoomId,'chatRoomId')
+       
+    //     try{
+    //         console.log(TokenID.ID,sellerid,'sellerid')
+    //         //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
+    //         const response = await axios.post(api,{
+    //             "users" : [{"userId":userid,"userType":"buyer"},{"userId":sellerid,"userType":"seller"}],
+    //             "type" : 'consumer-to-consumer'
+    //         })
+    //         const chatRoomId = response.data.chatRoom.chatRoomId;
+    //         // console.log("9999",response.data.chatRoom.chatRoomId)
+    //         // console.log(response,'room')
+    //         // console.log(response.data.success,'success')
+    //         if(response.data.success ===  true){
+    //             try{
+    //                 const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+    //                 console.log(dataresponse,'dataresponse')
+    //                 // console.log(dataresponse.data.users,'44555')
+    //                 const filterdataofuser = dataresponse.data.users.filter((i)=>{
+    //                          return i._id !== TokenID.ID
+    //                 })
+    //                 console.log(filterdataofuser,'filter')
+    //                 // alert(chatRoomId)
+    //                 console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
+    //                 nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
+    //                 image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
+                             
+    //             }
+    //             catch(e){
+    //                 console.log(e,'room')
+
+    //             }
+    //         }
+
+    //     }
+    //     catch(e){
+    //         console.log(e)
+
+    //     }
+    // }
+
+    //     }
+    
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
@@ -681,6 +746,8 @@ const Header = () => {
                                                 <li><Link to='/posteditems' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;My Ads</Link></li>
                                                 {/* <li><Link to='/demo' className="dropdown-item"> <FontAwesomeIcon icon="fa-solid fa-list"></FontAwesomeIcon>&nbsp;&nbsp;demo</Link></li> */}
                                                 <li><Link to='/saved-items' className="dropdown-item"> <FaHeart />&nbsp;&nbsp;Saved Items</Link></li>
+
+                                                <li><Link to='/mainchatfile' className="dropdown-item"><BsFillChatRightDotsFill />&nbsp;&nbsp;Chat</Link></li>
 
 
                                                 <li><Link to='/packages/view' className="dropdown-item"> <IoIosRocket className="fs-6" />&nbsp;&nbsp;Packages</Link></li>

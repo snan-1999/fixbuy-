@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import styled, { css } from 'styled-components'
 import Footer from "../../src/form/form/Footer"
@@ -9,29 +9,89 @@ import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
 import MessageScreen from './MessageScreen'
 import MobChatFile from './MobChatFile'
-
+import { useLocation } from 'react-router-dom'
+import { ImageView } from '../functions/constant'
+import axios from 'axios'
+import Scrollbars from 'react-custom-scrollbars'
 export default function MainChatFile() {
-    let textData;
 
+    const [allactiveuser, setAllActiveUser] = useState([])
+    const [infoprofiledata, setInfoProfileData] = useState([])
+    const Token = localStorage.getItem('token');
+    const tokenid = JSON.parse(Token).token;
+    const [selectedroom, setSelectedRoom] = useState(null)
+    useEffect(() => {
+        ShowActiveChat()
+    }, [])
+    const SellerUser = allactiveuser.filter((i) => {
+        return (i[0].UserType === 'seller')
+    })
+    console.log(SellerUser, 'sellerUser')
+    const BuyerUser = allactiveuser.filter((i) => {
+        return (i[0].UserType === 'buyer')
+    })
+    console.log(BuyerUser, 'sellerUser2')
+
+    const ShowActiveChat = async () => {
+        let names = [];
+        console.log(tokenid, 'tokenaj')
+        await axios.get(`https://fixebuyofficial.in/room/active/${tokenid}`).then(function (response) {
+            console.log(response, 'userrecieved')
+            console.log("arr ", response.data.activeRooms);
+            response.data.activeRooms.map((i) => {
+                console.log('name', i)
+                console.log("name", i.users[0].name, 'image', i.users[0].profileImg, "roomId", i.room._id);
+                console.log("am", i.room.users[0])
+                // users ko filter krne k liye h ye
+                const userfilter = i.users.filter((e) => {
+                    return e._id != tokenid
+                })
+                const TypeOfUser = i.room.users.filter((a) => {
+                    if (a.userId !== tokenid) {
+                        return a.userType
+                    }
+                })
+                console.log(TypeOfUser[0]?.userType, 'typeofuser')
+                names.push([{ name: userfilter[0]?.name, image: userfilter[0]?.profileImg, room_Id: i.room._id, UserType: TypeOfUser[0]?.userType }])
+            })
+        })
+        setAllActiveUser(names)
+        console.log('888888', names)
+    }
+    const handleUserChat = (data) => {
+        setInfoProfileData(data)
+        console.log(data, 'if0')
+        // alert(data[0].room_Id)
+        setSelectedRoom(data[0].room_Id)
+        console.log(data[0].room_Id, 'UserRoomId')
+    }
+
+    let textData;
+    const location = useLocation()
+    console.log(location, 'state')
+    // const addroom = location.state.roomId
     const [sendMess, setsendMess] = useState(false)
     const [active, setActive] = useState(0);
-    const senMessage = (e) => {
-        textData = document.getElementById('adminText').value;
-        (e.target.value == "") ? setsendMess(true) : setsendMess(false)
-        document.getElementById('adminText').value = ""
-
-    }
+    const [activechat, setactivechat] = useState(0);
     const inputFile = useRef(null)
 
     const onButtonClick = () => {
+
+
         // `current` points to the mounted file input element
         inputFile.current.click();
     };
 
+    // allactiveuser.filter((e)=>{
+    // })
 
     return (
         <>
+
+
+
             <Header />
+
             <div class="containers deskChat">
 
                 <div class="page-wrapper">
@@ -47,185 +107,71 @@ export default function MainChatFile() {
                                     <div className='d-flex justify-content-evenly text-center mt-4 sellerBuyer'>
 
                                         {
-                                            ["Seller", "Buyer"].map((values , i) => {
+                                            ["Seller", "Buyer"].map((values, i) => {
                                                 return (
-                                                    <TabButton active={active == i} className='seller' onClick={()=> setActive(i)}>{values}</TabButton>
+                                                    <TabButton active={active == i} className='seller' onClick={() =>{ setActive(i); setactivechat(0)}}>{values}</TabButton>
                                                 )
                                             })
                                         }
-                                        
+
                                     </div>
 
                                     <div className='mt-3'>
-                                        <ul class="list-group list-group-flush">
+                                        <ScrollDiv>
+                                            {/* <div className='NameImageGap'> */}
+                                            <ul class="list-group list-group-flush">
 
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 1
-                                            </li>
+                                                {
+                                                    allactiveuser.length > 0 ?
+                                                        active === 0 ? SellerUser.map((i, index) => {
+                                                            { console.log(index, 'index') }
+                                                            { console.log(i, 'sellername') }
+                                                            { console.log(i[0].name, 'sellername') }
+                                                            // console.log(i[0], 'i is here ')
+                                                            return (
+                                                                
+                                                                <ChatColor activechat={activechat == index} onClick={() => setactivechat(index)}>
+                                                                    <li style={{ cursor: "pointer" , border:"none" , borderBottom:"1px solid lightgrey" }} activechat={activechat == index} class="list-group-item mt-2 " >
+                                                                        <img src={`${ImageView}${i[0].image}`} style={{ width: '15%', height: '15%', borderRadius: "50%" }} />
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span className="tabChatHead" onClick={() => { handleUserChat(i); }}>{i[0].name}</span>
+                                                                    </li>
+                                                                </ChatColor>
+                                                            )
+                                                        }) : BuyerUser.map((i, index) => {
+                                                            { console.log(i[0], 'iiiiiiiiii[0]') }
+                                                            { console.log(i[0].name, 'nmae') }
+                                                            console.log(i[0], 'i is here ')
+                                                            return (
+                                                                <ChatColor activechat={activechat == index} onClick={() => setactivechat(index)}>
+                                                                    <li class="list-group-item mt-2" style={{ cursor: "pointer" , border:"none" , borderBottom:"1px solid lightgrey" }}>
+                                                                        <img src={`${ImageView}${i[0].image}`} style={{ width: '15%', height: '15%', borderRadius: "50%" }} />
+                                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span className='tabChatHead' activechat={activechat == index} onClick={() => { handleUserChat(i)}}>{i[0].name}</span>
 
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 2
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 3
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 4
-                                            </li>
-
-                                            <li class="list-group-item mt-2">
-                                                <img src={one} style={{ width: '15%', height: '15%' }} /> User 5
-                                            </li>
-                                        </ul>
+                                                                    </li>
+                                                                </ChatColor>
+                                                            )
+                                                        }) : null
+                                                }
+                                            </ul>
+                                            {/* </div> */}
+                                        </ScrollDiv>
                                     </div>
                                 </ListAll>
                             </div>
-                            <MessageScreen />
+                            {
+                                location.state === null && infoprofiledata.length == 0 ? <div className='demomessage'>Connect with us through chat</div> : <MessageScreen infoprofiledata={infoprofiledata} location={location} selectedroom={selectedroom} />
+                            }
+
+
+
                         </ChatMain>
                     </div>
                 </div>
             </div>
-            {/* <ChatMain>
-                <Tabs variant='solid-rounded' colorScheme='blue' className="overflow-auto" orientation='vertical'>
-                    <div className="row m-0 ">
-                        <Width30>
-
-                            <ListAll>
-                                <SearchBAr className='d-flex align-items-baseline'>
-                                    <ChatInput placeholder="Search" />
-                                    <ChatSearchIcon>
-                                        <FaSearch />
-                                    </ChatSearchIcon>
-                                </SearchBAr>
-                            
-
-                                <TabList display='flex' flexDirection='column'> 
-                                    <Tab className="border-0 mt-3 m-1 p-2">
-                                        <ParentList className="d-flex align-items-center ">
-                                            <div className="col-2">
-                                                <ProfileImg src={one} />
-                                            </div>
-                                            <User1 className='ms-3'>Nadeem choudhary</User1>
-                                        </ParentList>
-                                    </Tab>
-                                    <Tab className="border-0  m-1 p-2">
-                                        <ParentList className="d-flex align-items-center">
-                                            <div className="col-2">
-                                                <ProfileImg src={two} />
-                                            </div>
-                                            <User1 className='ms-3'>Aman gusain</User1>
-                                        </ParentList>
-
-                                    </Tab>
-                                    <Tab className="border-0  m-1 p-2">
-                                        <ParentList className="d-flex align-items-center">
-                                            <div className="col-2">
-                                                <ProfileImg src={three} />
-                                            </div>
-                                            <User1 className='ms-3'>Garv Mehta</User1>
-                                        </ParentList>
-
-                                    </Tab>
-                                    <Tab className="border-0  m-1 p-2">
-                                        <ParentList className="d-flex align-items-center">
-                                            <div className="col-2">
-                                                <ProfileImg src={one} />
-                                            </div>
-                                            <User1 className='ms-3'>Shaksham sethi</User1>
-                                        </ParentList>
-
-                                    </Tab>
-                                </TabList>
-
-                            </ListAll>
-
-                        </Width30>
-                        <Width70>
-
-                            <TabPanels>
-                                <TabPanel>
-                                    <ChatBoxDiv>
-                                        <SubHeader>
-                                            <CHatBoxDp>
-                                                <ImageDp src={one} className="col-1" />
-                                                <ChaterName>
-                                                    Nadeem
-                                                </ChaterName>
-                                            </CHatBoxDp>
-                                        </SubHeader>
-                                        <AdminDiv>
-                                            <ArrowLeft />
-                                            <AdminMessage data={'hey whtsapp'} />
-                                        </AdminDiv>
-                                        <UserDiv>
-                                            <ArrowRight />
-                                            <UserMessage />
-                                        </UserDiv>
-                                        <AdminDiv>
-                                            <ArrowLeft />
-                                            <AdminMessage data={'hey whtsapp'} />
-                                        </AdminDiv>
-                                        <UserDiv>
-                                            <ArrowRight />
-                                            <UserMessage />
-                                        </UserDiv>
-                                        <SendDiv className="d-flex ">
-                                            <TextArea className='w-100' placeholder="Enter Your Message" />
-                                            <GalleryIcon>
-                                            <input type='file' id='file' ref={inputFile} style={{display: 'none'}}/>
-                                                <GrGallery onClick={onButtonClick} />
-                                            </GalleryIcon>
-                                            <SendIcon>
-                                                <AiOutlineSend onClick={senMessage} />
-                                            </SendIcon>
-                                        </SendDiv>
-                                    </ChatBoxDiv>
-                                </TabPanel>
-                                <TabPanel>
-                                    <ChatBoxDiv>
-                                        <SubHeader>
-                                            <CHatBoxDp>
-                                                <ImageDp src={two} className="col-1" />
-                                                <ChaterName>
-                                                    AMan gusai
-                                                </ChaterName>
-                                            </CHatBoxDp>
-                                        </SubHeader>
-                                        AMan gusai
-                                    </ChatBoxDiv>
-                                </TabPanel>
-                                <TabPanel>
-                                    <ChatBoxDiv>
-                                        <SubHeader>
-                                            <CHatBoxDp>
-                                                <ImageDp src={three} className="col-1" />
-                                                <ChaterName>
-                                                    Garv Mehta
-                                                </ChaterName>
-                                            </CHatBoxDp>
-                                        </SubHeader>
-                                        Garv Mehta
-                                    </ChatBoxDiv>
-
-                                </TabPanel>
-                                <TabPanel>
-                                    <ChatBoxDiv>
-                                        Saksham Sethi
-                                    </ChatBoxDiv>
-                                </TabPanel>
-                            </TabPanels>
-                        </Width70>
-                    </div>
-
-                </Tabs>
-
-            </ChatMain> */}
             <div className='mobViewChat'>
                 <MobChatFile />
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }
@@ -240,13 +186,37 @@ border: none;
 border-radius: 15px;
 color:black;
 // margin: ;
-${({active})=> active && css `
+${({ active }) => active && css`
 background: linear-gradient( #345276 ,100%,#497993 ,100% ,transparent);
 color:white;
 
 `
 
     }
+`
+
+const ChatColor = styled.div`
+all: unset;
+border: none;
+// border-radius: 15px;
+color:black;
+// margin: 12% 23%;
+${({ activechat }) => activechat && css`
+background : linear-gradient( #345276 ,100%,#497993 ,100% ,transparent) !important;
+color:white;
+z-index : 10;
+`
+    }
+.list-group-item{
+    // all : unset !important;
+    // color : red !important;
+    ${({ activechat }) => activechat && css`
+    background : linear-gradient( #345276 ,100%,#497993 ,100% ,transparent) !important;
+    color:white !important;
+    z-index : 10;
+    `
+    }
+}
 `
 const ArrowLeft = styled.div`
       content: " ";
@@ -340,21 +310,27 @@ color: white;
      justify-content: right;
 `
 const ChatMain = styled.div`
-  margin: 10px 5px;
+  margin: 10px 20px;
   box-shadow: 1px 1px 10px #8080807a;
-  height: 84vh;
+  height: 76vh;
   border-radius: 5px;
+  width: 98vw;
+  position: fixed;
   padding: 10px;
-  overflow: auto;
+//   overflow: auto;
+
+@media screen and (min-width: 601px) and (max-width: 900px) {
+    margin: 10px 9px;
+}
 `
 const ListAll = styled.div`
      margin: 10px 5px;
   box-shadow: 1px 1px 10px #8080807a;
-  height: 78vh;
+  height: 70vh;
   width: 25vw;
   border-radius: 5px;
   padding: 10px;
-  margin-left: 4%;
+  margin-left: 1%;
 `
 const SearchBAr = styled.div``
 const ChatInput = styled.input`
@@ -427,4 +403,11 @@ const ImageDp = styled.img`
 const ChaterName = styled.div`
 margin-left: 20px;
     
+`
+
+const ScrollDiv = styled.div`
+height : 45vh;
+// border: 1px solid grey;
+overflow : scroll;
+
 `

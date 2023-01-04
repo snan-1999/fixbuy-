@@ -4246,6 +4246,14 @@ button.GoogleBtn {
     .ReportAds {
         margin-left: -29%;
     }
+
+    /* button#dropdownMenuButton1 {
+        width: 100%;
+    } */
+
+    /* .category-section{
+        gap: 0% !important;
+    } */
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) { 

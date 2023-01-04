@@ -62,9 +62,14 @@ export default function SingleProductPage(props) {
     const [description, setDescription] = useState('');
     const location = useLocation()
     const Geolocation = useGeoLocation();
+
     // console.log(location.state, 'single Data')
     // console.log(location , 'all')
     const Token = localStorage.getItem('token');
+    var userid;
+    if(Token){
+     userid=JSON.parse(Token).token
+    }
     const { HomeData, setHomeData, UserId, latitude, Longitude } = useContext(GlobalVariables);
     // console.log(location.state, 'homeData')
     // console.log(Token, 'Localstorage')
@@ -78,7 +83,7 @@ export default function SingleProductPage(props) {
     // const [Data, setData] = useState(location.state.automobileProduct)
     // const [UseData, setUseData] = useState(location.state)
     const [AllData, setAllData] = useState([])
-
+const[sellerid,setSellerid] = useState(null)
     const [Reason, setReason] = useState('')
     // console.log(typeof [Data], Data, "allDataSIngle");
     // console.log(UseData, 'homeData')
@@ -106,6 +111,7 @@ export default function SingleProductPage(props) {
                 setAllData(data.data)
                 setHEart(HomeData)
                 sellerDetails(data.data.user_id)
+                setSellerid(data.data.user_id)
                 console.log(AllData, 'singleDatas')
                 setLoader(false)
                 setImages(data.data.images[0])
@@ -298,13 +304,55 @@ export default function SingleProductPage(props) {
             console.log(error, 'main')
         }
     }
-    const ChatSeller = () => {
-        if (Token !== null) {
-            nav('/mainchatfile')
-        } else {
+    const ChatSeller = async() => {
+        if (Token === null) {
             nav('/login')
+        } else {
+
+            
+            const api =` ${baseUrl}/room/initiate`;
+            // console.log(chatRoomId,'chatRoomId')
+       
+        try{
+            console.log(TokenID.ID,sellerid,'sellerid')
+            //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
+            const response = await axios.post(api,{
+                "users" : [{"userId":userid,"userType":"buyer"},{"userId":sellerid,"userType":"seller"}],
+                "type" : 'consumer-to-consumer'
+            })
+            const chatRoomId = response.data.chatRoom.chatRoomId;
+            // console.log("9999",response.data.chatRoom.chatRoomId)
+            // console.log(response,'room')
+            // console.log(response.data.success,'success')
+            if(response.data.success ===  true){
+                try{
+                    const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+                    console.log(dataresponse,'dataresponse')
+                    // console.log(dataresponse.data.users,'44555')
+                    const filterdataofuser = dataresponse.data.users.filter((i)=>{
+                             return i._id !== TokenID.ID
+                    })
+                    console.log(filterdataofuser,'filter')
+                    // alert(chatRoomId)
+                    console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
+                    nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
+                    image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
+                             
+                }
+                catch(e){
+                    console.log(e,'room')
+
+                }
+            }
+
+        }
+        catch(e){
+            console.log(e)
+
         }
     }
+
+        }
     const numberWithCommas = price => {
         console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
@@ -502,7 +550,7 @@ export default function SingleProductPage(props) {
                     </div>
                     <div className="setMarginDiv">
                         <div className="row">
-                            <div className="ChatBtnProduct mt-1">
+                            <div className="ChatBtnProduct mt-2">
                                 {
                                     AllData.user_id !== TokenID.ID && <button className='d-flex justify-content-center align-items-center ' onClick={ChatSeller} disabled={AllData.user_id == TokenID.ID}> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
                                 }

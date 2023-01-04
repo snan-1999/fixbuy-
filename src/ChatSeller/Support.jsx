@@ -6,17 +6,74 @@ import ReactScrollToBottom from 'react-scroll-to-bottom'
 import styled from 'styled-components'
 import AdminMessage from './adminMessage'
 import UserMessage from './UserMessage';
-
-
+import {io} from 'socket.io-client'
+import { baseUrl } from '../functions/constant';
+import axios from 'axios'
+import SupportChat from './SupportChat';
+import { useNavigate } from 'react-router-dom';
 const Support = () => {
-
+   const [RoomID,SetRoomID] = useState(null)
     const [isOpen, setisOpen] = useState(false);
     const [closeBtn, setcloseBtn] = useState(false);
+   let IdData = window.localStorage.getItem('token');
+    // let userid = JSON.parse(IdData).token
+    let ProfileId;
+    let Type;
+    let userProfileImg;
+    let userProfileName;
+    const nav = useNavigate();
+    if (IdData) {
+       userProfileName = JSON.parse(IdData).profileName;
+       userProfileImg = JSON.parse(IdData).profileImg;
 
-    const ToggleClick = () => {
-        setisOpen(true);
-        setcloseBtn(true)
+        ProfileId = JSON.parse(IdData).token;
+        Type = JSON.parse(IdData).type;
     }
+    console.log('seeToken' ,IdData)
+    const ToggleClick = async() => {
+        if(IdData){
+            const api =` ${baseUrl}/room/initiate`;
+            try{
+                const response = await axios.post(api,{
+                    "users" : [{"userId":ProfileId,"userType":"consumer"},{"userId":"632864c6f33e572ba72fe060","userType":"support"}],
+                    "type" : 'consumer-to-support'
+                })
+                console.log(response,'support')
+                const chatRoomId = response.data.chatRoom.chatRoomId;
+                console.log(chatRoomId,'chatRoomId')
+                if(response.data.success ===  true){
+                    try{
+                        const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+                        console.log(dataresponse,'dataresponse')
+                        const filterdataofuser = dataresponse.data.users.filter((i)=>{
+                                 if(i._id !== ProfileId){
+                                    return i
+                                 }
+                        })
+                        console.log(filterdataofuser,'filter')
+                        console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
+                        SetRoomID(chatRoomId)
+                        setisOpen(true);
+                        setcloseBtn(true)        
+                    }
+                    catch(e){
+                        console.log(e,'room')
+    
+                    }
+                }
+            }
+            catch(e){
+                console.log(e)
+            }
+
+        }
+        else{
+            nav('/login')
+        }
+      
+    
+        }
+    
 
     const Onclose = () => {
         setcloseBtn(false)
@@ -25,66 +82,17 @@ const Support = () => {
 
     let textData;
 
-    const [sendMess, setsendMess] = useState(false)
-    const senMessage = (e) => {
-        textData = document.getElementById('adminText').value;
-        (e.target.value == "") ? setsendMess(true) : setsendMess(false)
-        document.getElementById('adminText').value = ""
-        alert('😄');
-    }
+   
     return (
         <>
-            <AnimatePresence>
-
-                {
-                    isOpen &&
-                    <ChatBox
-                        initial={{ y: '200vh', scale: 0 }}
-                        animate={{ y: 0, scale: 1 }}
-                        exit={{ y: '200vh', scale: 0 }}>
-                        <ChatHeader>
-                            <ChatLine>Let's Chats - online</ChatLine>
-                            <ChatClose>
-                                <RiCloseLine onClick={Onclose} />
-                            </ChatClose>
-                        </ChatHeader>
-                        <ChatMain>
-
-                            <ChatBody>
-
-                                <ReactScrollToBottom>
-                                    {/* {
-                                data.map((mess , i) => {
-                                    <ChaMessage key={i} data={mess} />
-                                })
-                            } */}
-                                    <AdminDiv>
-                                    <AdminMessage data={'Let connect to our executive'} />
-                                    </AdminDiv>
-                                    {/* <UserDiv>
-                                        <UserMessage />
-                                    </UserDiv> */}
-                                </ReactScrollToBottom>
-
-                            </ChatBody>
-                            <div className="d-flex">
-
-                                <InputChat placeholder='Enter Your Message' id='adminText' />
-                                <SendIcon>
-                                    <AiOutlineSend onClick={senMessage} />
-                                </SendIcon>
-                            </div>
-                        </ChatMain>
-                    </ChatBox>
-                }
-            </AnimatePresence>
+            <SupportChat isOpen={isOpen} setcloseBtn={setcloseBtn} closeBtn={closeBtn} setisOpen={setisOpen} RoomID={RoomID} />
             <footer className="page-footer">
                 {/* <p className="mb-0">Copyright © 2021. All right reserved.</p> */}
 
                 <div className="relative  border-0">
 
                     <ChatIcon>
-                        <RiChatSmile2Line onClick={ToggleClick} />
+                        <RiChatSmile2Line onClick={()=>ToggleClick} />
                     </ChatIcon>
                     {
 
@@ -101,7 +109,7 @@ const Support = () => {
             </footer>
         </>
     )
-}
+                }
 
 export default Support
 const SendIcon = styled.div`
@@ -167,40 +175,27 @@ const ChatIcon = styled.div`
     border-radius: 50px;
     `
 const ChatBox = styled(motion.div)`
-height: 58vh;
-width: auto ;
-background-color: white;
-position: fixed;
-top: 30%;
-left: 76.3%;
-border-radius: 10px;
--webkit-transition: all 100ms ease;
-transition: all 100ms ease;
-box-shadow: 1px 1px 10px grey;
-overflow: hidden;
-z-index: 10;
-@media screen and (max-width:600px){
-    height: 48vh;
-    width: 62vw;
+    height: 58vh;
+    width: 22vw;
     background-color: white;
     position: fixed;
-    top: 41%;
-    left: 35.3%;
-}
-
-@media screen and (min-width: 601px) and (max-width : 900px){
-    height: 30vh;
-    width: 30vw;
-    left : 68%;
-    top: 58%;
-}
-/* @media (orientation: landscape) {
-    height: 40vh;
-    width: 28vw;
-    left: 70.3%;
-    top: 48%;
-} */
-`
+    top: 30%;
+    left: 76.3%;
+    border-radius: 10px;
+    -webkit-transition: all 100ms ease;
+    transition: all 100ms ease;
+    box-shadow: 1px 1px 10px grey;
+    overflow: hidden;
+    z-index: 10;
+    @media screen and (max-width:600px){
+        height: 48vh;
+        width: 62vw;
+        background-color: white;
+        position: fixed;
+        top: 41%;
+        left: 35.3%;
+    }
+    `
 
 const ChatHeader = styled.div`
 border-radius: 10px 10px 30px 30px;
@@ -221,4 +216,3 @@ const ChatClose = styled.div`
     color: white;
     font-size: 1.4rem;
 `
-// const ChatHeader =styled.div``
