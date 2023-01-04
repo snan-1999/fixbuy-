@@ -25,6 +25,7 @@ import {
     Button,
     Stack,
     Spinner,
+    useMediaQuery,
 
 } from '@chakra-ui/react'
 
@@ -46,10 +47,11 @@ import { BsChatDots } from 'react-icons/bs';
 import { AllDataCategory, SubDataCategoryFun } from '../../functions/MainCategoryFun';
 import useGeoLocation from '../../hooks/useGeoLoaction';
 export default function SingleProductPage(props) {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     useEffect(() => {
         setLoading(true)
     }, [0])
-    
+
     const { id } = useParams()
     const [isOpen, setisOpen] = useState(false)
     const Onclose = () => setisOpen(false)
@@ -67,8 +69,8 @@ export default function SingleProductPage(props) {
     // console.log(location , 'all')
     const Token = localStorage.getItem('token');
     var userid;
-    if(Token){
-     userid=JSON.parse(Token).token
+    if (Token) {
+        userid = JSON.parse(Token).token
     }
     const { HomeData, setHomeData, UserId, latitude, Longitude } = useContext(GlobalVariables);
     // console.log(location.state, 'homeData')
@@ -83,7 +85,7 @@ export default function SingleProductPage(props) {
     // const [Data, setData] = useState(location.state.automobileProduct)
     // const [UseData, setUseData] = useState(location.state)
     const [AllData, setAllData] = useState([])
-const[sellerid,setSellerid] = useState(null)
+    const [sellerid, setSellerid] = useState(null)
     const [Reason, setReason] = useState('')
     // console.log(typeof [Data], Data, "allDataSIngle");
     // console.log(UseData, 'homeData')
@@ -304,55 +306,59 @@ const[sellerid,setSellerid] = useState(null)
             console.log(error, 'main')
         }
     }
-    const ChatSeller = async() => {
+    const ChatSeller = async () => {
         if (Token === null) {
             nav('/login')
         } else {
 
-            
-            const api =` ${baseUrl}/room/initiate`;
+
+            const api = ` ${baseUrl}/room/initiate`;
             // console.log(chatRoomId,'chatRoomId')
-       
-        try{
-            console.log(TokenID.ID,sellerid,'sellerid')
-            //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
-            const response = await axios.post(api,{
-                "users" : [{"userId":userid,"userType":"buyer"},{"userId":sellerid,"userType":"seller"}],
-                "type" : 'consumer-to-consumer'
-            })
-            const chatRoomId = response.data.chatRoom.chatRoomId;
-            // console.log("9999",response.data.chatRoom.chatRoomId)
-            // console.log(response,'room')
-            // console.log(response.data.success,'success')
-            if(response.data.success ===  true){
-                try{
-                    const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
-                    console.log(dataresponse,'dataresponse')
-                    // console.log(dataresponse.data.users,'44555')
-                    const filterdataofuser = dataresponse.data.users.filter((i)=>{
-                             return i._id !== TokenID.ID
-                    })
-                    console.log(filterdataofuser,'filter')
-                    // alert(chatRoomId)
-                    console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
-                    nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
-                    image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
-                             
-                }
-                catch(e){
-                    console.log(e,'room')
 
+            try {
+                console.log(TokenID.ID, sellerid, 'sellerid')
+                //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
+                const response = await axios.post(api, {
+                    "users": [{ "userId": userid, "userType": "buyer" }, { "userId": sellerid, "userType": "seller" }],
+                    "type": 'consumer-to-consumer'
+                })
+                const chatRoomId = response.data.chatRoom.chatRoomId;
+                // console.log("9999",response.data.chatRoom.chatRoomId)
+                // console.log(response,'room')
+                // console.log(response.data.success,'success')
+                if (response.data.success === true) {
+                    try {
+                        const dataresponse = await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+                        console.log(dataresponse, 'dataresponse')
+                        // console.log(dataresponse.data.users,'44555')
+                        const filterdataofuser = dataresponse.data.users.filter((i) => {
+                            return i._id !== TokenID.ID
+                        })
+                        console.log(filterdataofuser, 'filter')
+                        // alert(chatRoomId)
+                        console.log(filterdataofuser[0].profileImg, filterdataofuser[0].name, '44555')
+                        nav("/mainchatfile", {
+                            state: {
+                                name: filterdataofuser[0].name,
+                                image: filterdataofuser[0].profileImg, roomId: chatRoomId
+                            }
+                        })
+
+                    }
+                    catch (e) {
+                        console.log(e, 'room')
+
+                    }
                 }
+
             }
+            catch (e) {
+                console.log(e)
 
+            }
         }
-        catch(e){
-            console.log(e)
 
-        }
     }
-
-        }
     const numberWithCommas = price => {
         console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
@@ -361,9 +367,9 @@ const[sellerid,setSellerid] = useState(null)
         SingleData()
         setLoading(true)
         window.scroll({
-            top : 0,
-            left :0,
-            behavior :"instant"
+            top: 0,
+            left: 0,
+            behavior: "instant"
         });
 
         // document.body.scrollTo(0, 0);/
@@ -380,7 +386,9 @@ const[sellerid,setSellerid] = useState(null)
     return (
         <>
             <div className="overflow-hidden">
-                <Header />
+                <Stack display={isMobile ? 'none' : 'block'}>
+                    <Header />
+                </Stack>
                 {/* {
                     Loader &&
                     <Stack direction='row' className='sethhh' display='grid' placeContent='center'>
@@ -408,19 +416,22 @@ const[sellerid,setSellerid] = useState(null)
                 </div>
                 {/* Geolocation end */}
                 <div className="main ">
-                    <Head>
+                    <Stack display={isMobile ? 'none' : 'block'}>
 
-                        <div className="row m-0 p-0">
-                            <div className="for-center flex-row justify-content-center align-items-center">
-                                <div className="col-md-12 col-6">
-                                    <div className="container-heading-pr text-white">
-                                        <span>PRODUCTS DETAILS</span>
+                        <Head>
+
+                            <div className="row m-0 p-0">
+                                <div className="for-center flex-row justify-content-center align-items-center">
+                                    <div className="col-md-12 col-6">
+                                        <div className="container-heading-pr text-white">
+                                            <span>PRODUCTS DETAILS</span>
+                                        </div>
                                     </div>
-                                </div>
 
+                                </div>
                             </div>
-                        </div>
-                    </Head>
+                        </Head>
+                    </Stack>
 
                     <div className="row m-0 p-0">
                         <div className="col-md-6 ">
@@ -443,20 +454,14 @@ const[sellerid,setSellerid] = useState(null)
                                     </ScrollDiv>
                                 </SmallImg>
                                 <div className="shareDetails d-flex align-items-center mt-4">
-                                    <div className="col-md-6 col- tabLocationClass">
+                                    <div className="col-md-12 col- tabLocationClass">
                                         <div className="locations d-flex align-items-center">
                                             <TiLocation />
                                             <div className='ms-2 text-capitalize'>{`${AllData.location?.city}, ${AllData.location?.state}`}</div>
                                         </div>
                                     </div>
 
-                                    <div className="col-md-6 col-6">
-                                        <div className="ReportAdss d-flex align-items-center justify-content-center" >
-                                            <MdReport className='fs-4' />
-                                            <div className='ms-1' onClick={OnOpen}>Report</div>
-                                        </div>
 
-                                    </div>
                                 </div>
                                 <div className="reasondiv">
                                 </div>
@@ -550,7 +555,7 @@ const[sellerid,setSellerid] = useState(null)
                     </div>
                     <div className="setMarginDiv">
                         <div className="row">
-                            <div className="ChatBtnProduct mt-2">
+                            <div className="ChatBtnProduct mt-4">
                                 {
                                     AllData.user_id !== TokenID.ID && <button className='d-flex justify-content-center align-items-center ' onClick={ChatSeller} disabled={AllData.user_id == TokenID.ID}> <BsChatDots className='fs-5 me-2' />Chat With Seller</button>
                                 }
@@ -567,12 +572,20 @@ const[sellerid,setSellerid] = useState(null)
                             <div className="col-md-6 col-12">
 
                             </div>
-                            <div className="col-12">
-                                <div className="Shareset d-flex align-items-center mt-4" >
+
+                            <div className="col-md-3 col-7 mt-4">
+                                <div className="Shareset d-flex align-items-center " >
                                     <FiShare2 />
                                     <div className='ms-2 me-2' >Share</div>
                                     <ShareLink ShareLinkParam={ShareLinkParam} />
                                 </div>
+                            </div>
+                            <div className="col-md-3 col-5 d-flex align-items- mt-4">
+                                <div className="ReportAdss d-flex align-items-center justify-content-start" >
+                                    <MdReport className='fs-4' />
+                                    <div className='ms-1' onClick={OnOpen}>Report</div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -595,7 +608,7 @@ const[sellerid,setSellerid] = useState(null)
                             {
                                 RelatedData?.map((automobileProduct, key) => {
                                     return (
-                                        <div className="col-md-4 col-6 col-lg-3" onClick={() => {setLoading(true) ;setHomeData(automobileProduct.saved)}}>
+                                        <div className="col-md-4 col-6 col-lg-3" onClick={() => { setLoading(true); setHomeData(automobileProduct.saved) }}>
                                             <CardHeight onClick={() => setLoading(true)}>
 
                                                 <Link to={`/singleproductpage/${automobileProduct._id}`} state={{ automobileProduct, key }} className="text-decor">
@@ -661,7 +674,7 @@ const[sellerid,setSellerid] = useState(null)
                                         <></>
                                         :
                                         <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                            {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                            {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>
                                                 :
@@ -912,9 +925,7 @@ const SmallImg = styled.div`
                             margin-top: 4%
                             `
 const ImageSetion = styled.div`
-.ReportAdss{
-    cursor: pointer;
-}
+
                             .shareDetails{
                                 font-size: 14px;
                             color: ${props => props.theme.colors.primary};

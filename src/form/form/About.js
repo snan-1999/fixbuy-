@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from './Footer'
 import Header from './header'
 import "./css/custom.css";
@@ -7,21 +7,24 @@ import "../form/header.css";
 import mountain from "../../assets/images/mountain.png";
 import service from "../../assets/images/service.png";
 import fairytale from "../../assets/images/fairytale.png";
-
+import BottomTop from '../../functions/BottomTop';
+import Poster2Mobile from "../../assets/images/Poster2Mobile.jpg";
+import { Stack } from '@chakra-ui/layout';
 
 
 
 export default function About() {
+  useEffect(() => {
+    BottomTop()
+  }, [0])
   return (
     <>
       <div className="overflow-hidden">
         <Header />
+        <Stack >
+          <img src={Poster2Mobile} />
+        </Stack>
         <div className="container faq-container">
-          {/* <!-- <div className="for-center-faq">
-            <div className="container-heading-about">
-                <span> ABOUT US </span>
-            </div>
-        </div> --> */}
           <div className="about-text">
             <div className="about-main-text">
               <div className="accordian-img-about-us">
@@ -79,8 +82,8 @@ export default function About() {
                       {/* <!-- <div>Our Story</div> --> */}
                     </div>
                     <div className="des-service">
-                     
-                    Through this, customers can get additional financial assistance when buying products and services in bulk. Small firms and entrepreneurs who need to buy things in bulk but lack the funding to do so will particularly benefit from this.
+
+                      Through this, customers can get additional financial assistance when buying products and services in bulk. Small firms and entrepreneurs who need to buy things in bulk but lack the funding to do so will particularly benefit from this.
                       Fixebuy also have a wide range of payment options available, which makes the buying and selling process simpler and easier. You can choose from various payment options like credit/debit cards, net banking, UPI, and more.
                       <br />
                       {/* <br> */}
@@ -92,8 +95,8 @@ export default function About() {
             </div>
           </div>
           <div className="last-text-about-us">
-          <b>Wrapping Up</b><br />
-          <br />Overall, fixebuy is the perfect platform for anyone looking to purchase or sell products and services in bulk. With its easy-to-use platform, secure payment system, and loan and service facility, it's no wonder that fixebuy has become the go-to source for many individuals and businesses. With their unique structure, wide range of products, and amazing customer service, we promise to make your buying and selling experience a breeze.</div>
+            <b>Wrapping Up</b><br />
+            <br />Overall, fixebuy is the perfect platform for anyone looking to purchase or sell products and services in bulk. With its easy-to-use platform, secure payment system, and loan and service facility, it's no wonder that fixebuy has become the go-to source for many individuals and businesses. With their unique structure, wide range of products, and amazing customer service, we promise to make your buying and selling experience a breeze.</div>
         </div>
       </div>
       <Footer />

@@ -202,18 +202,18 @@ const Footer = () => {
                         <Stack direction='column' display='flex' alignItems={isMobile ? 'center' : 'flex-start'} marginTop={isMobile ? '20px' : 0}>
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'}>Support</Heading>
                             <List spacing='5' marginTop={!isMobile ? '0' : '0px'} display='flex' flexDirection={'column'} alignItems={isMobile ? 'center' : 'flex-start'}>
-                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
+                                <ListItem fontSize='12px' textTransform='capitalize' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    Ghookna, Ghaziabad,<br />
-                                    <Text p='0' m='0' ms={!isMobile ? '18' : '0'}> Uttar Pradesh, 201003</Text>
+                                    Building no-9  hindan vihar<br />
+                                    <Text p='0' m='0' ms={!isMobile ? '18' : '0'}> ghaziabad 201001</Text>
                                 </ListItem>
                                 {/* <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
                                 </ListItem> */}
-                                <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
+                                {/* <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
                                     8527720760
-                                </ListItem>
+                                </ListItem> */}
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
                                     info@fixebuy.in

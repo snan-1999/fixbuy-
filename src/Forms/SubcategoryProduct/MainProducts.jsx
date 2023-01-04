@@ -18,6 +18,7 @@ import { baseUrl, ImageView } from '../../functions/constant';
 import axios from 'axios'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import useGeoLocation from '../../hooks/useGeoLoaction';
+import BottomTop from '../../functions/BottomTop';
 export default function MainProducts() {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
     const Loacation = useGeoLocation()
@@ -176,9 +177,12 @@ export default function MainProducts() {
     useEffect(() => {
         if(ParamLocate !== '/automobile/all/all-product'){
             setFIlterPageNO(1)
+            setPageNO(1)
+            setAllData([])
         }
 
         MainData()
+            BottomTop()
         console.log('run')
     }, [0, maincategory, latitude])
 
@@ -309,7 +313,7 @@ export default function MainProducts() {
                             
 
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                         :
@@ -318,7 +322,7 @@ export default function MainProducts() {
                                 </ButtonCraete>
                                 :
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                         :

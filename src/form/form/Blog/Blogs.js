@@ -12,7 +12,10 @@ import Header from "../header";
 import Footer from "../Footer";
 import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
+import BottomTop from "../../../functions/BottomTop";
+import Poster3Bike from  "../../../assets/images/Poster3Bike.jpg";
 
+import { Stack } from "@chakra-ui/layout";
 const Blogs = () => {
     let MAX_LENGTH = 60;
     const [blog, setBlog] = useState([])
@@ -33,14 +36,16 @@ const Blogs = () => {
     useEffect(() => {
 
         getBlog();
+        BottomTop()
 
     }, [0])
-
     return (
 
         <>
             <Header />
-
+            <Stack >
+                <img src={Poster3Bike} />
+            </Stack>
             <div className="container faq-container">
                 <div className="about-text" style={{ marginBottom: '-5%' }}>
 

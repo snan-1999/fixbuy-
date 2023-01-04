@@ -21,6 +21,7 @@ import { MdLocationOn } from 'react-icons/md'
 import { AllDataCategory, FilterSubCategoryData, SubDataCategoryFun } from '../../functions/MainCategoryFun'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
 import useGeoLocation from '../../hooks/useGeoLoaction'
+import BottomTop from '../../functions/BottomTop'
 export default function SubProduct() {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, latitude, Longitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
     const Token = localStorage.getItem('token');
@@ -165,7 +166,10 @@ export default function SubProduct() {
     useEffect(() => {
         if (ParamLocate !== `/automobile/${GetSubCatogery}`) {
             setFIlterPageNO(1)
+            setAllData([])
+            setPageNO(1)
         }
+            BottomTop()
         // setPageNO(1)
         SubDataCategory()
         console.log('run');
@@ -295,7 +299,7 @@ export default function SubProduct() {
                                     </>
                                     :
                                     <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
-                                        {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                        {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
                                             :
@@ -304,7 +308,7 @@ export default function SubProduct() {
                                     </ButtonCraete>
                                 :
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                         :

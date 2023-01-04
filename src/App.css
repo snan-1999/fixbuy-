@@ -403,7 +403,7 @@ button#dropdownMenuButton1 {
   z-index: -1;
   transform: rotate(45deg);
 }
-
+/* </React.StrictMode> */
   /* // end  */
 .container-heading-pr {
   margin-left: -19px;

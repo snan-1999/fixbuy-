@@ -15,6 +15,7 @@ import axios from 'axios';
 import styled from "styled-components";
 import UserDeleteModal from "./Modals/DeleteModal";
 import { toast, ToastContainer } from "react-toastify";
+import BottomTop from "../../functions/BottomTop";
 
 const PostedItems = () => {
 
@@ -93,7 +94,7 @@ const PostedItems = () => {
       navigate('/login')
     }
     Myads();
-
+      BottomTop()
   }, [0, Upstate])
 
   return (

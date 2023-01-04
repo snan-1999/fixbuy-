@@ -31,6 +31,8 @@ import {
 } from "react-share";
 import styled from 'styled-components';
 import { ToastContainer, toast } from 'react-toastify';
+import { FaFacebook } from 'react-icons/fa';
+import { IoLogoWhatsapp } from 'react-icons/io';
 export default function ShareLink({ ShareLinkParam }) {
     const shareUrl = '';
     // 'http://localhost:3000/singleproductpage'
@@ -64,7 +66,7 @@ export default function ShareLink({ ShareLinkParam }) {
                         quote={titl}
                         className="Demo__some-network__share-button ms-1 me-1"
                     >
-                        <FacebookIcon size={20} round />
+                        <FaFacebook size={20} round />
                     </FacebookShareButton>
                     <WhatsappShareButton
                     style={{all : 'unset'}}
@@ -73,7 +75,7 @@ export default function ShareLink({ ShareLinkParam }) {
                         quote={titl}
                         className="Demo__some-network__share-button me-1"
                     >
-                        <WhatsappIcon size={20} round />
+                        <IoLogoWhatsapp size={20} round />
                     </WhatsappShareButton>
                     {/* <TwitterShareButton
                         url={ShareLinkParam}

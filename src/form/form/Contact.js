@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Footer from './Footer'
 import Header from './header'
 import "./css/custom.css";
@@ -11,6 +11,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
+import BottomTop from "../../functions/BottomTop";
 
 
 const Contact = () => {
@@ -81,7 +82,9 @@ const Contact = () => {
         },)
     }
     // setLoader(false)
-
+    useEffect(() => {
+        BottomTop()
+      }, [0])
 
     return (
         <>

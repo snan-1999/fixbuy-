@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import Header from "./header";
 import { Swiper, SwiperSlide } from "swiper/react";
 import poster1 from "../../assets/images/Poster1.jpg";
@@ -69,17 +69,14 @@ const Home = () => {
             console.log(Lmore)
         }
     }
+    const [height, setHeight] = useState(2000)
     const LoadMOre = () => {
         setPageNo(PageNo + 1)
         console.log(TotalPagess, PageNo, "HomeData")
         setLoading(true)
+        setHeight(height + 1600)
+        console.log(height, 'height')
     }
-    // window.onscroll = function () {
-    //     LoadMOre()
-    //     homeDataAll()
-    //     if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
-    //     }
-    // }
     const sellLog = () => {
 
         if (profileName === null) {
@@ -93,21 +90,23 @@ const Home = () => {
 
 
     const [isVisible, setIsVisible] = useState(true);
-    // const [height, setHeight] = useState(0)
 
     useEffect(() => {
         window.addEventListener("scroll", listenToScroll);
         return () =>
             window.removeEventListener("scroll", listenToScroll);
-    }, [])
+    }, [height])
     let PriceLenght = 5;
 
     const listenToScroll = () => {
-        let heightToHideFrom = 1800;
+        // let heightToHideFrom = 1800;
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         // setHeight(winScroll);
 
-        if (winScroll > heightToHideFrom) {
+        console.log(winScroll, 'jkjh')
+        console.log(height, 'height')
+
+        if (winScroll > height) {
             isVisible && setIsVisible(false);
         } else {
             setIsVisible(true);
@@ -125,11 +124,12 @@ const Home = () => {
         console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
-
-    useEffect(() => {
-        // numberWithCommas()
+    useMemo(() =>
         latitude && homeDataAll()
-    }, [PageNo, UserId, latitude])
+        , [PageNo, UserId, latitude])
+    // useEffect(() => {
+    //     latitude && homeDataAll()
+    // }, [PageNo, UserId, latitude])
     return (
         <>
             {/* <div className="row p-0 m-0"> */}
@@ -276,8 +276,8 @@ const Home = () => {
                                 <></>
                                 :
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNo}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
-                                        <span className="visually-hidden">Loading...</span>
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
+                                        {/* <span className="visually-hidden">Loading...</span> */}
                                     </div>
                                         :
                                         <img src={load} />} &nbsp;&nbsp;

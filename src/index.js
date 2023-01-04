@@ -16,7 +16,6 @@ const theme = {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <CookiesProvider> */}
     <StateProvider >
       <ThemeProvider theme={theme}>
         <AnimatePresence>
@@ -24,7 +23,6 @@ root.render(
         </AnimatePresence>
       </ThemeProvider>
     </StateProvider>
-    {/* </CookiesProvider> */}
   </React.StrictMode>
 );
 

@@ -165,7 +165,7 @@ function SearchPage() {
                                 <></>
                                 :
                                 <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-2" role="status">
+                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>
                                         :

@@ -135,7 +135,7 @@ top: 0;
   }
     /* height: 60vh ; */
     .ShopLogo{
-        height: 5vh;
+        height: 3vh;
         position: absolute;
         top: 2%;
         right: 7%;

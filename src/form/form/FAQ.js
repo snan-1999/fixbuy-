@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
+import BottomTop from "../../functions/BottomTop";
 import Footer from "./Footer";
 import Header from "./header";
 
 
 
 const FAQ = () => {
+    useEffect(() => {
+        BottomTop()
+      }, [0])
     return(
         <>
         <Header/>

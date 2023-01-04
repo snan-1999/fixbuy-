@@ -23,6 +23,7 @@ import { MdLocationOn } from "react-icons/md";
 
 import { ToastContainer, toast } from 'react-toastify';
 import { Button } from "@chakra-ui/react";
+import BottomTop from "../../functions/BottomTop";
 
 
 const SellerProfile = () => {
@@ -171,6 +172,7 @@ const SellerProfile = () => {
 
     useEffect(() => {
         CheckSubscribe()
+            BottomTop()
     }, [0])
     const ShowBtn = localStorage.getItem('Subscribe')
     console.log(ShowBtn, 'show')

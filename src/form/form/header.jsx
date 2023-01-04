@@ -13,7 +13,7 @@ import { baseUrl, ImageView } from "../../functions/constant";
 import axios from "axios";
 import ShopModal from "./Modals/ShopModal";
 import { AnimatePresence } from "framer-motion";
-import { Button } from "@chakra-ui/react";
+import { Button, Stack, useMediaQuery } from "@chakra-ui/react";
 import { FcShop } from 'react-icons/fc'
 import { GlobalVariables } from "../../Context/StateProvider";
 import { useContext } from "react";
@@ -27,7 +27,7 @@ import LogoutModal from "./Modals/LogoutModal";
 import { IoIosRocket } from 'react-icons/io';
 
 const Header = () => {
-    
+
     const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
@@ -257,6 +257,27 @@ const Header = () => {
         setLogoutOpen(true);
 
     }
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+    const [scrollPosition, setScrollPosition] = useState(false);
+    const handleScroll = () => {
+        const position = window.pageYOffset;
+        // setScrollPosition(position);
+        console.log(position, 'position')
+    
+        if (position > 100) { 
+            setScrollPosition(true)  
+        } else if (position < 150) {
+
+            setScrollPosition(false) 
+        }
+    };
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     const DeleteData = () => {
         //   setDelId(id)
     }
@@ -272,7 +293,7 @@ const Header = () => {
     // const [NavHideShow, setNavHideShow] = useState(false)
     // console.log(document.body.scrollTop, 'fjfj')
     // const listenToScroll = () => {
-        
+
     //     console.log(document.documentElement.scrollTop, 'fjfj')
     //     if(document.documentElement.scrollTop > 20){
     //         setNavHideShow(true)  
@@ -283,11 +304,11 @@ const Header = () => {
     //     }
     // }
     // useEffect(() => {
-    
+
     //     window.addEventListener("scroll", listenToScroll);
-            
+
     // }, [])
-    
+
     // useEffect(() => {
 
     // }, [document.documentElement.scrollTop])
@@ -302,7 +323,7 @@ const Header = () => {
 
     //     }
     // } , [window.pageYOffset])
-  
+
     // const[sellerid,setSellerid] = useState(null)
     // const Token = localStorage.getItem('token');
     // var userid;
@@ -320,10 +341,10 @@ const Header = () => {
     //         nav('/login')
     //     } else {
 
-            
+
     //         const api =` ${baseUrl}/room/initiate`;
     //         // console.log(chatRoomId,'chatRoomId')
-       
+
     //     try{
     //         console.log(TokenID.ID,sellerid,'sellerid')
     //         //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
@@ -348,7 +369,7 @@ const Header = () => {
     //                 console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
     //                 nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
     //                 image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
-                             
+
     //             }
     //             catch(e){
     //                 console.log(e,'room')
@@ -364,7 +385,7 @@ const Header = () => {
     // }
 
     //     }
-    
+
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
@@ -389,75 +410,156 @@ const Header = () => {
                 }
                 }
             />
-            <ToastContainer /> 
-            <div className="FullMain">
-                <div className="mobnvfixedWork">
-                    <nav className="navbar navbar-expand-lg headerr" >
-                        <div className="container-fluid">
-                            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
-                                <i className="fas fa-bars"></i>
-                            </button>
-                            <div className="logo">
-                                <Link to="/" className="navbar-brand" >
-                                    <img src={logo} alt="logo" /></Link>
-                            </div>
+            <ToastContainer />
+            <div className="FullMain m-0 position-relative">
+                {/* FOr mob */}
+                {
+                    !scrollPosition ?
+                        <div className="mobnvfixedWork" >
+                            <nav className="navbar navbar-expand-lg headerr" >
+                                <div className="container-fluid">
+                                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                        {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
+                                        <i className="fas fa-bars"></i>
+                                    </button>
+                                    <div className="logo">
+                                        <Link to="/" className="navbar-brand" >
+                                            <img src={logo} alt="logo" /></Link>
+                                    </div>
 
 
-                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                <div className="inline-menu">
-                                    <div className="setmnu">
-                                        <ul className="navbar-nav menu">
-                                            <li className="nav-item aa">
-                                                <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
-                                            </li>
-                                            <li className="nav-item aa">
-                                                <Link to="/shop" className="nav-link">SHOP</Link>
-                                            </li>
-                                            <li className="nav-item aa">
-                                                <Link to="/about" className="nav-link">ABOUT US</Link>
-                                            </li>
-                                            <li className="nav-item aa">
-                                                <Link to="/faq" className="nav-link">F.A.Q</Link>
-                                            </li>
-                                            <li className="nav-item aa">
-                                                <Link to="/blogs" className="nav-link">BLOGS</Link>
-                                            </li>
-                                            <li className="nav-item aa">
-                                                <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                            </li>
-                                            <li className=" nav-item aa mob-login">
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div className="form-inline my-2 my-lg-0 desk-version">
-                                        <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
-                                        <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0" id="Search" onClick={SearchBar}>Search</button></Link>
-                                    </div>
-                                    <div className="row p-0 m-0 mob-cen">
-                                        <div className="col-12 mainbutton">
-                                            <button className="btn btn-primary" onClick={sellLog}> + SELL</button>
+                                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <div className="inline-menu">
+                                            <div className="setmnu">
+                                                <ul className="navbar-nav menu">
+                                                    <li className="nav-item aa">
+                                                        <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                                    </li>
+                                                    <li className="nav-item aa">
+                                                        <Link to="/shop" className="nav-link">SHOP</Link>
+                                                    </li>
+                                                    <li className="nav-item aa">
+                                                        <Link to="/about" className="nav-link">ABOUT US</Link>
+                                                    </li>
+                                                    <li className="nav-item aa">
+                                                        <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                                    </li>
+                                                    <li className="nav-item aa">
+                                                        <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                                    </li>
+                                                    <li className="nav-item aa">
+                                                        <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                                    </li>
+                                                    <li className=" nav-item aa mob-login">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div className="form-inline my-2 my-lg-0 desk-version">
+                                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
+                                                <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0 shadow-none" id="Search" onClick={SearchBar}>Search</button></Link>
+                                            </div>
+                                            <div className="row p-0 m-0 mob-cen">
+                                                <div className="col-12 mainbutton">
+                                                    <button className="btn btn-primary shadow-none" onClick={sellLog}> + SELL</button>
+                                                </div>
+                                            </div>
+
                                         </div>
+
+
                                     </div>
 
                                 </div>
 
+                            </nav>
+                            {/* mobile  nav*/}
+                            {/* <Stack display={isMobile ? 'block' : 'block'}>
 
-                            </div>
+                            </Stack> */}
 
+
+                            <nav>
+                                <div className="inline-menu1">
+                                    <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+
+
+                                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+                                            <div className="inline-menu1">
+                                                <div className="setmnu">
+                                                    <ul className="navbar-nav menu">
+                                                        <li className="nav-item aa">
+                                                            <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/shop" className="nav-link">SHOP</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/about" className="nav-link">ABOUT US</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                                        </li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/profile" className="nav-link" >PROFILE</Link>
+                                                        </li>
+                                                        {
+                                                            (Type == "user" || Type == "shop") &&
+
+                                                            <li onClick={OnOpen}>
+                                                                <li className="nav-item aa">
+                                                                    <Link to="/shop" className="nav-link">SHOP</Link>
+                                                                </li>
+                                                            </li>
+                                                        }
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                                        </li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/packages/view" className="nav-link">PACKAGES</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
                         </div>
+                        :
+                        <></>
+                }
+                {/* For Desktop */}
+                {
 
-                    </nav>
-                    {/* mobile  nav*/}
-                    <nav>
-                        <div className="inline-menu1">
-                            <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+                    <div className="mobnvfixedWork" style={{ zindex: 15 }}>
+                        <nav className="navbar navbar-expand-lg headerr" >
+                            <div className="container-fluid">
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
+                                    <i className="fas fa-bars"></i>
+                                </button>
+                                <div className="logo">
+                                    <Link to="/" className="navbar-brand" >
+                                        <img src={logo} alt="logo" /></Link>
+                                </div>
 
 
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-                                    <div className="inline-menu1">
+                                    <div className="inline-menu">
                                         <div className="setmnu">
                                             <ul className="navbar-nav menu">
                                                 <li className="nav-item aa">
@@ -478,55 +580,117 @@ const Header = () => {
                                                 <li className="nav-item aa">
                                                     <Link to="/contact" className="nav-link">CONTACT US</Link>
                                                 </li>
-                                                <li className="nav-item aa" onClick={profilefunction}>
-                                                    <Link to="/profile" className="nav-link" >PROFILE</Link>
+                                                <li className=" nav-item aa mob-login">
                                                 </li>
-                                                {
-                                                    (Type == "user" || Type == "shop") &&
+                                            </ul>
+                                        </div>
+                                        <div className="form-inline my-2 my-lg-0 desk-version">
+                                            <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
+                                            <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0 shadow-none" id="Search" onClick={SearchBar}>Search</button></Link>
+                                        </div>
+                                        <div className="row p-0 m-0 mob-cen">
+                                            <div className="col-12 mainbutton">
+                                                <button className="btn btn-primary shadow-none" onClick={sellLog}> + SELL</button>
+                                            </div>
+                                        </div>
 
-                                                    <li onClick={OnOpen}>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                        </nav>
+                        {/* mobile  nav*/}
+                        {/* <Stack display={isMobile ? 'block' : 'block'}>
+
+                            </Stack> */}
+
+
+                        <nav>
+                            <div className="inline-menu1">
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+
+
+                                    {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+                                            <div className="inline-menu1">
+                                                <div className="setmnu">
+                                                    <ul className="navbar-nav menu">
+                                                        <li className="nav-item aa">
+                                                            <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                                        </li>
                                                         <li className="nav-item aa">
                                                             <Link to="/shop" className="nav-link">SHOP</Link>
                                                         </li>
-                                                    </li>
-                                                }
-                                                   <li className="nav-item aa" onClick={profilefunction}>
-                                                    <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
-                                                <li className="nav-item aa" onClick={profilefunction}>
-                                                    <Link to="/posteditems" className="nav-link">MY ADS</Link>
-                                                </li>
-                                                <li className="nav-item aa" onClick={profilefunction}>
-                                                    <Link to="/packages/view" className="nav-link">PACKAGES</Link>
-                                                </li>
-                                                <li className="nav-item aa">
-                                                    {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
-                                                </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/about" className="nav-link">ABOUT US</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                                        </li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/profile" className="nav-link" >PROFILE</Link>
+                                                        </li>
+                                                        {
+                                                            (Type == "user" || Type == "shop") &&
 
-                                            </ul>
-                                        </div>
-                                    </div>
+                                                            <li onClick={OnOpen}>
+                                                                <li className="nav-item aa">
+                                                                    <Link to="/shop" className="nav-link">SHOP</Link>
+                                                                </li>
+                                                            </li>
+                                                        }
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                                        </li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/packages/view" className="nav-link">PACKAGES</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div> */}
                                 </div>
                             </div>
-                        </div>
-                    </nav>
-                </div>
+                        </nav>
+                    </div>
+
+                }
                 <div className="extraSpace">
 
                 </div>
-                <div className="setMainHead">
+              
+                <div className="setMainHead w-100" style={{
+                    position: scrollPosition ? 'fixed' : 'relative',
+                    top: scrollPosition ? 0 : 'auto',
+                    zIndex: isMobile && scrollPosition ? 10 : 2,
+                    display: 'flex',
+                    height: scrollPosition && '11vh'
+                }}>
                     {/* mobile  nav end*/}
-                    <div className="mob-version search-box col-12">
+                    <div className="mob-version search-box col-12" >
                         <div className="form-inline my-2 my-lg-0" >
                             <div className="mob-search">
                                 <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
                                 <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
                             </div>
                         </div>
-                        {/* <div className="row p-0 m-0 mob-version">
-                    <div className="col-12 mobileversion">
-                        <button className="btnSell" onClick={sellLog}> + SELL</button>
-                    </div>
-                </div> */}
+
                     </div>
 
                     {/* <!-- category --> */}
