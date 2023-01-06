@@ -268,7 +268,7 @@ const ChatBox = styled(motion.div)`
         width: 62vw;
         background-color: white;
         position: fixed;
-        top: 41%;
+        top: 38%;
         left: 35.3%;
     }
 

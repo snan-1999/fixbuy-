@@ -13,7 +13,7 @@ import Footer from "../Footer";
 import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
 import BottomTop from "../../../functions/BottomTop";
-import Poster3Bike from  "../../../assets/images/Poster3Bike.jpg";
+import Poster3 from  "../../../assets/images/Poster3.jpg";
 
 import { Stack } from "@chakra-ui/layout";
 const Blogs = () => {
@@ -39,13 +39,14 @@ const Blogs = () => {
         BottomTop()
 
     }, [0])
-    return (
+    return ( 
 
         <>
             <Header />
-            <Stack >
-                <img src={Poster3Bike} />
-            </Stack>
+            
+            <Stack className='BlogImg'>
+          <img src={Poster3} className='blogDsk'/>
+        </Stack>
             <div className="container faq-container">
                 <div className="about-text" style={{ marginBottom: '-5%' }}>
 

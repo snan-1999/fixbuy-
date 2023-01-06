@@ -2737,6 +2737,10 @@ button.GoogleBtn {
 .ReportAdss{
     cursor: pointer;
 }
+.desk-category {
+    padding: 0;
+    width: 100%;
+}
 @media screen and (max-width: 600px) {
     
     .extraSpace {
@@ -2943,7 +2947,24 @@ button.GoogleBtn {
     .swiper-slide#poster3 {
         background-image: url(../../assets/images/Poster3Bike.jpg);
     }
+    .blogDsk , .AboutImg{
+        display: none;
+    }
+    .BlogImg{
+        background: url(../../assets/images/Poster3Bike.jpg);
+        background-position: center;
+        background-size: cover;
+        height: 50vh;
 
+    }
+    .ImgAbout{
+        background: url(../../assets/images/Poster2Mobile.jpg);
+        background-position: center;
+        background-size: cover;
+        height: 50vh;
+
+    }
+    
     /* header */
     .navbar>.container,
     .navbar>.container-fluid,

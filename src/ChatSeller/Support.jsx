@@ -6,16 +6,16 @@ import ReactScrollToBottom from 'react-scroll-to-bottom'
 import styled from 'styled-components'
 import AdminMessage from './adminMessage'
 import UserMessage from './UserMessage';
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { baseUrl } from '../functions/constant';
 import axios from 'axios'
 import SupportChat from './SupportChat';
 import { useNavigate } from 'react-router-dom';
 const Support = () => {
-   const [RoomID,SetRoomID] = useState(null)
+    const [RoomID, SetRoomID] = useState(null)
     const [isOpen, setisOpen] = useState(false);
     const [closeBtn, setcloseBtn] = useState(false);
-   let IdData = window.localStorage.getItem('token');
+    let IdData = window.localStorage.getItem('token');
     // let userid = JSON.parse(IdData).token
     let ProfileId;
     let Type;
@@ -23,57 +23,57 @@ const Support = () => {
     let userProfileName;
     const nav = useNavigate();
     if (IdData) {
-       userProfileName = JSON.parse(IdData).profileName;
-       userProfileImg = JSON.parse(IdData).profileImg;
+        userProfileName = JSON.parse(IdData).profileName;
+        userProfileImg = JSON.parse(IdData).profileImg;
 
         ProfileId = JSON.parse(IdData).token;
         Type = JSON.parse(IdData).type;
     }
-    console.log('seeToken' ,IdData)
-    const ToggleClick = async() => {
-        if(IdData){
-            const api =` ${baseUrl}/room/initiate`;
-            try{
-                const response = await axios.post(api,{
-                    "users" : [{"userId":ProfileId,"userType":"consumer"},{"userId":"632864c6f33e572ba72fe060","userType":"support"}],
-                    "type" : 'consumer-to-support'
+    console.log('seeToken', IdData)
+    const ToggleClick = async () => {
+        if (IdData) {
+            const api = ` ${baseUrl}/room/initiate`;
+            try {
+                const response = await axios.post(api, {
+                    "users": [{ "userId": ProfileId, "userType": "consumer" }, { "userId": "632864c6f33e572ba72fe060", "userType": "support" }],
+                    "type": 'consumer-to-support'
                 })
-                console.log(response,'support')
+                console.log(response, 'support')
                 const chatRoomId = response.data.chatRoom.chatRoomId;
-                console.log(chatRoomId,'chatRoomId')
-                if(response.data.success ===  true){
-                    try{
-                        const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
-                        console.log(dataresponse,'dataresponse')
-                        const filterdataofuser = dataresponse.data.users.filter((i)=>{
-                                 if(i._id !== ProfileId){
-                                    return i
-                                 }
+                console.log(chatRoomId, 'chatRoomId')
+                if (response.data.success === true) {
+                    try {
+                        const dataresponse = await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+                        console.log(dataresponse, 'dataresponse')
+                        const filterdataofuser = dataresponse.data.users.filter((i) => {
+                            if (i._id !== ProfileId) {
+                                return i
+                            }
                         })
-                        console.log(filterdataofuser,'filter')
-                        console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
+                        console.log(filterdataofuser, 'filter')
+                        console.log(filterdataofuser[0].profileImg, filterdataofuser[0].name, '44555')
                         SetRoomID(chatRoomId)
                         setisOpen(true);
-                        setcloseBtn(true)        
+                        setcloseBtn(true)
                     }
-                    catch(e){
-                        console.log(e,'room')
-    
+                    catch (e) {
+                        console.log(e, 'room')
+
                     }
                 }
             }
-            catch(e){
+            catch (e) {
                 console.log(e)
             }
 
         }
-        else{
+        else {
             nav('/login')
         }
-      
-    
-        }
-    
+
+
+    }
+
 
     const Onclose = () => {
         setcloseBtn(false)
@@ -82,7 +82,7 @@ const Support = () => {
 
     let textData;
 
-   
+
     return (
         <>
             <SupportChat isOpen={isOpen} setcloseBtn={setcloseBtn} closeBtn={closeBtn} setisOpen={setisOpen} RoomID={RoomID} />
@@ -92,7 +92,7 @@ const Support = () => {
                 <div className="relative  border-0">
 
                     <ChatIcon>
-                        <RiChatSmile2Line onClick={()=>ToggleClick} />
+                        <RiChatSmile2Line onClick={() => ToggleClick} />
                     </ChatIcon>
                     {
 
@@ -109,7 +109,7 @@ const Support = () => {
             </footer>
         </>
     )
-                }
+}
 
 export default Support
 const SendIcon = styled.div`
@@ -192,8 +192,8 @@ const ChatBox = styled(motion.div)`
         width: 62vw;
         background-color: white;
         position: fixed;
-        top: 41%;
-        left: 35.3%;
+        top: 38%;
+    left: 32.3%;
     }
     `
 

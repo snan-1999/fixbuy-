@@ -8,7 +8,7 @@ import mountain from "../../assets/images/mountain.png";
 import service from "../../assets/images/service.png";
 import fairytale from "../../assets/images/fairytale.png";
 import BottomTop from '../../functions/BottomTop';
-import Poster2Mobile from "../../assets/images/Poster2Mobile.jpg";
+import Poster2 from "../../assets/images/Poster2.jpg";
 import { Stack } from '@chakra-ui/layout';
 
 
@@ -21,9 +21,10 @@ export default function About() {
     <>
       <div className="overflow-hidden">
         <Header />
-        <Stack >
-          <img src={Poster2Mobile} />
-        </Stack>
+
+        <Stack className='ImgAbout'>
+                <img src={Poster2} className='AboutImg'/>
+            </Stack>
         <div className="container faq-container">
           <div className="about-text">
             <div className="about-main-text">
