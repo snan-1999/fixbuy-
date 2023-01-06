@@ -410,12 +410,14 @@ const Header = () => {
                 }
                 }
             />
+              <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
+
             <ToastContainer />
-            <div className="FullMain m-0 position-relative">
+            <div className="FullMain m-0 position-relative p-0 p-md-auto p-lg-auto">
                 {/* FOr mob */}
                 {
-                    !scrollPosition ?
-                        <div className="mobnvfixedWork" >
+                    // !scrollPosition ?
+                        <div className=" d-block d-md-block d-lg-block mobnvfixedWork" >
                             <nav className="navbar navbar-expand-lg headerr" >
                                 <div className="container-fluid">
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -478,7 +480,7 @@ const Header = () => {
                             </Stack> */}
 
 
-                            <nav>
+                            <nav className="setMobBox">
                                 <div className="inline-menu1">
                                     <div className="collapse navbar-collapse" id="navbarSupportedContent" >
 
@@ -486,7 +488,7 @@ const Header = () => {
                                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-                                            <div className="inline-menu1">
+                                            <div className="inline-menu1" style={{display : scrollPosition ? 'none' : 'block'}}>
                                                 <div className="setmnu">
                                                     <ul className="navbar-nav menu">
                                                         <li className="nav-item aa">
@@ -510,7 +512,7 @@ const Header = () => {
                                                         <li className="nav-item aa" onClick={profilefunction}>
                                                             <Link to="/profile" className="nav-link" >PROFILE</Link>
                                                         </li>
-                                                        {
+                                                        {/* {
                                                             (Type == "user" || Type == "shop") &&
 
                                                             <li onClick={OnOpen}>
@@ -518,9 +520,9 @@ const Header = () => {
                                                                     <Link to="/shop" className="nav-link">SHOP</Link>
                                                                 </li>
                                                             </li>
-                                                        }
+                                                        } */}
                                                         <li className="nav-item aa" onClick={profilefunction}>
-                                                            <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
+                                                            <Link to='/saved-items' className="nav-link text-uppercase"> Saved Items</Link></li>
                                                         <li className="nav-item aa" onClick={profilefunction}>
                                                             <Link to="/posteditems" className="nav-link">MY ADS</Link>
                                                         </li>
@@ -539,13 +541,13 @@ const Header = () => {
                                 </div>
                             </nav>
                         </div>
-                        :
-                        <></>
+                        // :
+                        // <></>
                 }
                 {/* For Desktop */}
                 {
 
-                    <div className="mobnvfixedWork" style={{ zindex: 15 }}>
+                    <div className="mobnvfixedWork d-block d-md-none d-lg-none"  style={{position: 'fixed', top : 0 ,transform : scrollPosition ? 'translateY(-100%)' : 'translateY(0%)' , transition : 'all 200ms ease' , zIndex: 20} }>
                         <nav className="navbar navbar-expand-lg headerr" >
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -694,7 +696,7 @@ const Header = () => {
                     </div>
 
                     {/* <!-- category --> */}
-                    <div className="desk-category">
+                    <div className="desk-category"  style={{transform : scrollPosition ? 'translateY(-100%)' : 'translateY(0%)' , transition : 'all 500ms ease' } }>
                         <div className="row m-0 p-0">
                             <div className="col  p-0">
                                 <div className="catagry ">
@@ -950,8 +952,7 @@ const Header = () => {
                                         </div>
 
 
-                                        <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
-
+                                      
                                         {/* </div> */}
                                     </div>
                                 </div>

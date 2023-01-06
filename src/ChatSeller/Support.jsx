@@ -163,7 +163,7 @@ const ChatIcon = styled.div`
     font-size: 30px;
     position: fixed;
     right: 2%;
-    top: 90%;
+    top: 91%;
     z-index: 10;
     display: flex;
     align-items: center;
