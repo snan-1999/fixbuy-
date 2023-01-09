@@ -162,7 +162,7 @@ export default function MainProducts() {
     }
     let PriceLenght = 5;
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        // console.log(price , 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     useEffect(() => {
@@ -312,7 +312,7 @@ export default function MainProducts() {
                             filters == 1 || filters == -1 ?
                             
 
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == PageNO}>
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
                                     {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>

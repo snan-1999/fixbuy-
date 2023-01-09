@@ -6,7 +6,7 @@ import { MdDelete } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
-export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpenFunLogout }) {
+export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpenFunLogout ,setisOpenDownload}) {
     const nav = useNavigate();
     const onclose = () => setLogoutOpen(false);
     const Logout = () => {
@@ -54,6 +54,7 @@ export default function LogoutModal({ DelId, LogoutOpen, setLogoutOpen, MOdalOpe
                                                 window.location.reload(true );
                                                 setLogoutOpen(false)
                                                 nav("/")
+                                                setisOpenDownload(false)
                                             }}
                                             icon={false}
                                             className='setGoogleLog'

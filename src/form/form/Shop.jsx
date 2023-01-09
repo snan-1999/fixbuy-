@@ -32,8 +32,8 @@ export default function Shop() {
     const ShopData = async () => {
         try {
             const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
-            console.log(data, 'shopData')
-            console.log(UserId, 'shopData')
+            // console.log(data, 'shopData')
+            // console.log(UserId, 'shopData')
             if (data.status) {
                 setLoading(false)
                 setHomeData(data.data)

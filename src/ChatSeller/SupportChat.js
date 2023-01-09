@@ -23,7 +23,7 @@ function SupportChat({ isOpen, setisOpen, setcloseBtn, closeBtn, RoomID }) {
     const socket = io("https://fixebuyofficial.in", {
         transports: ["websocket"]
     });
-    console.log(userid, 'userid')
+    // console.log(userid, 'userid')
 
     const Onclose = () => {
         setcloseBtn(false)

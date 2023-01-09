@@ -16,12 +16,12 @@ function StateProvider({ children }) {
     const [HomeData, setHomeData] = useState();
     const [Longitude, setLongitude] = useState("");
     const [latitude, setlatitude] = useState("");
-    // const [latitude, setlatitude] = useState(28.663996);
-    // const [Longitude, setLongitude] = useState(77.306843);
+    const [isOpenDownload, setisOpenDownload] = useState(false)
     const [UserId, setUserId] = useState(TokenData?.token);
     return (
         <>
             <GlobalVariables.Provider value={{
+            isOpenDownload, setisOpenDownload ,
                 ProfileUpdate, setProfileUpdate,
                 type, setType,
                 Lmore, setLmore,

@@ -30,52 +30,51 @@ import android from '../../assets/images/android.png'
 import apple from '../../assets/images/apple.png'
 import CategorySlider from "./corousel/CategorySlider";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-// import DownloadModal from "./Modals/DownloadModal";
+import DownloadModal from "./Modals/DownloadModal";
 
 const Home = () => {
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId, setUserId, isOpenDownload, setisOpenDownload } = useContext(GlobalVariables)
     const location = useGeoLocation();
-    const [isOpen, setisOpen] = useState(false)
-    const Onclose = () => setisOpen(false)
-    const OnOpen = () => setisOpen(true)
+
+    const Onclose = () => setisOpenDownload(false)
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
     const nav = useNavigate();
-    console.log(TokenData, 'token');
+    // console.log(TokenData, 'token');
     const profileName = JSON.parse(Token)
     const [automobile, setAutomobile] = useState([]);
     const [MoreData, setMoreData] = useState([]);
     const [TotalPagess, setTotalPagess] = useState('');
     const [PageNo, setPageNo] = useState(1);
     const [Loading, setLoading] = useState(false)
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
-    console.log(latitude, Longitude, 'Location')
+    // console.log(latitude, Longitude, 'Location')
     setUserId((TokenData) ? TokenData.token : null)
     const homeDataAll = async () => {
-        console.log(UserId, 'UserId')
+        // console.log(UserId, 'UserId')
         const { data } = await HomeAllData(Longitude, latitude, PageNo, UserId)
-        console.log(data, 'homeData')
+        // console.log(data, 'homeData')
         setLoading(true)
-        console.log(Loading)
+        // console.log(Loading)
         if (data.status) {
             setAutomobile([...automobile, ...data.data]);
             // setAutomobile(data.data);
             setLoading(false)
             setHomeData(data.data)
-            console.log(Loading)
+            // console.log(Loading)
             setMoreData(data.data);
             setTotalPagess(data.totalPages);
-            console.log(MoreData, 'moreDaat')
-            console.log(TotalPagess)
-            console.log(Lmore)
+            // console.log(MoreData, 'moreDaat')
+            // console.log(TotalPagess)
+            // console.log(Lmore)
         }
     }
     const [height, setHeight] = useState(2000)
     const LoadMOre = () => {
         setPageNo(PageNo + 1)
-        console.log(TotalPagess, PageNo, "HomeData")
+        // console.log(TotalPagess, PageNo, "HomeData")
         setLoading(true)
         setHeight(height + 1600)
-        console.log(height, 'height')
+        // console.log(height, 'height')
     }
     const sellLog = () => {
 
@@ -103,8 +102,8 @@ const Home = () => {
         const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
         // setHeight(winScroll);
 
-        console.log(winScroll, 'jkjh')
-        console.log(height, 'height')
+        // console.log(winScroll, 'jkjh')
+        // console.log(height, 'height')
 
         if (winScroll > height) {
             isVisible && setIsVisible(false);
@@ -112,16 +111,12 @@ const Home = () => {
             setIsVisible(true);
         }
     };
-    window.onload = function () {
-        setTimeout(function () {
-            OnOpen()
-        }, 5000);
-    };
+
     let Max_length = 27;
     // const DAte = new Date();
     // alert(DAte.toDateString().split(' ').slice(1).join(' '))
     const numberWithCommas = price => {
-        console.log(price, 'commaa')
+        // console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     useMemo(() =>
@@ -135,9 +130,7 @@ const Home = () => {
             {/* <div className="row p-0 m-0"> */}
             <div className="overflow-hidden">
                 <Header />
-                {/* {
-                 <DownloadModal  Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} />
-            } */}
+
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}
@@ -183,6 +176,9 @@ const Home = () => {
 
                 }
             </div>
+            {
+                <DownloadModal Onclose={Onclose}  isOpenDownload={isOpenDownload} setisOpenDownload={setisOpenDownload} />
+            }
             {/* Geolocation end */}
             {/* <!-- products section */}
 
@@ -294,7 +290,7 @@ const Home = () => {
             {
                 isVisible
                 &&
-                <div className="row p-0 m-0 d-flex justify-content-center mob-version ">
+                <div className="row p-0 m-0 d-flex justify-content-center mob-version position-relative">
                     <div className="col-12 mobileversion">
                         <button className="btnSell" onClick={sellLog} > + SELL</button>
                     </div>

@@ -28,13 +28,13 @@ import { IoIosRocket } from 'react-icons/io';
 
 const Header = () => {
 
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId, setisOpenDownload } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
-    console.log(UserLogin, 'userlogin data')
+    // console.log(UserLogin, 'userlogin data')
 
     const LoginthroughData = JSON.parse(UserLogin)?.loginCome;
-    console.log(LoginthroughData, 'loginthroughData')
+    // console.log(LoginthroughData, 'loginthroughData')
     let ProfleId;
     let IdData;
     let Type;
@@ -42,7 +42,7 @@ const Header = () => {
     let userProfileImg;
     IdData = window.localStorage.getItem('token');
     // console.log(userProfileImg, 'userProfileName')
-    console.log(userProfileName, 'userProfileName')
+    // console.log(userProfileName, 'userProfileName')
     if (IdData) {
         userProfileName = JSON.parse(IdData).profileName;
         userProfileImg = JSON.parse(IdData).profileImg;
@@ -55,7 +55,7 @@ const Header = () => {
     // console.log(JSON.parse(IdData).type, 'localData');
     const [message, setMessage] = useState('');
     const [gstnumber, setGstNumber] = useState('');
-    console.log(gstnumber);
+    // console.log(gstnumber);
     const [address, setAddress] = useState('');
     const [show, setShow] = useState('');
     const [errors, seterrors] = useState(false);
@@ -66,7 +66,7 @@ const Header = () => {
     // if(profileName){}
     const profileName = localStorage('token');
     let lastname = window.localStorage.getItem('token');
-    console.log(lastname, 'tokenData')
+    // console.log(lastname, 'tokenData')
     const nav = useNavigate();
     const sellLog = () => {
         // console.log('work ')
@@ -80,7 +80,7 @@ const Header = () => {
     }
     const profilefunction = () => {
         const checkk = !window.localStorage.getItem('token')
-        console.log(checkk, 'tokenData')
+        // console.log(checkk, 'tokenData')
         if (window.localStorage.getItem('token') == null) {
             // alert('yes')
             nav('/login')
@@ -94,9 +94,9 @@ const Header = () => {
         // console.log(setSearch, 'count')
         id = JSON.parse(profileName).token
         await UpdateApi(id).then((res) => {
-            console.log(res, 'iupdate');
+            // console.log(res, 'iupdate');
             // setShow()
-            console.log(res.status.data[0].profileImg);
+            // console.log(res.status.data[0].profileImg);
             if (res.status) {
                 window.localStorage.setItem(
                     'token',
@@ -123,7 +123,7 @@ const Header = () => {
     const [search, setSearch] = useState("")
     const [SearchData, setSearchData] = useState([])
     //search 
-    console.log('jjjjj')
+    // console.log('jjjjj')
     // const SearchBar = async () => {
     //     const { data } = await SearchHome(Longitude, latitude, search, Lmore)
     //     setSearchData(data.data)
@@ -134,9 +134,9 @@ const Header = () => {
     // console.log(profileImg);
     const AutoSearch = (e) => {
         // SearchEl.addEventListener("keyup", async (e) => {
-        console.log(e.keyCode, 'keyVal')
+        // console.log(e.keyCode, 'keyVal')
         if (e.keyCode == 13) {
-            console.log("enter is pressed", 'serachData')
+            // console.log("enter is pressed", 'serachData')
             nav('/search-home-result', { state: search })
         }
         // })
@@ -145,29 +145,29 @@ const Header = () => {
         // setLocalData(JSON.parse(profileName));
         (id !== null) && Update()
         setUpstate(Upstate + 1)
-        console.log(LocalData, 'first')
+        // console.log(LocalData, 'first')
     }, [0]);
     useEffect(() => {
         setTimeout(() => {
             setLocalData(JSON.parse(profileName));
             Update()
-            console.log('hi')
+            // console.log('hi')
         }, 100)
-        console.log(LocalData, 'second')
-        console.log('sevcond')
+        // console.log(LocalData, 'second')
+        // console.log('sevcond')
     }, [Upstate, userProfileImg])
 
     const SearchBar = () => { }
 
     const UpdateShop = async () => {
-        console.log(gstnumber, address, 'checkihn')
+        // console.log(gstnumber, address, 'checkihn')
         // let data = {}
         const api = (`${baseUrl}/users/updateUser/toShop/${ProfleId}`);
         await axios.put(api, {
             gst_no: gstnumber,
             shop_address: address
         }).then((response) => {
-            console.log(response, "shop user");
+            // console.log(response, "shop user");
             if (response.status) {
                 toast(response.data.message, {
                     position: "bottom-right",
@@ -262,7 +262,7 @@ const Header = () => {
     const handleScroll = () => {
         const position = window.pageYOffset;
         // setScrollPosition(position);
-        console.log(position, 'position')
+        // console.log(position, 'position')
     
         if (position > 100) { 
             setScrollPosition(true)  
@@ -403,6 +403,7 @@ const Header = () => {
             <LogoutModal
                 {
                 ...{
+                    setisOpenDownload,
                     LogoutOpen,
                     setLogoutOpen,
                     MOdalOpenFunLogout,
