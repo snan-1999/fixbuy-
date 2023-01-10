@@ -32,8 +32,8 @@ export default function Shop() {
     const ShopData = async () => {
         try {
             const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
-            console.log(data, 'shopData')
-            console.log(UserId, 'shopData')
+            // console.log(data, 'shopData')
+            // console.log(UserId, 'shopData')
             if (data.status) {
                 setLoading(false)
                 setHomeData(data.data)
@@ -189,7 +189,7 @@ export default function Shop() {
                                                             </div>
                                                             <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                                 {
-                                                                    (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+                                                                    (automobileProduct.saved) ? <FaHeart className="text-danger fs-6" /> : <FiHeart className="fs-6" />
 
                                                                 }
                                                             </div>

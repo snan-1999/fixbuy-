@@ -52,8 +52,8 @@ const Contact = () => {
             email: email,
             mobile: mobile,
             message: message
-        }).then((response) => { 
-            console.log(response.data , 'erere');
+        }).then((response) => {
+            console.log(response.data, 'erere');
             if (response.data) {
                 setLoader(false)
                 // setMessages('Your message has been sent !');
@@ -78,27 +78,39 @@ const Contact = () => {
             }
         }, error => {
             seterrors(true)
-            console.log(error.response.data , 'check');
+            console.log(error.response.data, 'check');
         },)
     }
     // setLoader(false)
     useEffect(() => {
         BottomTop()
-      }, [0])
+    }, [0])
 
     return (
         <>
             <ToastContainer />
+            <div className="row m-0 p-0 overflow-hidden">
             <Header />
-            <div className="container">
-                <div className="for-center-contact">
-                    <div className="container-heading-contact">
-                        <span> LET'S CONVERSATION!</span>
+
+
+                <div className="for-center-contact flex-row justify-content-center align-items-center">
+
+                    <div className="col-md-6">
+                        <div className="container-heading-contact">
+                            <span>LET'S CONVERSATION!</span>
+                        </div>
+                    </div>
+                    <div className="col-md-6 d-flex justify-content-center align-items-center">
+                        <div className=" pt-4">
+                            {/* <RefreshBtn>
+                                <abbr title="Refresh Data"><BiRefresh className='ref' onClick={() => { RefTog() }} /></abbr>
+                            </RefreshBtn> */}
+                        </div>
                     </div>
                 </div>
             </div>
             {/* <form action="<?php echo $server_name; ?>/api-call/contact-us-api-call.php" method="post"> */}
-            <div className="form-set">
+            <div className="form-set position-relative top-0">
                 <div className="row p-0 m-0 form-group">
                     <div className="col-md-6 col-12">
                         <input type="text" name="first_name" placeholder="First Name" className="form-control imput-paddin" required
@@ -167,11 +179,11 @@ const Contact = () => {
                     <input type="submit" name="submit" value="submit" className="btn contact-btnn text-uppercase" onClick={contactApi} />
 
                 </div>
-                    {errors &&
-                       <div class=" ms-4 mt-4 alert alert-danger" role="alert">
-                      Invalid Fields
-                     </div>
-                    }
+                {errors &&
+                    <div class=" ms-4 mt-4 alert alert-danger" role="alert">
+                        Invalid Fields
+                    </div>
+                }
             </div>
 
             {/* </form> */}

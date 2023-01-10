@@ -162,7 +162,7 @@ export default function MainProducts() {
     }
     let PriceLenght = 5;
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        // console.log(price , 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     useEffect(() => {
@@ -269,7 +269,7 @@ export default function MainProducts() {
                                                         </div>
                                                         <div className="col-md-6 col-4 setHeart d-flex justify-content-end">
                                                             {
-                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-5" /> : <FiHeart className="fs-5" />
+                                                                (automobileProduct.saved) ? <FaHeart className="text-danger fs-6" /> : <FiHeart className="fs-6" />
 
                                                             }
                                                         </div>
@@ -312,7 +312,7 @@ export default function MainProducts() {
                             filters == 1 || filters == -1 ?
                             
 
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == PageNO}>
+                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
                                     {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                         <span className="visually-hidden">Loading...</span>
                                     </div>

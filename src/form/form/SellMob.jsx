@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./css/custom.css";
 import "./css/iofrm-style.css";
 import "../form/header.css";
@@ -6,8 +6,12 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { GiSofa } from "react-icons/gi";
+import BottomTop from "../../functions/BottomTop";
 
 const SellMob = () => {
+useEffect(() => {
+    BottomTop()
+}, [0])
 
     const Automobile = [
         {

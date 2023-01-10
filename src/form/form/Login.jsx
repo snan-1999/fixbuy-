@@ -28,7 +28,7 @@ import UserDeleteModal from "./Modals/DeleteModal";
 function Login() {
 
     const nav = useNavigate();
-    const { type, setType } = useContext(GlobalVariables)
+    const { type, setType, isOpen, setisOpenDownload } = useContext(GlobalVariables)
     // console.log(type);
     const [phone, setPhone] = useState('');
     const [error, setError] = useState('');
@@ -121,6 +121,9 @@ function Login() {
                         'status': "logIn"
                     })
                 )
+                setTimeout(function () {
+                    setisOpenDownload(true)
+                }, 10000);
                 window.localStorage.setItem('loginThrough', JSON.stringify({ 'loginCome': 'phone' }))
             }
             else {
@@ -232,7 +235,7 @@ function Login() {
         console.log(data);
         console.log(window)
     }
- 
+
 
     // window.FB.getLoginStatus(function (response) {
     //     // statusChangeCallback(response);
@@ -247,7 +250,7 @@ function Login() {
 
     return (
         <>
-      
+
             <div className="form-body">
 
                 <div className="row m-0 p-0 ">

@@ -8,7 +8,7 @@ function BottomTop() {
             left: 0,
             behavior: "instant"
         })
-            )
+    )
 }
 
 export default BottomTop

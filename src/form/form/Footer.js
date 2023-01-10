@@ -21,7 +21,7 @@ import { useMediaQuery } from '@chakra-ui/media-query'
 
 const Footer = () => {
     const [isMobile] = useMediaQuery("(max-width : 600px)");
-    console.log(isMobile, 'yes')
+    // console.log(isMobile, 'yes')
     return (
         <>
             <Footers>

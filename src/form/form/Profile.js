@@ -30,7 +30,7 @@ const Profile = () => {
     if (loginThr) {
         LogCome = JSON.parse(loginThr).loginCome;
     }
-    console.log(LogCome, 'lgcome')
+    // console.log(LogCome, 'lgcome')
     let ProfleId;
     let PhoneNumber;
     let Type;
@@ -50,7 +50,7 @@ const Profile = () => {
 
     // console.log(JSON.parse(IdData) , 'tokenData');
 
-    console.log(PhoneNumber);
+    // console.log(PhoneNumber);
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
     // const data = ProfileStore(state => state);
@@ -109,7 +109,7 @@ const Profile = () => {
 
     const handleProfileData = async () => {
         let response = await ProfileData(ProfleId);
-        console.log(response)
+        // console.log(response)
         // console.log(response.data.data[0].profileImg);
 
         // console.log(response.data.data[0].date_of_birth.split('T')[0])
@@ -150,22 +150,22 @@ const Profile = () => {
                 let month = new Date(response.data.data[0].date_of_birth).getMonth() + 1;
                 let year = new Date(response.data.data[0].date_of_birth).getFullYear();
 
-                console.log(`${year}-${month}-${date}`, 'full date');
+                // console.log(`${year}-${month}-${date}`, 'full date');
                 setDOB(`${year}-${month}-${(date >= 9) ? date : `0${date}`}`);
             }
             // console.log(dob)
             setGender(response.data.data[0].gender)
             // setDOB(response.data.data[0].date_of_birth)
             setId(response.data.data[0]._id);
-            console.log(id);
-            console.log(response.data.profileImg2)
+            // console.log(id);
+            // console.log(response.data.profileImg2)
         }
 
     };
 
     const UpadateUser = async () => {
-        console.log(dob, 'dob')
-        console.log('ok', 'dob')
+        // console.log(dob, 'dob')
+        // console.log('ok', 'dob')
         const formData = new FormData();
         const config = {
             headers: {
@@ -178,8 +178,8 @@ const Profile = () => {
         }
         // if (name != null) {
         formData.append('name', name);
-        console.log('run')
-        console.log({ formData })
+        // console.log('run')
+        // console.log({ formData })
         // }
         if (email != null) {
             formData.append('email', email)
@@ -205,11 +205,11 @@ const Profile = () => {
                 formData.append('shop_address', shop_address)
             }
             const api = `${baseUrl}/users/update/profile/${ProfleId}`;
-            console.log(formData.entries(), "profile")
+            // console.log(formData.entries(), "profile")
             // console.log(formData , "profile")
             console.log(name, "profile")
             await axios.put(api, formData).then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.status) {
                     setProfileUpdate(ProfileUpdate + 1)
                     // setMessage('Profile Updated!');
@@ -231,7 +231,7 @@ const Profile = () => {
             },)
         } else {
             setGenderError('Mandartory Field');
-            console.log('Mandartory Field');
+            // console.log('Mandartory Field');
             // setGenderError('')       
         }
     }
@@ -240,7 +240,7 @@ const Profile = () => {
         try {
             const api = `${baseUrl}/users/delete/user/${ID}`
             const { data } = await axios.delete(api);
-            console.log("Delete User", data)
+            // console.log("Delete User", data)
             if (data.status) {
                 window.localStorage.removeItem('token');
                 nav('/')
@@ -252,14 +252,14 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        console.log(new Date(dob).toDateString())
+        // console.log(new Date(dob).toDateString())
         if (IdData == null || IdData == undefined) {
             nav('/login')
         }
         handleProfileData();
     }, [0])
     useEffect(() => {
-        console.log(profileImg2, "profileData");
+        // console.log(profileImg2, "profileData");
     }, [profileImg2])
 
 

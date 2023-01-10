@@ -28,13 +28,13 @@ import { IoIosRocket } from 'react-icons/io';
 
 const Header = () => {
 
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId, setisOpenDownload } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
-    console.log(UserLogin, 'userlogin data')
+    // console.log(UserLogin, 'userlogin data')
 
     const LoginthroughData = JSON.parse(UserLogin)?.loginCome;
-    console.log(LoginthroughData, 'loginthroughData')
+    // console.log(LoginthroughData, 'loginthroughData')
     let ProfleId;
     let IdData;
     let Type;
@@ -42,7 +42,7 @@ const Header = () => {
     let userProfileImg;
     IdData = window.localStorage.getItem('token');
     // console.log(userProfileImg, 'userProfileName')
-    console.log(userProfileName, 'userProfileName')
+    // console.log(userProfileName, 'userProfileName')
     if (IdData) {
         userProfileName = JSON.parse(IdData).profileName;
         userProfileImg = JSON.parse(IdData).profileImg;
@@ -55,7 +55,7 @@ const Header = () => {
     // console.log(JSON.parse(IdData).type, 'localData');
     const [message, setMessage] = useState('');
     const [gstnumber, setGstNumber] = useState('');
-    console.log(gstnumber);
+    // console.log(gstnumber);
     const [address, setAddress] = useState('');
     const [show, setShow] = useState('');
     const [errors, seterrors] = useState(false);
@@ -66,7 +66,7 @@ const Header = () => {
     // if(profileName){}
     const profileName = localStorage('token');
     let lastname = window.localStorage.getItem('token');
-    console.log(lastname, 'tokenData')
+    // console.log(lastname, 'tokenData')
     const nav = useNavigate();
     const sellLog = () => {
         // console.log('work ')
@@ -80,7 +80,7 @@ const Header = () => {
     }
     const profilefunction = () => {
         const checkk = !window.localStorage.getItem('token')
-        console.log(checkk, 'tokenData')
+        // console.log(checkk, 'tokenData')
         if (window.localStorage.getItem('token') == null) {
             // alert('yes')
             nav('/login')
@@ -94,9 +94,9 @@ const Header = () => {
         // console.log(setSearch, 'count')
         id = JSON.parse(profileName).token
         await UpdateApi(id).then((res) => {
-            console.log(res, 'iupdate');
+            // console.log(res, 'iupdate');
             // setShow()
-            console.log(res.status.data[0].profileImg);
+            // console.log(res.status.data[0].profileImg);
             if (res.status) {
                 window.localStorage.setItem(
                     'token',
@@ -123,7 +123,7 @@ const Header = () => {
     const [search, setSearch] = useState("")
     const [SearchData, setSearchData] = useState([])
     //search 
-    console.log('jjjjj')
+    // console.log('jjjjj')
     // const SearchBar = async () => {
     //     const { data } = await SearchHome(Longitude, latitude, search, Lmore)
     //     setSearchData(data.data)
@@ -134,9 +134,9 @@ const Header = () => {
     // console.log(profileImg);
     const AutoSearch = (e) => {
         // SearchEl.addEventListener("keyup", async (e) => {
-        console.log(e.keyCode, 'keyVal')
+        // console.log(e.keyCode, 'keyVal')
         if (e.keyCode == 13) {
-            console.log("enter is pressed", 'serachData')
+            // console.log("enter is pressed", 'serachData')
             nav('/search-home-result', { state: search })
         }
         // })
@@ -145,29 +145,29 @@ const Header = () => {
         // setLocalData(JSON.parse(profileName));
         (id !== null) && Update()
         setUpstate(Upstate + 1)
-        console.log(LocalData, 'first')
+        // console.log(LocalData, 'first')
     }, [0]);
     useEffect(() => {
         setTimeout(() => {
             setLocalData(JSON.parse(profileName));
             Update()
-            console.log('hi')
+            // console.log('hi')
         }, 100)
-        console.log(LocalData, 'second')
-        console.log('sevcond')
+        // console.log(LocalData, 'second')
+        // console.log('sevcond')
     }, [Upstate, userProfileImg])
 
     const SearchBar = () => { }
 
     const UpdateShop = async () => {
-        console.log(gstnumber, address, 'checkihn')
+        // console.log(gstnumber, address, 'checkihn')
         // let data = {}
         const api = (`${baseUrl}/users/updateUser/toShop/${ProfleId}`);
         await axios.put(api, {
             gst_no: gstnumber,
             shop_address: address
         }).then((response) => {
-            console.log(response, "shop user");
+            // console.log(response, "shop user");
             if (response.status) {
                 toast(response.data.message, {
                     position: "bottom-right",
@@ -262,7 +262,7 @@ const Header = () => {
     const handleScroll = () => {
         const position = window.pageYOffset;
         // setScrollPosition(position);
-        console.log(position, 'position')
+        // console.log(position, 'position')
     
         if (position > 100) { 
             setScrollPosition(true)  
@@ -403,6 +403,7 @@ const Header = () => {
             <LogoutModal
                 {
                 ...{
+                    setisOpenDownload,
                     LogoutOpen,
                     setLogoutOpen,
                     MOdalOpenFunLogout,
@@ -410,12 +411,14 @@ const Header = () => {
                 }
                 }
             />
+              <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
+
             <ToastContainer />
-            <div className="FullMain m-0 position-relative">
+            <div className="FullMain m-0 position-relative p-0 p-md-auto p-lg-auto">
                 {/* FOr mob */}
                 {
-                    !scrollPosition ?
-                        <div className="mobnvfixedWork" >
+                    // !scrollPosition ?
+                        <div className=" d-block d-md-block d-lg-block mobnvfixedWork" >
                             <nav className="navbar navbar-expand-lg headerr" >
                                 <div className="container-fluid">
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -478,7 +481,7 @@ const Header = () => {
                             </Stack> */}
 
 
-                            <nav>
+                            <nav className="setMobBox">
                                 <div className="inline-menu1">
                                     <div className="collapse navbar-collapse" id="navbarSupportedContent" >
 
@@ -486,7 +489,7 @@ const Header = () => {
                                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-                                            <div className="inline-menu1">
+                                            <div className="inline-menu1" style={{display : scrollPosition ? 'none' : 'block'}}>
                                                 <div className="setmnu">
                                                     <ul className="navbar-nav menu">
                                                         <li className="nav-item aa">
@@ -510,7 +513,7 @@ const Header = () => {
                                                         <li className="nav-item aa" onClick={profilefunction}>
                                                             <Link to="/profile" className="nav-link" >PROFILE</Link>
                                                         </li>
-                                                        {
+                                                        {/* {
                                                             (Type == "user" || Type == "shop") &&
 
                                                             <li onClick={OnOpen}>
@@ -518,9 +521,9 @@ const Header = () => {
                                                                     <Link to="/shop" className="nav-link">SHOP</Link>
                                                                 </li>
                                                             </li>
-                                                        }
+                                                        } */}
                                                         <li className="nav-item aa" onClick={profilefunction}>
-                                                            <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
+                                                            <Link to='/saved-items' className="nav-link text-uppercase"> Saved Items</Link></li>
                                                         <li className="nav-item aa" onClick={profilefunction}>
                                                             <Link to="/posteditems" className="nav-link">MY ADS</Link>
                                                         </li>
@@ -539,13 +542,13 @@ const Header = () => {
                                 </div>
                             </nav>
                         </div>
-                        :
-                        <></>
+                        // :
+                        // <></>
                 }
                 {/* For Desktop */}
                 {
 
-                    <div className="mobnvfixedWork" style={{ zindex: 15 }}>
+                    <div className="mobnvfixedWork d-block d-md-none d-lg-none"  style={{position: 'fixed', top : 0 ,transform : scrollPosition ? 'translateY(-100%)' : 'translateY(0%)' , transition : 'all 200ms ease' , zIndex: 20} }>
                         <nav className="navbar navbar-expand-lg headerr" >
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -694,7 +697,7 @@ const Header = () => {
                     </div>
 
                     {/* <!-- category --> */}
-                    <div className="desk-category">
+                    <div className="desk-category"  style={{transform : scrollPosition ? 'translateY(-100%)' : 'translateY(0%)' , transition : 'all 500ms ease' } }>
                         <div className="row m-0 p-0">
                             <div className="col  p-0">
                                 <div className="catagry ">
@@ -950,8 +953,7 @@ const Header = () => {
                                         </div>
 
 
-                                        <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
-
+                                      
                                         {/* </div> */}
                                     </div>
                                 </div>

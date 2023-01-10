@@ -31,8 +31,8 @@ export default function ShopModal({Onclose ,OnOpen , setisOpen, isOpen, Type, Up
                         <Containermodel isOpen={isOpen}  >
                             <Modelcontent animate={{ y: 0, scale: 1 }} initial={{ y: '-100vh', scale: 0 }} exit={{ y: '-100vh', scale: 0 }}>
                                 <Modalheader>
-                                    <Headingsetting>Shop</Headingsetting>
-                                    <ImCross onClick={Onclose} style={{ cursor: 'pointer' }} />
+                                    <Headingsetting className='text-white'>Shop</Headingsetting>
+                                    <ImCross  className='text-white' onClick={Onclose} style={{ cursor: 'pointer' }} />
                                 </Modalheader>
                                 <hr style={{ margin: '0rem 0.5rem  0 0.5rem' }} />
                                 <Modalbody>
@@ -63,7 +63,7 @@ export default function ShopModal({Onclose ,OnOpen , setisOpen, isOpen, Type, Up
 const Containermodel = styled.div`
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,300&display=swap');
 font-family: 'Lato', sans-serif;
-    position: absolute;
+    position: fixed;
     display: grid;
     place-content: center;
     width: 100%;

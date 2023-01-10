@@ -1760,6 +1760,8 @@ box-shadow: none;
     display: flex;
     /* justify-content: space-around; */
     margin: 60px 0px 130px 0px;
+    margin-left: 6%;
+
 }
 
 .container-heading-contact {
@@ -1778,7 +1780,7 @@ box-shadow: none;
     font-size: 30px;
     color: whitesmoke;
     background: linear-gradient(var(--color1), var(--color2)) !important;
-    background: #3b6086 !important;
+
     display: inline-block;
     padding: 8px 20px 10px 25px;
     text-transform: uppercase;
@@ -2737,6 +2739,10 @@ button.GoogleBtn {
 .ReportAdss{
     cursor: pointer;
 }
+.desk-category {
+    padding: 0;
+    width: 100%;
+}
 @media screen and (max-width: 600px) {
     
     .extraSpace {
@@ -2943,7 +2949,24 @@ button.GoogleBtn {
     .swiper-slide#poster3 {
         background-image: url(../../assets/images/Poster3Bike.jpg);
     }
+    .blogDsk , .AboutImg{
+        display: none;
+    }
+    .BlogImg{
+        background: url(../../assets/images/Poster3Bike.jpg);
+        background-position: center;
+        background-size: cover;
+        height: 50vh;
 
+    }
+    .ImgAbout{
+        background: url(../../assets/images/Poster2Mobile.jpg);
+        background-position: center;
+        background-size: cover;
+        height: 50vh;
+
+    }
+    
     /* header */
     .navbar>.container,
     .navbar>.container-fluid,
@@ -3229,6 +3252,7 @@ button.GoogleBtn {
 
     .for-center-faq {
         margin: 60px 0px 50px 0px;
+        justify-content: start !important;
     }
 
     .container-heading-faq span {
@@ -3286,7 +3310,7 @@ button.GoogleBtn {
     /* contact */
     .container-heading-contact {
         position: absolute;
-        width: 304px !important;
+        width: 314px !important;
         height: 50px !important;
         border-bottom: 3px solid #37577A;
         line-height: 50px;
@@ -3295,12 +3319,14 @@ button.GoogleBtn {
     }
 
     .for-center-contact {
-        margin: 60px 0px 50px 0px !important;
+        margin: 30px 0px 50px 10px !important;
+        justify-content: start !important;
     }
 
     .container-heading-contact span {
         font-size: 15px !important;
         padding: 0px 0px 0px 7px !important;
+        background: linear-gradient(var(--color1), var(--color2)) !important;
     }
 
     .form-set {
@@ -4261,11 +4287,11 @@ button.GoogleBtn {
     } */
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) { 
+/* @media screen and (-webkit-min-device-pixel-ratio:0) { 
     .for-center-faq {
         width: 100%;
         display: flex;
-        /* justify-content: space-around; */
+      
         margin: 60px 0px 130px 0px !important;
     }
 
@@ -4276,7 +4302,7 @@ button.GoogleBtn {
         position: relative;
         width: 100%;
         display: flex;
-        /* justify-content: space-around; */
+      
         margin: 60px 0px 130px 0px;
     }
     .container-heading-contact span {
@@ -4295,7 +4321,7 @@ button.GoogleBtn {
         border-bottom: 3px solid #37577A;
         line-height: 50px;
         top: 0;
-        /* background: gray; */
+    
         overflow: hidden !important;
     }
-}
+} */

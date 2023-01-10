@@ -1,43 +1,44 @@
 
 import { AnimatePresence, motion } from 'framer-motion'
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { RiChatSmile2Line, RiCloseLine } from 'react-icons/ri';
 import { AiOutlineSend } from 'react-icons/ai';
 // import ReactScrollToBottom from 'react-scroll-to-bottom'
 import styled from 'styled-components'
-import AdminMessage from './adminMessage'
+// import AdminMessage from './adminMessage'
 // import UserMessage from './UserMessage';
-import {io} from 'socket.io-client'
+import { io } from 'socket.io-client'
 import { baseUrl } from '../functions/constant';
 import axios from 'axios'
+import { Stack } from '@chakra-ui/react';
 
-function SupportChat({isOpen,setisOpen,setcloseBtn,closeBtn,RoomID}) {
+function SupportChat({ isOpen, setisOpen, setcloseBtn, closeBtn, RoomID }) {
     const [message, setMessage] = useState([])
     const Token = localStorage.getItem('token');
     let userid;
-    if(Token){
-         userid = JSON.parse(Token).token
+    if (Token) {
+        userid = JSON.parse(Token).token
 
     }
 
     const socket = io("https://fixebuyofficial.in", {
         transports: ["websocket"]
     });
-console.log(userid,'userid')
+    // console.log(userid, 'userid')
 
-const Onclose = () => {
-    setcloseBtn(false)
-    setisOpen(false)
-}
+    const Onclose = () => {
+        setcloseBtn(false)
+        setisOpen(false)
+    }
 
     useEffect(
         () => {
-          socket.connect();
-          socket.on("connect", ()=>{
-            console.log(socket.connected,"connected")
-          });
-        },[])
-               //    ye message fetch krega
+            socket.connect();
+            socket.on("connect", () => {
+                console.log(socket.connected, "connected")
+            });
+        }, [])
+    //    ye message fetch krega
     const fetchMessage = async (abc) => {
         console.log(abc, 'abc')
         const RenderMessage = []
@@ -57,33 +58,33 @@ const Onclose = () => {
         console.log(RenderMessage,'RenderMessage')
         setMessage(RenderMessage)
     }
-     // fetch message 
-     useEffect(() => {
+    // fetch message 
+    useEffect(() => {
         socket.emit('subscribe', RoomID)
         // console.log("cALL HU "+ RoomID);
         fetchMessage(RoomID)
-        return () =>{
-            socket.emit('unsubscribe',RoomID)
+        return () => {
+            socket.emit('unsubscribe', RoomID)
         }
-    },[RoomID])
+    }, [RoomID])
     // },[RoomID])
 
-         //  live chat
-         useEffect(() => {
-            socket.on("new message", (e) => {
-                console.log(e, 'msg1')
-                console.log(e.chatRoomId, '112', 'not')
-                console.log(RoomID,'if',e.chatRoomId);
-    
-                if (e.chatRoomId === RoomID){
-                fetchMessage(e.chatRoomId) 
-                }
-                else {
-                    console.log(e.chatRoomId, '113',RoomID, 'not')
-                }
-            })
+    //  live chat
+    useEffect(() => {
+        socket.on("new message", (e) => {
+            console.log(e, 'msg1')
+            console.log(e.chatRoomId, '112', 'not')
+            console.log(RoomID, 'if', e.chatRoomId);
+
+            if (e.chatRoomId === RoomID) {
+                fetchMessage(e.chatRoomId)
+            }
+            else {
+                console.log(e.chatRoomId, '113', RoomID, 'not')
+            }
         })
-    
+    })
+
     const senMessage = async (e) => {
         const textData = document.getElementById('adminText').value;
         console.log("textdata", textData)
@@ -103,67 +104,70 @@ const Onclose = () => {
         }
         document.getElementById('adminText').value = "";
     }
-  return (
-    <>
-    <AnimatePresence>
+    const BottomScroll = useRef(null);
+    useEffect(() => {
+        BottomScroll.current?.scrollIntoView();
+    }, [message , isOpen])
 
-    {
-        isOpen &&
-        <ChatBox
-            initial={{ y: '200vh', scale: 0 }}
-            animate={{ y: 0, scale: 1 }}
-            exit={{ y: '200vh', scale: 0 }}>
-            <ChatHeader>
-                <ChatLine>Support Help - online</ChatLine>
-                <ChatClose>
-                    <RiCloseLine onClick={Onclose} />
-                </ChatClose>
-            </ChatHeader>
-            <ChatMain>
-                <ChatBody>
-                     <ScrollDiv>
-                        {console.log(message,'message')}
-                        {
-                            message.length > 0 ?
-                                message.map((a, i) => {
-                                    // console.log(a.msguserId,userid,'msguserId')
-                                    console.log(a.msguserId, 'responsedata');
-                                    console.log(userid,'responsedata userid')
-                                    return (
-                                        a.msguserId === userid ?
-                                            <UserDiv>  
-                                                 <ArrowRight />
-                                                <UserMessage>                                          
-                                                    <span>{a.message}</span>
-                                                    </UserMessage>
-                                            </UserDiv> 
-                                            : 
-                                            // <AdminDiv>
-                                            // <ArrowLeft />
-                                            // <AdminMessage>
-                                            //     {console.log(a.message,'a.message')}
-                                                    <span >{a.message}</span> 
-                                                   
-                                        //             </AdminMessage>           
-                                        // </AdminDiv>
-                                    )
-                                })
-                                : null
-                        }
-                    </ScrollDiv>
-                </ChatBody>
-                <div className="d-flex">
-                    <InputChat placeholder='Enter Your Message' id='adminText' />
-                    <SendIcon>
-                        <AiOutlineSend onClick={senMessage} />
-                    </SendIcon>
-                </div>
-            </ChatMain>
-        </ChatBox>
-    }
-</AnimatePresence>
-</>
-  )
+
+    return (
+        <>
+            <AnimatePresence>
+
+                {
+                    isOpen &&
+                    <ChatBox
+                        initial={{ y: '200vh', scale: 0 }}
+                        animate={{ y: 0, scale: 1 }}
+                        exit={{ y: '200vh', scale: 0 }}>
+                        <ChatHeader>
+                            <ChatLine>Support Help - online</ChatLine>
+                            <ChatClose>
+                                <RiCloseLine onClick={Onclose} />
+                            </ChatClose>
+                        </ChatHeader>
+                        <ChatMain>
+                            <ChatBody>
+                                <ScrollDiv >
+                                    {
+                                        message.length > 0 ?
+                                            message.map((a, i) => {
+                                                // console.log(a.msguserId,userid,'msguserId')
+                                                console.log(a.msgroomId, 'responsedata');
+                                                return (
+                                                    a.msguserId === userid ?
+                                                        <UserDiv>
+                                                            <ArrowRight />
+                                                            <UserMessage >
+                                                                <span>{a.message}</span>
+                                                            </UserMessage >
+                                                        </UserDiv>
+                                                        :
+                                                        <Div>
+                                                            <ArrowLeft />
+                                                            <AdminMessage >
+                                                                <span>{a.message}</span>
+                                                            </AdminMessage>
+                                                        </Div>
+                                                )
+                                            })
+                                            : null
+                                    }
+                                    <Stack h='1px' ref={BottomScroll}/>
+                                </ScrollDiv>
+                            </ChatBody>
+                            <div className="d-flex">
+                                <InputChat placeholder='Enter Your Message' id='adminText' />
+                                <SendIcon>
+                                    <AiOutlineSend onClick={senMessage} />
+                                </SendIcon>
+                            </div>
+                        </ChatMain>
+                    </ChatBox>
+                }
+            </AnimatePresence>
+        </>
+    )
 }
 
 export default SupportChat
@@ -173,11 +177,12 @@ content: " ";
 position: absolute;
 width: 20px;
 height: 18px;
-top: 2%;
-left: -7px;
-margin: 10px -3px;
-// background: linear-gradient(230deg ,black 50% ,black 50% ,transparent 50% ,transparent);
+top: -30%;
+left: 4px;
+margin: 10px 5px;
+background: linear-gradient(230deg ,#487792 20% ,#37577A 50%  ,transparent 50% ,transparent);
 `
+
 const ArrowRight = styled.div`
       content: " ";
   position: absolute;
@@ -198,6 +203,10 @@ const SendIcon = styled.div`
     margin-right: 1rem;
     font-size: 1.2rem;
     cursor: pointer;
+    @media screen and (max-width:600px){
+        margin-right: .4rem;
+        
+    }
 `
 const InputChat = styled.input`
     width: 100%;
@@ -222,7 +231,7 @@ const InputChat = styled.input`
 
 `
 const ChatMain = styled.div`
-    height: 96%;
+    height: auto;
     margin-left: 3%;
     // width:100%;
 `
@@ -232,13 +241,15 @@ const ChatBody = styled.div`
 const ButtonChats = styled.button`
     
 `
-const AdminDiv = styled.div`
-    display :flex;
-    justify-content: left;
-    color: white;
-    position: relative;
-    // margin-top: 2%;
-    `
+const Div = styled.div`
+color: white;
+display :flex;
+position: relative;
+justify-content: left;
+margin-top: 2%;
+// z-index: 1;
+`
+
 const UserDiv = styled.div`
 color: white;
 display :flex;
@@ -262,7 +273,7 @@ const ChatIcon = styled.div`
     border-radius: 50px;
     `
 const ChatBox = styled(motion.div)`
-    height: 50vh;
+    /* height: 50vh; */
     width: 20vw;
     background-color: white;
     position: fixed;
@@ -275,12 +286,13 @@ const ChatBox = styled(motion.div)`
     overflow: hidden;
     z-index: 10;
     @media screen and (max-width:600px){
-        height: 48vh;
+        height: auto;
         width: 62vw;
         background-color: white;
         position: fixed;
-        top: 41%;
+        top: 33%;
         left: 35.3%;
+        padding-bottom: 5px;
     }
 
     @media screen and (min-width: 601px) and (max-width: 900px){
@@ -309,13 +321,25 @@ const ChatLine = styled.div`
     font-weight: 500;
 
     @media screen and (max-width: 600px){
-        font-size: 15px;
+        font-size: 13px;
     }
 `
 const ChatClose = styled.div`
     color: white;
     font-size: 1.4rem;
 `
+const AdminMessage = styled.div`
+ background: linear-gradient(${props => props.theme.colors.primary} , ${props => props.theme.colors.secondary});
+    //  width: 30%;
+    max-width: 60%;
+     /* float: right; */ 
+     margin:0px 19px;
+     padding: 5px 10px 5px 10px; 
+     border-radius: 15px;
+     font-size: 0.9rem;
+    //  position:absolute;
+    z-index:2;
+ `
 
 const UserMessage = styled.div`
   background-color: grey;
@@ -330,6 +354,6 @@ const UserMessage = styled.div`
 
 const ScrollDiv = styled.div`
 overflow : auto;
-height : 34vh !important;
+height : 39vh !important;
 // position : relative;
 `

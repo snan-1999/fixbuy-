@@ -260,7 +260,7 @@ button#dropdownMenuButton1 {
   box-shadow: none !important;
   position: absolute;
   left: 50%;
-  z-index: 20;
+  z-index: 1;
 }
 
 .filter_bt {
@@ -303,6 +303,12 @@ button#dropdownMenuButton1 {
 }
 .mob-version{
   display: none !important;
+}
+.setMobBox{
+  box-shadow: 1px 1px 10px rgba(128, 128, 128, 0.397);
+  /* padding-bottom: 10px; */
+  /* background-color: white; */
+
 }
 @media screen and (max-width: 600px) {
   .container-heading-savedItem {

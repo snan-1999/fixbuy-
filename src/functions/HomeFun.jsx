@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const HomeAllData = async (Longitude, latitude, PageNo, UserId) => {
     try {
-        console.log(UserId, 'function')
+        // console.log(UserId, 'function')
         let api
         if (UserId == undefined || UserId == null) {
             api = `${baseUrl}/product/fetch/allAds/${latitude}/${Longitude}/${PageNo}`
