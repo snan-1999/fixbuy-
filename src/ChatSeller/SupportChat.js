@@ -19,6 +19,7 @@ function SupportChat({isOpen,setisOpen,setcloseBtn,closeBtn,RoomID}) {
          userid = JSON.parse(Token).token
 
     }
+
     const socket = io("https://fixebuyofficial.in", {
         transports: ["websocket"]
     });
@@ -43,15 +44,17 @@ const Onclose = () => {
         await axios.get(`https://fixebuyofficial.in/room/${abc}`).then(function (response) {
             console.log(response, 'Rendermessage')
             const responsedata = response.data.conversation
-            console.log(responsedata.length, 'Rendermessagelength')
+            console.log(responsedata, 'Rendermessagelength')
             {
-                responsedata.length > 0 ? responsedata.map((e) => {
+                 responsedata.map((e) => {
                     console.log('push ho rha h ', 'Rendermessage')
                     RenderMessage.push({message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId})
-                }) :     RenderMessage.push({message: "", msguserId: "", msgroomId: ""})
-                console.log("ye sb khali h", 'Rendermessage')
+                })
+                //  :     RenderMessage.push({message: "", msguserId: "", msgroomId: ""})
+                // console.log("ye sb khali h", 'Rendermessage')
             }
         })
+        console.log(RenderMessage,'RenderMessage')
         setMessage(RenderMessage)
     }
      // fetch message 
@@ -84,6 +87,7 @@ const Onclose = () => {
     const senMessage = async (e) => {
         const textData = document.getElementById('adminText').value;
         console.log("textdata", textData)
+       
 
         try {
             const response = await axios.post(`https://fixebuyofficial.in/room/${RoomID}/message`, {
@@ -118,11 +122,13 @@ const Onclose = () => {
             <ChatMain>
                 <ChatBody>
                      <ScrollDiv>
+                        {console.log(message,'message')}
                         {
                             message.length > 0 ?
                                 message.map((a, i) => {
                                     // console.log(a.msguserId,userid,'msguserId')
-                                    console.log(a.msgroomId, 'responsedata');
+                                    console.log(a.msguserId, 'responsedata');
+                                    console.log(userid,'responsedata userid')
                                     return (
                                         a.msguserId === userid ?
                                             <UserDiv>  
@@ -131,13 +137,15 @@ const Onclose = () => {
                                                     <span>{a.message}</span>
                                                     </UserMessage>
                                             </UserDiv> 
-                                            :
-                                            <AdminDiv>
-                                            <ArrowLeft />
-                                            <AdminMessage>
-                                                    <span>{a.message}</span> 
-                                                    </AdminMessage>           
-                                            </AdminDiv>
+                                            : 
+                                            // <AdminDiv>
+                                            // <ArrowLeft />
+                                            // <AdminMessage>
+                                            //     {console.log(a.message,'a.message')}
+                                                    <span >{a.message}</span> 
+                                                   
+                                        //             </AdminMessage>           
+                                        // </AdminDiv>
                                     )
                                 })
                                 : null
@@ -227,6 +235,9 @@ const ButtonChats = styled.button`
 const AdminDiv = styled.div`
     display :flex;
     justify-content: left;
+    color: white;
+    position: relative;
+    // margin-top: 2%;
     `
 const UserDiv = styled.div`
 color: white;

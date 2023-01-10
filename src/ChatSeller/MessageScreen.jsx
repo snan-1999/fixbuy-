@@ -6,6 +6,7 @@ import Header from "../../src/form/form/header"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { io } from 'socket.io-client'
 import axios from 'axios'
+import AWS from "aws-sdk";
 import { ImageView } from '../functions/constant'
 import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
@@ -15,7 +16,79 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
   
     // const selectedroomid = selectedroom
     // const {infoprofiledata,location,selectedroom} = useLocation()
+    const[imageName,setImageName] = useState('')
+    const Imagehttp = 'https://fixebuy-media.s3.amazonaws.com/uploads/chat-media/'
     const RoomID = infoprofiledata.length > 0 ? infoprofiledata[0].room_Id : location.state.roomId
+
+
+    // here we connect the s3 bucket
+
+    const config = {
+        bucketName: 'fixebuy-media/uploads/chat-media',
+        region: 'us-east-1',
+        accessKeyId: 'AKIAQWBF2JVKGD5WBYZ7',
+        secretAccessKey: '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',
+    }
+    const [files, setFiles] = useState([]);
+
+    const S3_BUCKET = 'fixebuy-media/uploads/chat-media';
+    const REGION = 'us-east-1';
+
+    AWS.config.update({
+        accessKeyId: 'AKIAQWBF2JVKGD5WBYZ7',
+        secretAccessKey: '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',
+    });
+
+    const myBucket = new AWS.S3({
+        params: { Bucket: S3_BUCKET },
+        region: REGION,
+    });
+
+    const uploadImageToS3 =  (file) => {
+        // setImageUrl(file.name)
+        console.log(imageName,'imageName')
+        const params = {
+            ACL: "public-read",
+            Body: file,
+            Bucket: S3_BUCKET,
+            Key: file.name,
+        };
+        console.log("params", params);
+
+        const response = myBucket.putObject(params).send((response) => {
+            console.log(response, 'response')
+        })
+        ImageUploadToBackend(file);
+        // fetchMessage(RoomID);
+        console.log(response, 'picture response');
+        return response
+
+    };
+
+
+
+    const ImageUploadToBackend = async(file)=>{
+        console.log(file.name,'imageName')
+        try {
+            console.log(RoomID)
+            const response = await axios.post(`https://fixebuyofficial.in/room/${RoomID}/message`, {
+                "userId": userid,
+                "messageText": `${Imagehttp}${file.name}`,
+                "type":'image'
+            })
+            console.log(response,'image')
+            if (response.data.success === true) {
+                fetchMessage(RoomID);
+            }
+        }
+        catch (e) {
+            console.log(e)
+        }
+    
+    }
+
+
+    // end of connecting the s3 bucket
     
     { console.log(selectedroom, '11') }
     const [message, setMessage] = useState([])
@@ -53,11 +126,11 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
             const responsedata = response.data.conversation
             console.log(responsedata.length, 'Rendermessagelength')
             {
-                responsedata.length > 0 ? responsedata.map((e) => {
-                    console.log('push ho rha h ', 'Rendermessage')
-                    RenderMessage.push({message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId})
-                }) :RenderMessage.push({message: "", msguserId: "", msgroomId: ""})
-                console.log("ye sb khali h", 'Rendermessage')
+                
+                responsedata.map((e) => {
+                    console.log('push ho rha h ',e, 'Rendermessage')
+                    RenderMessage.push({message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId,msgType:e.type})
+                })
             }
         })
         setMessage(RenderMessage)
@@ -66,14 +139,12 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
     // fetch message 
     useEffect(() => {
         socket.emit('subscribe', RoomID)
-        console.log("cALL HU "+ RoomID);
         fetchMessage(RoomID)
         return () =>{
             socket.emit('unsubscribe',RoomID)
         }
     },[RoomID])
-    // console.log(RoomID,'if');
-    //  live chat
+
     useEffect(() => {
         socket.on("new message", (e) => {
             console.log(e, 'msg1')
@@ -137,6 +208,14 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
         // `current` points to the mounted file input element
         inputFile.current.click();
     };
+   const inputImageChange = (e) =>{
+    const file = e.target.files[0];
+    console.log(e.target.files[0].name,'files[0');
+    // setImageName(file.name)
+
+    uploadImageToS3(file)
+
+   }
     
     
     return (
@@ -155,40 +234,45 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
 
                     <ChatBoxDiv>
                         <ScrollDiv>
+                            {console.log(message,'imagemessage')}
                         {
                             message.length > 0 ?
-                                message.map((a, i) => {
-                                    // console.log(a.msguserId,userid,'msguserId')
-                                    console.log(a.msgroomId, 'responsedata');
-                                    return (
+                            message.map((a, i) => {
+                                // console.log(a.msguserId,userid,'msguserId')
+                                console.log(a,'aaaaaaaa')
+                                console.log(a.msgroomId, 'responsedata');
+                                return (
+                                    a.msguserId === userid ?
+                                        <UserDiv>
+                                            <ArrowRight />
+                                            <UserMessage>
+                                                {
+                                                    a.msgType == 'image' ?<img style={{width:'20vw',height:"26vh"}} src={`${a.message}`} />:
+                                                  <span>{a.message}</span>
+                                                }
+                                                
+                                        </UserMessage>
+                                        </UserDiv> :
+                                        <AdminDiv>
+                                            <ArrowLeft />
+                                            <AdminMessage>
+                                                {
+                                                    a.msgType == 'image' ? <img style={{width:'26vw',height:"16vh"}} src={`${a.message}`} />:
+                                                  <span>{a.message}</span>
+                                                }
 
-                                        
-                                        a.msguserId === userid ?
-                                           
-                                            <UserDiv>
-                                                <ArrowRight />
-                                                <UserMessage>
-                                                    <span>{a.message}</span>
-                                                </UserMessage>
-                                            </UserDiv> :
-                                            <AdminDiv>
-                                                <ArrowLeft />
-                                                <AdminMessage>
-                                                    <span>{a.message}</span>
-                                                </AdminMessage>
-                                            </AdminDiv>
-                                            
-                                            
-                                            )
-                                        })
-                                        : null
+                                            </AdminMessage>
+                                        </AdminDiv>
+                                )
+                            })
+                            : null
                                     }
                         
                                     </ScrollDiv>
                         <SendDiv className='d-flex'>
                             <input className='w-100 EnterMesaage' placeholder="Enter Your Message" id="message" onKeyUp={EnterKeyPress} />
                             <GalleryIcon>
-                                <input type='file' id='file' ref={inputFile} style={{ display: 'none' }} />
+                                <input type='file' id='file'  onChange={(e) => inputImageChange(e)} ref={inputFile} style={{ display: 'none' }} />
                                 <FaRegImage onClick={onButtonClick} />
                             </GalleryIcon>
                             <SendIcon>
