@@ -39,6 +39,8 @@ import MainChatFile from './ChatSeller/MainChatFile';
 import PakagesShowMenu from './form/form/PakagesShowMenu';
 import MessageScreen from './ChatSeller/MessageScreen';
 import useGeoLocation from './hooks/useGeoLoaction';
+import RazorpayAppPayment from './form/form/RazorpayAppPayment';
+// <Route path='/razorpay/:name/:contact/:product_id/:user_id/:price/:days/:type' element={<RazorpayAppPayment/>} />
 // import Check from './form/form/Check';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm';
 // import AutomobileForm from './Forms/Automobile/AutomobileForm'
@@ -80,6 +82,7 @@ function App() {
           <Route path='/:maincategory/:subcategory/all-product' element={<MainProducts />} />
           {/* <Route  path='/singlePage' element={<SinglePost />} /> */}
           {/* <Route  path='/loginseesion' element={<LoginSession/>} /> */}
+          <Route path='/razorpay/:name/:contact/:product_id/:user_id/:price/:days/:type' element={<RazorpayAppPayment/>} />
           <Route path='/terms' element={<Terms />} />
           <Route path='/privacy' element={<Privacy />} />
           <Route path='/profile' element={<Profile />} />

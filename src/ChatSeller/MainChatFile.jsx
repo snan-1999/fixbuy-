@@ -14,7 +14,6 @@ import { ImageView } from '../functions/constant'
 import axios from 'axios'
 import Scrollbars from 'react-custom-scrollbars'
 export default function MainChatFile() {
-
     const [allactiveuser, setAllActiveUser] = useState([])
     const [infoprofiledata, setInfoProfileData] = useState([])
     const Token = localStorage.getItem('token');
@@ -169,7 +168,7 @@ export default function MainChatFile() {
                 </div>
             </div>
             <div className='mobViewChat'>
-                <MobChatFile />
+                {/* <MobChatFile /> */}
             </div>
             {/* <Footer /> */}
         </>

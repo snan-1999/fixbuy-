@@ -20,6 +20,7 @@ function SupportChat({ isOpen, setisOpen, setcloseBtn, closeBtn, RoomID }) {
         userid = JSON.parse(Token).token
 
     }
+
     const socket = io("https://fixebuyofficial.in", {
         transports: ["websocket"]
     });
@@ -44,15 +45,17 @@ function SupportChat({ isOpen, setisOpen, setcloseBtn, closeBtn, RoomID }) {
         await axios.get(`https://fixebuyofficial.in/room/${abc}`).then(function (response) {
             console.log(response, 'Rendermessage')
             const responsedata = response.data.conversation
-            console.log(responsedata.length, 'Rendermessagelength')
+            console.log(responsedata, 'Rendermessagelength')
             {
-                responsedata.length > 0 ? responsedata.map((e) => {
+                 responsedata.map((e) => {
                     console.log('push ho rha h ', 'Rendermessage')
-                    RenderMessage.push({ message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId })
-                }) : RenderMessage.push({ message: "", msguserId: "", msgroomId: "" })
-                console.log("ye sb khali h", 'Rendermessage')
+                    RenderMessage.push({message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId})
+                })
+                //  :     RenderMessage.push({message: "", msguserId: "", msgroomId: ""})
+                // console.log("ye sb khali h", 'Rendermessage')
             }
         })
+        console.log(RenderMessage,'RenderMessage')
         setMessage(RenderMessage)
     }
     // fetch message 
@@ -85,6 +88,7 @@ function SupportChat({ isOpen, setisOpen, setcloseBtn, closeBtn, RoomID }) {
     const senMessage = async (e) => {
         const textData = document.getElementById('adminText').value;
         console.log("textdata", textData)
+       
 
         try {
             const response = await axios.post(`https://fixebuyofficial.in/room/${RoomID}/message`, {
