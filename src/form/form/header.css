@@ -1688,6 +1688,7 @@ box-shadow: none;
     line-height: 50px;
     /*background: gray;*/
     overflow: hidden !important;
+    margin-left: 6%;
 }
 
 .container-heading-faq span {

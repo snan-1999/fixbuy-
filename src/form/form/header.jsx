@@ -723,7 +723,7 @@ const Header = () => {
 
                                             <div className="disp">
                                                 <div className="drop-down">
-                                                    Laptop&nbsp;&&nbsp;Mobiles
+                                                 Pc,&nbsp;Laptops&nbsp;&&nbsp;Mobiles
                                                     <ul className="dropdown-category ">
                                                         <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                                         <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
@@ -806,7 +806,7 @@ const Header = () => {
 
                                             <div className="disp">
                                                 <div className="drop-down">
-                                                    Electronics&nbsp;&&nbsp;Appliances
+                                                    Electronics&nbsp;&&nbsp;Appliancess
                                                     <ul className="dropdown-category catagry-color">
                                                         <Link to="/electronics/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                                         <Link to="/electronics/fridge"><li className="bghover">Fridge</li></Link>

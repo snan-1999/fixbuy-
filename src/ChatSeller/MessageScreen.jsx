@@ -223,7 +223,7 @@ const ArrowRight = styled.div`
   height: 10px;
   top: 0;
   right: 0;
-   margin: 0px 8px; 
+   margin: 0px 11px; 
   background: linear-gradient(135deg , grey  0% ,grey 50% , transparent 50% , transparent);
 //   background : #59c3f0;
 `
