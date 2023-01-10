@@ -209,7 +209,7 @@ const ArrowLeft = styled.div`
   /* border: 1px solid red; */
   width: 20px;
   height: 18px;
-  top: 1%;
+  top: 1%; 
   left: -7px;
   margin: 10px 17px;
   background: linear-gradient(230deg ,#345276  50% ,#497993 50% , transparent 50% , transparent);
