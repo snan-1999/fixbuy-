@@ -97,7 +97,8 @@ const Contact = () => {
 
                     <div className="col-md-6">
                         <div className="container-heading-contact">
-                            <span>LET'S CONVERSATION!</span>
+                            {/* <span>LET'S CONVERSATION!</span> */}
+                            <span>CONTACT US!</span>
                         </div>
                     </div>
                     <div className="col-md-6 d-flex justify-content-center align-items-center">
@@ -108,7 +109,7 @@ const Contact = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+          
             {/* <form action="<?php echo $server_name; ?>/api-call/contact-us-api-call.php" method="post"> */}
             <div className="form-set position-relative top-0">
                 <div className="row p-0 m-0 form-group">
@@ -185,7 +186,7 @@ const Contact = () => {
                     </div>
                 }
             </div>
-
+            </div>
             {/* </form> */}
 
 

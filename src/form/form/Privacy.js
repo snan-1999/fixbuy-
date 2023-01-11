@@ -1,11 +1,10 @@
-import React from "react";
-// import "./css/custom.css";
-// import "./css/iofrm-style.css";
-// import "../form/header.css";
-// import "./index.css";
-
-
+import React, { useEffect } from "react";
+import BottomTop from "../../functions/BottomTop";
 const Privacy = () => {
+  useEffect(() => {
+    BottomTop()
+  }, [0])
+  
   return (
 
     <>

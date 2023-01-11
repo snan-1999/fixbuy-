@@ -14,6 +14,7 @@ import { MdLocationOn } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import Footer from './Footer';
+import { Box } from '@chakra-ui/react';
 function SearchPage() {
     const { latitude, Longitude } = useContext(GlobalVariables)
     const searchData = useLocation()
@@ -21,12 +22,13 @@ function SearchPage() {
     const [AllData, setAllData] = useState([])
     const [PageNO, setPageNO] = useState(1)
     const [Loading, setLoading] = useState(false)
+    const [NoData, setNoData] = useState(false)
     const [searchWord, setsearchWord] = useState(null)
 
     console.log(searchData.state, 'dataSearch')
     console.log(PageNO, 'dataSearch')
     const OneTImeData = async () => {
-        setLoading(true, 'dataSearch')
+        setLoading(true)
         const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
         console.log(data, 'hello')
 
@@ -35,6 +37,8 @@ function SearchPage() {
             setTotalPagess(data.totalPages);
             setAllData(data.data);
             // console.log(AllData, 'hello1')
+        } else {
+            setNoData(true)
         }
     }
 
@@ -159,21 +163,29 @@ function SearchPage() {
 
                         })
                     }
-                    <div className="row m-0 p-0 d-flex justify-content-center">
-                        {
-                            TotalPagess == PageNO ?
-                                <></>
-                                :
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
+                    {
+                        !NoData ?
+                            <div className="row m-0 p-0 d-flex justify-content-center">
+                                {
+                                    TotalPagess == PageNO ?
+                                        <></>
                                         :
-                                        <img src={load} />} &nbsp;&nbsp;
-                                    Load More
-                                </ButtonCraete>
-                        }
-                    </div>
+                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                            {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                                :
+                                                <img src={load} />} &nbsp;&nbsp;
+                                            Load More
+                                        </ButtonCraete>
+                                }
+                            </div>
+                            :
+                            <Box display='flex' justifyContent='center' mt='-10%' zIndex='-3'>
+                                <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_rdjfuniz.json" background="transparent" speed="1" style={{ width: '600px', height: '600px' }} loop autoplay></lottie-player>
+
+                            </Box>
+                    }
                 </div>
             </div>
             <Footer />

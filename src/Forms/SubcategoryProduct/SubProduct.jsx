@@ -149,7 +149,7 @@ export default function SubProduct() {
     }
     let PriceLenght = 5;
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     useEffect(() => {
@@ -169,7 +169,7 @@ export default function SubProduct() {
             setAllData([])
             setPageNO(1)
         }
-            BottomTop()
+        BottomTop()
         // setPageNO(1)
         SubDataCategory()
         console.log('run');
@@ -245,7 +245,7 @@ export default function SubProduct() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 setMobPadingProduct">
-                                                        {
+                                                            {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
                                                                     <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
                                                                     :
@@ -291,32 +291,35 @@ export default function SubProduct() {
 
                         })
                     }
-                    <div className="row m-0 p-0 d-flex justify-content-center">
-                        {
-                            filters == 1 || filters == -1 ?
-                                TotalPagess == FIlterPageNO ?
-                                    <>
-                                    </>
+                    {
+                        !NoData && <div className="row m-0 p-0 d-flex justify-content-center">
+                            {
+
+                                filters == 1 || filters == -1 ?
+                                    TotalPagess == FIlterPageNO ?
+                                        <>
+                                        </>
+                                        :
+                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                            {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
+                                                <span className="visually-hidden">Loading...</span>
+                                            </div>
+                                                :
+                                                <img src={load} />} &nbsp;&nbsp;
+                                            Load More
+                                        </ButtonCraete>
                                     :
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
                                         {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
                                             :
                                             <img src={load} />} &nbsp;&nbsp;
-                                         Load More
+                                        Load More
                                     </ButtonCraete>
-                                :
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                        :
-                                        <img src={load} />} &nbsp;&nbsp;
-                                    Load More
-                                </ButtonCraete>
-                        }
-                    </div>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
             <Footer />

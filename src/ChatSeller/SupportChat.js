@@ -179,7 +179,7 @@ width: 20px;
 height: 18px;
 top: -30%;
 left: 4px;
-margin: 10px 5px;
+margin: 11px 5px;
 background: linear-gradient(230deg ,#487792 20% ,#37577A 50%  ,transparent 50% ,transparent);
 `
 

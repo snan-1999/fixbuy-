@@ -32,7 +32,22 @@ const Packages = () => {
   console.log(id, 'id')
   console.log(categories, 'categories of package')
   console.log(sellertype, 'sellertype of package')
+  const varification = async (data) => {
+    try {
+      const response = await axios.post("https://fixebuyofficial.in/payment/payVerify", {
 
+        razorpay_order_id: data.razorpay_order_id,
+        razorpay_payment_id: data.razorpay_payment_id,
+        razorpay_signature: data.razorpay_signature
+      })
+      if(response.data.status === true){
+        setShowFunction(true)
+      }
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
   const checkoutHandler = async (amount, dayss) => {
 
     const key = "rzp_test_JhV4AghQnABYIb"
@@ -54,7 +69,8 @@ const Packages = () => {
       // callback_url: "http://192.168.29.173:4000/payment/payVerify",
       "handler": function (response) {
         console.log(response)
-        setShowFunction(true)
+        // setShowFunction(true)
+        varification(response)
 
       },
       prefill: {
@@ -99,19 +115,21 @@ const Packages = () => {
   // alert(ConditionCheck.includes(categories))
   return (
     <>
-      <Header />
-      <div className="container my-cont border" style={{ overflow: 'hidden' }}>
+     <div className="overflow-hidden">
+     <Header />
         <div className="for-center package-form">
           <div className="container-heading package-form">
             <span>Packages</span>
           </div>
         </div>
+     </div>
+      <div className="container my-cont border" style={{ overflow: 'hidden' }}>
         {
           (ConditionCheck.includes(categories) && sellertype == "user")
             ?
             <>
               <div className="Package-Heading">
-                <span><BsArrowRight /> Car ,Properties , Heavy Vehicle </span>
+                <span><BsArrowRight /> Car ,Properties , Heavy Vehicles </span>
               </div>
               <section className="pricing py-2">
                 <div className="container-price">

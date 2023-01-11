@@ -85,8 +85,8 @@ const PostedItems = () => {
   }
   let PriceLenght = 5;
   const numberWithCommas = price => {
-      console.log(price , 'commaa')
-      return parseInt(price).toLocaleString('en-US');
+    console.log(price, 'commaa')
+    return parseInt(price).toLocaleString('en-US');
   };
   useEffect(() => {
     if (IdData == null || IdData == undefined) {
@@ -94,138 +94,138 @@ const PostedItems = () => {
       navigate('/login')
     }
     Myads();
-      BottomTop()
+    BottomTop()
   }, [0, Upstate])
 
   return (
     <>
-      <Header />
-      <ToastContainer />
-      <UserDeleteModal
-        {
-        ...{
-          ModalOpen,
-          setModalOpen,
-          DeleteData,
-          DelId
-        }
-        }
-      />
-      <div className="container my-cont border">
-        {/* <div className="alert alert-success" role="alert">
-        your payment has been succesfully done.
-      </div> */}
-        <div className="for-center service-form">
-          <div className="container-heading service-form">
-            <span>My Ads</span>
+      <div className="overflow-hidden">
+        <Header />
+        <ToastContainer />
+
+        <UserDeleteModal
+          {
+          ...{
+            ModalOpen,
+            setModalOpen,
+            DeleteData,
+            DelId
+          }
+          }
+        />
+        <div className="container my-cont border">
+          <div className="for-center service-form">
+            <div className="container-heading service-form">
+              <span>My Ads</span>
+            </div>
           </div>
-        </div>
-        <div className="container" id="card_box">
+          <div className="container" id="card_box">
 
-          {/* <!-- Mobile products --> */}
-          <div className="row">
-            {
-              automobile.map((automobileProduct, key) => {
-                return (
-                  <div className="col-md-4 col-6 col-lg-3">
-                    {/* <div className="mob-cardWidth"> */}
+            {/* <!-- Mobile products --> */}
+            <div className="row">
+              {
+                automobile.map((automobileProduct, key) => {
+                  return (
+                    <div className="col-md-4 col-6 col-lg-3">
+                      {/* <div className="mob-cardWidth"> */}
 
-                    <div className="shadow p-3 mb-4 bg-white maindiv-ads overflow-hidden">
-                      {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
-                      <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor"> <div className="img-wh"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div></Link>
-                      <div className="pdt-details">
-                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
-                          <div className="d-flex" style={{ justifyContent: 'space-between' }}>
-                            {
-                              (automobileProduct.price).toString().length > PriceLenght ?
-                                <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
-                                :
-                                <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
-                            }
-                            <div className="status">
+                      <div className="shadow p-3 mb-4 bg-white maindiv-ads overflow-hidden">
+                        {(automobileProduct.boostPlan.plan !== "free") ? <Ribbon>Featured</Ribbon> : <Ribbon style={{ opacity: 0 }}>Featured</Ribbon>}
+                        <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor"> <div className="img-wh"><img src={`${ImageView}${automobileProduct.images[0]}`} className="pdt-img" /></div></Link>
+                        <div className="pdt-details">
+                          <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
+                            <div className="d-flex" style={{ justifyContent: 'space-between' }}>
                               {
-                                (automobileProduct.status == 'pending') ?
-                                  <span className="sts" style={{ backgroundColor: 'grey' }}>{automobileProduct.status}</span>
-                                  : (automobileProduct.status == 'reject') ?
-                                    <span className="sts" style={{ backgroundColor: 'red' }}>{automobileProduct.status}</span>
-                                    : (automobileProduct.status == 'approved') ?
-                                      <span className="sts" style={{ backgroundColor: 'green' }}>{automobileProduct.status}</span>
-                                      :
-                                      ""
+                                (automobileProduct.price).toString().length > PriceLenght ?
+                                  <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
+                                  :
+                                  <div className="price">₹ {numberWithCommas(automobileProduct.price)}</div>
                               }
-                            </div>
-                          </div>
-                          {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
-                          {
-                            (automobileProduct.title).length > MAX_LENGTH ?
-                              <div className="prd-name">
-                                {`${automobileProduct.title.substring(0, MAX_LENGTH)}...`}
-                              </div>
-                              :
-                              <div className="prd-name text-capitalize">{automobileProduct.title}</div>
-
-                          }
-                          <div className="contain-adrs">
-                            <span className="adrs">{automobileProduct.location.state}</span>
-                            <span className="year"></span>
-                          </div>
-                        </Link>
-                        {/* </Link> */}
-                        <div className="row p-0 m-0">
-                          <div className="col p-0">
-                            <div className="d-flex" style={{ justifyContent: "space-between" }}>
-                              <div className="buy-bt">
-                                {/* <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link> */}
+                              <div className="status">
                                 {
-                                  (automobileProduct.boostPlan.plan === 'free') ?
-                                    (automobileProduct.status === 'approved') ?
-                                      <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
-                                      :
-                                      <Link to='' className="buy-bttn" disabled style={{ opacity: 0.8 }}>Boost Now</Link>
-                                    :
-                                    <Link to='' className="buy-bttn" disabled>Boosted</Link>
+                                  (automobileProduct.status == 'pending') ?
+                                    <span className="sts" style={{ backgroundColor: 'grey' }}>{automobileProduct.status}</span>
+                                    : (automobileProduct.status == 'reject') ?
+                                      <span className="sts" style={{ backgroundColor: 'red' }}>{automobileProduct.status}</span>
+                                      : (automobileProduct.status == 'approved') ?
+                                        <span className="sts" style={{ backgroundColor: 'green' }}>{automobileProduct.status}</span>
+                                        :
+                                        ""
                                 }
-                                {console.log(automobileProduct.categories)}
-                                {/* <span onClick={()=>handleClickSpan()} className="buy-bttn">Boost Now</span> */}
                               </div>
-                              {/* <div className="edit" style={{ marginTop: '5%' }} >
+                            </div>
+                            {/* <div className="font-weight-light desc">{automobileProduct.description}</div> */}
+                            {
+                              (automobileProduct.title).length > MAX_LENGTH ?
+                                <div className="prd-name">
+                                  {`${automobileProduct.title.substring(0, MAX_LENGTH)}...`}
+                                </div>
+                                :
+                                <div className="prd-name text-capitalize">{automobileProduct.title}</div>
+
+                            }
+                            <div className="contain-adrs">
+                              <span className="adrs">{automobileProduct.location.state}</span>
+                              <span className="year"></span>
+                            </div>
+                          </Link>
+                          {/* </Link> */}
+                          <div className="row p-0 m-0">
+                            <div className="col p-0">
+                              <div className="d-flex" style={{ justifyContent: "space-between" }}>
+                                <div className="buy-bt">
+                                  {/* <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link> */}
+                                  {
+                                    (automobileProduct.boostPlan.plan === 'free') ?
+                                      (automobileProduct.status === 'approved') ?
+                                        <Link to={`/packages/${automobileProduct._id}/${automobileProduct.categories}/${automobileProduct.sellerType}`} className="buy-bttn">Boost Now</Link>
+                                        :
+                                        <Link to='' className="buy-bttn" disabled style={{ opacity: 0.8 }}>Boost Now</Link>
+                                      :
+                                      <Link to='' className="buy-bttn" disabled>Boosted</Link>
+                                  }
+                                  {console.log(automobileProduct.categories)}
+                                  {/* <span onClick={()=>handleClickSpan()} className="buy-bttn">Boost Now</span> */}
+                                </div>
+                                {/* <div className="edit" style={{ marginTop: '5%' }} >
                                   <span className="ed"><FontAwesomeIcon icon="fas fa-pen"></FontAwesomeIcon></span>
                                 </div> */}
 
-                              <div className="delete" onClick={() => OpenDelete(automobileProduct._id)}>
-                                <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can" className="iconSize"></FontAwesomeIcon></span>
+                                <div className="delete" onClick={() => OpenDelete(automobileProduct._id)}>
+                                  <span className="dl"><FontAwesomeIcon icon="fas fa-trash-can" className="iconSize"></FontAwesomeIcon></span>
+                                </div>
                               </div>
-                            </div>
-                            <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
-                              <div>
-                                {
-                                  (automobileProduct.boostPlan.expireDate) ?
-                                    <span className="date">Expire : {new Date(automobileProduct.boostPlan.expireDate).toDateString()}</span>
-                                    :
-                                    <span className="date">{new Date(automobileProduct.createdAt).toDateString()}</span>
-                                }
-                              </div>
+                              <Link to={`/singleproductpage/${automobileProduct._id}`} state={automobileProduct} className="text-decor">
+                                <div>
+                                  {
+                                    (automobileProduct.boostPlan.expireDate) ?
+                                      <span className="date">Expire : {new Date(automobileProduct.boostPlan.expireDate).toDateString()}</span>
+                                      :
+                                      <span className="date">{new Date(automobileProduct.createdAt).toDateString()}</span>
+                                  }
+                                </div>
 
-                              {/* {
+                                {/* {
                                 (automobileProduct.boostPlan.plan !== 'free') ?
                                   :
                                   ""
                               } */}
 
-                            </Link>
+                              </Link>
+                            </div>
                           </div>
                         </div>
                       </div>
+                      {/* </div> */}
                     </div>
-                    {/* </div> */}
-                  </div>
-                )
+                  )
 
-              })
-            }
+                })
+              }
+            </div>
           </div>
-        </div>
-      </div >
+        </div >
+      </div>
       <Footer />
     </>
   )

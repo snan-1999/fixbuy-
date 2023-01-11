@@ -307,57 +307,61 @@ export default function SingleProductPage(props) {
         }
     }
     const ChatSeller = async () => {
-        if (Token === null) {
-            nav('/login')
-        } else {
+        if (!isMobile) {
+            if (Token === null) {
+                nav('/login')
+            } else {
 
 
-            const api = ` ${baseUrl}/room/initiate`;
-            // console.log(chatRoomId,'chatRoomId')
+                const api = ` ${baseUrl}/room/initiate`;
+                // console.log(chatRoomId,'chatRoomId')
 
-            try {
-                console.log(TokenID.ID, sellerid, 'sellerid')
-                //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
-                const response = await axios.post(api, {
-                    "users": [{ "userId": userid, "userType": "buyer" }, { "userId": sellerid, "userType": "seller" }],
-                    "type": 'consumer-to-consumer'
-                })
-                const chatRoomId = response.data.chatRoom.chatRoomId;
-                // console.log("9999",response.data.chatRoom.chatRoomId)
-                // console.log(response,'room')
-                // console.log(response.data.success,'success')
-                if (response.data.success === true) {
-                    try {
-                        const dataresponse = await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
-                        console.log(dataresponse, 'dataresponse')
-                        // console.log(dataresponse.data.users,'44555')
-                        const filterdataofuser = dataresponse.data.users.filter((i) => {
-                            return i._id !== TokenID.ID
-                        })
-                        console.log(filterdataofuser, 'filter')
-                        // alert(chatRoomId)
-                        console.log(filterdataofuser[0].profileImg, filterdataofuser[0].name, '44555')
-                        nav("/mainchatfile", {
-                            state: {
-                                name: filterdataofuser[0].name,
-                                image: filterdataofuser[0].profileImg, roomId: chatRoomId
-                            }
-                        })
+                try {
+                    console.log(TokenID.ID, sellerid, 'sellerid')
+                    //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
+                    const response = await axios.post(api, {
+                        "users": [{ "userId": userid, "userType": "buyer" }, { "userId": sellerid, "userType": "seller" }],
+                        "type": 'consumer-to-consumer'
+                    })
+                    const chatRoomId = response.data.chatRoom.chatRoomId;
+                    // console.log("9999",response.data.chatRoom.chatRoomId)
+                    // console.log(response,'room')
+                    // console.log(response.data.success,'success')
+                    if (response.data.success === true) {
+                        try {
+                            const dataresponse = await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+                            console.log(dataresponse, 'dataresponse')
+                            // console.log(dataresponse.data.users,'44555')
+                            const filterdataofuser = dataresponse.data.users.filter((i) => {
+                                return i._id !== TokenID.ID
+                            })
+                            console.log(filterdataofuser, 'filter')
+                            // alert(chatRoomId)
+                            console.log(filterdataofuser[0].profileImg, filterdataofuser[0].name, '44555')
+                            nav("/mainchatfile", {
+                                state: {
+                                    name: filterdataofuser[0].name,
+                                    image: filterdataofuser[0].profileImg, roomId: chatRoomId
+                                }
+                            })
 
+                        }
+                        catch (e) {
+                            console.log(e, 'room')
+
+                        }
                     }
-                    catch (e) {
-                        console.log(e, 'room')
 
-                    }
                 }
+                catch (e) {
+                    console.log(e)
 
+                }
             }
-            catch (e) {
-                console.log(e)
 
-            }
+        } else {
+            nav('/')
         }
-
     }
     const numberWithCommas = price => {
         console.log(price, 'commaa')

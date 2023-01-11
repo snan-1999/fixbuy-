@@ -3,20 +3,20 @@ import { FaRegImage, FaSearch } from 'react-icons/fa'
 import styled from 'styled-components'
 import Footer from "../../src/form/form/Footer"
 import Header from "../../src/form/form/header"
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Stack } from '@chakra-ui/react'
 import { io } from 'socket.io-client'
 import axios from 'axios'
 import AWS from "aws-sdk";
 import { ImageView } from '../functions/constant'
 import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
-import {Scrollbars} from 'react-custom-scrollbars';
+import { Scrollbars } from 'react-custom-scrollbars';
 import { useLocation } from 'react-router-dom'
 export default function MessageScreen({ infoprofiledata, location, selectedroom }) {
-  
+
     // const selectedroomid = selectedroom
     // const {infoprofiledata,location,selectedroom} = useLocation()
-    const[imageName,setImageName] = useState('')
+    const [imageName, setImageName] = useState('')
     const Imagehttp = 'https://fixebuy-media.s3.amazonaws.com/uploads/chat-media/'
     const RoomID = infoprofiledata.length > 0 ? infoprofiledata[0].room_Id : location.state.roomId
 
@@ -44,9 +44,9 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
         region: REGION,
     });
 
-    const uploadImageToS3 =  (file) => {
+    const uploadImageToS3 = (file) => {
         // setImageUrl(file.name)
-        console.log(imageName,'imageName')
+        console.log(imageName, 'imageName')
         const params = {
             ACL: "public-read",
             Body: file,
@@ -67,16 +67,16 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
 
 
 
-    const ImageUploadToBackend = async(file)=>{
-        console.log(file.name,'imageName')
+    const ImageUploadToBackend = async (file) => {
+        console.log(file.name, 'imageName')
         try {
             console.log(RoomID)
             const response = await axios.post(`https://fixebuyofficial.in/room/${RoomID}/message`, {
                 "userId": userid,
                 "messageText": `${Imagehttp}${file.name}`,
-                "type":'image'
+                "type": 'image'
             })
-            console.log(response,'image')
+            console.log(response, 'image')
             if (response.data.success === true) {
                 fetchMessage(RoomID);
             }
@@ -84,12 +84,12 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
         catch (e) {
             console.log(e)
         }
-    
+
     }
 
 
     // end of connecting the s3 bucket
-    
+
     { console.log(selectedroom, '11') }
     const [message, setMessage] = useState([])
     const Token = localStorage.getItem('token');
@@ -106,30 +106,30 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
     // }, [])
     useEffect(
         () => {
-          socket.connect();
-          socket.on("connect", ()=>{
-            console.log(socket.connected,"connected")
-          });
-        },[])
+            socket.connect();
+            socket.on("connect", () => {
+                console.log(socket.connected, "connected")
+            });
+        }, [])
 
     // subscribe socket
     // useEffect(() => {
     //     // console.log(RoomID,'selectedroomajay')
-       
+
     // }, [])
     //    ye message fetch krega
     const fetchMessage = async (abc) => {
         console.log(abc, 'abc')
         const RenderMessage = []
-        await axios.get(`https://fixebuyofficial.in/room/${abc}`).then(function (response) {
+        await axios.get(`https://fixebuyofficial.in/room/${abc}?page=0&limit=1000`).then(function (response) {
             console.log(response, 'Rendermessage')
             const responsedata = response.data.conversation
             console.log(responsedata.length, 'Rendermessagelength')
             {
-                
+
                 responsedata.map((e) => {
-                    console.log('push ho rha h ',e, 'Rendermessage')
-                    RenderMessage.push({message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId,msgType:e.type})
+                    console.log('push ho rha h ', e, 'Rendermessage')
+                    RenderMessage.push({ message: e.message.messageText, msguserId: e.postedByUser, msgroomId: e.chatRoomId, msgType: e.type })
                 })
             }
         })
@@ -140,18 +140,18 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
     useEffect(() => {
         socket.emit('subscribe', RoomID)
         fetchMessage(RoomID)
-        return () =>{
-            socket.emit('unsubscribe',RoomID)
+        return () => {
+            socket.emit('unsubscribe', RoomID)
         }
-    },[RoomID])
+    }, [RoomID])
 
     useEffect(() => {
         socket.on("new message", (e) => {
             console.log(e, 'msg1')
             console.log(e.chatRoomId, '112', selectedroom, 'not')
-            console.log(RoomID,'if',e.chatRoomId);
-            if (e.chatRoomId === RoomID){
-            fetchMessage(e.chatRoomId) 
+            console.log(RoomID, 'if', e.chatRoomId);
+            if (e.chatRoomId === RoomID) {
+                fetchMessage(e.chatRoomId)
             }
             else {
                 console.log(e.chatRoomId, '113', selectedroom, 'not')
@@ -163,7 +163,7 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
     const [sendMess, setsendMess] = useState(false)
     const senMessage = async (e) => {
         const textData = document.getElementById('message').value;
-        if((textData.trim() === "")){
+        if ((textData.trim() === "")) {
             return
         } else {
             try {
@@ -182,46 +182,50 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
             document.getElementById('message').value = "";
 
         }
-        
+
     }
-    const EnterKeyPress = async(e)=>{
-        if (e.keyCode == 13 && textData !== '') {
+    const EnterKeyPress = async (e) => {
+        if (e.keyCode == 13) {
             const textData = document.getElementById('message').value;
-        
-            try {
-                const response = await axios.post(`https://fixebuyofficial.in/room/${RoomID}/message`, {
-                    "userId": userid,
-                    "messageText": textData
-                })
-                if (response.data.success === true) {
-                    fetchMessage(RoomID);
+            if (textData.trim().length !== 0) {
+
+                try {
+                    const response = await axios.post(`https://fixebuyofficial.in/room/${RoomID}/message`, {
+                        "userId": userid,
+                        "messageText": textData
+                    })
+                    if (response.data.success === true) {
+                        fetchMessage(RoomID);
+                    }
                 }
+                catch (e) {
+                    console.log(e)
+                }
+                document.getElementById('message').value = "";
             }
-            catch (e) {
-                console.log(e)
-            }
-            document.getElementById('message').value = "";
         }
-}
+    }
     const inputFile = useRef(null)
     const onButtonClick = () => {
         // `current` points to the mounted file input element
         inputFile.current.click();
     };
-   const inputImageChange = (e) =>{
-    const file = e.target.files[0];
-    console.log(e.target.files[0].name,'files[0');
-    // setImageName(file.name)
+    const inputImageChange = (e) => {
+        const file = e.target.files[0];
+        console.log(e.target.files[0].name, 'files[0');
+        // setImageName(file.name)
 
-    uploadImageToS3(file)
+        uploadImageToS3(file)
 
-   }
-    
-    
+    }
+    const BottomScroll = useRef(null);
+    useEffect(() => {
+        BottomScroll.current?.scrollIntoView();
+    }, [message])
     return (
         <>
+ 
 
-        
             <div className='row m-0'>
                 <ListAll className='NamesColumn'>
                     <div className='mt-3 px-3'>
@@ -234,56 +238,57 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
 
                     <ChatBoxDiv>
                         <ScrollDiv>
-                            {console.log(message,'imagemessage')}
-                        {
-                            message.length > 0 ?
-                            message.map((a, i) => {
-                                // console.log(a.msguserId,userid,'msguserId')
-                                console.log(a,'aaaaaaaa')
-                                console.log(a.msgroomId, 'responsedata');
-                                return (
-                                    a.msguserId === userid ?
-                                        <UserDiv>
-                                            <ArrowRight />
-                                            <UserMessage>
-                                                {
-                                                    a.msgType == 'image' ?<img style={{width:'20vw',height:"26vh"}} src={`${a.message}`} />:
-                                                  <span>{a.message}</span>
-                                                }
-                                                
-                                        </UserMessage>
-                                        </UserDiv> :
-                                        <AdminDiv>
-                                            <ArrowLeft />
-                                            <AdminMessage>
-                                                {
-                                                    a.msgType == 'image' ? <img style={{width:'26vw',height:"16vh"}} src={`${a.message}`} />:
-                                                  <span>{a.message}</span>
-                                                }
+                            {console.log(message, 'imagemessage')}
+                            {
+                                message.length > 0 ?
+                                    message.map((a, i) => {
+                                        // console.log(a.msguserId,userid,'msguserId')
+                                        console.log(a, 'aaaaaaaa')
+                                        console.log(a.msgroomId, 'responsedata');
+                                        return (
+                                            a.msguserId === userid ?
+                                                <UserDiv>
+                                                    <ArrowRight />
+                                                    <UserMessage>
+                                                        {
+                                                            a.msgType == 'image' ? <img style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
+                                                                <span>{a.message}</span>
+                                                        }
 
-                                            </AdminMessage>
-                                        </AdminDiv>
-                                )
-                            })
-                            : null
-                                    }
-                        
-                                    </ScrollDiv>
+                                                    </UserMessage>
+                                                </UserDiv> :
+                                                <AdminDiv>
+                                                    <ArrowLeft />
+                                                    <AdminMessage>
+                                                        {
+                                                            a.msgType == 'image' ? <img style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
+                                                                <span>{a.message}</span>
+                                                        }
+
+                                                    </AdminMessage>
+                                                </AdminDiv>
+                                                )
+                                            })
+                                            : null
+                                        }
+                                        <Stack h='1px' ref={BottomScroll} /> 
+
+                        </ScrollDiv>
                         <SendDiv className='d-flex'>
                             <input className='w-100 EnterMesaage' placeholder="Enter Your Message" id="message" onKeyUp={EnterKeyPress} />
                             <GalleryIcon>
-                                <input type='file' id='file'  onChange={(e) => inputImageChange(e)} ref={inputFile} style={{ display: 'none' }} />
+                                <input type='file' id='file' onChange={(e) => inputImageChange(e)} ref={inputFile} style={{ display: 'none' }} />
                                 <FaRegImage onClick={onButtonClick} />
                             </GalleryIcon>
                             <SendIcon>
                                 <AiOutlineSend onClick={senMessage} />
                             </SendIcon>
                         </SendDiv>
-                            </ChatBoxDiv>
+                    </ChatBoxDiv>
                 </ListAll>
             </div>
-           
-                                    
+
+
         </>
     )
 }
@@ -307,6 +312,7 @@ const ArrowRight = styled.div`
   height: 10px;
   top: 0;
   right: 0;
+  z-index: -1;
    margin: 0px 11px; 
   background: linear-gradient(135deg , grey  0% ,grey 50% , transparent 50% , transparent);
 //   background : #59c3f0;
@@ -410,8 +416,9 @@ const AdminDiv = styled.div`
     justify-content: left;
     position: relative;
     color: white;
+    margin-top: -1%;
     `
-    const UserDiv = styled.div`
+const UserDiv = styled.div`
 color: white;
      display :flex;
      position: relative;
@@ -461,7 +468,9 @@ const ChatBoxDiv = styled.div`
       border-radius: 5px;
       position: relative;
   }
-  
+  @media screen and (min-width: 601px) and (max-width: 900px){
+    height: 59vh;
+  }
   `
 
 const ScrollDiv = styled.div`

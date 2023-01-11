@@ -13,8 +13,8 @@ const Sell = () => {
     // console.log(ElectronicId)
     return (
         <>
-            <Header />
-            <div className="desk">
+            <div className="desk overflow-hidden">
+            <Header /> 
                 <div className="container">
 
                     <div className="page-wrapper">

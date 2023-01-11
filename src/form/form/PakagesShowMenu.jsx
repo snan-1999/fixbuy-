@@ -89,15 +89,17 @@ const PakagesShowMenu = () => {
   // }
   return (
     <>
-      <Header />
-      <div className="container my-cont border" style={{ overflow: 'hidden' }}>
+    <div className="overflow-hidden">
+    <Header />
         <div className="for-center package-form">
           <div className="container-heading package-form">
             <span>Packages</span>
           </div>
         </div>
+    </div>
+      <div className="container my-cont border" style={{ overflow: 'hidden' }}>
         <div className="Package-Heading">
-          <span><BsArrowRight /> Car ,Properties , Heavy Vehicle </span>
+          <span><BsArrowRight /> Car ,Properties , Heavy Vehicles </span>
         </div>
         <section className="pricing py-2">
           <div className="container-price">

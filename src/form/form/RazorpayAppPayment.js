@@ -9,7 +9,7 @@ function RazorpayAppPayment() {
   const fetchdata = async () => {
     const key = "rzp_test_JhV4AghQnABYIb"
     const { data: { order } } = await axios.post("https://fixebuyofficial.in/payment/checkout", {
-      amount: 500,
+      amount: price,
     })
     console.warn(order, "order dadtaa is here")
     const options = {

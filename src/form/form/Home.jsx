@@ -164,37 +164,37 @@ const Home = () => {
                     <div className="swiper-pagination"></div>
                     {/* </div> */}
                 </Swiper>
-            </div>
-            <div className="mobile-Categoryslider">
-                <CategorySlider />
-            </div>
-            {/* GeoLocation start */}
-            <div className="inline-block mr-auto">
-                {
-                    location.loaded &&
-                    JSON.stringify(location)
 
-                }
-            </div>
-            {
-                <DownloadModal Onclose={Onclose}  isOpenDownload={isOpenDownload} setisOpenDownload={setisOpenDownload} />
-            }
-            {/* Geolocation end */}
-            {/* <!-- products section */}
-
-            <div className="row m-0 p-0">
-                <div className="for-center flex-row justify-content-center align-items-center">
-
-                    <div className="col-md-12">
-                        <div className="container-heading">
-                            <span>ALL PRODUCTS</span>
-                        </div>
-                    </div>
-
+                <div className="mobile-Categoryslider">
+                    <CategorySlider />
                 </div>
+                {/* GeoLocation start */}
+                <div className="inline-block mr-auto">
+                    {
+                        location.loaded &&
+                        JSON.stringify(location)
+
+                    }
+                </div>
+                {
+                    <DownloadModal Onclose={Onclose} isOpenDownload={isOpenDownload} setisOpenDownload={setisOpenDownload} />
+                }
+                {/* Geolocation end */}
+                {/* <!-- products section */}
+
+                <div className="row m-0 p-0">
+                    <div className="for-center flex-row justify-content-center align-items-center">
+
+                        <div className="col-md-12">
+                            <div className="container-heading">
+                                <span>ALL PRODUCTS</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-
-
 
             <div className="container" id="card_box">
 

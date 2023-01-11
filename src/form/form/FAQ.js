@@ -29,7 +29,7 @@ const FAQ = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+           
             <div className="container faq-container">
 
 
@@ -91,6 +91,7 @@ const FAQ = () => {
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <Footer />
         </>

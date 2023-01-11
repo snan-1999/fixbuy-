@@ -193,7 +193,7 @@ const Footer = () => {
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    <Link to="/terms" className="text-decoration-none" style={{ color: '#37577A' }}>Term & Condition</Link>
+                                    <Link to="/terms" className="text-decoration-none" style={{ color: '#37577A' }}>Term & Conditions</Link>
                                 </ListItem>
                             </List>
                         </Stack>

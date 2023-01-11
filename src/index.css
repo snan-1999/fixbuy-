@@ -551,6 +551,8 @@ iframe.whmap {
 
 .container.faq-container {
   margin-bottom: 100px;
+  
+  padding: 35px 80px 0 80px;
 }
 
 .accordion-button:not(.collapsed) {

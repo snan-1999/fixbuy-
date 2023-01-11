@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import BottomTop from "../../functions/BottomTop";
 // import "./css/custom.css";
 // import "./css/iofrm-style.css";
 // import "../form/header.css";
@@ -6,6 +7,9 @@ import React from "react";
 
 
 const Terms = () => {
+  useEffect(() => {
+    BottomTop()
+  }, [0])
     return(
 
  <> 

@@ -23,8 +23,12 @@ export default function About() {
         <Header />
 
         <Stack className='ImgAbout'>
-                <img src={Poster2} className='AboutImg'/>
-            </Stack>
+          <div className="d-flex justify-content-center align-items-center h-100" style={{ marginBottom: '-5%' }}>
+            <div className="blog-heading">
+              <div className="setBlog">ABOUT US</div>
+            </div>
+          </div>
+        </Stack>
         <div className="container faq-container">
           <div className="about-text">
             <div className="about-main-text">
@@ -34,7 +38,7 @@ export default function About() {
 
               <div className="about-main-text-block">
                 <div className="about-heading">
-                  <div>ABOUT US</div>
+                  {/* <div>ABOUT US</div> */}
                 </div>
                 <ul>
                   <li>Fixebuy is a platform that connects two individual buyers and sellers, who want to buy and sell their used product.

@@ -13,9 +13,9 @@ import Footer from "../Footer";
 import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
 import BottomTop from "../../../functions/BottomTop";
-import Poster3 from "../../../assets/images/Poster3.jpg";
+import posterblog from "../../../assets/images/posterblog.jpg";
 
-import { Stack } from "@chakra-ui/layout";
+import { Stack, VStack } from "@chakra-ui/layout";
 const Blogs = () => {
     let MAX_LENGTH = 60;
     const [blog, setBlog] = useState([])
@@ -45,60 +45,56 @@ const Blogs = () => {
             <div className="overflow-hidden">
 
                 <Header />
-
                 <Stack className='BlogImg'>
-                    <img src={Poster3} className='blogDsk' />
-                </Stack>
-            </div>
-            <div className="container faq-container">
-                <div className="about-text" style={{ marginBottom: '-5%' }}>
-
-
-                    <div className="blog-heading">
-                        {/* <img src={facebook} alt="img" /> */}
-                        <div className="setBlog">BLOGS</div>
+                    <div className="d-flex justify-content-center align-items-center h-100" style={{ marginBottom: '-5%' }}>
+                        <div className="blog-heading">
+                            <div className="setBlog">OUR BLOGS</div>
+                        </div>
                     </div>
-                </div>
-                <div className="service">
-                    <div className="row m-2 p-0">
-                        {
+                </Stack>
+                <div className="container faq-container">
 
-                            blog?.map((data, key) => {
-                                return (
-                                    <div className="col-md-4 about-tabs" style={{ marginTop: '2%' }}>
+                    <div className="service">
+                        <div className="row m-2 p-0">
+                            {
+
+                                blog?.map((data, key) => {
+                                    return (
+                                        <div className="col-md-4 about-tabs" style={{ marginTop: '2%' }}>
 
 
-                                        <div className="main-blog-container">
-                                            <div className="blog-image">
-                                                {/* <img src={`${baseUrl}/blogs/getimage/${data.contentImage}`} alt="img" /> */}
-                                                <img src={`${ImageView}${data.contentImage}`} alt="img" />
-                                            </div>
+                                            <div className="main-blog-container">
+                                                <div className="blog-image">
+                                                    {/* <img src={`${baseUrl}/blogs/getimage/${data.contentImage}`} alt="img" /> */}
+                                                    <img src={`${ImageView}${data.contentImage}`} alt="img" />
+                                                </div>
 
-                                            <div className="blog-card-headings">
+                                                <div className="blog-card-headings">
 
-                                                <div>{data.title}</div>
+                                                    <div>{data.title}</div>
 
-                                            </div>
-                                            <div className="blog-card-date"><FontAwesomeIcon icon="fas fa-calendar-days"></FontAwesomeIcon>&nbsp;&nbsp;{new Date(data.createdAt).toDateString()}</div>
-                                            <div className="blog-content-text">
-                                                {
-                                                    (data.contentText).length > MAX_LENGTH ?
-                                                        <div dangerouslySetInnerHTML={{ __html: data.contentText.substring(0, MAX_LENGTH) }}>
-                                                            {/* {`${data.contentText.substring(0 , MAX_LENGTH)}...`} */}
-                                                        </div>
-                                                        :
-                                                        //             <div dangerouslySetInnerHTML={{ __html: text }}
-                                                        // ></div>
-                                                        <div dangerouslySetInnerHTML={{ __html: data.contentText }}></div>
-                                                }
-                                                <Link to={`/blogs/SingleBlog/${data._id}`} onClick={() => getBlog(data._id)}>Read more</Link>
+                                                </div>
+                                                <div className="blog-card-date"><FontAwesomeIcon icon="fas fa-calendar-days"></FontAwesomeIcon>&nbsp;&nbsp;{new Date(data.createdAt).toDateString()}</div>
+                                                <div className="blog-content-text">
+                                                    {
+                                                        (data.contentText).length > MAX_LENGTH ?
+                                                            <div dangerouslySetInnerHTML={{ __html: data.contentText.substring(0, MAX_LENGTH) }}>
+                                                                {/* {`${data.contentText.substring(0 , MAX_LENGTH)}...`} */}
+                                                            </div>
+                                                            :
+                                                            //             <div dangerouslySetInnerHTML={{ __html: text }}
+                                                            // ></div>
+                                                            <div dangerouslySetInnerHTML={{ __html: data.contentText }}></div>
+                                                    }
+                                                    <Link to={`/blogs/SingleBlog/${data._id}`} onClick={() => getBlog(data._id)}>Read more</Link>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                )
-                            })
-                        }
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

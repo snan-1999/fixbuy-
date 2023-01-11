@@ -263,12 +263,12 @@ const Header = () => {
         const position = window.pageYOffset;
         // setScrollPosition(position);
         // console.log(position, 'position')
-    
-        if (position > 100) { 
-            setScrollPosition(true)  
+
+        if (position > 100) {
+            setScrollPosition(true)
         } else if (position < 150) {
 
-            setScrollPosition(false) 
+            setScrollPosition(false)
         }
     };
     useEffect(() => {
@@ -411,28 +411,85 @@ const Header = () => {
                 }
                 }
             />
-              <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
+            <ShopModal Onclose={Onclose} OnOpen={OnOpen} isOpen={isOpen} setisOpen={setisOpen} Type={Type} UpdateShop={UpdateShop} gstnumber={gstnumber} setGstNumber={setGstNumber} address={address} setAddress={setAddress} />
 
             <ToastContainer />
             <div className="FullMain m-0 position-relative p-0 p-md-auto p-lg-auto">
                 {/* FOr mob */}
                 {
                     // !scrollPosition ?
-                        <div className=" d-block d-md-block d-lg-block mobnvfixedWork" >
-                            <nav className="navbar navbar-expand-lg headerr" >
-                                <div className="container-fluid">
-                                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                        {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
-                                        <i className="fas fa-bars"></i>
-                                    </button>
-                                    <div className="logo">
-                                        <Link to="/" className="navbar-brand" >
-                                            <img src={logo} alt="logo" /></Link>
+                    <div className=" d-block d-md-block d-lg-block mobnvfixedWork" >
+                        <nav className="navbar navbar-expand-lg headerr" >
+                            <div className="container-fluid">
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
+                                    <i className="fas fa-bars"></i>
+                                </button>
+                                <div className="logo">
+                                    <Link to="/" className="navbar-brand" >
+                                        <img src={logo} alt="logo" /></Link>
+                                </div>
+
+
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <div className="inline-menu">
+                                        <div className="setmnu">
+                                            <ul className="navbar-nav menu">
+                                                <li className="nav-item aa">
+                                                    <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/shop" className="nav-link">SHOP</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/about" className="nav-link">ABOUT US</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                                </li>
+                                                <li className="nav-item aa">
+                                                    <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                                </li>
+                                                <li className=" nav-item aa mob-login">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="form-inline my-2 my-lg-0 desk-version">
+                                            <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
+                                            <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0 shadow-none" id="Search" onClick={SearchBar}>Search</button></Link>
+                                        </div>
+                                        <div className="row p-0 m-0 mob-cen">
+                                            <div className="col-12 mainbutton">
+                                                <button className="btn btn-primary shadow-none" onClick={sellLog}> + SELL</button>
+                                            </div>
+                                        </div>
+
                                     </div>
 
 
+                                </div>
+
+                            </div>
+
+                        </nav>
+                        {/* mobile  nav*/}
+                        {/* <Stack display={isMobile ? 'block' : 'block'}>
+
+                            </Stack> */}
+
+
+                        <nav className="setMobBox">
+                            <div className="inline-menu1">
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent" >
+
+
                                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                                        <div className="inline-menu">
+
+
+                                        <div className="inline-menu1" style={{ display: scrollPosition ? 'none' : 'block' }}>
                                             <div className="setmnu">
                                                 <ul className="navbar-nav menu">
                                                     <li className="nav-item aa">
@@ -453,67 +510,10 @@ const Header = () => {
                                                     <li className="nav-item aa">
                                                         <Link to="/contact" className="nav-link">CONTACT US</Link>
                                                     </li>
-                                                    <li className=" nav-item aa mob-login">
+                                                    <li className="nav-item aa" onClick={profilefunction}>
+                                                        <Link to="/profile" className="nav-link" >PROFILE</Link>
                                                     </li>
-                                                </ul>
-                                            </div>
-                                            <div className="form-inline my-2 my-lg-0 desk-version">
-                                                <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
-                                                <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0 shadow-none" id="Search" onClick={SearchBar}>Search</button></Link>
-                                            </div>
-                                            <div className="row p-0 m-0 mob-cen">
-                                                <div className="col-12 mainbutton">
-                                                    <button className="btn btn-primary shadow-none" onClick={sellLog}> + SELL</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-
-                            </nav>
-                            {/* mobile  nav*/}
-                            {/* <Stack display={isMobile ? 'block' : 'block'}>
-
-                            </Stack> */}
-
-
-                            <nav className="setMobBox">
-                                <div className="inline-menu1">
-                                    <div className="collapse navbar-collapse" id="navbarSupportedContent" >
-
-
-                                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-
-
-                                            <div className="inline-menu1" style={{display : scrollPosition ? 'none' : 'block'}}>
-                                                <div className="setmnu">
-                                                    <ul className="navbar-nav menu">
-                                                        <li className="nav-item aa">
-                                                            <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
-                                                        </li>
-                                                        <li className="nav-item aa">
-                                                            <Link to="/shop" className="nav-link">SHOP</Link>
-                                                        </li>
-                                                        <li className="nav-item aa">
-                                                            <Link to="/about" className="nav-link">ABOUT US</Link>
-                                                        </li>
-                                                        <li className="nav-item aa">
-                                                            <Link to="/faq" className="nav-link">F.A.Q</Link>
-                                                        </li>
-                                                        <li className="nav-item aa">
-                                                            <Link to="/blogs" className="nav-link">BLOGS</Link>
-                                                        </li>
-                                                        <li className="nav-item aa">
-                                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                                        </li>
-                                                        <li className="nav-item aa" onClick={profilefunction}>
-                                                            <Link to="/profile" className="nav-link" >PROFILE</Link>
-                                                        </li>
-                                                        {/* {
+                                                    {/* {
                                                             (Type == "user" || Type == "shop") &&
 
                                                             <li onClick={OnOpen}>
@@ -522,33 +522,33 @@ const Header = () => {
                                                                 </li>
                                                             </li>
                                                         } */}
-                                                        <li className="nav-item aa" onClick={profilefunction}>
-                                                            <Link to='/saved-items' className="nav-link text-uppercase"> Saved Items</Link></li>
-                                                        <li className="nav-item aa" onClick={profilefunction}>
-                                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
-                                                        </li>
-                                                        <li className="nav-item aa" onClick={profilefunction}>
-                                                            <Link to="/packages/view" className="nav-link">PACKAGES</Link>
-                                                        </li>
-                                                        <li className="nav-item aa">
-                                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
-                                                        </li>
+                                                    <li className="nav-item aa" onClick={profilefunction}>
+                                                        <Link to='/saved-items' className="nav-link text-uppercase"> Saved Items</Link></li>
+                                                    <li className="nav-item aa" onClick={profilefunction}>
+                                                        <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                                    </li>
+                                                    <li className="nav-item aa" onClick={profilefunction}>
+                                                        <Link to="/packages/view" className="nav-link">PACKAGES</Link>
+                                                    </li>
+                                                    <li className="nav-item aa">
+                                                        {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
+                                                    </li>
 
-                                                    </ul>
-                                                </div>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </nav>
-                        </div>
-                        // :
-                        // <></>
+                            </div>
+                        </nav>
+                    </div>
+                    // :
+                    // <></>
                 }
                 {/* For Desktop */}
                 {
 
-                    <div className="mobnvfixedWork d-block d-md-none d-lg-none"  style={{position: 'fixed', top : 0 ,transform : scrollPosition ? 'translateY(-100%)' : 'translateY(0%)' , transition : 'all 200ms ease' , zIndex: 20} }>
+                    <div className="mobnvfixedWork d-block d-md-none d-lg-none" style={{ position: 'fixed', top: 0, transform: scrollPosition ? 'translateY(-100%)' : 'translateY(0%)', transition: 'all 200ms ease', zIndex: 20 }}>
                         <nav className="navbar navbar-expand-lg headerr" >
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -677,7 +677,7 @@ const Header = () => {
                 <div className="extraSpace">
 
                 </div>
-              
+
                 <div className="setMainHead w-100" style={{
                     position: scrollPosition ? 'fixed' : 'relative',
                     top: scrollPosition ? 0 : 'auto',
@@ -697,7 +697,7 @@ const Header = () => {
                     </div>
 
                     {/* <!-- category --> */}
-                    <div className="desk-category"  style={{transform : scrollPosition ? 'translateY(-100%)' : 'translateY(0%)' , transition : 'all 500ms ease' } }>
+                    <div className="desk-category" style={{ transform: scrollPosition ? 'translateY(-100%)' : 'translateY(0%)', transition: 'all 500ms ease' }}>
                         <div className="row m-0 p-0">
                             <div className="col  p-0">
                                 <div className="catagry ">
@@ -723,7 +723,7 @@ const Header = () => {
 
                                             <div className="disp">
                                                 <div className="drop-down">
-                                                 Pc,&nbsp;Laptops&nbsp;&&nbsp;Mobiles
+                                                    Pc,&nbsp;Laptops&nbsp;&&nbsp;Mobiles
                                                     <ul className="dropdown-category ">
                                                         <Link to="/mobiles/all/all-product" className="dropdown_sub-category" ><li className="bghover"> All</li></Link>
                                                         <Link to="/mobiles/mobiles phones" className="dropdown_sub-category "><li className="bghover">Mobile Phones</li></Link>
@@ -829,7 +829,7 @@ const Header = () => {
 
                                                 {/* <!-- end --> */}
                                             </div>
-                                            <div className="disp">
+                                            {/* <div className="disp">
                                                 <div className="drop-down">
                                                     More
                                                     <ul className="dropdown-category catagry-color">
@@ -838,10 +838,6 @@ const Header = () => {
                                                         <div className="subMenuItem " id="subItemss" >
                                                             <ul className="catagry-color">
                                                                 {ListData}
-                                                                {/* <Link to="/" className="dropdown_sub-category" ><li className="bghover">Machinery </li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Component Parts </li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Major Equipment</li></Link>
-                                                        <Link to="/" className="dropdown_sub-category" ><li className="bghover">Accessories Equipment</li></Link> */}
                                                             </ul>
                                                         </div>
 
@@ -857,7 +853,7 @@ const Header = () => {
                                                         </div>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="profiles">
 
@@ -953,7 +949,7 @@ const Header = () => {
                                         </div>
 
 
-                                      
+
                                         {/* </div> */}
                                     </div>
                                 </div>

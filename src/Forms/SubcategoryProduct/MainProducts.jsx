@@ -23,14 +23,14 @@ export default function MainProducts() {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
     const Loacation = useGeoLocation()
     console.log(Loacation, 'latitudes')
-    const ParamLocate  = useLocation()
-    console.log(ParamLocate.pathname , 'statttte')
+    const ParamLocate = useLocation()
+    console.log(ParamLocate.pathname, 'statttte')
     const Max_length = 26;
     const [AllData, setAllData] = useState([]);
     const [Loading, setLoading] = useState(false);
     const [PageNO, setPageNO] = useState(1);
     const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
-   
+
     const [NOData, setNOData] = useState(false)
     const [Diffrence, setDiffrence] = useState(null)
     const [filters, setfilters] = useState(null)
@@ -175,14 +175,14 @@ export default function MainProducts() {
         MainCategoryDataFIlterLoad()
     }, [FIlterPageNO])
     useEffect(() => {
-        if(ParamLocate !== '/automobile/all/all-product'){
+        if (ParamLocate !== '/automobile/all/all-product') {
             setFIlterPageNO(1)
             setPageNO(1)
             setAllData([])
         }
 
         MainData()
-            BottomTop()
+        BottomTop()
         console.log('run')
     }, [0, maincategory, latitude])
 
@@ -238,15 +238,12 @@ export default function MainProducts() {
                     } */}
                     {
                         NOData && <Box display='flex' justifyContent='center' mt='-10%' zIndex='-3'>
-                            {/* <Image src={NoData} alt='Dan Abramov' boxSize='80vh'/> */}
                             <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_rdjfuniz.json" background="transparent" speed="1" style={{ width: '600px', height: '600px' }} loop autoplay></lottie-player>
-                            {/* <Image src='https://lottiefiles.com/97434-no-data-available' alt='Dan Abramov' boxSize='80vh'/> */}
+
                         </Box>
                     }
                     {
-                        // .filter((value , index) => {
-                        //     if (value.price == )
-                        // })
+
                         AllData?.map((automobileProduct, key) => {
                             return (
                                 <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
@@ -260,7 +257,7 @@ export default function MainProducts() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 setMobPadingProduct">
-                                                        {
+                                                            {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
                                                                     <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
                                                                     :
@@ -307,31 +304,34 @@ export default function MainProducts() {
 
                         })
                     }
-                    <div className="row m-0 p-0 d-flex justify-content-center">
-                        {
-                            filters == 1 || filters == -1 ?
-                            
+                    {
+                        !NOData &&
+                        <div className="row m-0 p-0 d-flex justify-content-center">
+                            {
+                                filters == 1 || filters == -1 ?
 
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                        :
-                                        <img src={load} />} &nbsp;&nbsp;
-                                    Load More
-                                </ButtonCraete>
-                                :
-                                <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
-                                    {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
-                                        <span className="visually-hidden">Loading...</span>
-                                    </div>
-                                        :
-                                        <img src={load} />} &nbsp;&nbsp;
-                                    Load More
-                                </ButtonCraete>
-                        }
-                        {/* </div> */}
-                    </div>
+
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                        {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                            :
+                                            <img src={load} />} &nbsp;&nbsp;
+                                        Load More
+                                    </ButtonCraete>
+                                    :
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                        {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
+                                            <span className="visually-hidden">Loading...</span>
+                                        </div>
+                                            :
+                                            <img src={load} />} &nbsp;&nbsp;
+                                        Load More
+                                    </ButtonCraete>
+                            }
+                            {/* </div> */}
+                        </div>
+                    }
                 </div>
             </div>
             <Footer />

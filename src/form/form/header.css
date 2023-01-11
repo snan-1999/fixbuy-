@@ -1259,7 +1259,7 @@ input[type=radio] {
 .about-main-text {
     display: flex;
     align-items: center;
-    margin: 100px 0px;
+    margin: 20px 0px;
     font-weight: 500;
     /* font-size: 17px; */
 }
@@ -1769,7 +1769,7 @@ box-shadow: none;
     position: absolute;
     /*	top: 50%;
 	            left: 50%;*/
-    width: 700px;
+    width: 439px;
     height: 60px;
     border-bottom: 3px solid #37577A;
     line-height: 50px;
@@ -1960,7 +1960,7 @@ box-shadow: none;
     width: 100%;
     display: flex;
     /* justify-content: space-around; */
-    margin: 50px 0px 121px 0px;
+    margin: 120px 0px 80px 0px;
     margin-left: 0;
 }
 
@@ -1971,6 +1971,7 @@ box-shadow: none;
     border-bottom: 3px solid #37577A;
     line-height: 45px;
     overflow: hidden !important;
+    margin-left: 7% !important;
 }
 
 .container-heading-about {
@@ -2449,8 +2450,29 @@ box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
+.setBlog::after {
+    content: "";
+    position: absolute;
+    width: 12rem;
+    height: .3rem;
+    background: rgb(255, 255, 255);
+    top: 90%;
+    /* left: 43%; */
+    display: block;
+    border-radius: 50rem;
 
+}
+.setBlog {
+    position: relative;
+    /* overflow: hidden; */
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .blog-content-text {
     text-align: justify;
     margin: 1% 0%;
@@ -2485,7 +2507,7 @@ box-shadow: none;
 }
 
 .blog-heading div {
-    color: #0999d5;
+    color: white;
     text-align: center;
     font-size: 50px;
     font-weight: 600;
@@ -2725,7 +2747,7 @@ button.GoogleBtn {
 }
 
 .setBlog {
-    color: var(--color1) !important;
+   
 }
 
 .mobnvfixedWork {
@@ -2744,8 +2766,25 @@ button.GoogleBtn {
     padding: 0;
     width: 100%;
 }
+.BlogImg{
+    background: url(../../assets/images/posterblog.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    background-position: bottom -27rem center;
+    background-size: cover;
+    height: 55vh;
+    background-blend-mode: overlay;
+}
+.ImgAbout{
+    background: url(../../assets/images/aboutus.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    background-position: top -20rem center;
+    background-size: cover;
+    height: 55vh;
+    background-blend-mode: overlay;
+}
 @media screen and (max-width: 600px) {
-    
+    .container.faq-container {
+        margin-bottom: 100px;
+        padding: 30px 10px 0 10px;
+      }
     .extraSpace {
         height: 10vh !important;
     }
@@ -2954,19 +2993,41 @@ button.GoogleBtn {
         display: none;
     }
     .BlogImg{
-        background: url(../../assets/images/Poster3Bike.jpg);
+        background: url(../../assets/images/posterblog.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+        background-blend-mode: overlay;
         background-position: center;
         background-size: cover;
-        height: 50vh;
+        height: 35vh;
 
     }
     .ImgAbout{
-        background: url(../../assets/images/Poster2Mobile.jpg);
+        background: url(../../assets/images/aboutus.jpg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+        background-blend-mode: overlay;
         background-position: center;
         background-size: cover;
-        height: 50vh;
+        height: 35vh;
 
     }
+    .blog-heading div {
+      
+        font-size: 40px;
+        font-weight: 600;
+        font-family: sans-serif !important;
+        margin-left: 2%;
+    }
+    .setBlog::after {
+        content: "";
+        position: absolute;
+        width: 10rem;
+        height: .3rem;
+        background: rgb(255, 255, 255);
+        top: 92%;
+        /* left: 43%; */
+        display: block;
+        border-radius: 50rem;
+    
+    }
+  
     
     /* header */
     .navbar>.container,
@@ -3311,7 +3372,7 @@ button.GoogleBtn {
     /* contact */
     .container-heading-contact {
         position: absolute;
-        width: 314px !important;
+        width: 191px !important;
         height: 50px !important;
         border-bottom: 3px solid #37577A;
         line-height: 50px;

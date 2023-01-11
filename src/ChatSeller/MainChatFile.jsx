@@ -13,6 +13,7 @@ import { useLocation } from 'react-router-dom'
 import { ImageView } from '../functions/constant'
 import axios from 'axios'
 import Scrollbars from 'react-custom-scrollbars'
+import BottomTop from '../functions/BottomTop'
 export default function MainChatFile() {
     const [allactiveuser, setAllActiveUser] = useState([])
     const [infoprofiledata, setInfoProfileData] = useState([])
@@ -75,96 +76,92 @@ export default function MainChatFile() {
     const inputFile = useRef(null)
 
     const onButtonClick = () => {
-
-
-        // `current` points to the mounted file input element
         inputFile.current.click();
     };
 
-    // allactiveuser.filter((e)=>{
-    // })
+    useEffect(() => {
+        BottomTop()
+    }, [0])
+
 
     return (
         <>
 
 
-
-            <Header />
-
-            <div class="containers deskChat">
-
-                <div class="page-wrapper">
-
-                    <div class="page-content">
-                        <ChatMain className="ChatMain d-flex">
-                            <div className='row m-0'>
-                                <ListAll className='NamesColumn overflow-hidden'>
-                                    <div className='mt-3 px-3'>
-                                        <span className='chatheading'>CHATS</span>
-                                    </div>
-
-                                    <div className='d-flex justify-content-evenly text-center mt-4 sellerBuyer'>
-
-                                        {
-                                            ["Seller", "Buyer"].map((values, i) => {
-                                                return (
-                                                    <TabButton active={active == i} className='seller' onClick={() =>{ setActive(i); setactivechat(0)}}>{values}</TabButton>
-                                                )
-                                            })
-                                        }
-
-                                    </div>
-
-                                    <div className='mt-3'>
-                                        <ScrollDiv>
-                                            {/* <div className='NameImageGap'> */}
-                                            <ul class="list-group list-group-flush">
-
-                                                {
-                                                    allactiveuser.length > 0 ?
-                                                        active === 0 ? SellerUser.map((i, index) => {
-                                                            { console.log(index, 'index') }
-                                                            { console.log(i, 'sellername') }
-                                                            { console.log(i[0].name, 'sellername') }
-                                                            // console.log(i[0], 'i is here ')
-                                                            return (
-                                                                
-                                                                <ChatColor activechat={activechat == index} onClick={() => setactivechat(index)}>
-                                                                    <li style={{ cursor: "pointer" , border:"none" , borderBottom:"1px solid lightgrey" }} activechat={activechat == index} class="list-group-item mt-2 " >
-                                                                        <img src={`${ImageView}${i[0].image}`} style={{ width: '15%', height: '15%', borderRadius: "50%" }} />
-                                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span className="tabChatHead" onClick={() => { handleUserChat(i); }}>{i[0].name}</span>
-                                                                    </li>
-                                                                </ChatColor>
-                                                            )
-                                                        }) : BuyerUser.map((i, index) => {
-                                                            { console.log(i[0], 'iiiiiiiiii[0]') }
-                                                            { console.log(i[0].name, 'nmae') }
-                                                            console.log(i[0], 'i is here ')
-                                                            return (
-                                                                <ChatColor activechat={activechat == index} onClick={() => setactivechat(index)}>
-                                                                    <li class="list-group-item mt-2" style={{ cursor: "pointer" , border:"none" , borderBottom:"1px solid lightgrey" }}>
-                                                                        <img src={`${ImageView}${i[0].image}`} style={{ width: '15%', height: '15%', borderRadius: "50%" }} />
-                                                                        &nbsp;&nbsp;&nbsp;&nbsp;<span className='tabChatHead' activechat={activechat == index} onClick={() => { handleUserChat(i)}}>{i[0].name}</span>
-
-                                                                    </li>
-                                                                </ChatColor>
-                                                            )
-                                                        }) : null
-                                                }
-                                            </ul>
-                                            {/* </div> */}
-                                        </ScrollDiv>
-                                    </div>
-                                </ListAll>
-                            </div>
-                            {
-                                location.state === null && infoprofiledata.length == 0 ? <div className='demomessage'>Connect with us through chat</div> : <MessageScreen infoprofiledata={infoprofiledata} location={location} selectedroom={selectedroom} />
-                            }
+            <div className="row m-0 p-0 overflow-hidden" >
 
 
 
-                        </ChatMain>
-                    </div>
+                <Header />
+                <div class="containers deskChat">
+                    <ChatMain className="ChatMain d-flex">
+                        <div className='row m-0 p-0'>
+                            <ListAll className='NamesColumn overflow-hidden'>
+                                <div className='mt-3 px-3'>
+                                    <span className='chatheading'>CHATS</span>
+                                </div>
+
+                                <div className='d-flex justify-content-evenly text-center mt-4 sellerBuyer'>
+
+                                    {
+                                        ["Seller", "Buyer"].map((values, i) => {
+                                            return (
+                                                <TabButton active={active == i} className='seller' onClick={() => { setActive(i); setactivechat(0) }}>{values}</TabButton>
+                                            )
+                                        })
+                                    }
+
+                                </div>
+
+                                <div className='mt-3'>
+                                    <ScrollDiv>
+                                        {/* <div className='NameImageGap'> */}
+                                        <ul class="list-group list-group-flush">
+
+                                            {
+                                                allactiveuser.length > 0 ?
+                                                    active === 0 ? SellerUser.map((i, index) => {
+                                                        { console.log(index, 'index') }
+                                                        { console.log(i, 'sellername') }
+                                                        { console.log(i[0].name, 'sellername') }
+                                                        // console.log(i[0], 'i is here ')
+                                                        return (
+
+                                                            <ChatColor activechat={activechat == index} onClick={() => { setactivechat(index); handleUserChat(i) }}>
+                                                                <li style={{ cursor: "pointer", border: "none", borderBottom: "1px solid lightgrey" }} activechat={activechat == index} class="list-group-item mt-2 " >
+                                                                    <img src={`${ImageView}${i[0].image}`} style={{ width: '3vw', height: '6vh', borderRadius: "50%" }} />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;<span className="tabChatHead" onClick={() => { handleUserChat(i); }}>{i[0].name}</span>
+                                                                </li>
+                                                            </ChatColor>
+                                                        )
+                                                    }) : BuyerUser.map((i, index) => {
+                                                        { console.log(i[0], 'iiiiiiiiii[0]') }
+                                                        { console.log(i[0].name, 'nmae') }
+                                                        console.log(i[0], 'i is here ')
+                                                        return (
+                                                            <ChatColor activechat={activechat == index} onClick={() => { setactivechat(index); handleUserChat(i) }}>
+                                                                <li class="list-group-item mt-2" style={{ cursor: "pointer", border: "none", borderBottom: "1px solid lightgrey" }}>
+                                                                    <img src={`${ImageView}${i[0].image}`} style={{ width: '3vw', height: '6vh', borderRadius: "50%" }} />
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;<span className='tabChatHead' activechat={activechat == index} onClick={() => { handleUserChat(i) }}>{i[0].name}</span>
+
+                                                                </li>
+                                                            </ChatColor>
+                                                        )
+                                                    }) : null
+                                            }
+                                        </ul>
+                                        {/* </div> */}
+                                    </ScrollDiv>
+                                </div>
+                            </ListAll>
+                        </div>
+                        {
+                            location.state === null && infoprofiledata.length == 0 ? <div className='demomessage'>Connect with us through chat</div> : <MessageScreen infoprofiledata={infoprofiledata} location={location} selectedroom={selectedroom} />
+                        }
+
+
+
+                    </ChatMain>
                 </div>
             </div>
             <div className='mobViewChat'>
@@ -309,6 +306,7 @@ color: white;
      justify-content: right;
 `
 const ChatMain = styled.div`
+position: relative !important;
   margin: 10px 20px;
   box-shadow: 1px 1px 10px #8080807a;
   height: 76vh;
@@ -408,5 +406,10 @@ const ScrollDiv = styled.div`
 height : 45vh;
 // border: 1px solid grey;
 overflow : scroll;
-
+@media screen and (min-width: 601px) and (max-width: 900px){
+    
+        height: 600px;
+        overflow: auto;
+    
+}
 `
