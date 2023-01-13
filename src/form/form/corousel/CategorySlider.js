@@ -9,6 +9,8 @@ import fridge from '../../../assets/images/fridge.png';
 import laptop from '../../../assets/images/laptop.png';
 import fashion from '../../../assets/images/fashion.png';
 import services1 from '../../../assets/images/services1.png';
+import ev from '../../../assets/images/ev.png';
+import goods from '../../../assets/images/goods.png';
 import AllCategoryModal from '../Modals/AllCategoryModal';
 import { Link } from 'react-router-dom';
 
@@ -264,6 +266,50 @@ const CategorySlider = () => {
       to: '/properties/land & plots'
     },
   ]
+  const EV = [
+    {
+      name: 'All',
+      to: "/ev-battery/all/all-product"
+    },
+    {
+      name: 'Lithium-ion battery',
+      to: '/ev-battery/lithium-ion-battery'
+    },
+    {
+      name: 'Sli batteries',
+      to: '/ev-battery/sli-batteries'
+    },
+    {
+      name: 'Hydride battery',
+      to: '/ev-battery/hydride-battery'
+    },
+    {
+      name: 'Silver calcium battery',
+      to: '/ev-battery/silver-calcium-battery'
+    },
+  ]
+  const Goods = [
+    {
+      name: 'All',
+      to: "/industrial-goods/all/all-product"
+    },
+    {
+      name: 'Machinery',
+      to: '/industrial-goods/machinery'
+    },
+    {
+      name: 'Component Parts',
+      to: '/industrial-goods/component-parts'
+    },
+    {
+      name: 'Major Equipment',
+      to: '/industrial-goods/major-equipment'
+    },
+    {
+      name: 'Accessories Equipment',
+      to: '/industrial-goods/accessories-equipment'
+    },
+  ]
 
   const [isOpen, setisOpen] = useState(false)
   const [subcategory, setSubCategory] = useState([]);
@@ -294,42 +340,50 @@ const CategorySlider = () => {
         
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Automobile) }}>
           <img src={car} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>AUTOMOBILE</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>AUTOMOBILE</p>
         </Item>
         
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(books_sports) }} >
           <img src={books} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>BOOKS & <br />SPORTS</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>BOOKS & <br />SPORTS</p>
         </Item>
 
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Laptop) }}>
           <img src={laptop} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>PC, LAPTOP &<br /> MOBILES</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>PC, LAPTOP &<br /> MOBILES</p>
         </Item>
 
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Furniture)  }}>
           <img src={furniture} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>FURNITURE</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>FURNITURE</p>
         </Item>
 
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Properties) }}>
           <img src={properties} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>PROPERTIES</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>PROPERTIES</p>
         </Item>
 
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Electronics) }}>
           <img src={fridge} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>ELECTRONICS & APPLIANCES</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>ELECTRONICS & APPLIANCES</p>
         </Item>
 
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Fashion) }}>
           <img src={fashion} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>FASHION & <br />CLOTHES</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>FASHION & <br />CLOTHES</p>
         </Item>
         
         <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(services) }}>
           <img src={services1} className='sliderClass' />
-          <p style={{ color: "#5A5A5A", fontSize: "12px" }}>SERVICES</p>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>SERVICES</p>
+        </Item>
+        <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(EV) }}>
+          <img src={ev} className='fs-1 ' style={{height : '14vh'}}/>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>EV BATTERY</p>
+        </Item>
+        <Item className='category-slide' onClick={() => { setisOpen(true); setSubCategory(Goods) }}>
+          <img src={goods} className='sliderClass'  style={{height : '14vh'}}/>
+          <p style={{ color: "#5A5A5A", fontSize: "11px" }}>INDUSTRIAL GOODS</p>
         </Item>
       </Carousel>
 

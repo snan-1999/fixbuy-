@@ -97,7 +97,7 @@ button.navbar-toggler {
 
 .drop-down {
   color: white;
-  font-size: 13px !important;
+  font-size: 12px !important;
   font-weight: 100;
   width: 100%;
   margin-top: 2px;
@@ -915,7 +915,7 @@ a.btn.color-btn.text-decoration-none.view-more-btn {
 
 .last-text-about-us {
   margin-top: 88px;
-  border: 7px solid #0999d5a1;
+  border: 7px solid var(--color1);
   padding: 20px 50px;
   border-bottom-left-radius: 38px;
   border-top-width: 0px;

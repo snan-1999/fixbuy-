@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/custom.css";
 import "./css/iofrm-style.css";
 import "../form/header.css";
@@ -258,18 +258,18 @@ const Header = () => {
 
     }
     const [isMobile] = useMediaQuery("(max-width : 600px)");
-    const [scrollPosition, setScrollPosition] = useState(true);
+    const [scrollPosition, setScrollPosition] = useState(false);
     const handleScroll = () => {
         const position = window.pageYOffset;
         // setScrollPosition(position);
         // console.log(position, 'position')
 
-        // if (position > 100) {
-        //     setScrollPosition(true)
-        // } else if (position < 150) {
+        if (position > 100) {
+            setScrollPosition(true)
+        } else if (position < 150) {
 
-        //     setScrollPosition(false)
-        // }
+            setScrollPosition(false)
+        }
     };
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -278,156 +278,114 @@ const Header = () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    var lastScrollTop = 0;
-
-    // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
-    useEffect(() => {
-
-        window.addEventListener("scroll", function () { // or window.addEventListener("scroll"....
-            var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-            if (st > lastScrollTop) {
-                // console.log('Down', 'scrolling')
-                setScrollPosition(true)
-            } else {
-                setScrollPosition(false)
-                // console.log('Up', 'scrolling')
-                // upscroll code
-            }
-
-            // console.log(document.documentElement.scrollTop, 'scrollinsg')
-        });
-    }, [scrollPosition])
-    const [y, setY] = useState(window.scrollY);
-    const handleNavigation = useCallback(
-        (e) => {
-            const window = e.currentTarget;
-            if (y > window.scrollY) {
-                console.log("scrolling up", "scrollinsg");
-                setScrollPosition(true)
-            } else if (y < window.scrollY) {
-                console.log("scrolling down", "scrollinsg");
-                setScrollPosition(false)
-            }
-            setY(window.scrollY);
-        },
-        [y]
-    );
-    useEffect(() => {
-        setY(window.scrollY);
-        window.addEventListener("scroll", handleNavigation);
-
-        return () => {
-            window.removeEventListener("scroll", handleNavigation);
-        };
-    }, [handleNavigation]);
     const DeleteData = () => {
         //   setDelId(id)
-
-        //    if( window.scrollTo('10px',"10px")){
-        //         alert(true)
-        //     } 
-        // let scrollHeight = Math.max(
-        //     document.body.scrollHeight, document.documentElement.scrollHeight,
-        //     document.body.offsetHeight, document.documentElement.offsetHeight,
-        //     document.body.clientHeight, document.documentElement.clientHeight
-        // );
-        // console.log(window.pageYOffset, 'scrollHeight')
-        // const [NavHideShow, setNavHideShow] = useState(false)
-        // console.log(document.body.scrollTop, 'fjfj')
-        // const listenToScroll = () => {
-
-        //     console.log(document.documentElement.scrollTop, 'fjfj')
-        //     if(document.documentElement.scrollTop > 20){
-        //         setNavHideShow(true)  
-        //         console.log('yesss')
-        //     }else{
-        //         setNavHideShow(false)  
-        //         console.log('yess1')
-        //     }
-        // }
-        // useEffect(() => {
-
-        //     window.addEventListener("scroll", listenToScroll);
-
-        // }, [])
-
-        // useEffect(() => {
-
-        // }, [document.documentElement.scrollTop])
-
-        // useEffect(() => { 
-
-        //     if (window.pageYOffset == 100) {
-        //         setNavHideShow(true)
-
-        //     } else { 
-        //         setNavHideShow(false)
-
-        //     }
-        // } , [window.pageYOffset])
-
-        // const[sellerid,setSellerid] = useState(null)
-        // const Token = localStorage.getItem('token');
-        // var userid;
-        // if(Token){
-        //  userid=JSON.parse(Token).token
-        // } 
-        // const [TokenID, setTokenID] = useState({
-        //     'ID': JSON.parse(Token)?.token,
-        //     'Name': JSON.parse(Token)?.name,
-        //     'Email': JSON.parse(Token)?.email,
-        //     'Phone': JSON.parse(Token)?.phone,
-        // })
-        // const ChatSeller = async() => {
-        //     if (Token === null) {
-        //         nav('/login')
-        //     } else {
-
-
-        //         const api =` ${baseUrl}/room/initiate`;
-        //         // console.log(chatRoomId,'chatRoomId')
-
-        //     try{
-        //         console.log(TokenID.ID,sellerid,'sellerid')
-        //         //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
-        //         const response = await axios.post(api,{
-        //             "users" : [{"userId":userid,"userType":"buyer"},{"userId":sellerid,"userType":"seller"}],
-        //             "type" : 'consumer-to-consumer'
-        //         })
-        //         const chatRoomId = response.data.chatRoom.chatRoomId;
-        //         // console.log("9999",response.data.chatRoom.chatRoomId)
-        //         // console.log(response,'room')
-        //         // console.log(response.data.success,'success')
-        //         if(response.data.success ===  true){
-        //             try{
-        //                 const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
-        //                 console.log(dataresponse,'dataresponse')
-        //                 // console.log(dataresponse.data.users,'44555')
-        //                 const filterdataofuser = dataresponse.data.users.filter((i)=>{
-        //                          return i._id !== TokenID.ID
-        //                 })
-        //                 console.log(filterdataofuser,'filter')
-        //                 // alert(chatRoomId)
-        //                 console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
-        //                 nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
-        //                 image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
-
-        //             }
-        //             catch(e){
-        //                 console.log(e,'room')
-
-        //             }
-        //         }
-
-        //     }
-        //     catch(e){
-        //         console.log(e)
-
-        //     }
-        // }
-
-        //     }
     }
+    //    if( window.scrollTo('10px',"10px")){
+    //         alert(true)
+    //     } 
+    // let scrollHeight = Math.max(
+    //     document.body.scrollHeight, document.documentElement.scrollHeight,
+    //     document.body.offsetHeight, document.documentElement.offsetHeight,
+    //     document.body.clientHeight, document.documentElement.clientHeight
+    // );
+    // console.log(window.pageYOffset, 'scrollHeight')
+    // const [NavHideShow, setNavHideShow] = useState(false)
+    // console.log(document.body.scrollTop, 'fjfj')
+    // const listenToScroll = () => {
+
+    //     console.log(document.documentElement.scrollTop, 'fjfj')
+    //     if(document.documentElement.scrollTop > 20){
+    //         setNavHideShow(true)  
+    //         console.log('yesss')
+    //     }else{
+    //         setNavHideShow(false)  
+    //         console.log('yess1')
+    //     }
+    // }
+    // useEffect(() => {
+
+    //     window.addEventListener("scroll", listenToScroll);
+
+    // }, [])
+
+    // useEffect(() => {
+
+    // }, [document.documentElement.scrollTop])
+
+    // useEffect(() => { 
+
+    //     if (window.pageYOffset == 100) {
+    //         setNavHideShow(true)
+
+    //     } else { 
+    //         setNavHideShow(false)
+
+    //     }
+    // } , [window.pageYOffset])
+
+    // const[sellerid,setSellerid] = useState(null)
+    // const Token = localStorage.getItem('token');
+    // var userid;
+    // if(Token){
+    //  userid=JSON.parse(Token).token
+    // } 
+    // const [TokenID, setTokenID] = useState({
+    //     'ID': JSON.parse(Token)?.token,
+    //     'Name': JSON.parse(Token)?.name,
+    //     'Email': JSON.parse(Token)?.email,
+    //     'Phone': JSON.parse(Token)?.phone,
+    // })
+    // const ChatSeller = async() => {
+    //     if (Token === null) {
+    //         nav('/login')
+    //     } else {
+
+
+    //         const api =` ${baseUrl}/room/initiate`;
+    //         // console.log(chatRoomId,'chatRoomId')
+
+    //     try{
+    //         console.log(TokenID.ID,sellerid,'sellerid')
+    //         //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
+    //         const response = await axios.post(api,{
+    //             "users" : [{"userId":userid,"userType":"buyer"},{"userId":sellerid,"userType":"seller"}],
+    //             "type" : 'consumer-to-consumer'
+    //         })
+    //         const chatRoomId = response.data.chatRoom.chatRoomId;
+    //         // console.log("9999",response.data.chatRoom.chatRoomId)
+    //         // console.log(response,'room')
+    //         // console.log(response.data.success,'success')
+    //         if(response.data.success ===  true){
+    //             try{
+    //                 const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
+    //                 console.log(dataresponse,'dataresponse')
+    //                 // console.log(dataresponse.data.users,'44555')
+    //                 const filterdataofuser = dataresponse.data.users.filter((i)=>{
+    //                          return i._id !== TokenID.ID
+    //                 })
+    //                 console.log(filterdataofuser,'filter')
+    //                 // alert(chatRoomId)
+    //                 console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
+    //                 nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
+    //                 image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
+
+    //             }
+    //             catch(e){
+    //                 console.log(e,'room')
+
+    //             }
+    //         }
+
+    //     }
+    //     catch(e){
+    //         console.log(e)
+
+    //     }
+    // }
+
+    //     }
+
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
@@ -461,15 +419,7 @@ const Header = () => {
                 {
                     // !scrollPosition ?
                     <div className=" d-block d-md-block d-lg-block mobnvfixedWork" >
-                        <nav className="navbar navbar-expand-lg headerr" style={{
-                            width: '100%',
-                            // display: isMobile && !scrollPosition ? "none" : "block",
-                            transform: isMobile && !scrollPosition ? 'translateY(-200%)' : 'translateY(0%)',
-                            transition: 'all 400ms ease',
-                            position: scrollPosition ? 'fixed' : 'relative',
-                            top: scrollPosition ? 0 : 0,
-                            zIndex: isMobile && scrollPosition ? 11 : 2,
-                        }}>
+                        <nav className="navbar navbar-expand-lg headerr" >
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
@@ -530,8 +480,8 @@ const Header = () => {
 
                             </Stack> */}
 
-                        {/* style={{ display: scrollPosition ? "none" : "block" }}  */}
-                        <nav className="setMobBox" id="check">
+
+                        <nav className="setMobBox">
                             <div className="inline-menu1">
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent" >
 
@@ -539,7 +489,7 @@ const Header = () => {
                                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-                                        <div className="inline-menu1" style={{ display: !scrollPosition ? 'none' : 'block', zIndex: scrollPosition ? 1 : 100 }}>
+                                        <div className="inline-menu1" style={{ display: scrollPosition ? 'none' : 'block' }}>
                                             <div className="setmnu">
                                                 <ul className="navbar-nav menu">
                                                     <li className="nav-item aa">
@@ -563,7 +513,15 @@ const Header = () => {
                                                     <li className="nav-item aa" onClick={profilefunction}>
                                                         <Link to="/profile" className="nav-link" >PROFILE</Link>
                                                     </li>
+                                                    {/* {
+                                                            (Type == "user" || Type == "shop") &&
 
+                                                            <li onClick={OnOpen}>
+                                                                <li className="nav-item aa">
+                                                                    <Link to="/shop" className="nav-link">SHOP</Link>
+                                                                </li>
+                                                            </li>
+                                                        } */}
                                                     <li className="nav-item aa" onClick={profilefunction}>
                                                         <Link to='/saved-items' className="nav-link text-uppercase"> Saved Items</Link></li>
                                                     <li className="nav-item aa" onClick={profilefunction}>
@@ -590,11 +548,11 @@ const Header = () => {
                 {/* For Desktop */}
                 {
 
-                    <div className="mobnvfixedWork d-block d-md-none d-lg-none" style={{ position: 'fixed', top: 0, transform: scrollPosition ? 'translateY(-200%)' : 'translateY(0%)', transition: 'all 200ms ease', zIndex: 20 }}>
-                        {/* <nav className="navbar navbar-expand-lg headerr" >
+                    <div className="mobnvfixedWork d-block d-md-none d-lg-none" style={{ position: 'fixed', top: 0, transform: scrollPosition ? 'translateY(-100%)' : 'translateY(0%)', transition: 'all 200ms ease', zIndex: 20 }}>
+                        <nav className="navbar navbar-expand-lg headerr" >
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                 
+                                    {/* <!-- <span className="navbar-toggler-icon"></span> --> */}
                                     <i className="fas fa-bars"></i>
                                 </button>
                                 <div className="logo">
@@ -646,7 +604,7 @@ const Header = () => {
 
                             </div>
 
-                        </nav> */}
+                        </nav>
                         {/* mobile  nav*/}
                         {/* <Stack display={isMobile ? 'block' : 'block'}>
 
@@ -654,64 +612,64 @@ const Header = () => {
 
 
                         <nav>
-                            {/* <div className="inline-menu1">
+                            <div className="inline-menu1">
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent" >
 
 
-                                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    {/* <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
 
-                                        <div className="inline-menu1">
-                                            <div className="setmnu">
-                                                <ul className="navbar-nav menu">
-                                                    <li className="nav-item aa">
-                                                        <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
-                                                    </li>
-                                                    <li className="nav-item aa">
-                                                        <Link to="/shop" className="nav-link">SHOP</Link>
-                                                    </li>
-                                                    <li className="nav-item aa">
-                                                        <Link to="/about" className="nav-link">ABOUT US</Link>
-                                                    </li>
-                                                    <li className="nav-item aa">
-                                                        <Link to="/faq" className="nav-link">F.A.Q</Link>
-                                                    </li>
-                                                    <li className="nav-item aa">
-                                                        <Link to="/blogs" className="nav-link">BLOGS</Link>
-                                                    </li>
-                                                    <li className="nav-item aa">
-                                                        <Link to="/contact" className="nav-link">CONTACT US</Link>
-                                                    </li>
-                                                    <li className="nav-item aa" onClick={profilefunction}>
-                                                        <Link to="/profile" className="nav-link" >PROFILE</Link>
-                                                    </li>
-                                                    {
-                                                        (Type == "user" || Type == "shop") &&
-
-                                                        <li onClick={OnOpen}>
-                                                            <li className="nav-item aa">
-                                                                <Link to="/shop" className="nav-link">SHOP</Link>
-                                                            </li>
+                                            <div className="inline-menu1">
+                                                <div className="setmnu">
+                                                    <ul className="navbar-nav menu">
+                                                        <li className="nav-item aa">
+                                                            <Link to="/" className="nav-link active" aria-current="page">HOME</Link>
                                                         </li>
-                                                    }
-                                                    <li className="nav-item aa" onClick={profilefunction}>
-                                                        <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
-                                                    <li className="nav-item aa" onClick={profilefunction}>
-                                                        <Link to="/posteditems" className="nav-link">MY ADS</Link>
-                                                    </li>
-                                                    <li className="nav-item aa" onClick={profilefunction}>
-                                                        <Link to="/packages/view" className="nav-link">PACKAGES</Link>
-                                                    </li>
-                                                    <li className="nav-item aa">
-                                                        {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
-                                                    </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/shop" className="nav-link">SHOP</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/about" className="nav-link">ABOUT US</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/faq" className="nav-link">F.A.Q</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/blogs" className="nav-link">BLOGS</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            <Link to="/contact" className="nav-link">CONTACT US</Link>
+                                                        </li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/profile" className="nav-link" >PROFILE</Link>
+                                                        </li>
+                                                        {
+                                                            (Type == "user" || Type == "shop") &&
 
-                                                </ul>
+                                                            <li onClick={OnOpen}>
+                                                                <li className="nav-item aa">
+                                                                    <Link to="/shop" className="nav-link">SHOP</Link>
+                                                                </li>
+                                                            </li>
+                                                        }
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to='/saved-items' className="nav-link"> Saved Items</Link></li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/posteditems" className="nav-link">MY ADS</Link>
+                                                        </li>
+                                                        <li className="nav-item aa" onClick={profilefunction}>
+                                                            <Link to="/packages/view" className="nav-link">PACKAGES</Link>
+                                                        </li>
+                                                        <li className="nav-item aa">
+                                                            {LocalData ? <div onClick={MOdalOpenFunLogout}>LOGOUT</div> : <Link to="/login" className="text-decoration-none">LOGIN/SIGNUP</Link>}
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> */}
                                 </div>
-                            </div> */}
+                            </div>
                         </nav>
                     </div>
 
@@ -721,18 +679,14 @@ const Header = () => {
                 </div>
 
                 <div className="setMainHead w-100" style={{
-                    // position: scrollPosition ? 'fixed' : 'relative',
+                    position: scrollPosition ? 'fixed' : 'relative',
                     top: scrollPosition ? 0 : 'auto',
-                    // zIndex: isMobile && scrollPosition ? 10 : 2,
+                    zIndex: isMobile && scrollPosition ? 10 : 2,
                     display: 'flex',
-                    // height: scrollPosition && '11vh'
+                    height: scrollPosition && '11vh'
                 }}>
                     {/* mobile  nav end*/}
-                    <div className="mob-version search-box col-12" style={{
-                        position: scrollPosition ? 'fixed' : 'fixed',
-                        top: scrollPosition ? '10%' : '0',
-                        zIndex: isMobile && scrollPosition ? 10 : 2,
-                    }}>
+                    <div className="mob-version search-box col-12" >
                         <div className="form-inline my-2 my-lg-0" >
                             <div className="mob-search">
                                 <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
@@ -743,14 +697,14 @@ const Header = () => {
                     </div>
 
                     {/* <!-- category --> */}
-                    <div className="desk-category" style={{ transform: !scrollPosition ? 'translateY(-100%)' : 'translateY(0%)', transition: 'all 500ms ease' }}>
+                    <div className="desk-category" style={{ transform: scrollPosition ? 'translateY(-100%)' : 'translateY(0%)', transition: 'all 500ms ease' }}>
                         <div className="row m-0 p-0">
                             <div className="col  p-0">
                                 <div className="catagry ">
 
                                     {/* <div className="row catagry-color p-0 m-0"> */}
                                     <div className="category-section">
-                                        <div className="d-flex gap-2">
+                                        <div className="d-flex gap-3">
                                             {/* <div className="disp catagry-color"><FontAwesomeIcon icon="fas fa-grip-lines"></FontAwesomeIcon>&nbsp;&nbsp;<Link to="/product">ALL</Link></div> */}
                                             <div className=" disp">
                                                 <div className="drop-down">
@@ -875,7 +829,7 @@ const Header = () => {
 
                                                 {/* <!-- end --> */}
                                             </div>
-                                            <div className="disp">
+                                            {/* <div className="disp">
                                                 <div className="drop-down">
                                                     More
                                                     <ul className="dropdown-category catagry-color">
@@ -899,9 +853,9 @@ const Header = () => {
                                                         </div>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
-                                        <div className="profiles" style={{ display: !scrollPosition ? 'none' : 'block' }}>
+                                        <div className="profiles">
 
 
 

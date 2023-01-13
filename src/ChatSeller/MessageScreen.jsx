@@ -248,20 +248,20 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
                                         return (
                                             a.msguserId === userid ?
                                                 <UserDiv>
-                                                    <ArrowRight />
+                                                
                                                     <UserMessage>
                                                         {
-                                                            a.msgType == 'image' ? <img style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
+                                                            a.msgType == 'image' ? <img className='chatImage' style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
                                                                 <span>{a.message}</span>
                                                         }
 
                                                     </UserMessage>
                                                 </UserDiv> :
                                                 <AdminDiv>
-                                                    <ArrowLeft />
+                                                    
                                                     <AdminMessage>
                                                         {
-                                                            a.msgType == 'image' ? <img style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
+                                                            a.msgType == 'image' ? <img className='chatImage' style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
                                                                 <span>{a.message}</span>
                                                         }
 
@@ -292,31 +292,30 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
         </>
     )
 }
-const ArrowLeft = styled.div`
-      content: " ";
-  position: absolute;
-  /* border: 1px solid red; */
-  width: 20px;
-  height: 18px;
-  top: 1%; 
-  left: -7px;
-  margin: 10px 17px;
-  background: linear-gradient(230deg ,#345276  50% ,#497993 50% , transparent 50% , transparent);
-// background : #59c3f0;
-`
-const ArrowRight = styled.div`
-      content: " ";
-  position: absolute;
-  /* border: 1px solid red; */
-  width: 20px;
-  height: 10px;
-  top: 0;
-  right: 0;
-  z-index: -1;
-   margin: 0px 11px; 
-  background: linear-gradient(135deg , grey  0% ,grey 50% , transparent 50% , transparent);
-//   background : #59c3f0;
-`
+// const ArrowLeft = styled.div`
+//       content: " ";
+//   position: absolute;
+//   /* border: 1px solid red; */
+//   width: 20px;
+//   height: 18px;
+//   top: 1%; 
+//   left: -7px;
+//   margin: 10px 17px;
+//   background: linear-gradient(230deg ,#345276  50% ,#497993 50% , transparent 50% , transparent);
+
+// `
+// const ArrowRight = styled.div`
+//       content: " ";
+//   position: absolute;
+//   width: 20px;
+//   height: 10px;
+//   top: 0;
+//   right: 0;
+//   z-index: -1;
+//    margin: 0px 11px; 
+//   background: linear-gradient(135deg , grey  0% ,grey 50% , transparent 50% , transparent);
+
+// `
 const UserMessage = styled.div`
      background-color: grey;
     width: auto;
@@ -333,7 +332,7 @@ const AdminMessage = styled.div`
  width: auto;
  max-width: 35%;
  margin:10px 20px; 
- padding: 5px 10px 5px 10px; 
+ padding: 5px ; 
  border-radius: 15px;
  font-size: 0.9rem;
  /* &::before{

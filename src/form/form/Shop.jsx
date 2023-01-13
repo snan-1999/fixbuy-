@@ -18,6 +18,7 @@ import { FaHeart } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import useGeoLocation from '../../hooks/useGeoLoaction'
 import BottomTop from '../../functions/BottomTop'
+import HeaderNew from './header'
 export default function Shop() {
     const location = useGeoLocation();
     const { latitude, Longitude, setHomeData, UserId } = useContext(GlobalVariables)

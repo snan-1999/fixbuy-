@@ -16,7 +16,7 @@ const SellCategory = () => {
     return (
         <>
         <Header/>
-        <div>
+        <div style={{marginTop : '12%'}}>
 
             <ul class="list-group ">
                 {

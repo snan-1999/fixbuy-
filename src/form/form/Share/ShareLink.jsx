@@ -55,27 +55,27 @@ export default function ShareLink({ ShareLinkParam }) {
     }
     return (
         <>
-         <ToastContainer />
+            <ToastContainer />
             <ShareDiv>
 
-                <div className="Demo__some-network">
-                    <FacebookShareButton
-                    style={{all : 'unset'}}
+                <div className="Demo__some-network" >
+                    <FacebookShareButton 
+                        style={{ all: 'unset' }}
                         // url={window.location.href}
                         url={ShareLinkParam}
                         quote={titl}
                         className="Demo__some-network__share-button ms-1 me-1"
                     >
-                        <FaFacebook size={20} round />
+                        <FaFacebook size={20} round style={{color : '#3b5998'}}/>
                     </FacebookShareButton>
                     <WhatsappShareButton
-                    style={{all : 'unset'}}
+                        style={{ all: 'unset' }}
                         // url={window.location.href}
                         url={ShareLinkParam}
                         quote={titl}
                         className="Demo__some-network__share-button me-1"
                     >
-                        <IoLogoWhatsapp size={20} round />
+                        <IoLogoWhatsapp size={20} round style={{color : '#4BCA59'}}/>
                     </WhatsappShareButton>
                     {/* <TwitterShareButton
                         url={ShareLinkParam}
@@ -85,7 +85,7 @@ export default function ShareLink({ ShareLinkParam }) {
                         <TwitterIcon size={20} round />
                     </TwitterShareButton> */}
                     <div className="copy" onClick={ShareProducts}>
-                        <abbr title='Copy Link'> <AiFillCopy /></abbr>
+                        <abbr title='Copy Link'> <AiFillCopy style={{color : '#436E8B'}}/></abbr>
                     </div>
                     {/* <EmailShareButton
                         url={ShareLinkParam}
@@ -119,7 +119,7 @@ const ShareDiv = styled.div`
     .Demo__some-network {
        
         cursor: pointer;
-    color : ${props => props.theme.colors.primary};
+    /* color : ${props => props.theme.colors.primary}; */
     display: flex;
     align-items: center;
     justify-content: space-evenly;

@@ -9,12 +9,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SellMob from "./SellMob";
 import { GiSofa } from 'react-icons/gi';
 import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { useMediaQuery } from "@chakra-ui/react";
 const Sell = () => {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     // console.log(ElectronicId)
     return (
         <>
             <div className="desk overflow-hidden">
-            <Header /> 
+                <Header />
                 <div className="container">
 
                     <div className="page-wrapper">
@@ -153,7 +155,7 @@ const Sell = () => {
                                         <div className="dropEight">
                                             <div className="btn-group dropend MyDrop" style={{ width: "100%" }}>
                                                 <button type="button" className="setBtn_drop p-3 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    <MdOutlineRealEstateAgent  className="sell-icon fs-5" /> Properties
+                                                    <MdOutlineRealEstateAgent className="sell-icon fs-5" /> Properties
                                                 </button>
                                                 <ul className="UlSet3 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
                                                     <Link to='/sell/properties/for_rent' className="textLine"><li className="w-100">For Rent</li></Link>
@@ -178,7 +180,10 @@ const Sell = () => {
             <div className="MobSell">
                 <SellMob />
             </div>
-            <Footer />
+            {
+                !isMobile &&
+                <Footer />
+            }
         </>
     )
 }

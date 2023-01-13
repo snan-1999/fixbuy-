@@ -31,6 +31,7 @@ import apple from '../../assets/images/apple.png'
 import CategorySlider from "./corousel/CategorySlider";
 import useGeoLocation from "../../hooks/useGeoLoaction";
 import DownloadModal from "./Modals/DownloadModal";
+import HeaderNew from "./header";
 
 const Home = () => {
     const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId, setUserId, isOpenDownload, setisOpenDownload } = useContext(GlobalVariables)

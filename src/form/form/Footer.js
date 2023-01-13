@@ -189,7 +189,7 @@ const Footer = () => {
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }} display={isMobile ? 'none' : 'block'}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
-                                    <Link to="/privacy" className="text-decoration-none" style={{ color: '#37577A' }}>Legal & Privacy</Link>
+                                    <Link to="/privacy" className="text-decoration-none" style={{ color: '#37577A' }}>Privacy & Policy</Link>
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
                                     <ListIcon as={TbPoint} display={isMobile ? 'none' : 'inline'} me='4' />
@@ -243,15 +243,16 @@ const Footer = () => {
                             <Heading fontSize={isMobile ? '15px' : '13px'} fontWeight='600' textAlign={isMobile ? 'center' : 'left'} margin={isMobile ? '0' : '0'} textTransform='capitalize'>social media  </Heading>
                             <List spacing='5 ' marginTop={!isMobile ? 'auto' : '0px'} display='flex' flexDirection={isMobile ? 'row' : 'column'} alignItems={isMobile ? 'center' : 'center'} w='100%' justifyContent={isMobile ? 'space-around' : 'center'}>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
-                                    <a href="www.instagram.com/fixebuy.official/"> <Image
+                                    <a href="https://instagram.com/fixebuy.official?igshid=MWI4MTIyMDE="   target="_blank"> <Image
                                         boxSize='20px'
                                         objectFit='cover'
                                         src={instagram}
                                         alt='Instagram'
+                                      
                                     /></a>
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
-                                    <a href="https://twitter.com/FixebuyOfficial">
+                                    <a href="https://twitter.com/FixebuyOfficial" target="_blank">
                                         <Image
                                             boxSize='25px'
                                             objectFit='cover'
@@ -260,7 +261,7 @@ const Footer = () => {
                                         /></a>
                                 </ListItem>
                                 <ListItem fontSize='12px' _hover={{ color: '#253b52', transition: 'all 400ms ease', cursor: 'pointer' }}>
-                                    <a href="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394">
+                                    <a href="https://www.facebook.com/FixeBuy-Pvt-Ltd-101284785886394" target="_blank">
                                         <Image
                                             boxSize='20px'
                                             objectFit='cover'

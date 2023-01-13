@@ -64,7 +64,16 @@ button.Toastify__close-button.Toastify__close-button--colored {
 }
 
 /* swiper in header index page */
-
+.swiper{
+    margin-top: 0rem;
+}
+.blog-image {
+    height: 25vh !important;
+}
+.blog-image img {
+    height: 100% !important;
+    width: 100% !important;
+}
 .swiper-wrapper {
     height: 55vh;
 }
@@ -149,7 +158,7 @@ div.logo {
 .profiles {
     display: flex;
     position: relative;
-    right: 3% !important;
+    right: 2% !important;
 }
 
 .dropdown-category {
@@ -165,6 +174,7 @@ div.logo {
     padding: 0.5rem 8px !important;
     border-radius: 0.25rem;
     border: 1px solid rgba(0, 0, 0, .15);
+    cursor: pointer;
 }
 
 .dropdown-category-bikes {
@@ -196,6 +206,7 @@ div.logo {
     margin-top: 3px;
     margin-left: 0px;
     /* margin-right: 5px; */
+    cursor: pointer;
 }
 
 .drop-down:hover ul {
@@ -1281,7 +1292,7 @@ input[type=radio] {
 
 .last-text-about-us {
     margin-top: 88px;
-    border: 7px solid #0999d5a1;
+    border: 7px solid var(--color1);
     padding: 20px 160px;
     border-bottom-left-radius: 38px;
     border-top-width: 0px;
@@ -2765,6 +2776,8 @@ button.GoogleBtn {
 .desk-category {
     padding: 0;
     width: 100%;
+    position: relative;
+    z-index: 6;
 }
 .BlogImg{
     background: url(../../assets/images/posterblog.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
@@ -2781,6 +2794,9 @@ button.GoogleBtn {
     background-blend-mode: overlay;
 }
 @media screen and (max-width: 600px) {
+    .swiper{
+        margin-top: 2.3rem;
+    }
     .container.faq-container {
         margin-bottom: 100px;
         padding: 30px 10px 0 10px;
@@ -3060,6 +3076,9 @@ button.GoogleBtn {
     }
 
     .inline-menu1 {
+        position: relative;
+        /* top: 62px; */
+        z-index: 30;
         display: flex;
         align-content: center;
         justify-content: space-evenly;
@@ -3773,7 +3792,7 @@ button.GoogleBtn {
         justify-content: center;
         align-items: center;
         background: white;
-        transition: all 1000ms ease;
+        transition: all 200ms ease;
     }
 
 

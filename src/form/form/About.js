@@ -32,9 +32,9 @@ export default function About() {
         <div className="container faq-container">
           <div className="about-text">
             <div className="about-main-text">
-              <div className="accordian-img-about-us">
+              {/* <div className="accordian-img-about-us">
                 <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_rla70rwp.json" background="transparent" speed="1" loop autoplay></lottie-player>
-              </div>
+              </div> */}
 
               <div className="about-main-text-block">
                 <div className="about-heading">
