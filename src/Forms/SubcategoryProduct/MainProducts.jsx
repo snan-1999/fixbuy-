@@ -309,7 +309,7 @@ export default function MainProducts({ AllDataMainCategory, LoadMOreMainCategory
                         })
                     }
                     {
-                        !NODataMainCategory &&
+                        // !NODataMainCategory &&
                         <div className="row m-0 p-0 d-flex justify-content-center">
                             {
                                 filtersMaincategory == 1 || filtersMaincategory == -1 ?
@@ -322,7 +322,7 @@ export default function MainProducts({ AllDataMainCategory, LoadMOreMainCategory
                                         </div>
                                             :
                                             <img src={load} />} &nbsp;&nbsp;
-                                        Load More
+                                    Load More
                                     </ButtonCraete>
                                     :
                                     <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagesMainCategory == MainCategoryPageNO}>

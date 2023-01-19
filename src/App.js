@@ -198,6 +198,7 @@ function App() {
     const { data } = await SearchHome(Longitude, latitude, SearchKey, SearchPAgeNo)
     setLoading(false)
     if (data.status) {
+      setNoDataSearch(false)
       setTotalPagesSearch(data.totalPages);
       ProfileStore.setState({ SearchData: data.data })
       setAllDataSearch(data.data);
@@ -291,7 +292,10 @@ function App() {
 
   }
   useEffect(() => {
+    setAllDataMainCategory([])
     setMainCategoryPageNO(1)
+    setFIlterPageNOMainCategory(1)
+    setfiltersMaincategory(null)
     setcategoryNameChange(maincategory)
     console.log(categoryNameChange, 'jiii')
     // if (ParamLocate !== '/automobile/all/all-product') {
