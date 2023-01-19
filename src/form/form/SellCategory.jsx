@@ -31,7 +31,7 @@ const SellCategory = () => {
                 }
             </ul>
         </div>
-        <Footer/>
+        {/* <Footer/> */}
         </>
     )
 }
