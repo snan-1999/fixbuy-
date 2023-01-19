@@ -19,26 +19,32 @@ import axios from 'axios'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import useGeoLocation from '../../hooks/useGeoLoaction';
 import BottomTop from '../../functions/BottomTop';
-export default function MainProducts() {
+import { ProfileStore } from '../../store';
+export default function MainProducts({ AllDataMainCategory, LoadMOreMainCategory, MainCategoryPageNO, filtersMaincategory, setfiltersMaincategory, LoadMOreFIlterMainCategory, Loading, setLoading ,FIlterPageNOMainCategory, setFIlterPageNOMainCategory ,setMainCategoryPageNO ,setAllDataMainCategory ,TotalPagesMainCategory ,NODataMainCategory}) {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
+    console.log(TotalPagesMainCategory
+         ,FIlterPageNOMainCategory , 'chekign')
     const Loacation = useGeoLocation()
     console.log(Loacation, 'latitudes')
     const ParamLocate = useLocation()
+    const chekc = ProfileStore(state => state.MainCategoryParam);
     console.log(ParamLocate.pathname, 'statttte')
     const Max_length = 26;
     const [AllData, setAllData] = useState([]);
-    const [Loading, setLoading] = useState(false);
+    // const [Loading, setLoading] = useState(false);
     const [PageNO, setPageNO] = useState(1);
     const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
-
     const [NOData, setNOData] = useState(false)
     const [Diffrence, setDiffrence] = useState(null)
     const [filters, setfilters] = useState(null)
     const { maincategory, subcategory } = useParams();
     const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase()
+    ProfileStore.setState({ MainCategoryName: GetMainCatogery })
+    ProfileStore.setState({ MainCategoryParam: maincategory })
     const GetSubCatogery = subcategory.replace(/ /g, "_").toLowerCase()
     // filter one time
-    console.log(latitude, 'latituds')
+    console.log(chekc, 'latituds')
+
     const MainCategoryDataFIlter = async () => {
         setFIlterPageNO(1)
         setAllData([])
@@ -80,6 +86,7 @@ export default function MainProducts() {
 
         }
     }
+
     // useEffect(() => {
     //     MainCategoryDataFIlter()
     // }, [filters])
@@ -87,6 +94,7 @@ export default function MainProducts() {
     const MainData = async () => {
         console.log('run')
         setDiffrence(maincategory)
+        ProfileStore.setState({ StoreSearch: 1 })
         // setAllData([])
         let api
         if (UserId == undefined || UserId == null) {
@@ -106,14 +114,6 @@ export default function MainProducts() {
                 setAllData(data.data)
                 console.log(false, 'run')
             }
-            // setAllData([...AllData, ...data.data])
-            // if(GetMainCatogery == maincategory){
-            //     alert('add')
-            // }{
-            //     alert('one')
-            //     setAllData(data.data)
-
-            // }
             setNOData(false)
         } else {
             setLoading(false)
@@ -121,14 +121,18 @@ export default function MainProducts() {
         }
 
     }
+
+    console.log(chekc, 'chekc')
     const LoadMOre = async () => {
-        setPageNO(PageNO + 1)
-        setLoading(true)
+        LoadMOreMainCategory()
+        // setPageNO(PageNO + 1)
+        // setLoading(true)
 
     }
     const LoadMOreFIlter = async () => {
-        setFIlterPageNO(FIlterPageNO + 1)
-        setLoading(true)
+        LoadMOreFIlterMainCategory()
+        // setFIlterPageNO(FIlterPageNO + 1)
+        // setLoading(true)
 
     }
     const LoadMoreDataMain = async () => {
@@ -162,29 +166,29 @@ export default function MainProducts() {
     }
     let PriceLenght = 5;
     const numberWithCommas = price => {
-        // console.log(price , 'commaa')
+        console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
+    // useEffect(() => {
+    //     LoadMoreDataMain()
+    // }, [PageNO])
+    // useEffect(() => {
+    //     MainCategoryDataFIlter()
+    // }, [filters])
+    // useEffect(() => {
+    //     MainCategoryDataFIlterLoad()
+    // }, [FIlterPageNO])
     useEffect(() => {
-        LoadMoreDataMain()
-    }, [PageNO])
-    useEffect(() => {
-        MainCategoryDataFIlter()
-    }, [filters])
-    useEffect(() => {
-        MainCategoryDataFIlterLoad()
-    }, [FIlterPageNO])
-    useEffect(() => {
-        if (ParamLocate !== '/automobile/all/all-product') {
-            setFIlterPageNO(1)
-            setPageNO(1)
-            setAllData([])
-        }
+        // if (ParamLocate !== '/automobile/all/all-product') {
+        //     setFIlterPageNOMainCategory(1)
+        //     setMainCategoryPageNO(1)
+        //     setAllDataMainCategory([])
+        // }
 
-        MainData()
-        BottomTop()
-        console.log('run')
-    }, [0, maincategory, latitude])
+        // MainData()
+        // BottomTop()
+        // console.log('run')
+    }, [maincategory])
 
     return (
         <>
@@ -217,8 +221,8 @@ export default function MainProducts() {
                                                 Price
                                             </div>
 
-                                            <li className="dropdown-item" onClick={() => setfilters(1)}><BsArrowUp className='me-2' />Low To High</li>
-                                            <li className="dropdown-item" onClick={() => setfilters(-1)}><BsArrowDown className='me-2' />High To Low</li>
+                                            <li className="dropdown-item" onClick={() => {setfiltersMaincategory(1)} }><BsArrowUp className='me-2' />Low To High</li>
+                                            <li className="dropdown-item" onClick={() => setfiltersMaincategory(-1)}><BsArrowDown className='me-2' />High To Low</li>
 
                                         </ul>
                                     </div>
@@ -237,14 +241,14 @@ export default function MainProducts() {
                     </button>
                     } */}
                     {
-                        NOData && <Box display='flex' justifyContent='center' mt='-10%' zIndex='-3'>
+                        NODataMainCategory && <Box display='flex' justifyContent='center' mt='-10%' zIndex='-3'>
                             <lottie-player src="https://assets1.lottiefiles.com/packages/lf20_rdjfuniz.json" background="transparent" speed="1" style={{ width: '600px', height: '600px' }} loop autoplay></lottie-player>
 
                         </Box>
                     }
                     {
 
-                        AllData?.map((automobileProduct, key) => {
+                        AllDataMainCategory?.map((automobileProduct, key) => {
                             return (
                                 <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>
@@ -305,13 +309,14 @@ export default function MainProducts() {
                         })
                     }
                     {
-                        !NOData &&
+                        !NODataMainCategory &&
                         <div className="row m-0 p-0 d-flex justify-content-center">
                             {
-                                filters == 1 || filters == -1 ?
+                                filtersMaincategory == 1 || filtersMaincategory == -1 ?
 
-
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+ 
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagesMainCategory == FIlterPageNOMainCategory}>
+                                        
                                         {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
@@ -320,7 +325,7 @@ export default function MainProducts() {
                                         Load More
                                     </ButtonCraete>
                                     :
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagesMainCategory == MainCategoryPageNO}>
                                         {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
@@ -334,7 +339,7 @@ export default function MainProducts() {
                     }
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

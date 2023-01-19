@@ -104,7 +104,7 @@ export default function About() {
             <br />Overall, fixebuy is the perfect platform for anyone looking to purchase or sell products and services in bulk. With its easy-to-use platform, secure payment system, and loan and service facility, it's no wonder that fixebuy has become the go-to source for many individuals and businesses. With their unique structure, wide range of products, and amazing customer service, we promise to make your buying and selling experience a breeze.</div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
 
     </>
   )

@@ -25,10 +25,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import UserDeleteModal from "./Modals/DeleteModal";
 import LogoutModal from "./Modals/LogoutModal";
 import { IoIosRocket } from 'react-icons/io';
+import { ProfileStore } from "../../store";
 
 const Header = () => {
 
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId, setisOpenDownload } = useContext(GlobalVariables)
+    const { Lmore, setLmore, latitude, setlatitude, Longitude, ProfileUpdate, UserId, setUserId, setisOpenDownload, EnterSearch, setEnterSearch } = useContext(GlobalVariables)
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
     // console.log(UserLogin, 'userlogin data')
@@ -136,6 +137,9 @@ const Header = () => {
         // SearchEl.addEventListener("keyup", async (e) => {
         // console.log(e.keyCode, 'keyVal')
         if (e.keyCode == 13) {
+            ProfileStore.setState({ StoreSearch: e.target.value})
+           
+            setEnterSearch(EnterSearch + 1)
             // console.log("enter is pressed", 'serachData')
             nav('/search-home-result', { state: search })
         }
@@ -157,7 +161,7 @@ const Header = () => {
         // console.log('sevcond')
     }, [Upstate, userProfileImg])
 
-    const SearchBar = () => { }
+    const SearchBar = (e) => {     ProfileStore.setState({ StoreSearch: search}) }
 
     const UpdateShop = async () => {
         // console.log(gstnumber, address, 'checkihn')
@@ -508,7 +512,14 @@ const Header = () => {
                                             </ul>
                                         </div>
                                         <div className="form-inline my-2 my-lg-0 desk-version">
-                                            <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} onChange={(e) => setSearch(e.target.value)} />
+                                            <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch}
+                                                onChange={(e) => {
+                                                    setSearch(e.target.value)
+                                                    
+                                                }
+                                                }
+
+                                            />
                                             <Link to="/search-home-result" state={search}><button className="btn btn-outline-success my-2 my-sm-0 shadow-none" id="Search" onClick={SearchBar}>Search</button></Link>
                                         </div>
                                         <div className="row p-0 m-0 mob-cen">
@@ -883,18 +894,24 @@ const Header = () => {
 
                                                         <div className="subMenuItem " id="subItemss" >
                                                             <ul className="catagry-color">
-                                                                {ListData}
+                                                                {/* {ListData} */}
+                                                                <Link to="/industrial/all/all-product" className="dropdown_sub-category" ><li className="bghover">All </li></Link>
+                                                                <Link to="/industrial/machinery" className="dropdown_sub-category" ><li className="bghover">Machinery </li></Link>
+                                                                <Link to="/industrial/component_parts" className="dropdown_sub-category" ><li className="bghover">Component Parts</li></Link>
+                                                                <Link to="/industrial/major_equipment" className="dropdown_sub-category" ><li className="bghover">Major Equipment</li></Link>
+                                                                <Link to="/industrial/accessories_equipment" className="dropdown_sub-category" ><li className="bghover">Accessories Equipment</li></Link>
                                                             </ul>
+
                                                         </div>
 
                                                         <Link to="/" className="dropdown_sub-category" ><li className="bghover" id="SubMenu1">EV Batteries</li></Link>
                                                         <div className="subMenuItem " id="subItemss1" >
                                                             <ul className="catagry-color">
-                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">All </li></Link>
-                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Lithium-ion battery </li></Link>
-                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Sli batteries</li></Link>
-                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Hydride battery</li></Link>
-                                                                <Link to="/" className="dropdown_sub-category" ><li className="bghover">Silver calcium battery</li></Link>
+                                                                <Link to="/ev-battery/all/all-product" className="dropdown_sub-category" ><li className="bghover">All </li></Link>
+                                                                <Link to="/ev-battery/lithium-ion_battery" className="dropdown_sub-category" ><li className="bghover">Lithium-ion battery </li></Link>
+                                                                <Link to="/ev-battery/sli_batteries" className="dropdown_sub-category" ><li className="bghover">Sli batteries</li></Link>
+                                                                <Link to="/ev-battery/hydride_battery" className="dropdown_sub-category" ><li className="bghover">Hydride battery</li></Link>
+                                                                <Link to="/ev-battery/silver_calcium_battery" className="dropdown_sub-category" ><li className="bghover">Silver calcium battery</li></Link>
                                                             </ul>
                                                         </div>
                                                     </ul>
@@ -1003,7 +1020,7 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
 
     )

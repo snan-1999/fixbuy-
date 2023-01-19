@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SellMob from "./SellMob";
 import { GiSofa } from 'react-icons/gi';
+import { HiBuildingOffice2 } from 'react-icons/hi2';
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { useMediaQuery } from "@chakra-ui/react";
+import { FaCarBattery } from "react-icons/fa";
 const Sell = () => {
     const [isMobile] = useMediaQuery("(max-width : 600px)");
     // console.log(ElectronicId)
@@ -164,6 +166,32 @@ const Sell = () => {
                                                 </ul>
                                             </div>
                                         </div>
+                                        <div className="dropEight">
+                                            <div className="btn-group dropend MyDrop" style={{ width: "100%" }}>
+                                                <button type="button" className="setBtn_drop p-3 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <HiBuildingOffice2 className="sell-icon fs-5" /> Industrial Goods
+                                                </button>
+                                                <ul className="UlSet3 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <Link to="/sell/industrial/machinery" className="textLine"><li >Machinery </li></Link>
+                                                    <Link to="/sell/industrial/component_parts" className="textLine"><li >Component Parts</li></Link>
+                                                    <Link to="/sell/industrial/major_equipment" className="textLine"><li >Major Equipment</li></Link>
+                                                    <Link to="/sell/industrial/accessories_equipment" className="textLine"><li >Accessories Equipment</li></Link>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div className="dropEight">
+                                            <div className="btn-group dropend MyDrop" style={{ width: "100%" }}>
+                                                <button type="button" className="setBtn_drop p-3 m-0 w-100  dropdown-toggle d-n set_white shadow-none" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <FaCarBattery className="sell-icon fs-5" /> EV Batteries
+                                                </button>
+                                                <ul className="UlSet3 w-100 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                                    <Link to="/sell/ev-battery/lithium-ion_battery" className="textLine" ><li >Lithium-ion battery </li></Link>
+                                                    <Link to="/sell/ev-battery/sli_batteries" className="textLine" ><li >Sli batteries</li></Link>
+                                                    <Link to="/sell/ev-battery/hydride_battery" className="textLine" ><li >Hydride battery</li></Link>
+                                                    <Link to="/sell/ev-battery/silver_calcium_battery" className="textLine" ><li >Silver calcium battery</li></Link>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -180,10 +208,10 @@ const Sell = () => {
             <div className="MobSell">
                 <SellMob />
             </div>
-            {
+            {/* {
                 !isMobile &&
                 <Footer />
-            }
+            } */}
         </>
     )
 }

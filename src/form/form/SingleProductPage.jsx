@@ -693,7 +693,7 @@ export default function SingleProductPage(props) {
                     </div >
                     <br />
                     <br />
-                    <Footer className="mt-4 position-relative top-0" />
+                    {/* <Footer className="mt-4 position-relative top-0" /> */}
                 </div>
             </div>
 

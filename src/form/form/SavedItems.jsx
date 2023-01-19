@@ -29,7 +29,7 @@ export default function SavedItems() {
     }
     let PriceLenght = 5;
     const numberWithCommas = price => {
-        console.log(price , 'commaa')
+        console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
     const Max_length = 26;
@@ -39,21 +39,21 @@ export default function SavedItems() {
 
     return (
         <>
-        <div className="overflow-hidden">
-      
-            <Header />
-            <div className="row m-0 p-0">
-                <div className="for-center flex-row justify-content-center align-items-center">
+            <div className="overflow-hidden">
 
-                    <div className="col-md-12">
-                        <div className="container-heading-savedItem">
-                            <span>Saved Items </span>
+                <Header />
+                <div className="row m-0 p-0">
+                    <div className="for-center flex-row justify-content-center align-items-center">
+
+                        <div className="col-md-12">
+                            <div className="container-heading-savedItem"> 
+                                <span>Saved Items </span>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
-            </div>
+           
             <div className="container" id="card_box">
 
                 <div className="row p-0 m-0">
@@ -71,7 +71,7 @@ export default function SavedItems() {
                                                 <div className="pdt-details">
                                                     <div className="row d-flex align-items-center">
                                                         <div className="col-md-6 col-8 setMobPadingProduct">
-                                                        {
+                                                            {
                                                                 (automobileProduct.price).toString().length > PriceLenght ?
                                                                     <div className="price">₹ {`${numberWithCommas(automobileProduct.price.toString().substring(0, PriceLenght))}`}..</div>
                                                                     :
@@ -122,7 +122,8 @@ export default function SavedItems() {
 
 
             </div >
-            <Footer />
+            </div>
+            {/* <Footer /> */}
 
         </>
     )

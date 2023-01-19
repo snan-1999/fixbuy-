@@ -19,20 +19,21 @@ import { FiHeart } from 'react-icons/fi'
 import useGeoLocation from '../../hooks/useGeoLoaction'
 import BottomTop from '../../functions/BottomTop'
 import HeaderNew from './header'
-export default function Shop() {
+export default function Shop({AllShopData ,LoadMOreShop ,ShopPage ,filters, setfilters ,FIlterPageNO, setFIlterPageNO ,LoadMOreFIlters , Loading, setLoading,}) {
+    console.log("shopDatas" , AllShopData)
     const location = useGeoLocation();
     const { latitude, Longitude, setHomeData, UserId } = useContext(GlobalVariables)
     const [AllData, setAllData] = useState([])
-    const [filters, setfilters] = useState(null)
-    const [PageNO, setPageNO] = useState(1)
-    const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
-    const [Loading, setLoading] = useState(false)
+    // const [filters, setfilters] = useState(null)
+    // const [ShopPage, setShopPage] = useState(1)
+    // const [FIlterPageNO, setFIlterPageNO] = useState(1); // filter Page No 
+    // const [Loading, setLoading] = useState(false)
     const [TotalPagess, setTotalPagess] = useState('')
     // initial
     console.log(latitude, 'lat')
     const ShopData = async () => {
         try {
-            const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
+            const { data } = await ShopProductData(latitude, Longitude, ShopPage, UserId)
             // console.log(data, 'shopData')
             // console.log(UserId, 'shopData')
             if (data.status) {
@@ -48,7 +49,7 @@ export default function Shop() {
     // Load More
     const ShopDataLoadMore = async () => {
         try {
-            const { data } = await ShopProductData(latitude, Longitude, PageNO, UserId)
+            const { data } = await ShopProductData(latitude, Longitude, ShopPage, UserId)
             console.log(data, 'shopData')
             console.log(UserId, 'shopData')
             if (data.status) {
@@ -64,7 +65,7 @@ export default function Shop() {
     //     console.log(FilterNumber, 'fil')
     // }
     let PriceLenght = 5;
-    // Simple Load
+    // Simple Load Filter
     const ShopDataFIlter = async () => {
         setFIlterPageNO(1)
         setAllData([])
@@ -93,29 +94,31 @@ export default function Shop() {
         return parseInt(price).toLocaleString('en-US');
     };
     const LoadMOre = () => {
-        setPageNO(PageNO + 1)
-        console.log(TotalPagess, PageNO, "HomeData")
-        setLoading(true)
+        LoadMOreShop()
+        // setPageNO(PageNO + 1)
+        // console.log(TotalPagess, PageNO, "HomeData")
+        // setLoading(true)
     }
     const LoadMOreFIlter = () => {
-        setFIlterPageNO(FIlterPageNO + 1)
-        console.log(TotalPagess, FIlterPageNO, "HomeData")
-        setLoading(true)
+        LoadMOreFIlters()
+        // setFIlterPageNO(FIlterPageNO + 1)
+        // console.log(TotalPagess, FIlterPageNO, "HomeData")
+        // setLoading(true)
     }
-    useEffect(() => {
-        ShopDataFIlter()
-    }, [filters])
-    useEffect(() => {
-        ShopDataLoadMore()
+    // useEffect(() => {
+    //     ShopDataFIlter()
+    // }, [filters])
+    // useEffect(() => {
+    //     ShopDataLoadMore()
 
-    }, [PageNO])
-    useEffect(() => {
-        ShopDataFIlterLoadMore()
-    }, [FIlterPageNO])
-    useEffect(() => {
-        BottomTop()
-        latitude && ShopData()
-    }, [latitude])
+    // }, [ShopPage])
+    // useEffect(() => {
+    //     ShopDataFIlterLoadMore()
+    // }, [FIlterPageNO])
+    // useEffect(() => {
+    //     BottomTop()
+    //     latitude && ShopData()
+    // }, [latitude])
     const Max_length = 26;
 
     return (
@@ -168,7 +171,7 @@ export default function Shop() {
 
                     <div className="row">
                         {
-                            AllData?.map((automobileProduct, key) => {
+                            AllShopData?.map((automobileProduct, key) => {
                                 return (
                                     <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                         <CardHeight>
@@ -245,7 +248,7 @@ export default function Shop() {
                                             Load More
                                         </ButtonCraete>
                                     :
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == ShopPage}>
                                         {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
@@ -261,7 +264,7 @@ export default function Shop() {
 
                 </div >
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

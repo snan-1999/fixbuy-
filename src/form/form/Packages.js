@@ -274,7 +274,7 @@ const Packages = () => {
                         <div className="card mb-5 mb-lg-0" id='setMargin1'>
                           <div className="card-body">
                             {/* <h5 className="card-title text-muted text-uppercase text-center">SILVER</h5> */}
-                            <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/3days</span></h6>
+                            <h6 className="card-price text-center">₹499<span className="period">+GST</span><span className="period">/30days</span></h6>
                             <hr />
                             <ul className="fa-ul">
                               {/* //   <!-- <li><span className="fa-li"><i className="fas fa-check"></i></span>Boost your mobiles ads on top</li> --> */}

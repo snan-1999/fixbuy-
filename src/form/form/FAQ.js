@@ -42,7 +42,7 @@ const FAQ = () => {
                                             How do I share location in chat?
                                         </button>
                                     </h2>
-                                    <div id="collapseOne" className="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" className="accordion-collapse collapse show active" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
                                     Start a chat, either private or public. Use the Share live location option under Attach > Location. Choose the time frame for which you want to disclose your current location. Following the set period of time, sharing of your live location will end.
 
@@ -84,9 +84,9 @@ const FAQ = () => {
 
                                         </button>
                                     </h2>
-                                    <div id="collapseThree" className="accordion-collapse collapse  show active" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div id="collapseThree" className="accordion-collapse collapse  " aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
-                                            Devices that have just been released, those that have just been purchased without a bill, Jio Phones, etc. burglary tools Freely giving of one's time or goods for charitable purposes. hazardous chemicals, radioactive materials & compounds, pharmaceuticals (prescription or not), restricted, perishable commodities, etc.
+                                            Devices that have just been released, those that have just been purchased without a bill, Jio Phones, etc. burglary tools Freely giving of one's time or goods for charitable purposes. hazardous chemicals,  materials & compounds, pharmaceuticals (prescription or not), restricted, perishable commodities, etc.
 
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@ const FAQ = () => {
 
                                         </button>
                                     </h2>
-                                    <div id="collapsefour" className="accordion-collapse collapse  show active" aria-labelledby="headingfour" data-bs-parent="#accordionExample">
+                                    <div id="collapsefour" className="accordion-collapse collapse  " aria-labelledby="headingfour" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
                                             <ul style={{ all: 'unset' }}>
                                                 <li>On your Android tablet or phone, open the Settings app.
@@ -125,7 +125,7 @@ const FAQ = () => {
 
                                         </button>
                                     </h2>
-                                    <div id="collapseFive" className="accordion-collapse collapse  show active" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                                    <div id="collapseFive" className="accordion-collapse collapse  " aria-labelledby="headingFive" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
                                             <ul style={{ all: 'unset' }}>
                                                 <li>Visit the Google Account login page.
@@ -154,7 +154,7 @@ const FAQ = () => {
 
                                         </button>
                                     </h2>
-                                    <div id="collapseSix" className="accordion-collapse collapse  show active" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                    <div id="collapseSix" className="accordion-collapse collapse  " aria-labelledby="headingSix" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
                                             <ul style={{ all: 'unset' }}>
                                                 <li>Open the Settings app on your Android smartphone or tablet, go to Google, and then select Manage your Google Account.
@@ -196,7 +196,7 @@ const FAQ = () => {
 
                                         </button>
                                     </h2>
-                                    <div id="collapseSeven" className="accordion-collapse collapse  show active" aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
+                                    <div id="collapseSeven" className="accordion-collapse collapse  " aria-labelledby="headingSeven" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
                                             Make a new password.
                                             <ul style={{ all: 'unset' }}>
@@ -223,7 +223,7 @@ const FAQ = () => {
 
                                         </button>
                                     </h2>
-                                    <div id="collapseEight" className="accordion-collapse collapse  show active" aria-labelledby="headingEight" data-bs-parent="#accordionExample">
+                                    <div id="collapseEight" className="accordion-collapse collapse  " aria-labelledby="headingEight" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
 
                                             <ul style={{ all: 'unset' }}>
@@ -247,13 +247,13 @@ const FAQ = () => {
                                 <div className="accordion-item">
                                     <h2 className="accordion-header" id="headingNine">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-                                        Why Fixebuy deleted my account?
+                                            Why Fixebuy deleted my account?
                                         </button>
                                     </h2>
-                                    <div id="collapseNine" className="accordion-collapse collapse  show active" aria-labelledby="headingNine" data-bs-parent="#accordionExample">
+                                    <div id="collapseNine" className="accordion-collapse collapse  " aria-labelledby="headingNine" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
 
-                                        If you discover that you are receiving a message that your account has been banned, this implies that either you have violated one of our posting guidelines or that another Fixebuy user has reported you for reasons like money taken but item/service not provided to the buyer.
+                                            If you discover that you are receiving a message that your account has been banned, this implies that either you have violated one of our posting guidelines or that another Fixebuy user has reported you for reasons like money taken but item/service not provided to the buyer.
 
 
                                         </div>
@@ -262,16 +262,16 @@ const FAQ = () => {
                                 <div className="accordion-item">
                                     <h2 className="accordion-header" id="headingTEn">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTEn" aria-expanded="false" aria-controls="collapseTEn">
-                                        Technical Issue reporting!
+                                            Technical Issue reporting!
 
                                         </button>
                                     </h2>
-                                    <div id="collapseTEn" className="accordion-collapse collapse  show active" aria-labelledby="headingTEn" data-bs-parent="#accordionExample">
+                                    <div id="collapseTEn" className="accordion-collapse collapse  " aria-labelledby="headingTEn" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
 
                                             <ul style={{ all: 'unset' }}>
                                                 <li>
-                                                Register with your account.
+                                                    Register with your account.
                                                 </li>
                                                 <li>Visit your settings page or click on your profile picture in the top right corner and choose "Settings."
 
@@ -297,7 +297,7 @@ const FAQ = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

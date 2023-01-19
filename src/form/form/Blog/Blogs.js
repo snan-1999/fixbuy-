@@ -13,7 +13,7 @@ import Footer from "../Footer";
 import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
 import BottomTop from "../../../functions/BottomTop";
-import posterblog from "../../../assets/images/posterblog.jpg";
+
 
 import { Stack, VStack } from "@chakra-ui/layout";
 const Blogs = () => {
@@ -98,7 +98,7 @@ const Blogs = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
 
         </>
     )

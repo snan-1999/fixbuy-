@@ -18,12 +18,12 @@ export const HomeAllData = async (Longitude, latitude, PageNo, UserId) => {
     }
 }
 
-export const SearchHome = async (Longitude, latitude, searchBar, PageNo) => {
+export const SearchHome = async (Longitude, latitude, SearchKey, PageNo) => {
     try {
-        const api = `${baseUrl}/product/search/allads/${latitude}/${Longitude}/${searchBar}/${PageNo}`
+        const api = `${baseUrl}/product/search/allads/${latitude}/${Longitude}/${SearchKey}/${PageNo}`
         const data = await axios.get(api)
-        console.log(api , 'search')
-        console.log(searchBar, 'search')
+        console.log(api , 'SearchKey')
+        console.log(SearchKey, 'search')
         return data
     } catch (error) {
         return error.message

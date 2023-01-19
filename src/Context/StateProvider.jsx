@@ -6,8 +6,8 @@ function StateProvider({ children }) {
     const Token = localStorage.getItem('token');
     let TokenData;
     if (Token) {
-         TokenData = JSON.parse(Token);
-         console.log(TokenData , 'statePro')
+        TokenData = JSON.parse(Token);
+        console.log(TokenData, 'statePro')
     }
     const [type, setType] = useState('')
     const [Lmore, setLmore] = useState(1)
@@ -17,12 +17,16 @@ function StateProvider({ children }) {
     const [Longitude, setLongitude] = useState("");
     const [latitude, setlatitude] = useState("");
     const [isOpenDownload, setisOpenDownload] = useState(false)
+    const [SearchSend, setSearchSend] = useState('');
+    const [EnterSearch, setEnterSearch] = useState(1);
     const [UserId, setUserId] = useState(TokenData?.token);
     return (
         <>
             <GlobalVariables.Provider value={{
-            isOpenDownload, setisOpenDownload ,
+                EnterSearch, setEnterSearch,
+                isOpenDownload, setisOpenDownload,
                 ProfileUpdate, setProfileUpdate,
+                SearchSend, setSearchSend,
                 type, setType,
                 Lmore, setLmore,
                 latitude, setlatitude,

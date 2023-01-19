@@ -291,23 +291,23 @@ const CategorySlider = () => {
   const Goods = [
     {
       name: 'All',
-      to: "/industrial-goods/all/all-product"
+      to: "/industrial/all/all-product"
     },
     {
       name: 'Machinery',
-      to: '/industrial-goods/machinery'
+      to: '/industrial/machinery'
     },
     {
       name: 'Component Parts',
-      to: '/industrial-goods/component-parts'
+      to: '/industrial/component-parts'
     },
     {
       name: 'Major Equipment',
-      to: '/industrial-goods/major-equipment'
+      to: '/industrial/major-equipment'
     },
     {
       name: 'Accessories Equipment',
-      to: '/industrial-goods/accessories-equipment'
+      to: '/industrial/accessories-equipment'
     },
   ]
 

@@ -33,49 +33,46 @@ import useGeoLocation from "../../hooks/useGeoLoaction";
 import DownloadModal from "./Modals/DownloadModal";
 import HeaderNew from "./header";
 
-const Home = () => {
-    const { Lmore, setLmore, latitude, setlatitude, Longitude, setLongitude, setHomeData, UserId, setUserId, isOpenDownload, setisOpenDownload } = useContext(GlobalVariables)
+const Home = ({ automobiles, LoadMOres, height, Loading, TotalPagess, setTotalPagess, PageNo }) => {
+    const { latitude, Longitude, setHomeData, UserId, setUserId, isOpenDownload, setisOpenDownload } = useContext(GlobalVariables)
     const location = useGeoLocation();
-
     const Onclose = () => setisOpenDownload(false)
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
     const nav = useNavigate();
     // console.log(TokenData, 'token');
+    // const [TotalPagess, setTotalPagess] = useState('');
+    //  const [height, setHeight] = useState(2000)
     const profileName = JSON.parse(Token)
     const [automobile, setAutomobile] = useState([]);
-    const [MoreData, setMoreData] = useState([]);
-    const [TotalPagess, setTotalPagess] = useState('');
-    const [PageNo, setPageNo] = useState(1);
-    const [Loading, setLoading] = useState(false)
+    // const [PageNo, setPageNo] = useState(1);
+    // const [Loading, setLoading] = useState(false)
     // console.log(latitude, Longitude, 'Location')
     setUserId((TokenData) ? TokenData.token : null)
     const homeDataAll = async () => {
         // console.log(UserId, 'UserId')
         const { data } = await HomeAllData(Longitude, latitude, PageNo, UserId)
         // console.log(data, 'homeData')
-        setLoading(true)
+        // setLoading(true)
         // console.log(Loading)
         if (data.status) {
             setAutomobile([...automobile, ...data.data]);
             // setAutomobile(data.data);
-            setLoading(false)
+            // setLoading(false)
             setHomeData(data.data)
-            // console.log(Loading)
-            setMoreData(data.data);
             setTotalPagess(data.totalPages);
             // console.log(MoreData, 'moreDaat')
             // console.log(TotalPagess)
             // console.log(Lmore)
         }
     }
-    const [height, setHeight] = useState(2000)
+
     const LoadMOre = () => {
-        setPageNo(PageNo + 1)
-        // console.log(TotalPagess, PageNo, "HomeData")
-        setLoading(true)
-        setHeight(height + 1600)
-        // console.log(height, 'height')
+        LoadMOres()
+        // setPageNo(PageNo + 1)
+        // setLoading(true)
+        // setHeight(height + 1600)
+
     }
     const sellLog = () => {
 
@@ -120,12 +117,13 @@ const Home = () => {
         // console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
-    useMemo(() =>
-        latitude && homeDataAll()
-        , [PageNo, UserId, latitude])
+    // useMemo(() =>
+    //     latitude && homeDataAll()
+    //     , [PageNo, UserId, latitude])
     // useEffect(() => {
     //     latitude && homeDataAll()
     // }, [PageNo, UserId, latitude])
+
     return (
         <>
             {/* <div className="row p-0 m-0"> */}
@@ -136,6 +134,7 @@ const Home = () => {
                     spaceBetween={30}
                     centeredSlides={true}
                     autoplay={{
+
                         delay: 2500,
                         disableOnInteraction: false,
                     }}
@@ -145,11 +144,8 @@ const Home = () => {
                         className: "swiper-pagination-bullet-active",
                     }}
                     navigation={true}
-                    // effect={'fade'}
-                    // slidesPerView={1}
                     loop
-                    modules={[Pagination, Navigation]}
-                    // modules={[Autoplay, Pagination, Navigation]}
+                    modules={[Autoplay, Pagination, Navigation]}
                     className="mySwiper"
                 >
                     {/* <div className="swiper-wrapper"> */}
@@ -201,7 +197,8 @@ const Home = () => {
 
                 <div className="row p-0 m-0">
                     {
-                        automobile?.map((automobileProduct, key) => {
+                        automobiles?.map((automobileProduct, key) => {
+
                             return (
                                 <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>

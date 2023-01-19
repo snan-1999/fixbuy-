@@ -2036,7 +2036,7 @@ box-shadow: none;
 
 .main-Div {
     height: auto;
-    max-height: 90vh;
+    /* max-height: 90vh; */
     width: 70vw;
     border: 1px solid #80808061;
     border-radius: 3px;
@@ -2046,7 +2046,7 @@ box-shadow: none;
 
 .UlSet {
     height: auto;
-    max-height: 84vh;
+    /* max-height: 84vh; */
     overflow: auto;
     transform: translate(100%, 0px) !important;
     background-color: transparent !important;
@@ -2757,9 +2757,6 @@ button.GoogleBtn {
     display: none;
 }
 
-.setBlog {
-   
-}
 
 .mobnvfixedWork {
     position: fixed;
@@ -2780,18 +2777,24 @@ button.GoogleBtn {
     z-index: 6;
 }
 .BlogImg{
-    background: url(../../assets/images/posterblog.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
-    background-position: bottom -27rem center;
+    background: url(../../assets/images/posterblog.jpeg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    /* background-position: bottom -27rem center; */
+    background-repeat: no-repeat;
     background-size: cover;
-    height: 55vh;
+    /* padding: 10% 20%; */
+    height: 50vh;
     background-blend-mode: overlay;
 }
 .ImgAbout{
-    background: url(../../assets/images/aboutus.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
-    background-position: top -20rem center;
+    background: url(../../assets/images/aboutus.jpeg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    /* background-position: top -20rem center; */
     background-size: cover;
-    height: 55vh;
+    height: 50vh;
     background-blend-mode: overlay;
+}
+.Menu {
+    /* display: block !important; */
+    transform: translate3d(50px, 48px, 0px) !important;
 }
 @media screen and (max-width: 600px) {
     .swiper{
@@ -2840,7 +2843,7 @@ button.GoogleBtn {
         margin-left: 0px;
     }
 
-    .reactEasyCrop_Container {
+    /* .reactEasyCrop_Container {
         position: absolute;
         top: 0;
         left: 0;
@@ -2858,7 +2861,7 @@ button.GoogleBtn {
         position: fixed !important;
         left: 18% !important;
         translate: transform(-50%, -50%) !important;
-    }
+    } */
 
     #setMargin1_ {
         padding-top: 10px;
@@ -3009,19 +3012,20 @@ button.GoogleBtn {
         display: none;
     }
     .BlogImg{
-        background: url(../../assets/images/posterblog.jpg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+        background: url(../../assets/images/posterblog.jpeg) , linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
         background-blend-mode: overlay;
         background-position: center;
+        background-repeat: no-repeat;
         background-size: cover;
-        height: 35vh;
+        height: 40vh;
 
     }
     .ImgAbout{
-        background: url(../../assets/images/aboutus.jpg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+        background: url(../../assets/images/aboutus.jpeg), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
         background-blend-mode: overlay;
         background-position: center;
         background-size: cover;
-        height: 35vh;
+        height: 40vh;
 
     }
     .blog-heading div {
@@ -3374,12 +3378,7 @@ button.GoogleBtn {
         display: none;
     }
 
-    .pp p {
-        /* text-align: center; */
-        /* align-self: center; */
-        /* margin-right: 2%; */
-        /* margin-left: 10%; */
-    }
+
 
 
     .mainbutton {
@@ -4017,11 +4016,7 @@ button.GoogleBtn {
     }
 
     /* 3 dec */
-    .sell-icon-res {
-        /* margin-left: 2%; */
-        /* text-align: center; */
-        /* justify-content: center; */
-    }
+
 
     /* 3 dec end*/
 
@@ -4152,11 +4147,8 @@ button.GoogleBtn {
     .ContentClass {
         padding-right: 0rem;
         align-items: flex-start !important;
-        /* margin-top: 2%; */
-        /* margin-left: 8%; */
     }
 
-    .ChatBtnProduct button {}
 
     a.buy-bttn {
         background: #0999D5;
@@ -4341,9 +4333,6 @@ button.GoogleBtn {
         width: 80vw;
     }
 
-    .tabLocationClass {
-        /* margin-left: -12%; */
-    }
 
     .locations {
         width: 19vw;

@@ -15,13 +15,24 @@ import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import Footer from './Footer';
 import { Box } from '@chakra-ui/react';
-function SearchPage() {
-    const { latitude, Longitude } = useContext(GlobalVariables)
+import { flushSync } from 'react-dom';
+import { ProfileStore } from '../../store';
+function SearchPage({ LoadMOreSearch, AllDataSearch,  Loading, setLoading ,TotalPagesSearch ,SearchPAgeNo ,NoDataSearch}) {
     const searchData = useLocation()
+    const { latitude, Longitude } = useContext(GlobalVariables);
+    const SearchData = ProfileStore(state => state.SearchData)
+    // useEffect(() => {
+    //     flushSync(() => {
+    //         setSearchSend(searchData.state)
+    //     })
+    // }, [])
+    console.log(AllDataSearch.length , 'gyys')
+    // ProfileStore.setState({StoreSearch : searchData.state})
+    const [SearchSend, setSearchSend] = useState(searchData.state);
     const [TotalPagess, setTotalPagess] = useState('');
     const [AllData, setAllData] = useState([])
     const [PageNO, setPageNO] = useState(1)
-    const [Loading, setLoading] = useState(false)
+    // const [Loading, setLoading] = useState(false)
     const [NoData, setNoData] = useState(false)
     const [searchWord, setsearchWord] = useState(null)
 
@@ -29,7 +40,7 @@ function SearchPage() {
     console.log(PageNO, 'dataSearch')
     const OneTImeData = async () => {
         setLoading(true)
-        const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
+        const { data } = await SearchHome(Longitude, latitude, SearchSend, PageNO)
         console.log(data, 'hello')
 
         setLoading(false)
@@ -43,7 +54,7 @@ function SearchPage() {
     }
 
     const LoadDataFun = async () => {
-        const { data } = await SearchHome(Longitude, latitude, searchData.state, PageNO)
+        const { data } = await SearchHome(Longitude, latitude, SearchSend, PageNO)
         console.log(data, 'helloLoad')
         setLoading(true, 'dataSearch')
 
@@ -55,29 +66,28 @@ function SearchPage() {
         }
     }
     const LoadMOre = () => {
-        setPageNO(PageNO + 1)
-        setLoading(true)
+        LoadMOreSearch()
+        // setPageNO(PageNO + 1)
+        // setLoading(true)
     }
-    // useEffect(() => {
-    //     OneTImeData()
-    // }, [0])
     let PriceLenght = 5;
     const numberWithCommas = price => {
         console.log(price, 'commaa')
         return parseInt(price).toLocaleString('en-US');
     };
-    useEffect(() => {
-        setsearchWord(searchData.state)
-        // check()
-        OneTImeData()
-        if (searchWord == searchData.state) {
-            LoadDataFun()
-            console.log(true, 'dataSearch')
-        } else {
+    console.log(SearchData, 'serachkey')
+    // useEffect(() => {
+    //     setsearchWord(SearchSend)
+    //     // check()
+    //     OneTImeData()
+    //     if (searchWord == SearchSend) {
+    //         LoadDataFun()
+    //         console.log(true, 'dataSearch')
+    //     } else {
 
-            console.log(false, 'dataSearch')
-        }
-    }, [searchData.state, PageNO])
+    //         console.log(false, 'dataSearch')
+    //     }
+    // }, [searchData.state, PageNO])
     let Max_length = 26;
     return (
         <>
@@ -105,7 +115,7 @@ function SearchPage() {
             <div className="container" id="card_box" >
                 <div className="row">
                     {
-                        AllData?.map((automobileProduct, key) => {
+                        AllDataSearch?.map((automobileProduct, key) => {
                             return (
                                 <div className="col-md-4 col-6 col-lg-3">
                                     <CardHeight>
@@ -164,13 +174,13 @@ function SearchPage() {
                         })
                     }
                     {
-                        !NoData ?
+                        !NoDataSearch ?
                             <div className="row m-0 p-0 d-flex justify-content-center">
                                 {
-                                    TotalPagess == PageNO ?
+                                    TotalPagesSearch == SearchPAgeNo ?
                                         <></>
                                         :
-                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagesSearch == SearchPAgeNo}>
                                             {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>
@@ -188,7 +198,7 @@ function SearchPage() {
                     }
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

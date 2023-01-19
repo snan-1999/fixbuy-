@@ -22,14 +22,16 @@ import { AllDataCategory, FilterSubCategoryData, SubDataCategoryFun } from '../.
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
 import useGeoLocation from '../../hooks/useGeoLoaction'
 import BottomTop from '../../functions/BottomTop'
-export default function SubProduct() {
+import { ProfileStore } from '../../store'
+export default function SubProduct({AllDataSubCategory ,LoadMOreSub ,SubCategoryPageNO ,Loading, setLoading ,setfiltersSubcategory ,filtersSubcategory ,LoadMOreFIlterSub ,TotalPagesSubCategory ,FIlterPageNOSubCategory }) {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, latitude, Longitude, setHomeData, UserId, setUserId } = useContext(GlobalVariables)
     const Token = localStorage.getItem('token');
     const ParamLocate = useLocation()
     const TokenData = JSON.parse(Token)
     const Loacation = useGeoLocation()
     const [AllData, setAllData] = useState([]);
-    const [Loading, setLoading] = useState(false);
+    
+    // const [Loading, setLoading] = useState(false);
     const [PageNO, setPageNO] = useState(1);
     const [filters, setfilters] = useState(null)
     const [NOData, setNOData] = useState(false);
@@ -38,7 +40,8 @@ export default function SubProduct() {
     const { maincategory, subcategory } = useParams();
     const GetMainCatogery = maincategory.replace(/ /g, "_").toLowerCase()
     const GetSubCatogery = subcategory.replace(/ /g, "_").toLowerCase()
-
+    ProfileStore.setState({ SubCategoryParam: GetSubCatogery })
+    ProfileStore.setState({ MainCategoryParam: maincategory })
     console.log(GetMainCatogery, GetSubCatogery, 'hy')
     // setid_user((TokenData) ? TokenData.token : null)
     const [Name, setName] = useState('Category');
@@ -48,7 +51,7 @@ export default function SubProduct() {
         setAllData([])
         console.log(filters, 'filter')
         try {
-            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters)
+            const { data } = await FilterSubCategoryData(GetMainCatogery, GetSubCatogery, latitude, Longitude, FIlterPageNO, filters )
             console.log(data, 'location')
             setAllData(data.data)
             setLoading(false)
@@ -139,12 +142,14 @@ export default function SubProduct() {
         // }
     }
     const LoadMOre = () => {
-        setPageNO(PageNO + 1)
-        setLoading(true)
+        LoadMOreSub()
+        // setPageNO(PageNO + 1)
+        // setLoading(true)
     }
     const LoadMOreFIlter = async () => {
-        setFIlterPageNO(FIlterPageNO + 1)
-        setLoading(true)
+        LoadMOreFIlterSub()
+        // setFIlterPageNO(FIlterPageNO + 1)
+        // setLoading(true)
 
     }
     let PriceLenght = 5;
@@ -203,8 +208,8 @@ export default function SubProduct() {
                                                 Price
                                             </div>
 
-                                            <li className="dropdown-item" onClick={() => setfilters(1)}><BsArrowUp className='me-2' />Low To High</li>
-                                            <li className="dropdown-item" onClick={() => setfilters(-1)}><BsArrowDown className='me-2' />High To Low</li>
+                                            <li className="dropdown-item" onClick={() => setfiltersSubcategory(1)}><BsArrowUp className='me-2' />Low To High</li>
+                                            <li className="dropdown-item" onClick={() => setfiltersSubcategory(-1)}><BsArrowDown className='me-2' />High To Low</li>
 
                                         </ul>
                                     </div>
@@ -232,7 +237,7 @@ export default function SubProduct() {
                     }
 
                     {
-                        AllData?.map((automobileProduct, key) => {
+                        AllDataSubCategory?.map((automobileProduct, key) => {
                             return (
                                 <div className="col-md-4 col-6 col-lg-3" onClick={() => setHomeData(automobileProduct.saved)}>
                                     <CardHeight>
@@ -292,24 +297,25 @@ export default function SubProduct() {
                         })
                     }
                     {
-                        !NoData && <div className="row m-0 p-0 d-flex justify-content-center">
+                        // !NoData && 
+                        <div className="row m-0 p-0 d-flex justify-content-center">
                             {
 
-                                filters == 1 || filters == -1 ?
+                                filtersSubcategory == 1 || filtersSubcategory == -1 ?
                                     TotalPagess == FIlterPageNO ?
                                         <>
                                         </>
                                         :
-                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagess == FIlterPageNO}>
+                                        <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOreFIlter} disabled={TotalPagesSubCategory == FIlterPageNOSubCategory}>
                                             {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                                 <span className="visually-hidden">Loading...</span>
                                             </div>
                                                 :
                                                 <img src={load} />} &nbsp;&nbsp;
-                                            Load More
+                                          Load More
                                         </ButtonCraete>
                                     :
-                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagess == PageNO}>
+                                    <ButtonCraete size='lg' variant='outline' colorScheme='teal' onClick={LoadMOre} disabled={TotalPagesSubCategory == SubCategoryPageNO}>
                                         {Loading ? <div className="spinner-border spinner-border-sm me-1" role="status">
                                             <span className="visually-hidden">Loading...</span>
                                         </div>
@@ -322,7 +328,7 @@ export default function SubProduct() {
                     }
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
     )
 }

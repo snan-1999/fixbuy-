@@ -44,7 +44,7 @@ const Profile = () => {
         ID = JSON.parse(IdData)?.token;
         EMAIL = JSON.parse(IdData)?.email;
     } else {
-        console.log('nahi hai')
+        // console.log('nahi hai')
         nav('/')
     }
 
@@ -53,7 +53,7 @@ const Profile = () => {
     // console.log(PhoneNumber);
     const uploadedImage = React.useRef(null);
     const imageUploader = React.useRef(null);
-    // const data = ProfileStore(state => state);
+   
     const [name, setName] = useState('');
     const [otp, setOtp] = useState('');
     const [OTP, setOTP] = useState('');
@@ -88,24 +88,36 @@ const Profile = () => {
 
 
 
-
+    const [preview, setPreview] = useState('')
 
     const handleImageUpload = e => {
         // setImg(response.data.data[0].img);
         setProfileImg2(e.target.files[0])
-        const [file] = e.target.files;
-        if (file) {
-            const reader = new FileReader();
-            const { current } = uploadedImage;
-            current.file = file;
-            reader.onload = e => {
-                current.src = e.target.result;
-                // console.log(file, "bruno")
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+        const [file] = e.target.files[0]
 
+        // if (file) {
+        //     const reader = new FileReader();
+        //     const { current } = uploadedImage;
+        //     current.file = file;
+        //     reader.onload = e => {
+        //         current.src = e.target.result;
+
+        //     };
+        //     reader.readAsDataURL(file);
+        // }
+    };
+    useEffect(() => {
+        if (!profileImg2) {
+            setPreview(undefined)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(profileImg2)
+        setPreview(objectUrl)
+        console.log(objectUrl, "bruno")
+        return () => URL.revokeObjectURL(objectUrl)
+        // free memory when ever this component is unmounted
+    }, [profileImg2])
 
     const handleProfileData = async () => {
         let response = await ProfileData(ProfleId);
@@ -151,7 +163,7 @@ const Profile = () => {
                 let year = new Date(response.data.data[0].date_of_birth).getFullYear();
 
                 // console.log(`${year}-${month}-${date}`, 'full date');
-                setDOB(`${year}-${month}-${(date >= 9) ? date : `0${date}`}`);
+                setDOB(`${year}-${(month >= 9) ? month : `0${month}`}-${(date >= 9) ? date : `0${date}`}`);
             }
             // console.log(dob)
             setGender(response.data.data[0].gender)
@@ -191,6 +203,7 @@ const Profile = () => {
             formData.append('city', city)
         }
         // dob != NaN-NaN-0NaN
+        console.log(new Date(dob).toDateString() , ' dob')
         if (dob.trim().length > 0) {
 
             formData.append('date_of_birth', new Date(dob).toDateString());
@@ -206,10 +219,10 @@ const Profile = () => {
             }
             const api = `${baseUrl}/users/update/profile/${ProfleId}`;
             // console.log(formData.entries(), "profile")
-            // console.log(formData , "profile")
             console.log(name, "profile")
             await axios.put(api, formData).then((response) => {
-                // console.log(response.data);
+                console.log(formData , "profile")
+                console.log(response.data);
                 if (response.data.status) {
                     setProfileUpdate(ProfileUpdate + 1)
                     // setMessage('Profile Updated!');
@@ -258,9 +271,7 @@ const Profile = () => {
         }
         handleProfileData();
     }, [0])
-    useEffect(() => {
-        // console.log(profileImg2, "profileData");
-    }, [profileImg2])
+
 
 
 
@@ -356,9 +367,10 @@ const Profile = () => {
 
                                                         >
                                                             <img
-                                                                src={profileImg}
+                                                                // src={profileImg}
+                                                                src={preview ? preview : profileImg}
                                                                 name={profileImg}
-                                                                value={profileImg}
+                                                                value={!preview ? preview : profileImg}
                                                                 // ref={uploadedImage}
 
                                                                 style={{
@@ -502,7 +514,7 @@ const Profile = () => {
 
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </>
 
     )
