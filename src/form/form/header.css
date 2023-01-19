@@ -2947,7 +2947,14 @@ button.GoogleBtn {
         color: var(--color1);
         margin-bottom: 5px;
     }
-
+    .radio-button label{
+        padding: 5px 13px;
+        font-size: 11px;
+    }
+    .radio-button1 label{
+        padding: 14px 15px;
+font-size: 14px;
+    }
     /* SellMob start*/
     .desk {
         display: none;

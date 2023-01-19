@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { FaRegImage, FaSearch } from 'react-icons/fa'
-import styled from 'styled-components'
+import styled ,{keyframes} from 'styled-components'
 import Footer from "../../src/form/form/Footer"
 import Header from "../../src/form/form/header"
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Stack } from '@chakra-ui/react'
@@ -12,6 +12,7 @@ import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { useLocation } from 'react-router-dom'
+import {motion} from 'framer-motion';
 export default function MessageScreen({ infoprofiledata, location, selectedroom }) {
 
     // const selectedroomid = selectedroom
@@ -247,26 +248,26 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
                                         console.log(a.msgroomId, 'responsedata');
                                         return (
                                             a.msguserId === userid ?
-                                                <UserDiv>
-                                                
-                                                    <UserMessage>
-                                                        {
-                                                            a.msgType == 'image' ? <img className='chatImage' style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
-                                                                <span>{a.message}</span>
-                                                        }
+                                            <UserDiv>
+                                            <UserMessage initial={{  scale: 0 , height :'auto'}} animate={{scale : 1 , height :'auto'}} initialanimate={{  scale: .6 , height :'10px' , bottom: '20px'}} > 
+                                                 {
+                                                     a.msgType == 'image' ? <div className='imageChatDiv'><img className='chatImage' src={`${a.message}`} /></div> :
+                                                    <p>{a.message}</p> 
+                                                 }
+                                             </UserMessage>                                                   
+                             
+                                         </UserDiv> :
 
-                                                    </UserMessage>
-                                                </UserDiv> :
-                                                <AdminDiv>
-                                                    
-                                                    <AdminMessage>
-                                                        {
-                                                            a.msgType == 'image' ? <img className='chatImage' style={{ width: '100%', height: "26vh" }} src={`${a.message}`} /> :
-                                                                <span>{a.message}</span>
-                                                        }
+                                         <AdminDiv >
 
-                                                    </AdminMessage>
-                                                </AdminDiv>
+                                             <AdminMessage initial={{  scale: 0 , height :'auto'}} animate={{scale : 1 , height :'auto'}} initialanimate={{  scale: .6 , height :'10px'}}>
+                                                 {
+                                                     a.msgType == 'image' ? <div className='imageChatDiv'> <img className='chatImage' src={`${a.message}`} /></div> :
+                                                     <p>{a.message}</p> 
+                                                 }
+
+                                             </AdminMessage>
+                                         </AdminDiv>
                                                 )
                                             })
                                             : null
@@ -316,7 +317,14 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
 //   background: linear-gradient(135deg , grey  0% ,grey 50% , transparent 50% , transparent);
 
 // `
-const UserMessage = styled.div`
+const ChatMessages = keyframes`
+0% { opacity: 0; transform: translateY(-100px); }
+25% { opacity: 1; transform: translateY(0px); }
+75% { opacity: 1; transform: translateY(0px); }
+100% { opacity: 0; transform: translateY(50vh); }
+`
+
+const UserMessage = styled(motion.div)`
      background-color: grey;
     width: auto;
     max-width: 35%;
@@ -325,8 +333,12 @@ const UserMessage = styled.div`
     padding: 5px 10px 5px 10px; 
     border-radius: 15px;
     font-size: 0.9rem;
+    bottom: 10px;
+        transform: scale(Y);   
+           animation-name: ${ChatMessages} bounceIn ;
+           animation-direction: reverse ;
  `
-const AdminMessage = styled.div`
+const AdminMessage = styled(motion.div)`
     
  background: linear-gradient( #345276 ,100%, #497993 , 100% , transparent);
  width: auto;
@@ -335,6 +347,9 @@ const AdminMessage = styled.div`
  padding: 5px ; 
  border-radius: 15px;
  font-size: 0.9rem;
+ transform: scale(Y);
+       animation-name: ${ChatMessages} bounceIn ;
+        animation-direction: reverse ; 
  /* &::before{
      border-color: #59c3f0;
      border-color: #59c3f0;
