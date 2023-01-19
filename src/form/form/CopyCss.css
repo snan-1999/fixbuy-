@@ -546,7 +546,7 @@ input.EnterMesaage {
 
 .image-radio-button input[type="radio"] {
     display: none !important;
-}
+}  
 
 .image-radio-button label {
     display: inline-block;
