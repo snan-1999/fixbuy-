@@ -13,7 +13,7 @@ import { useLocation } from 'react-router-dom'
 import { ImageView } from '../functions/constant'
 import axios from 'axios'
 import Scrollbars from 'react-custom-scrollbars'
-import BottomTop from '../functions/BottomTop'
+import { BottomTop } from '../functions/BottomTop'
 export default function MainChatFile() {
     const [allactiveuser, setAllActiveUser] = useState([])
     const [infoprofiledata, setInfoProfileData] = useState([])
@@ -129,7 +129,7 @@ export default function MainChatFile() {
 
                                                             <ChatColor activechat={activechat == index} onClick={() => { setactivechat(index); handleUserChat(i) }}>
                                                                 <li style={{ cursor: "pointer", border: "none", borderBottom: "1px solid lightgrey" }} activechat={activechat == index} class="list-group-item mt-2 " >
-                                                                    <img  src={`${ImageView}${i[0].image}`} style={{ width: '3vw', height: '6vh', borderRadius: "50%" }} />
+                                                                    <img src={`${ImageView}${i[0].image}`} style={{ width: '3vw', height: '6vh', borderRadius: "50%" }} />
                                                                     &nbsp;&nbsp;&nbsp;&nbsp;<span className="tabChatHead" onClick={() => { handleUserChat(i); }}>{i[0].name}</span>
                                                                 </li>
                                                             </ChatColor>

@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 // import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,6 +35,7 @@ const PC = () => {
         setisOpen(false)
         setOtpCondition(false)
     }
+    const nav = useNavigate()
     const OnOpen = () => setisOpen(true)
     // console.log(ProfleId);
     const [user_id, setUser_id] = useState(ProfleId)
@@ -166,6 +167,9 @@ const PC = () => {
                                                                 theme: "colored",
                                                                 type: 'success'
                                                             });
+                                                            setTimeout(()=>{
+                                                                nav('/')
+                                                            } ,2000)
                                                             console.log(response.data.status);
                                                             // setposted('success')
                                                             // console.log(posted)

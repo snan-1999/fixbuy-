@@ -18,4 +18,5 @@ export const ProfileStore = create((set) => ({
     MainCategoryParam : '',
     SubCategoryName : '',
     SubCategoryParam : '',
+    SearchShow : false,
 }))

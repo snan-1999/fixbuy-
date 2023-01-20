@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import BottomTop from "../../functions/BottomTop";
+import {BottomTop } from "../../functions/BottomTop";
 import Footer from "./Footer";
 import Header from "./header";
 

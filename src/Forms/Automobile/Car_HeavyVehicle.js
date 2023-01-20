@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import OtpPop from "../../form/form/Modals/OtpPop";
@@ -33,6 +33,7 @@ const Cars = () => {
         setisOpen(false)
         setOtpCondition(false)
     }
+    const nav = useNavigate()
     const OnOpen = () => setisOpen(true)
     const [AllErrors, setAllErrors] = useState(false)
     const [otp, setOtp] = useState('');
@@ -196,6 +197,9 @@ const Cars = () => {
                                                                                 console.log(response.data, "postItem");
                                                                                 seterrors(true)
                                                                                 console.log(errors)
+                                                                                setTimeout(()=>{
+                                                                                    nav('/')
+                                                                                } ,2000)
                                                                                 // setMessage('Posted !');
                                                                             } else {
                                                                                 console.log(false);

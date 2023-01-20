@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { GiSofa } from "react-icons/gi";
-import BottomTop from "../../functions/BottomTop";
+import {BottomTop } from "../../functions/BottomTop";
 import { FaIndustry } from "react-icons/fa";
 import { BiBattery } from "react-icons/bi";
 

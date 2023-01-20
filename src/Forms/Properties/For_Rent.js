@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Land_Plot from "./Land_Plots";
 // import { Link } from "react-router-dom";
 import { useContext } from "react";
@@ -92,7 +92,7 @@ const ForRent = () => {
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
     const [descriptionerror, setDescriptionError] = useState('');
-
+    const nav = useNavigate()
 
     console.log(category2)
 
@@ -227,6 +227,9 @@ const ForRent = () => {
                                                                                                     theme: "colored",
                                                                                                     type: 'success'
                                                                                                 });
+                                                                                                setTimeout(()=>{
+                                                                                                    nav('/')
+                                                                                                } ,2000)
                                                                                                 console.log(response.data.status);
                                                                                                 seterrors(true)
                                                                                                 console.log(errors)

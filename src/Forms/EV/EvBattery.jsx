@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 // import Cars from "./Car_HeavyVehicle";
 // import SpareParts from "./SpareParts_Others";
 import { ToastContainer, toast } from 'react-toastify';
@@ -87,7 +87,7 @@ const EvBattery = () => {
   const ParamData  = useLocation();
   const MainCategoryName = ParamData.pathname.split('/').slice(2,3)
   console.log(MainCategoryName[0] ,'paramadata')
-
+  const nav = useNavigate()
 
  
 
@@ -197,6 +197,9 @@ const EvBattery = () => {
                                     theme: "colored",
                                     type: 'success'
                                   });
+                                  setTimeout(()=>{
+                                    nav('/')
+                                } ,2000)
                                   console.log(response.data, "postItem");
                                   seterrors(true)
                                   console.log(errors)

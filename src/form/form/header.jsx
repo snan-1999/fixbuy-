@@ -26,6 +26,7 @@ import UserDeleteModal from "./Modals/DeleteModal";
 import LogoutModal from "./Modals/LogoutModal";
 import { IoIosRocket } from 'react-icons/io';
 import { ProfileStore } from "../../store";
+import { CheckParam } from "../../functions/BottomTop";
 
 const Header = () => {
 
@@ -33,7 +34,10 @@ const Header = () => {
     const [LocalData, setLocalData] = useState("")
     const UserLogin = window.localStorage.getItem('loginThrough');
     // console.log(UserLogin, 'userlogin data')
-
+    const ShowHideSearch = ProfileStore(state => state.SearchShow);
+    useEffect(() => {
+        console.log(ShowHideSearch, 'huhu2')
+    }, [ShowHideSearch])
     const LoginthroughData = JSON.parse(UserLogin)?.loginCome;
     // console.log(LoginthroughData, 'loginthroughData')
     let ProfleId;
@@ -137,8 +141,8 @@ const Header = () => {
         // SearchEl.addEventListener("keyup", async (e) => {
         // console.log(e.keyCode, 'keyVal')
         if (e.keyCode == 13) {
-            ProfileStore.setState({ StoreSearch: e.target.value})
-           
+            ProfileStore.setState({ StoreSearch: e.target.value })
+
             setEnterSearch(EnterSearch + 1)
             // console.log("enter is pressed", 'serachData')
             nav('/search-home-result', { state: search })
@@ -161,7 +165,7 @@ const Header = () => {
         // console.log('sevcond')
     }, [Upstate, userProfileImg])
 
-    const SearchBar = (e) => {     ProfileStore.setState({ StoreSearch: search}) }
+    const SearchBar = (e) => { ProfileStore.setState({ StoreSearch: search }) }
 
     const UpdateShop = async () => {
         // console.log(gstnumber, address, 'checkihn')
@@ -262,6 +266,9 @@ const Header = () => {
 
     }
     const [isMobile] = useMediaQuery("(max-width : 600px)");
+    useEffect(() => {
+        // CheckParam()
+    }, [0])
     const [scrollPosition, setScrollPosition] = useState(true);
     const handleScroll = () => {
         const position = window.pageYOffset;
@@ -324,114 +331,7 @@ const Header = () => {
             window.removeEventListener("scroll", handleNavigation);
         };
     }, [handleNavigation]);
-    const DeleteData = () => {
-        //   setDelId(id)
 
-        //    if( window.scrollTo('10px',"10px")){
-        //         alert(true)
-        //     } 
-        // let scrollHeight = Math.max(
-        //     document.body.scrollHeight, document.documentElement.scrollHeight,
-        //     document.body.offsetHeight, document.documentElement.offsetHeight,
-        //     document.body.clientHeight, document.documentElement.clientHeight
-        // );
-        // console.log(window.pageYOffset, 'scrollHeight')
-        // const [NavHideShow, setNavHideShow] = useState(false)
-        // console.log(document.body.scrollTop, 'fjfj')
-        // const listenToScroll = () => {
-
-        //     console.log(document.documentElement.scrollTop, 'fjfj')
-        //     if(document.documentElement.scrollTop > 20){
-        //         setNavHideShow(true)  
-        //         console.log('yesss')
-        //     }else{
-        //         setNavHideShow(false)  
-        //         console.log('yess1')
-        //     }
-        // }
-        // useEffect(() => {
-
-        //     window.addEventListener("scroll", listenToScroll);
-
-        // }, [])
-
-        // useEffect(() => {
-
-        // }, [document.documentElement.scrollTop])
-
-        // useEffect(() => { 
-
-        //     if (window.pageYOffset == 100) {
-        //         setNavHideShow(true)
-
-        //     } else { 
-        //         setNavHideShow(false)
-
-        //     }
-        // } , [window.pageYOffset])
-
-        // const[sellerid,setSellerid] = useState(null)
-        // const Token = localStorage.getItem('token');
-        // var userid;
-        // if(Token){
-        //  userid=JSON.parse(Token).token
-        // } 
-        // const [TokenID, setTokenID] = useState({
-        //     'ID': JSON.parse(Token)?.token,
-        //     'Name': JSON.parse(Token)?.name,
-        //     'Email': JSON.parse(Token)?.email,
-        //     'Phone': JSON.parse(Token)?.phone,
-        // })
-        // const ChatSeller = async() => {
-        //     if (Token === null) {
-        //         nav('/login')
-        //     } else {
-
-
-        //         const api =` ${baseUrl}/room/initiate`;
-        //         // console.log(chatRoomId,'chatRoomId')
-
-        //     try{
-        //         console.log(TokenID.ID,sellerid,'sellerid')
-        //         //  63777f0e14f32ec739050bae 634123e8832860cfb6788fde
-        //         const response = await axios.post(api,{
-        //             "users" : [{"userId":userid,"userType":"buyer"},{"userId":sellerid,"userType":"seller"}],
-        //             "type" : 'consumer-to-consumer'
-        //         })
-        //         const chatRoomId = response.data.chatRoom.chatRoomId;
-        //         // console.log("9999",response.data.chatRoom.chatRoomId)
-        //         // console.log(response,'room')
-        //         // console.log(response.data.success,'success')
-        //         if(response.data.success ===  true){
-        //             try{
-        //                 const dataresponse =  await axios.get(`https://fixebuyofficial.in/room/${chatRoomId}`)
-        //                 console.log(dataresponse,'dataresponse')
-        //                 // console.log(dataresponse.data.users,'44555')
-        //                 const filterdataofuser = dataresponse.data.users.filter((i)=>{
-        //                          return i._id !== TokenID.ID
-        //                 })
-        //                 console.log(filterdataofuser,'filter')
-        //                 // alert(chatRoomId)
-        //                 console.log(filterdataofuser[0].profileImg,filterdataofuser[0].name,'44555')
-        //                 nav("/mainchatfile",{state:{name:filterdataofuser[0].name,
-        //                 image:filterdataofuser[0].profileImg,roomId:chatRoomId}})
-
-        //             }
-        //             catch(e){
-        //                 console.log(e,'room')
-
-        //             }
-        //         }
-
-        //     }
-        //     catch(e){
-        //         console.log(e)
-
-        //     }
-        // }
-
-        //     }
-    }
     return (
         <>
             {/* <button onClick={()=> setcheck('nandita')}>onClick</button> */}
@@ -440,7 +340,7 @@ const Header = () => {
                 ...{
                     ModalOpen,
                     setModalOpen,
-                    DeleteData,
+                    // DeleteData,
 
                 }
                 }
@@ -515,7 +415,7 @@ const Header = () => {
                                             <input className="form-control mr-sm-2 " type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch}
                                                 onChange={(e) => {
                                                     setSearch(e.target.value)
-                                                    
+
                                                 }
                                                 }
 
@@ -542,7 +442,8 @@ const Header = () => {
                             </Stack> */}
 
                         {/* style={{ display: scrollPosition ? "none" : "block" }}  */}
-                        <nav className="setMobBox" id="check">
+                        
+                        <nav className="setMobBox" id="check" style={{top : isMobile && !ShowHideSearch && '75px'}}>
                             <div className="inline-menu1">
                                 <div className="collapse navbar-collapse" id="navbarSupportedContent" >
 
@@ -739,19 +640,21 @@ const Header = () => {
                     // height: scrollPosition && '11vh'
                 }}>
                     {/* mobile  nav end*/}
-                    <div className="mob-version search-box col-12" style={{
-                        position: scrollPosition ? 'fixed' : 'fixed',
-                        top: scrollPosition ? '10%' : '0',
-                        zIndex: isMobile && scrollPosition ? 10 : 2,
-                    }}>
-                        <div className="form-inline my-2 my-lg-0" >
-                            <div className="mob-search">
-                                <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
-                                <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
+                {
+                   isMobile &&  ShowHideSearch && <div className="mob-version search-box col-12" style={{
+                            position: scrollPosition ? 'fixed' : 'fixed',
+                            top: scrollPosition ? '10%' : '0',
+                            zIndex: isMobile && scrollPosition ? 10 : 2,
+                        }}>
+                            <div className="form-inline my-2 my-lg-0" >
+                                <div className="mob-search">
+                                    <input className="form-control mr-sm-2 col-12" type="text" id="search" placeholder="Search Car, Bikes and Mobiles" name="search" onKeyUp={AutoSearch} aria-label="Search" onChange={(e) => setSearch(e.target.value)} />
+                                    <Link to="/search-home-result" state={search}><BiSearchAlt className="SearchBtn" onClick={SearchBar} /></Link>
+                                </div>
                             </div>
+    
                         </div>
-
-                    </div>
+                }
 
                     {/* <!-- category --> */}
                     <div className="desk-category" style={{ transform: !scrollPosition ? 'translateY(-100%)' : 'translateY(0%)', transition: 'all 500ms ease' }}>

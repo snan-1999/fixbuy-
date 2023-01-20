@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl, ImageView } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ProfileData } from "../../functions/ProfileData";
 // import { Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
@@ -77,7 +77,7 @@ const Fridge = () => {
     const stateRef = useRef();
     const pincodeRef = useRef();
     const sellerphoneRef = useRef();
-
+    const nav = useNavigate()
     // const [imageError, setimageError] = useState('');
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
@@ -183,6 +183,9 @@ const Fridge = () => {
                                                             theme: "colored",
                                                             type: 'success'
                                                         });
+                                                        setTimeout(()=>{
+                                                            nav('/')
+                                                        } ,2000)
                                                         console.log(response.data);
                                                         seterrors(true)
                                                         console.log(errors)

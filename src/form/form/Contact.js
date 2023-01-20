@@ -11,10 +11,12 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
-import BottomTop from "../../functions/BottomTop";
+import {BottomTop, CheckParam } from "../../functions/BottomTop";
+import { useLocation } from "react-router-dom";
 
 
 const Contact = () => {
+    const Param = useLocation();
     const [messages, setMessages] = useState('');
     const [error, setError] = useState('');
     const [errors, seterrors] = useState(false);
@@ -83,6 +85,7 @@ const Contact = () => {
     }
     // setLoader(false)
     useEffect(() => {
+        CheckParam(Param)
         BottomTop()
     }, [0])
 

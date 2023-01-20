@@ -12,7 +12,7 @@ import Header from "../header";
 import Footer from "../Footer";
 import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
-import BottomTop from "../../../functions/BottomTop";
+import {BottomTop } from "../../../functions/BottomTop";
 
 
 import { Stack, VStack } from "@chakra-ui/layout";

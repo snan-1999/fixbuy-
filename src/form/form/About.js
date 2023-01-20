@@ -7,15 +7,18 @@ import "../form/header.css";
 import mountain from "../../assets/images/mountain.png";
 import service from "../../assets/images/service.png";
 import fairytale from "../../assets/images/fairytale.png";
-import BottomTop from '../../functions/BottomTop';
+import {BottomTop, CheckParam } from '../../functions/BottomTop';
 import Poster2 from "../../assets/images/Poster2.jpg";
 import { Stack } from '@chakra-ui/layout';
+import { useLocation } from 'react-router-dom';
 
 
-
+ 
 export default function About() {
+  const Param = useLocation();
   useEffect(() => {
-    BottomTop()
+    CheckParam()
+    BottomTop(Param)
   }, [0])
   return (
     <>

@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
@@ -71,7 +71,7 @@ const HomeDecoration = () => {
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
     const [descriptionerror, setDescriptionError] = useState('');
-
+    const nav = useNavigate()
     console.log(category2)
 
     const maxNumber = 20;
@@ -164,6 +164,9 @@ const HomeDecoration = () => {
                                                                 theme: "colored",
                                                                 type: 'success'
                                                             });
+                                                            setTimeout(()=>{
+                                                                nav('/')
+                                                            } ,2000)
                                                             console.log(response.data.status);
                                                             // setposted('success')
                                                             seterrors(true)

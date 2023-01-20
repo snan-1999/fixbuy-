@@ -18,7 +18,7 @@ import { baseUrl, ImageView } from '../../functions/constant';
 import axios from 'axios'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 import useGeoLocation from '../../hooks/useGeoLoaction';
-import BottomTop from '../../functions/BottomTop';
+import {BottomTop } from '../../functions/BottomTop';
 import { ProfileStore } from '../../store';
 export default function MainProducts({ AllDataMainCategory, LoadMOreMainCategory, MainCategoryPageNO, filtersMaincategory, setfiltersMaincategory, LoadMOreFIlterMainCategory, Loading, setLoading ,FIlterPageNOMainCategory, setFIlterPageNOMainCategory ,setMainCategoryPageNO ,setAllDataMainCategory ,TotalPagesMainCategory ,NODataMainCategory}) {
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)

@@ -718,8 +718,10 @@ input.EnterMesaage {
     .img-wh {
         height: 100px !important;
         /* width: 100%; */
-        width: auto !important;
+        width: 37vw !important;
         overflow: hidden;
+        margin-left: -6px;
+        border-radius: 6px;
     }
 
     .price {

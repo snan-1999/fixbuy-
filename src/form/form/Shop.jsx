@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import { GlobalVariables } from '../../Context/StateProvider'
 import { baseUrl, ImageView } from '../../functions/constant'
@@ -17,10 +17,14 @@ import load from '../../assets/images/load.gif';
 import { FaHeart } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import useGeoLocation from '../../hooks/useGeoLoaction'
-import BottomTop from '../../functions/BottomTop'
+import {BottomTop, CheckParam } from '../../functions/BottomTop'
 import HeaderNew from './header'
 export default function Shop({AllShopData ,LoadMOreShop ,ShopPage ,filters, setfilters ,FIlterPageNO, setFIlterPageNO ,LoadMOreFIlters , Loading, setLoading,}) {
-    console.log("shopDatas" , AllShopData)
+    const Param = useLocation();
+    console.log("shopDatas" , Param.pathname)
+    useEffect(()=>{
+        CheckParam(Param)
+    },[0])
     const location = useGeoLocation();
     const { latitude, Longitude, setHomeData, UserId } = useContext(GlobalVariables)
     const [AllData, setAllData] = useState([])

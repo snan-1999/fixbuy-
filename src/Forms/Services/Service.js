@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
@@ -72,7 +72,7 @@ const Service = () => {
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
     const [descriptionerror, setDescriptionError] = useState('');
-
+    const nav = useNavigate()
     let newcategory = category2.replace(/_/g, ' ')
     console.log(newcategory);
 
@@ -165,6 +165,9 @@ const Service = () => {
                                                                 theme: "colored",
                                                                 type: 'success'
                                                             });
+                                                            setTimeout(()=>{
+                                                                nav('/')
+                                                            } ,2000)
                                                             console.log(response.data.status);
                                                             // setposted('success')
                                                             // console.log(posted)

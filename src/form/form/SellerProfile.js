@@ -23,7 +23,7 @@ import { MdLocationOn } from "react-icons/md";
 
 import { ToastContainer, toast } from 'react-toastify';
 import { Button } from "@chakra-ui/react";
-import BottomTop from "../../functions/BottomTop";
+import {BottomTop } from "../../functions/BottomTop";
 
 
 const SellerProfile = () => {

@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import OtpPop from "../../form/form/Modals/OtpPop";
@@ -33,6 +33,7 @@ const Fashion = () => {
         setisOpen(false)
         setOtpCondition(false)
     }
+    const nav = useNavigate()
     const OnOpen = () => setisOpen(true)
     const [OtpCondition, setOtpCondition] = useState(false);
     const [ModalSellerPhone, setModalSellerPhone] = useState(PhoneNumber);
@@ -167,6 +168,9 @@ const Fashion = () => {
                                                             theme: "colored",
                                                             type: 'success'
                                                         });
+                                                        setTimeout(() => {
+                                                            nav('/')
+                                                        }, 2000)
                                                         // setposted('success')
                                                         // console.log(posted)
                                                         seterrors(true)

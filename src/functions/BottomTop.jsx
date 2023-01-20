@@ -1,6 +1,7 @@
+import { ProfileStore } from "../store";
 
 
-function BottomTop() {
+export function BottomTop() {
     return (
 
         window.scroll({
@@ -11,4 +12,11 @@ function BottomTop() {
     )
 }
 
-export default BottomTop
+export const CheckParam = (Param) => {
+    console.log('runn')
+    const send = "/".includes(Param?.pathname) || "/shop".includes(Param?.pathname) 
+    ProfileStore.setState({ SearchShow: send })
+    // console.log('/'.includes(Param?.pathname), 'huhu1')
+    return '/'.includes(Param?.pathname);
+}
+

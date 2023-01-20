@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
@@ -18,6 +18,7 @@ import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
 import { Spinner, Stack, Text } from "@chakra-ui/react";
 const Books = () => {
+    const nav = useNavigate()
     const [Loader, setLoader] = useState(false)
     const location = useGeoLocation();
     const { latitude, Longitude } = useContext(GlobalVariables)
@@ -168,6 +169,9 @@ const Books = () => {
                                                                 theme: "colored",
                                                                 type: 'success'
                                                             });
+                                                            setTimeout(()=>{
+                                                                nav('/')
+                                                            } ,2000)
                                                             console.log(response.data);
                                                             // setposted('success')
                                                             // console.log(posted)

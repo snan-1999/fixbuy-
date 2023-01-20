@@ -7,7 +7,7 @@ import facebook from '../../assets/images/facebook.png'
 // import { ElectronicsFunc } from "../../functions/ElectronicsApi";
 import { baseUrl } from "../../functions/constant";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Cars from "./Car_HeavyVehicle";
 import SpareParts from "./SpareParts_Others";
 import { ToastContainer, toast } from 'react-toastify';
@@ -21,6 +21,7 @@ import useGeoLocation from "../../hooks/useGeoLoaction";
 import { Spinner, Stack, Text } from "@chakra-ui/react";
 // import { Link } from "react-router-dom";
 const Bike = () => {
+    const nav = useNavigate()
     const [Loader, setLoader] = useState(false)
     const location = useGeoLocation();
     const { latitude, Longitude } = useContext(GlobalVariables)
@@ -199,6 +200,9 @@ const Bike = () => {
                                                                     seterrors(true)
                                                                     console.log(errors)
                                                                     setMessage('Posted !');
+                                                                    setTimeout(()=>{
+                                                                        nav('/')
+                                                                    } ,2000)
                                                                 } else {
                                                                     console.log(false);
                                                                 }

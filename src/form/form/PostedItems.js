@@ -15,7 +15,7 @@ import axios from 'axios';
 import styled from "styled-components";
 import UserDeleteModal from "./Modals/DeleteModal";
 import { toast, ToastContainer } from "react-toastify";
-import BottomTop from "../../functions/BottomTop";
+import {BottomTop } from "../../functions/BottomTop";
 
 const PostedItems = () => {
 

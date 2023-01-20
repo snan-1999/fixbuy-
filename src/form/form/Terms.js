@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import BottomTop from "../../functions/BottomTop";
+import {BottomTop } from "../../functions/BottomTop";
 // import "./css/custom.css";
 // import "./css/iofrm-style.css";
 // import "../form/header.css";

@@ -13,7 +13,7 @@ import "../form/header.css";
 import { Autoplay, Pagination, Navigation } from "swiper";
 import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { baseUrl, ImageView } from "../../functions/constant";
 import fot from '../../assets/images/fot.png'
 import axios from 'axios';
@@ -29,13 +29,24 @@ import { FaHeart } from 'react-icons/fa'
 import android from '../../assets/images/android.png'
 import apple from '../../assets/images/apple.png'
 import CategorySlider from "./corousel/CategorySlider";
-import useGeoLocation from "../../hooks/useGeoLoaction";
+import useGeoLocation from "../../hooks/useGeoLoaction"; 
 import DownloadModal from "./Modals/DownloadModal";
-import HeaderNew from "./header";
+import HeaderNew from "./header"; 
+import { CheckParam } from "../../functions/BottomTop";
 
 const Home = ({ automobiles, LoadMOres, height, Loading, TotalPagess, setTotalPagess, PageNo }) => {
     const { latitude, Longitude, setHomeData, UserId, setUserId, isOpenDownload, setisOpenDownload } = useContext(GlobalVariables)
     const location = useGeoLocation();
+    const Param = useLocation();
+    console.log(Param ,'Param')
+    useEffect(() => {
+        window.scroll({
+            // top: 0,
+            // left: 0,
+            behavior: "instant"
+        })
+        CheckParam(Param)
+    },[0])
     const Onclose = () => setisOpenDownload(false)
     const Token = localStorage.getItem('token');
     const TokenData = JSON.parse(Token)
