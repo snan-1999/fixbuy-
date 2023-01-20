@@ -85,7 +85,9 @@ const Profile = () => {
     const OnOpen = () => setisOpen(true)
     const EmailModalOpen = () => setEmalOpen(true)
 
-
+    const maxDate = new Date();
+    
+    maxDate.setDate(maxDate.getDate() - 5110);
 
 
     const [preview, setPreview] = useState('')
@@ -438,7 +440,7 @@ const Profile = () => {
                                                 <h6 className="mb-0">Date Of Birth</h6>
                                             </div>
                                             <div className="col-sm-9 text-secondary overflow-hidden position-relative">
-                                                <input type="date" className="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
+                                                <input type="date" className="form-control shadow-none" placeholder="Date of Birth " name="date_of_birth" id="" contenteditable="true" max={maxDate.toISOString().split("T")[0]} value={dob} onChange={(e) => { console.log(e.target.value); setDOB(e.target.value) }} />
                                             </div>
 
                                         </div>

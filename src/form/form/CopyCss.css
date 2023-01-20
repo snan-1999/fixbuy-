@@ -905,7 +905,7 @@ input.EnterMesaage {
         left: 0%;
         right: 0%;
         margin-left: -90%;
-        top: 0%;
+        top: 0% !important;
         z-index: 2;
     }
 
