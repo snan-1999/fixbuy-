@@ -7,14 +7,16 @@ import "../form/header.css";
 import mountain from "../../assets/images/mountain.png";
 import service from "../../assets/images/service.png";
 import fairytale from "../../assets/images/fairytale.png";
-import {BottomTop, CheckParam } from '../../functions/BottomTop';
+import { BottomTop, CheckParam } from '../../functions/BottomTop';
 import Poster2 from "../../assets/images/Poster2.jpg";
 import { Stack } from '@chakra-ui/layout';
 import { useLocation } from 'react-router-dom';
+import { useMediaQuery } from '@chakra-ui/react';
 
 
- 
+
 export default function About() {
+  const [isMobile] = useMediaQuery("(max-width : 600px)");
   const Param = useLocation();
   useEffect(() => {
     CheckParam()
@@ -107,7 +109,10 @@ export default function About() {
             <br />Overall, fixebuy is the perfect platform for anyone looking to purchase or sell products and services in bulk. With its easy-to-use platform, secure payment system, and loan and service facility, it's no wonder that fixebuy has become the go-to source for many individuals and businesses. With their unique structure, wide range of products, and amazing customer service, we promise to make your buying and selling experience a breeze.</div>
         </div>
       </div>
-      {/* <Footer /> */}
+
+      {
+        !isMobile && <Footer />
+      }
 
     </>
   )

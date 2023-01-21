@@ -12,11 +12,13 @@ import Header from "../header";
 import Footer from "../Footer";
 import { baseUrl, ImageView } from "../../../functions/constant";
 import axios from "axios";
-import {BottomTop } from "../../../functions/BottomTop";
+import { BottomTop } from "../../../functions/BottomTop";
 
 
 import { Stack, VStack } from "@chakra-ui/layout";
+import { useMediaQuery } from "@chakra-ui/react";
 const Blogs = () => {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     let MAX_LENGTH = 60;
     const [blog, setBlog] = useState([])
 
@@ -98,7 +100,9 @@ const Blogs = () => {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
+            {
+                !isMobile && <Footer />
+            }
 
         </>
     )

@@ -16,9 +16,10 @@ import styled from "styled-components";
 import UserDeleteModal from "./Modals/DeleteModal";
 import { toast, ToastContainer } from "react-toastify";
 import {BottomTop } from "../../functions/BottomTop";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const PostedItems = () => {
-
+  const [isMobile] = useMediaQuery("(max-width : 600px)");
   // console.log(sellertype , 'sellertype')
   const MAX_LENGTH = 15;
   const IdData = window.localStorage.getItem('token')
@@ -226,7 +227,9 @@ const PostedItems = () => {
           </div>
         </div >
       </div>
-      <Footer />
+      {
+        !isMobile && <Footer />
+    }
     </>
   )
 }

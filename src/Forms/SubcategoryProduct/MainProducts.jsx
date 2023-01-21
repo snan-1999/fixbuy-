@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import React from 'react'
 import { useContext } from 'react';
 import { useState } from 'react';
@@ -24,6 +24,8 @@ export default function MainProducts({ AllDataMainCategory, LoadMOreMainCategory
     const { Lmore, setLmore, TotalPagess, setTotalPagess, setHomeData, latitude, Longitude, UserId } = useContext(GlobalVariables)
     console.log(TotalPagesMainCategory
          ,FIlterPageNOMainCategory , 'chekign')
+      
+        const [isMobile] = useMediaQuery("(max-width : 600px)");
     const Loacation = useGeoLocation()
     console.log(Loacation, 'latitudes')
     const ParamLocate = useLocation()
@@ -339,7 +341,9 @@ export default function MainProducts({ AllDataMainCategory, LoadMOreMainCategory
                     }
                 </div>
             </div>
-            {/* <Footer /> */}
+            {
+            !isMobile && <Footer />
+        }
         </>
     )
 }

@@ -12,8 +12,10 @@ import shopIcon from '../../assets/images/shopIcon.png'
 import { useState } from 'react';
 import { MdLocationOn } from 'react-icons/md';
 import Footer from './Footer';
+import { useMediaQuery } from '@chakra-ui/react';
 export default function SavedItems() {
     const { setHomeData, HomeData } = useContext(GlobalVariables)
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     const [Data, setData] = useState([])
     const Token = localStorage.getItem('token');
     const ID = JSON.parse(Token).token
@@ -123,8 +125,9 @@ export default function SavedItems() {
 
             </div >
             </div>
-            {/* <Footer /> */}
-
+            {
+        !isMobile && <Footer />
+    }
         </>
     )
 }

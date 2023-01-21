@@ -15,11 +15,12 @@ import ProfileNumber from "./Modals/ProfileNumber";
 import UserDeleteModal from "./Modals/DeleteModal";
 import EmailVerify from "./Modals/EmailVerify";
 import { ToastContainer, toast } from 'react-toastify';
-import { Select } from "@chakra-ui/react";
+import { Select, useMediaQuery } from "@chakra-ui/react";
 
 const Profile = () => {
     const [ModalOpen, setModalOpen] = useState(false)
-
+ 
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     const OpenDelete = () => setModalOpen(true)
     const nav = useNavigate();
     const { ProfileUpdate, setProfileUpdate } = useContext(GlobalVariables);
@@ -516,7 +517,9 @@ const Profile = () => {
 
                 </div>
             </div>
-            {/* <Footer /> */}
+            {
+        !isMobile && <Footer />
+    }
         </>
 
     )

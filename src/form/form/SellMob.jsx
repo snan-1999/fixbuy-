@@ -185,7 +185,7 @@ const SellMob = () => {
         },
         {
             name: 'Software Services',
-            to: '/sell/sevices/software_services'
+            to: '/sell/services/software_services'
         },
         {
             name: 'Other Services',

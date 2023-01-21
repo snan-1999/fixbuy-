@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -15,7 +15,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import CropImage2 from "../CropImage2";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { CheckParam } from "../../functions/BottomTop";
 
 const HomeDecoration = () => {
     const [AllErrors, setAllErrors] = useState(false)
@@ -73,7 +74,11 @@ const HomeDecoration = () => {
     const [descriptionerror, setDescriptionError] = useState('');
     const nav = useNavigate()
     console.log(category2)
-
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+    useEffect(() => {
+      CheckParam()
+    }, [0])
+  
     const maxNumber = 20;
 
     let newcategory = category2.replace(/_/g, ' ')
@@ -703,7 +708,9 @@ const HomeDecoration = () => {
                     </div>
                 </MyContainer>
             </div>
-            <Footer />
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

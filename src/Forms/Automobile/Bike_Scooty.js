@@ -18,9 +18,10 @@ import { GlobalVariables } from "../../Context/StateProvider";
 // import CropImage2 from '../CropImage2'
 import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
 // import { Link } from "react-router-dom";
 const Bike = () => {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     const nav = useNavigate()
     const [Loader, setLoader] = useState(false)
     const location = useGeoLocation();
@@ -874,7 +875,9 @@ const Bike = () => {
                     }
                 </MyContainer>
             </div>
-            <Footer />
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

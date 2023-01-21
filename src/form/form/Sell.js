@@ -208,10 +208,10 @@ const Sell = () => {
             <div className="MobSell">
                 <SellMob />
             </div>
-            {/* {
+            {
                 !isMobile &&
                 <Footer />
-            } */}
+            }
         </>
     )
 }

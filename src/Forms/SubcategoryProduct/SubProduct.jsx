@@ -12,7 +12,7 @@ import { GlobalVariables } from '../../Context/StateProvider'
 import axios from 'axios'
 import { useEffect } from 'react'
 import NoData from '../../assets/images/NoData.gif'
-import { Box, Image } from '@chakra-ui/react'
+import { Box, Image, useMediaQuery } from '@chakra-ui/react'
 import Footer from '../../form/form/Footer'
 import { FiHeart } from 'react-icons/fi'
 import { FaHeart } from 'react-icons/fa'
@@ -31,6 +31,7 @@ export default function SubProduct({AllDataSubCategory ,LoadMOreSub ,SubCategory
     const Loacation = useGeoLocation()
     const [AllData, setAllData] = useState([]);
     
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     // const [Loading, setLoading] = useState(false);
     const [PageNO, setPageNO] = useState(1);
     const [filters, setfilters] = useState(null)
@@ -328,7 +329,9 @@ export default function SubProduct({AllDataSubCategory ,LoadMOreSub ,SubCategory
                     }
                 </div>
             </div>
-            {/* <Footer /> */}
+            {
+        !isMobile && <Footer />
+    }
         </>
     )
 }

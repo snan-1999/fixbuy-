@@ -11,11 +11,11 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styled from "styled-components";
-import {BottomTop, CheckParam } from "../../functions/BottomTop";
+import { BottomTop, CheckParam } from "../../functions/BottomTop";
 import { useLocation } from "react-router-dom";
-
-
+import { useMediaQuery } from "@chakra-ui/react";
 const Contact = () => {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     const Param = useLocation();
     const [messages, setMessages] = useState('');
     const [error, setError] = useState('');
@@ -93,7 +93,7 @@ const Contact = () => {
         <>
             <ToastContainer />
             <div className="row m-0 p-0 overflow-hidden">
-            <Header />
+                <Header />
 
 
                 <div className="for-center-contact flex-row justify-content-center align-items-center">
@@ -112,83 +112,83 @@ const Contact = () => {
                         </div>
                     </div>
                 </div>
-          
-            {/* <form action="<?php echo $server_name; ?>/api-call/contact-us-api-call.php" method="post"> */}
-            <div className="form-set position-relative top-0">
-                <div className="row p-0 m-0 form-group">
-                    <div className="col-md-6 col-12">
-                        <input type="text" name="first_name" placeholder="First Name" className="form-control imput-paddin" required
-                            value={firstName}
-                            onChange={(e) => {
-                                setFirstName(e.target.value)
-                                firstNameRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }}
-                            ref={firstNameRef}
-                        />
-                    </div>
-                    <div className="col-md-6 col-12 form-group">
-                        <input type="text" name="last_name" placeholder="Last Name" className="form-control imput-paddin" required
-                            value={lastName}
-                            onChange={(e) => {
-                                setLastName(e.target.value)
-                                lastNameRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }}
-                            ref={lastNameRef}
-                        />
-                    </div>
-                </div>
-                <div className="row p-0 m-0 form-group">
-                    <div className="col-md-12 col-12">
-                        <input type="email" name="email" placeholder="Your Email" className="form-control imput-paddin" required
-                            value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value)
-                                EmailRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }}
-                            ref={EmailRef}
-                        />
-                    </div>
-                </div>
-                <div className="row p-0 m-0 form-group">
-                    <div className="col-md-12 col-12">
-                        <input type="text" name="mobile_no" placeholder="Mobile Number" className="form-control imput-paddin" required
-                            value={mobile}
-                            onChange={(e) => {
-                                setMobile(e.target.value)
-                                MobileRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }}
-                            ref={MobileRef}
-                        />
-                    </div>
-                </div>
-                <div className="row p-0 m-0 form-group">
-                    <div className="col-md-12 col-12">
-                        <textarea name="message" id="" className="textareaa form-control" required placeholder="Enter Your Message"
-                            value={message}
-                            onChange={(e) => {
-                                setMessage(e.target.value)
-                                MessageRef.current.style.borderColor = "#ced4da";
-                                setError("")
-                            }}
-                            ref={MessageRef}
-                        >
-                        </textarea>
-                    </div>
-                </div>
-                <div className="d-flex">
-                    <input type="submit" name="submit" value="submit" className="btn contact-btnn text-uppercase" onClick={contactApi} />
 
-                </div>
-                {errors &&
-                    <div class=" ms-4 mt-4 alert alert-danger" role="alert">
-                        Invalid Fields
+                {/* <form action="<?php echo $server_name; ?>/api-call/contact-us-api-call.php" method="post"> */}
+                <div className="form-set position-relative top-0">
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-6 col-12">
+                            <input type="text" name="first_name" placeholder="First Name" className="form-control imput-paddin" required
+                                value={firstName}
+                                onChange={(e) => {
+                                    setFirstName(e.target.value)
+                                    firstNameRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                }}
+                                ref={firstNameRef}
+                            />
+                        </div>
+                        <div className="col-md-6 col-12 form-group">
+                            <input type="text" name="last_name" placeholder="Last Name" className="form-control imput-paddin" required
+                                value={lastName}
+                                onChange={(e) => {
+                                    setLastName(e.target.value)
+                                    lastNameRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                }}
+                                ref={lastNameRef}
+                            />
+                        </div>
                     </div>
-                }
-            </div>
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-12 col-12">
+                            <input type="email" name="email" placeholder="Your Email" className="form-control imput-paddin" required
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value)
+                                    EmailRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                }}
+                                ref={EmailRef}
+                            />
+                        </div>
+                    </div>
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-12 col-12">
+                            <input type="text" name="mobile_no" placeholder="Mobile Number" className="form-control imput-paddin" required
+                                value={mobile}
+                                onChange={(e) => {
+                                    setMobile(e.target.value)
+                                    MobileRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                }}
+                                ref={MobileRef}
+                            />
+                        </div>
+                    </div>
+                    <div className="row p-0 m-0 form-group">
+                        <div className="col-md-12 col-12">
+                            <textarea name="message" id="" className="textareaa form-control" required placeholder="Enter Your Message"
+                                value={message}
+                                onChange={(e) => {
+                                    setMessage(e.target.value)
+                                    MessageRef.current.style.borderColor = "#ced4da";
+                                    setError("")
+                                }}
+                                ref={MessageRef}
+                            >
+                            </textarea>
+                        </div>
+                    </div>
+                    <div className="d-flex">
+                        <input type="submit" name="submit" value="submit" className="btn contact-btnn text-uppercase" onClick={contactApi} />
+
+                    </div>
+                    {errors &&
+                        <div class=" ms-4 mt-4 alert alert-danger" role="alert">
+                            Invalid Fields
+                        </div>
+                    }
+                </div>
             </div>
             {/* </form> */}
 
@@ -218,7 +218,9 @@ const Contact = () => {
                     </div>
                 </div>
             </section>
-            {/* <Footer /> */}
+            {
+                !isMobile && <Footer />
+            }
         </>
     )
 }

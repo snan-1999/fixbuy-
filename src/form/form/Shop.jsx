@@ -18,9 +18,11 @@ import { FaHeart } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import useGeoLocation from '../../hooks/useGeoLoaction'
 import {BottomTop, CheckParam } from '../../functions/BottomTop'
-import HeaderNew from './header'
+import { useMediaQuery } from '@chakra-ui/react'
+
 export default function Shop({AllShopData ,LoadMOreShop ,ShopPage ,filters, setfilters ,FIlterPageNO, setFIlterPageNO ,LoadMOreFIlters , Loading, setLoading,}) {
     const Param = useLocation();
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     console.log("shopDatas" , Param.pathname)
     useEffect(()=>{
         CheckParam(Param)
@@ -268,7 +270,7 @@ export default function Shop({AllShopData ,LoadMOreShop ,ShopPage ,filters, setf
 
                 </div >
             </div>
-            {/* <Footer /> */}
+         <Footer />
         </>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -18,7 +18,8 @@ import { GlobalVariables } from "../../Context/StateProvider";
 // import CropImage2 from '../CropImage2'
 import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { CheckParam } from "../../functions/BottomTop";
 // import { Link } from "react-router-dom";
 const EvBattery = () => {
   const [Loader, setLoader] = useState(false)
@@ -89,7 +90,10 @@ const EvBattery = () => {
   console.log(MainCategoryName[0] ,'paramadata')
   const nav = useNavigate()
 
- 
+  const [isMobile] = useMediaQuery("(max-width : 600px)");
+  useEffect(() => {
+    CheckParam()
+  }, [0])
 
 
   console.log(category2)
@@ -787,7 +791,9 @@ const EvBattery = () => {
           }
         </MyContainer>
       </div>
-      <Footer />
+      {
+        !isMobile && <Footer />
+      }
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -15,7 +15,8 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import CropImage2 from "../CropImage2";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { CheckParam } from "../../functions/BottomTop";
 
 
 const PC = () => {
@@ -35,6 +36,11 @@ const PC = () => {
         setisOpen(false)
         setOtpCondition(false)
     }
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+  useEffect(() => {
+    CheckParam()
+  }, [0])
+
     const nav = useNavigate()
     const OnOpen = () => setisOpen(true)
     // console.log(ProfleId);
@@ -716,7 +722,9 @@ const PC = () => {
                 </div>
             </MyContainer>
             </div>
-            <Footer />
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

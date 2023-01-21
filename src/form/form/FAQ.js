@@ -1,12 +1,16 @@
+import { useMediaQuery } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import {BottomTop } from "../../functions/BottomTop";
+import { useLocation } from "react-router-dom";
+import {BottomTop, CheckParam } from "../../functions/BottomTop";
 import Footer from "./Footer";
 import Header from "./header";
 
 
 
 const FAQ = () => {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     useEffect(() => {
+        CheckParam()
         BottomTop()
     }, [0])
     return (
@@ -297,7 +301,10 @@ const FAQ = () => {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
+            {
+        !isMobile && <Footer />
+      }
+
         </>
     )
 }

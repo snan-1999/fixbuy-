@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa'
 import styled, { css } from 'styled-components'
 import Footer from "../../src/form/form/Footer"
 import Header from "../../src/form/form/header"
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, useMediaQuery } from '@chakra-ui/react'
 import one from "../../src/assets/images/one.png"
 import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
@@ -15,6 +15,8 @@ import axios from 'axios'
 import Scrollbars from 'react-custom-scrollbars'
 import { BottomTop } from '../functions/BottomTop'
 export default function MainChatFile() {
+
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     const [allactiveuser, setAllActiveUser] = useState([])
     const [infoprofiledata, setInfoProfileData] = useState([])
     const Token = localStorage.getItem('token');
@@ -167,7 +169,9 @@ export default function MainChatFile() {
             <div className='mobViewChat'>
                 {/* <MobChatFile /> */}
             </div>
-            {/* <Footer /> */}
+            {
+                !isMobile && <Footer />
+            }
         </>
     )
 }

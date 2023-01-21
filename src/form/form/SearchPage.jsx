@@ -14,18 +14,18 @@ import { MdLocationOn } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import Footer from './Footer';
-import { Box } from '@chakra-ui/react';
+import { Box, useMediaQuery } from '@chakra-ui/react';
 import { flushSync } from 'react-dom';
 import { ProfileStore } from '../../store';
+import { CheckParam } from '../../functions/BottomTop';
 function SearchPage({ LoadMOreSearch, AllDataSearch,  Loading, setLoading ,TotalPagesSearch ,SearchPAgeNo ,NoDataSearch}) {
     const searchData = useLocation()
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     const { latitude, Longitude } = useContext(GlobalVariables);
     const SearchData = ProfileStore(state => state.SearchData)
-    // useEffect(() => {
-    //     flushSync(() => {
-    //         setSearchSend(searchData.state)
-    //     })
-    // }, [])
+    useEffect(() => {
+        CheckParam()
+    }, [])
     console.log(AllDataSearch.length , 'gyys')
     // ProfileStore.setState({StoreSearch : searchData.state})
     const [SearchSend, setSearchSend] = useState(searchData.state);
@@ -198,7 +198,9 @@ function SearchPage({ LoadMOreSearch, AllDataSearch,  Loading, setLoading ,Total
                     }
                 </div>
             </div>
-            {/* <Footer /> */}
+            {
+                !isMobile && <Footer />
+            }
         </>
     )
 }

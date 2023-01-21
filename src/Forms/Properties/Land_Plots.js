@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -15,7 +15,8 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { CheckParam } from "../../functions/BottomTop";
 
 
 const Land_Plot = () => {
@@ -82,7 +83,10 @@ const Land_Plot = () => {
     const [cropdata, setCropData] = useState([])
     const [titleerror, setTitleError] = useState('');
     const [descriptionerror, setDescriptionError] = useState('');
-
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+    useEffect(() => {
+      CheckParam()
+    }, [0])
     console.log(category2)
 
     const maxNumber = 20;
@@ -864,8 +868,9 @@ const Land_Plot = () => {
                 </div>
 
             </div>
-
-            {/* <Footer />/ */}
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

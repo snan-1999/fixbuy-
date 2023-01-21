@@ -2353,6 +2353,7 @@ box-shadow: none;
 .borderClass {
     border-radius: 20px;
     width: fit-content;
+    position: relative;
 
 }
 

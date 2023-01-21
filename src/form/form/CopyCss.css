@@ -545,7 +545,16 @@ input.EnterMesaage {
 }
 
 .image-radio-button input[type="radio"] {
-    display: none !important;
+    /* display: block !important; */
+    opacity: 0 !important;
+    position: relative;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0%;
+    margin: 0;
+
 }  
 
 .image-radio-button label {
@@ -581,13 +590,13 @@ input.EnterMesaage {
 
 .cropper {
     width: 30vw;
-    height: 40vh;
+    height: auto;
     position: fixed;
     left: 0%;
     right: 0%;
     margin-left: 35%;
     top: 30%;
-    z-index: 2;
+    /* z-index: 1; */
 }
 
 @media screen and (max-width: 600px) {
@@ -1328,12 +1337,12 @@ input.EnterMesaage {
 
     .cropper {
         width: 44vw;
-        height: 18vh;
+        height: auto;
         position: fixed;
         left: 0%;
         right: 0%;
         margin-left: 28%;
         top: 36%;
-        z-index: 2;
+        /* z-index: 2; */
     }
 }

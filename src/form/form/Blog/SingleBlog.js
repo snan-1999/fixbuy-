@@ -9,9 +9,11 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import sunset from '../../../assets/images/sunset.jpg';
+import { useMediaQuery } from "@chakra-ui/react";
 // import axios from "axios";
 
 const SingleBlog = () => {
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
     let MAX_LENGTH = 150;
     const { id } = useParams();
     const [text, setText] = useState('')
@@ -153,8 +155,9 @@ const SingleBlog = () => {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
-
+            {
+                !isMobile && <Footer />
+            }
         </>
     )
 }

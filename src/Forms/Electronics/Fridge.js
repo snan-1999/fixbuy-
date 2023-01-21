@@ -16,8 +16,9 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { useContext } from "react";
 import { GlobalVariables } from "../../Context/StateProvider";
 import CropImage2 from "../CropImage2";
-import { Stack, Text } from "@chakra-ui/react";
+import { Stack, Text, useMediaQuery } from "@chakra-ui/react";
 import { Spinner } from '@chakra-ui/react'
+import { CheckParam } from "../../functions/BottomTop";
 const Fridge = () => {
     const { category } = useParams();
     const { latitude, Longitude } = useContext(GlobalVariables)
@@ -40,7 +41,10 @@ const Fridge = () => {
     // const profileName = localStorage('token');
     // console.log(profileName);
     const [user_id, setUser_id] = useState(ProfleId)
-
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+    useEffect(() => {
+      CheckParam()
+    }, [0])
     const [show, setShow] = useState(false);
     const [img, setImg] = useState('');
     const [title, setTitle] = useState('');
@@ -736,7 +740,9 @@ const Fridge = () => {
                 </div>
             </MyContainer>
             </div>
-            <Footer />
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

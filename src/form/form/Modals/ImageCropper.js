@@ -109,7 +109,7 @@ const ActionButton = styled.div`
   height:21vh; 
    opacity:1;
    @media screen and (max-width: 600px){
-    z-index: 20;
+    /* z-index: 20; */
     border-bottom-right-radius: 18px;
     border-bottom-left-radius: 18px;
     width: 85% !important;
@@ -119,7 +119,7 @@ const ActionButton = styled.div`
    }
 
   @media screen and (min-width : 601px) and (max-width: 900px ){
-    z-index: 20;
+    /* z-index: 20; */
     border-bottom-right-radius: 18px;
     border-bottom-left-radius: 18px;
     width: 44% !important;

@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -14,9 +14,14 @@ import OtpPop from "../../form/form/Modals/OtpPop";
 import { GlobalVariables } from "../../Context/StateProvider";
 // import { Link } from "react-router-dom";
 import CropImage2 from "../CropImage2";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { CheckParam } from "../../functions/BottomTop";
 const Fashion = () => {
     const [AllErrors, setAllErrors] = useState(false)
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+    useEffect(() => {
+      CheckParam()
+    }, [0])
     const [Loader, setLoader] = useState(false)
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -709,7 +714,9 @@ const Fashion = () => {
                     </div>
                 </MyContainer>
             </div>
-            <Footer />
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

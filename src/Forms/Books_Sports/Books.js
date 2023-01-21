@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Footer from "../../form/form/Footer";
 import Header from "../../form/form/header";
 import ImageUploading from 'react-images-uploading';
@@ -16,10 +16,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import styled from "styled-components";
 import CropImage2 from "../CropImage2";
 import useGeoLocation from "../../hooks/useGeoLoaction";
-import { Spinner, Stack, Text } from "@chakra-ui/react";
+import { Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { CheckParam } from "../../functions/BottomTop";
 const Books = () => {
     const nav = useNavigate()
     const [Loader, setLoader] = useState(false)
+    const [isMobile] = useMediaQuery("(max-width : 600px)");
+    useEffect(() => {
+      CheckParam()
+    }, [0])
     const location = useGeoLocation();
     const { latitude, Longitude } = useContext(GlobalVariables)
     const { category2 } = useParams();
@@ -723,7 +728,9 @@ const Books = () => {
                     </div>
                 </MyContainer>
             </div>
-            <Footer />
+            {
+        !isMobile && <Footer />
+      }
         </>
     )
 }

@@ -12,10 +12,11 @@ import Footer from "./Footer";
 import axios from 'axios'
 import PaymentSuccess from "./PaymentSuccess";
 import { BsArrowRight } from "react-icons/bs";
+import { useMediaQuery } from "@chakra-ui/react";
 
 
 const PakagesShowMenu = () => {
-
+  const [isMobile] = useMediaQuery("(max-width : 600px)");
 //   const nav = useNavigate()
 //   const [showFunction, setShowFunction] = useState(false)
 //   const IdData = window.localStorage.getItem('token')
@@ -267,7 +268,9 @@ const PakagesShowMenu = () => {
           : null
         } */}
       </div>
-      <Footer />
+      {
+                !isMobile && <Footer />
+            }
     </>
   )
 }
