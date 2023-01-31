@@ -48,7 +48,7 @@ const FAQ = () => {
                                     </h2>
                                     <div id="collapseOne" className="accordion-collapse collapse show active" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                         <div className="accordion-body">
-                                    Start a chat, either private or public. Use the Share live location option under Attach > Location. Choose the time frame for which you want to disclose your current location. Following the set period of time, sharing of your live location will end.
+                                    Start a chat, either private or public. Use the Share live location option under Attach Location. Choose the time frame for which you want to disclose your current location. Following the set period of time, sharing of your live location will end.
 
                                         </div>
                                     </div>

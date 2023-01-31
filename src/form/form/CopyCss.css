@@ -10,7 +10,7 @@
     height: 58px;
     border-bottom: 3px solid #37577A;
     line-height: 50px;
-    /* background: gray; */
+    /* background: gray; */ 
     overflow: hidden !important;
     /* /* margin-top: -15%; */
 }
@@ -599,6 +599,11 @@ input.EnterMesaage {
     /* z-index: 1; */
 }
 
+.messageText{
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
 @media screen and (max-width: 600px) {
     .mobViewChat {
         display: block;
@@ -927,6 +932,8 @@ input.EnterMesaage {
         color: #fff;
         font-weight: 700;
     }
+
+    
 }
 
 @media screen and (min-width: 601px) and (max-width: 900px) {
@@ -981,7 +988,7 @@ input.EnterMesaage {
     ul.submenuu1 li {
         display: block;
         text-align: center;
-        padding-left: 0px !important;
+        padding-left: 0px !important; 
     }
 
     ul.submenuu1 li a {
@@ -1336,7 +1343,7 @@ input.EnterMesaage {
     }
 
     .cropper {
-        width: 44vw;
+        width: 44vw; 
         height: auto;
         position: fixed;
         left: 0%;
@@ -1344,5 +1351,10 @@ input.EnterMesaage {
         margin-left: 28%;
         top: 36%;
         /* z-index: 2; */
+    }
+
+    .messageText{
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
     }
 }

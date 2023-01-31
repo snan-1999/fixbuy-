@@ -309,7 +309,7 @@ export default function SingleProductPage(props) {
     const ChatSeller = async () => {
         if (!isMobile) {
             if (Token === null) {
-                nav('/login')
+                nav('https://play.google.com/store/apps/details?id=com.fixebuy')
             } else {
 
 

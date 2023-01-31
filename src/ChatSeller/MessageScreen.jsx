@@ -12,7 +12,7 @@ import { AiOutlineSend } from 'react-icons/ai';
 import { GrGallery } from 'react-icons/gr';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { useLocation } from 'react-router-dom'
-import {motion} from 'framer-motion';
+import {motion} from 'framer-motion'; 
 export default function MessageScreen({ infoprofiledata, location, selectedroom }) {
 
     // const selectedroomid = selectedroom
@@ -252,8 +252,8 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
                                             <UserMessage initial={{  scale: 0 , height :'auto'}} animate={{scale : 1 , height :'auto'}} initialanimate={{  scale: .6 , height :'10px' , bottom: '20px'}} > 
                                                  {
                                                      a.msgType == 'image' ? <div className='imageChatDiv'><img className='chatImage' src={`${a.message}`} /></div> :
-                                                    <p>{a.message}</p> 
-                                                 }
+                                                    <p className="messageText">{a.message}</p> 
+                                                 } 
                                              </UserMessage>                                                   
                              
                                          </UserDiv> :
@@ -263,7 +263,7 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
                                              <AdminMessage initial={{  scale: 0 , height :'auto'}} animate={{scale : 1 , height :'auto'}} initialanimate={{  scale: .6 , height :'10px'}}>
                                                  {
                                                      a.msgType == 'image' ? <div className='imageChatDiv'> <img className='chatImage' src={`${a.message}`} /></div> :
-                                                     <p>{a.message}</p> 
+                                                     <p className="messageText">{a.message}</p> 
                                                  }
 
                                              </AdminMessage>
@@ -291,7 +291,7 @@ export default function MessageScreen({ infoprofiledata, location, selectedroom 
 
 
         </>
-    )
+    ) 
 }
 // const ArrowLeft = styled.div`
 //       content: " ";
@@ -431,13 +431,21 @@ const AdminDiv = styled.div`
     position: relative;
     color: white;
     margin-top: -1%;
+    -webkit-justify-content: left;
+    display: -webkit-flex;
+    -webkit-box-pack: left;
+    
     `
 const UserDiv = styled.div`
 color: white;
      display :flex;
+     display: -webkit-flex;
+     -webkit-box-pack: right;
      position: relative;
      justify-content: right;
      margin-top: 1%;
+     -webkit-justify-content: right;
+    
 `
 const ChatMain = styled.div`
   margin: 10px 5px;

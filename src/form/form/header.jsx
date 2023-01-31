@@ -295,10 +295,12 @@ const Header = () => {
     useEffect(() => {
 
         window.addEventListener("scroll", function () { // or window.addEventListener("scroll"....
+            // const navbar = document.getElementById("navbar");
             var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
             if (st > lastScrollTop) {
                 // console.log('Down', 'scrolling')
                 setScrollPosition(true)
+
             } else {
                 setScrollPosition(false)
                 // console.log('Up', 'scrolling')
@@ -368,10 +370,16 @@ const Header = () => {
                         <nav className="navbar navbar-expand-lg headerr" style={{
                             width: '100%',
                             // display: isMobile && !scrollPosition ? "none" : "block",
-                            transform: isMobile && !scrollPosition ? 'translateY(-200%)' : 'translateY(0%)',
+                            // display: isMobile && !scrollPosition ? "none" : "block",
+                            WebkitTransform: isMobile && !scrollPosition ? 'translateY(-100%)' : 'translateY(0%)',
+                            transform: isMobile && !scrollPosition ? 'translateY(-100%)' : 'translateY(0%)',
                             transition: 'all 400ms ease',
                             position: scrollPosition ? 'fixed' : 'relative',
+                            WebkitPosition:  scrollPosition ? 'fixed' : 'relative',
+                            WebkitBackfaceVisibility: "hidden",
                             top: scrollPosition ? 0 : 0,
+                            WebkitTop: scrollPosition ? 0 : 0,
+                            // WebkitTop : scrollPosition ? '20%' : 0 ,
                             zIndex: isMobile && scrollPosition ? 11 : 2,
                         }}>
                             <div className="container-fluid">
@@ -502,7 +510,16 @@ const Header = () => {
                 {/* For Desktop */}
                 {
 
-                    <div className="mobnvfixedWork d-block d-md-none d-lg-none" style={{ position: 'fixed', top: 0, transform: scrollPosition ? 'translateY(-200%)' : 'translateY(0%)', transition: 'all 200ms ease', zIndex: 20 }}>
+                    <div className="mobnvfixedWork d-block d-md-none d-lg-none" style={{ 
+                        position: 'fixed', 
+                        // WebkitPosition: 'fixed', 
+                        WebkitBackfaceVisibility: "hidden",
+                         top: 0,
+                        //  WebkitAppearance: isMobile && !scrollPosition ? "block" : "block" , 
+                         transform: scrollPosition ? 'translateY(-200%)' : 'translateY(0%)' ,
+                         WebkitTransform: scrollPosition ? 'translateY(-200%)' : 'translate(0%)',
+                         transition: 'all 200ms ease',
+                          zIndex: 20 }}>
                         {/* <nav className="navbar navbar-expand-lg headerr" >
                             <div className="container-fluid">
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -635,6 +652,7 @@ const Header = () => {
                 <div className="setMainHead w-100" style={{
                     // position: scrollPosition ? 'fixed' : 'relative',
                     top: scrollPosition ? 0 : 'auto',
+                    // WebkitTop : scrollPosition ? 0 : '20%',
                     // zIndex: isMobile && scrollPosition ? 10 : 2,
                     display: 'flex',
                     // height: scrollPosition && '11vh'
@@ -643,8 +661,11 @@ const Header = () => {
                 {
                    isMobile &&  ShowHideSearch && <div className="mob-version search-box col-12" style={{
                             position: scrollPosition ? 'fixed' : 'fixed',
+                            WebkitPosition : scrollPosition ? 'fixed' : 'fixed',
                             top: scrollPosition ? '10%' : '0',
+                            WebkitTop: scrollPosition ? '100%' : '0',
                             zIndex: isMobile && scrollPosition ? 10 : 2,
+                            // WebkitZIndex: isMobile && scrollPosition ? 10 : 2, 
                         }}>
                             <div className="form-inline my-2 my-lg-0" >
                                 <div className="mob-search">

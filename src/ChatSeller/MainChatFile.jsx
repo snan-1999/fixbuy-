@@ -84,7 +84,11 @@ export default function MainChatFile() {
     useEffect(() => {
         BottomTop()
     }, [0])
-
+   
+    // const BottomScroll = useRef(null);
+    // useEffect(() => {
+    //     BottomScroll.current?.scrollto();
+    // }, [])
 
     return (
         <>
@@ -95,6 +99,7 @@ export default function MainChatFile() {
 
 
                 <Header />
+                                    {/* <div ref = {BottomScroll} /> */}
                 <div class="containers deskChat">
                     <ChatMain className="ChatMain d-flex">
                         <div className='row m-0 p-0'>
@@ -204,7 +209,7 @@ color:black;
 ${({ activechat }) => activechat && css`
 background : linear-gradient( #345276 ,100%,#497993 ,100% ,transparent) !important;
 color:white;
-z-index : 10;
+// z-index : 10;
 `
     }
 .list-group-item{
@@ -213,7 +218,7 @@ z-index : 10;
     ${({ activechat }) => activechat && css`
     background : linear-gradient( #345276 ,100%,#497993 ,100% ,transparent) !important;
     color:white !important;
-    z-index : 10;
+    // z-index : 10;
     `
     }
 }
@@ -311,7 +316,7 @@ color: white;
 `
 const ChatMain = styled.div`
 position: relative !important;
-  margin: 10px 20px;
+  margin: 10px 0%;
   box-shadow: 1px 1px 10px #8080807a;
   height: 76vh;
   border-radius: 5px;
